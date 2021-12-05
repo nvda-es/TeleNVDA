@@ -7,7 +7,7 @@ import globalVars
 from . import socket_utils
 
 
-CONFIG_FILE_NAME = 'remote.ini'
+CONFIG_FILE_NAME = 'teleNVDA.ini'
 
 _config = None
 configspec = StringIO("""
