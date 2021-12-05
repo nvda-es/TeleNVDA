@@ -1,16 +1,15 @@
-# NVDA Remote Access
-Version 2.5
+## Introduction
 
-Welcome to the NVDA Remote Access addon, which will allow you to connect to another computer running the free NVDA screen reader. It makes no difference whether you are across the room or across the world. Connecting is simple, and there are very few commands to remember. You can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training.
+Welcome to the TeleNVDA addon, which will allow you to connect to another computer running the free NVDA screen reader. With this add-on, you can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training. This add-on is a modified version of the [NVDA Remote add-on](https://nvdaremote.com), and is maintained by the NVDA spanish community. It's fully compatible with NVDA Remote. You will find that both add-on and documentation have only a few differences, at least for now.
 
 ## Before You Begin
 
-You will need to have installed NVDA on both computers, and obtain the NVDA Remote Access addon.
-The installation of both NVDA and the Remote Access addon are standard. If you need more information, this can be found in NVDA's User Guide.
+You will need to have installed NVDA on both computers, and obtain the TeleNVDA addon.
+The installation of both NVDA and the TeleNVDA addon are standard. If you need more information, this can be found in NVDA's User Guide.
 
 ## Updating
 
-When updating the addon, if you have installed NVDA Remote on the secure desktop, it is recommended that you also update the copy on the secure desktop.
+When updating the addon, if you have installed TeleNVDA on the secure desktop, it is recommended that you also update the copy on the secure desktop.
 To do this, first update your existing addon. Then open the NVDA menu, preferences, General settings, and press the button labeled "Use currently saved settings on the logon and other secure screens (requires administrator privileges)".
 
 ## Starting a remote session through a relay server
@@ -18,20 +17,20 @@ To do this, first update your existing addon. Then open the NVDA menu, preferenc
 1. Open the NVDA menu, Tools, Remote, Connect.
 2. Choose client in the first radio button.
 3. Select Allow this machine to be controlled in the second set of radio buttons.
-4. In the host field, enter the host of the server you are connecting to, for example nvdaremote.com. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example nvdaremote.com:1234.
+4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234.
 5. Enter a key into the key field, or press the generate key button.
 The key is what others will use to control your computer.
 The machine being controlled and all its clients need to use the same key.
-6. Press ok. Once done, you will hear a tone and connected.
+6. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
 
 ### On the machine that is to be the controlling computer
 1. Open the NVDA menu, Tools, Remote, Connect.
 2. Choose client in the first radio button.
 3. Select Control another machine in the second set of radio buttons.
-4. In the host field, enter the host of the server you are connecting to, for example nvdaremote.com. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example nvdaremote.com:1234.
+4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234.
 5. Enter a key into the key field, or press the generate key button.
 The machine being controlled and all its clients need to use the same key.
-6. Press ok. Once done, you will hear a tone and connected.
+6. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
 
 ### Connection security warning
 If you connect to a server without a valid SSL certificate, you will receive a connection security warning.
@@ -61,7 +60,7 @@ For best compatibility, please ensure that the keyboard layouts on both machines
 
 ## Sharing your session
 
-To share a link so someone else can easily join your NVDA REMOTE session, select Copy Link from the Remote menu.
+To share a link so someone else can easily join your TeleNVDA session, select Copy Link from the Remote menu.
 IF you are connected as the controlling computer, this link will allow someone else to connect and be controlled.
 If instead you have set up your computer to be controlled, the link will allow people who you share it with to control your machine.
 Many applications will allow users to activate this link automatically, but if it does not run from within a specific app, it can be coppied to the clipboard and run from the run dialog.
@@ -98,98 +97,29 @@ To end a remote session, do the following:
 1. On the controlling computer, press F11 to stop controlling the remote machine. You should hear or read the message: "Controlling local machine." If you instead hear or read a message that you are controlling the remote machine, press F11 once more.
 2. Access the NVDA menu, then Tools, Remote, and press Enter on Disconnect.
 
+Alternatively, you can press NVDA+alt+page down to directly disconnect the session. This gesture can be changed from NVDA Input Gestures Dialog. To keep the other end safe, you may press this gesture while sending keys to disconnect the remote computer.
+
 ## Push clipboard
 The Push clipboard option in the remote menu allows you to push text from your clipboard.
 when activated, any text on the clipboard will be pushed to the other machines.
 
-## Configuring NVDA Remote to Work on a Secure Desktop
+## Configuring TeleNVDA to Work on a Secure Desktop
 
-In order for NVDA Remote to work on the secure desktop, the addon must be installed in the NVDA running on the secure desktop.
+In order for TeleNVDA to work on the secure desktop, the addon must be installed in the NVDA running on the secure desktop.
 
 1. From the NVDA menu, select Preferences, then General Settings.
 2. Tab to the Use Currently Saved Settings on the Logon and Other Secure Screens (requires administrator privileges) button, and press Enter.
 3. Answer Yes to the prompts regarding copying your settings and about copying plugins, and respond to the User Account Control prompt that may appear.
 4. When settings are copied, press Enter to dismiss the OK button. Tab to OK and Enter once more to exit the dialog.
 
-Once NVDA Remote is installed on the secure desktop, if you are currently being controlled in a remote session,
-you will have speech and braille access to the secure desktop when switched to.
+Once TeleNVDA is installed on the secure desktop, if you are currently being controlled in a remote session, you will have speech and braille access to the secure desktop when switched to.
 
 ## Clearing SSL certificate fingerprints
 If you no longer want to trust the server fingerprints you've trusted, you can clear all of the trusted fingerprints by pressing the "Delete all trusted fingerprints" button in the Options dialog.
 
-## Contributions
-We would like to acknowledge the following contributors, among others, who helped make the NVDA Remote project a reality.
+## Altering TeleNVDA
 
-* Hai Nguyen Ly
-* Chris Westbrook
-* Thomas Huebner
-* John F Crosotn III
-* Darrell Shandrow
-* D Williams
-* Matthew McCubbin
-* Jason Meddaugh
-* ABDULAZIZ ALSHMASI.
-* Tyler W Kavanaugh
-* Casey Mathews
-* Babbage B.V.
-* Leonard de Ruijter
-* NV Access
-* Reef Turner
-
-## Change Log
-
-### Version 2.5
-
-* Fix SSL stability
-* Fix secure desktop support
-* Fix the initial focus in the Connect dialog
-* Support pausing of remote speech
-* Replace the host edit box with an edit combo allowing for history
-* Automatically remove corrupted configs
-
-### Version 2.4
-
-* Added sounds
-* Updated for NVDA 2021.1
-* Verify the SSL certificates of hosts we connect to
-
-### Version 2.3
-
-* Migrated to Python 3
-* Dropped Python 2 support
-* Update to meet changed API in NVDA 2019.3, including:
-
-    * Speech refactor
-    * Changes to braille displays
-
-### Version 2.2
-
-* IPv6 Support
-* Support for new NVDA 2018.3 as well as older versions
-* Support for model-specific Braille display gestures
-
-### Version 2.1
-
-* Fixed connection not saving when allowing this machine to be controlled
-* Added a script to push the clipboard with ctrl+shift+NVDA+c
-* Braille input now works in browse mode
-* Support model specific braille display gestures
-* The beeps generated by NVDA Remote no longer block NVDA
-
-### Version 2.0
-
-* Support for remote Braille
-* Support for nvdaremote:// links
-* Centered Dialogs to conform with the rest of NVDA
-* Fixed portcheck to point at a domain we control, portcheck.nvdaremote.com
-* Support automatically connecting to a control server in master mode
-* Fixed rendering error in documentation
-* Update to protocol version 2, which includes an origin field in every remote message
-* Significant code cleanup allowing easier modifications in future
-
-## Altering NVDA Remote
-
-You may clone this repo to make alteration to NVDA Remote.
+This project is covered by the GNU General Public License, version 2 or later. You may clone this repo to make alteration to TeleNVDA, provided that you read, understand and respect the license terms.
 
 ### 3rd Party dependencies
 
@@ -197,7 +127,8 @@ These can be installed with pip:
 
 * Markdown
 * scons
-* python-gettext
+
+In order to build the URL handler executable, you need Visual Studio 2019 or later.
 
 ### To package the add-on for distribution:
 
