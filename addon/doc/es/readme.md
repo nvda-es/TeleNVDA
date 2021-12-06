@@ -1,16 +1,15 @@
-#NVDA Remote Access
-Versión 2.3
+## Introducción
 
-Bienvenido al complemento de acceso remoto de NVDA, que te permitirá conectarte a otro equipo que ejecute el lector de pantalla gratuito NVDA. Da igual que estés al otro lado de la habitación o al otro lado del mundo. Conectarse es simple, y hay muy pocas órdenes que aprenderse. Puedes conectarte al equipo de otra persona, o permitir a una persona de confianza que se conecte a tu sistema para realizar un mantenimiento rutinario, diagnosticar un problema, o enseñarte algo.
+Bienvenido al complemento TeleNVDA, que te permitirá conectarte a otro equipo que ejecute el lector de pantalla gratuito NVDA. Puedes conectarte al equipo de otra persona, o permitir a una persona de confianza que se conecte a tu sistema para realizar un mantenimiento rutinario, diagnosticar un problema, o enseñarte algo. Este complemento es una versión modificada del [complemento NVDARemote](https://nvdaremote.com), y su mantenimiento está a cargo de la comunidad hispanohablante de NVDA. Es totalmente compatible con NVDA Remote. Descubrirás que tanto el complemento como la documentación tienen muy pocas diferencias, al menos por ahora.
 
 ##Antes de empezar
 
-Es necesario tener instalado NVDA en ambos equipos, y obtener el complemento NVDA Remote Access.
+Es necesario tener instalado NVDA en ambos equipos, y obtener el complemento TeleNVDA.
 La instalación de NVDA y del complemento no varía con respecto a otras. Si necesitas más información, puedes encontrarla en la guía de usuario de NVDA.
 
 ## Actualizaciones
 
-Cuando actualices el complemento, si has instalado NVDA Remote en el escritorio seguro, es recomendable que lo actualices también allí.
+Cuando actualices el complemento, si has instalado TeleNVDA en el escritorio seguro, es recomendable que lo actualices también allí.
 Para hacerlo, primero actualiza el complemento normalmente. Después, abre el menú de NVDA, preferencias, Opciones Generales, y pulsa el botón etiquetado como "Utilizar opciones actualmente guardadas en la autentificación (logon) y otras pantallas seguras (requiere privilegios de administrador)".
 
 ##Iniciar una sesión remota a través de un servidor externo
@@ -18,20 +17,20 @@ Para hacerlo, primero actualiza el complemento normalmente. Después, abre el me
 1. Abre el menú de NVDA, herramientas, remoto, conectar.
 2. Elige cliente en el primer grupo de botones de opción.
 3. Elige permitir que controlen este equipo en el segundo grupo de botones de opción.
-4. En el campo equipo o servidor, introduce el servidor al que te vas a conectar, por ejemplo nvdaremote.com. Cuando el servidor use un puerto distinto al que este complemento utiliza por defecto, puedes introducir su dirección en formato &lt;equipo&gt;:&lt;puerto&gt;, por ejemplo nvdaremote.com:1234.
+4. En el campo equipo o servidor, introduce el servidor al que te vas a conectar, por ejemplo remote.nvda.es. Cuando el servidor use un puerto distinto al que este complemento utiliza por defecto, puedes introducir su dirección en formato &lt;equipo&gt;:&lt;puerto&gt;, por ejemplo remote.nvda.es:1234.
 5. Introduce una clave en el campo clave, o pulsa el botón generar clave.
 La clave es lo que otros usarán para controlar tu equipo.
 El equipo controlado y todos sus clientes deben usar la misma clave.
-6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado.
+6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el servidor incluye un mensaje de bienvenida, este se mostrará en un cuadro de diálogo. Verás este diálogo cada vez que te conectes o sólo la primera vez, dependiendo de la configuración del servidor.
 
 ###En el equipo desde el que se controla
 1. Abre el menú de NVDA, herramientas, remoto, conectar.
 2. Elige cliente en el primer grupo de botones de opción.
 3. Selecciona controlar otro equipo en el segundo grupo de botones de opción.
-4. En el campo equipo o servidor, introduce el servidor al que te vas a conectar, por ejemplo nvdaremote.com. Cuando el servidor use un puerto distinto al que este complemento utiliza por defecto, puedes introducir su dirección en formato &lt;equipo&gt;:&lt;puerto&gt;, por ejemplo nvdaremote.com:1234.
+4. En el campo equipo o servidor, introduce el servidor al que te vas a conectar, por ejemplo remote.nvda.es. Cuando el servidor use un puerto distinto al que este complemento utiliza por defecto, puedes introducir su dirección en formato &lt;equipo&gt;:&lt;puerto&gt;, por ejemplo remote.nvda.es:1234.
 5. Introduce una clave en el campo clave, o pulsa el botón generar clave.
 El equipo controlado y todos sus clientes deben usar la misma clave.
-6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado.
+6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el servidor incluye un mensaje de bienvenida, este se mostrará en un cuadro de diálogo. Verás este diálogo cada vez que te conectes o sólo la primera vez, dependiendo de la configuración del servidor.
 
 ##Conexiones directas
 La opción servidor en el diálogo conectar permite establecer una conexión directa.
@@ -56,7 +55,7 @@ Para mayor compatibilidad, asegúrate de que las distribuciones de teclado de am
 
 ## Compartir tu sesión
 
-Para compartir un enlace que permita a alguien más unirse fácilmente a tu sesión de NVDA Remote, selecciona Copiar enlace en el menú remoto.
+Para compartir un enlace que permita a alguien más unirse fácilmente a tu sesión de TeleNVDA, selecciona Copiar enlace en el menú remoto.
 Si estás conectado como controlador, este enlace permitirá a cualquiera conectarse y ser controlado.
 Si por el contrario has configurado tu equipo para ser controlado, el enlace permitirá a la gente con la que lo compartas controlarlo.
 Muchas aplicaciones permiten a los usuarios activar este enlace automáticamente, pero si no se abre desde una aplicación específica, puedes copiarlo y abrirlo desde el diálogo ejecutar.
@@ -77,7 +76,7 @@ A veces puedes querer controlar uno de tus propios equipos remotamente. Esto es 
 5. Si creas tu propio servidor, tendrás que asegurarte de que el puerto introducido en el campo puerto (por defecto 6837) está abierto en el equipo controlado y los equipos controladores pueden conectarse a él.
 6. Si quieres usar un servidor de control remoto, rellena los campos equipo o servidor y clave, pulsa tabulador hasta aceptar, y pulsa intro. Ten en cuenta que la opción generar clave no se encuentra disponible en esta situación. Es mejor escribir una clave que se pueda recordar para que puedas usarla fácilmente desde cualquier lugar remoto.
 
-Para un uso avanzado, puedes también configurar NVDA Remote para que se conecte a un servidor local o remoto en modo controlador. Si quieres esto, selecciona controlar otro equipo en el segundo grupo de botones de opción.
+Para un uso avanzado, puedes también configurar TeleNVDA para que se conecte a un servidor local o remoto en modo controlador. Si quieres esto, selecciona controlar otro equipo en el segundo grupo de botones de opción.
 
 Nota: las opciones relacionadas con conectar automáticamente al arrancar en el diálogo de opciones no tienen efecto hasta que se reinicia NVDA.
 
@@ -93,79 +92,26 @@ Para finalizar una sesión remota, haz lo siguiente:
 1. En el equipo controlador, pulsa f11 para dejar de controlar el equipo remoto. Deberías escuchar o leer el mensaje: "Controlando equipo local". Si en vez de eso oyes o lees un mensaje diciendo que estás controlando el equipo remoto, pulsa f11 nuevamente.
 2. Accede al menú de NVDA, herramientas, remoto, y pulsa intro en desconectar.
 
+Alternativamente, puedes pulsar NVDA+alt+avance página para desconectar la sesión directamente. Este gesto se puede cambiar desde el diálogo Gestos de entrada de NVDA. Para mantener a salvo a la otra persona, puedes pulsar este gesto mientras envías teclas para desconectar el equipo remoto.
+
 ##Enviar portapapeles
 La opción enviar portapapeles en el menú remoto te permite enviar texto desde tu portapapeles.
 Cuando esté activada, cualquier texto en el portapapeles se enviará a los otros equipos.
 
-##Configurar NVDA Remote para que funcione en el escritorio seguro
+##Configurar TeleNVDA para que funcione en el escritorio seguro
 
-Para que NVDA Remote funcione en el escritorio seguro, el complemento debe estar instalado en el NVDA que se ejecuta en el escritorio seguro.
+Para que TeleNVDA funcione en el escritorio seguro, el complemento debe estar instalado en el NVDA que se ejecuta en el escritorio seguro.
 
 1. En el menú de NVDA, selecciona preferencias, y a continuación opciones generales.
 2. Pulsa tabulador hasta el botón Utilizar opciones actualmente guardadas en la autentificación (logon) y otras pantallas seguras (requiere privilegios de administrador), y pulsa Intro.
 3. Responde sí a las advertencias sobre copiar la configuración y los complementos, y responde a la advertencia del control de cuentas de usuario que debería aparecer.
 4. Cuando la configuración se haya copiado, pulsa intro para aceptar la confirmación. Pulsa tabulador hasta aceptar y pulsa intro de nuevo para salir del diálogo.
 
-En cuanto NVDA Remote esté instalado en el escritorio seguro, si te controlan en una sesión remota, el escritorio seguro tendrá soporte de voz y braille cuando se entre en él.
+En cuanto TeleNVDA esté instalado en el escritorio seguro, si te controlan en una sesión remota, el escritorio seguro tendrá soporte de voz y braille cuando se entre en él.
 
-##Contribuciones
-Nos gustaría dar nuestro reconocimiento a los siguientes contribuyentes que, entre otros, han ayudado a que el proyecto NVDA Remote sea una realidad.
+## Alteración de TeleNVDA
 
-* Hai Nguyen Ly
-* Chris Westbrook
-* Thomas Huebner
-* John F Crosotn III
-* Darrell Shandrow
-* D Williams
-* Matthew McCubbin
-* Jason Meddaugh
-* ABDULAZIZ ALSHMASI.
-* Tyler W Kavanaugh
-* Casey Mathews
-* Babbage B.V.
-* Leonard de Ruijter
-* NV Access
-* Reef Turner
-
-## Registro de cambios
-
-### Versión 2.3
-
-* Se ha migrado a Python 3
-* Eliminado soporte para Python 2
-* Actualizaciones para trabajar con la API cambiada en NVDA 2019.3, incluyendo:
-
-    * Refactorización del habla
-    * Cambios en pantallas Braille
-
-### Versión 2.2
-
-* Soporte IPV6
-* Soporte para el nuevo NVDA 2018.3, así como versiones más antiguas
-* Soporte para gestos de pantallas Braille de modelos concretos
-
-### Versión 2.1
-
-* Solucionado que la conexión no se guardase al permitir que controlen el equipo
-* Añadido un nuevo script para enviar el portapapeles con ctrl+shift+NVDA+c
-* La entrada braille ya funciona en modo exploración
-* Soporte de gestos de pantallas braille específicos para un modelo
-* Los pitidos generados por NVDA Remote ya no bloquean NVDA
-
-### Versión 2.0
-
-* Soporte para braille remoto
-* Soporte para enlaces nvdaremote://
-* Se han centrado los diálogos para que encajen con todos los demás de NVDA
-* Arreglado portcheck para que apunte a un dominio que nosotros controlamos, portcheck.nvdaremote.com
-* Soporte de conexión automática a un servidor de control en modo maestro
-* Arreglado error de renderizado en la documentación
-* Actualización a la versión 2 del protocolo, que incluye un campo de origen en cada mensaje remoto
-* Limpieza importante del código que permitirá modificarlo más fácilmente en el futuro
-
-## Alteración de NVDA Remote
-
-Puedes clonar este repositorio para hacer alteraciones a NVDA Remote.
+Este proyecto se encuentra cubierto por la licencia pública general GNU, versión 2 o posterior. Puedes clonar este repositorio para hacer alteraciones a TeleNVDA, siempre que leas, entiendas y respetes los términos de esta licencia.
 
 ### Dependencias de terceros
 
@@ -173,7 +119,8 @@ Se pueden instalar con Pip:
 
 * Markdown
 * scons
-* python-gettext
+
+Para compilar el ejecutable manejador de URLs, es necesario disponer de Visual Studio 2019 o posterior.
 
 ### Para empaquetar el complemento para su distribución:
 
