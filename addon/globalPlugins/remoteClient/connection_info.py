@@ -5,7 +5,7 @@ from urllib.parse import (
 )
 from . import socket_utils
 
-URL_PREFIX = 'nvdaremote://'
+URL_PREFIX = ['nvdaremote://', 'telenvda://']
 
 class URLParsingError(Exception):
 	"""Raised if it's impossible to parse out the URL"""
@@ -44,7 +44,7 @@ class ConnectionInfo:
 		return '{hostname}:{port}'.format(hostname=hostname, port=self.port)
 
 	def get_url_to_connect(self):
-		result = URL_PREFIX + socket_utils.hostport_to_address((self.hostname, self.port))
+		result = URL_PREFIX[1] + socket_utils.hostport_to_address((self.hostname, self.port))
 		result += '?'
 		mode = self.mode
 		if mode == 'master':
@@ -55,7 +55,7 @@ class ConnectionInfo:
 		return result
 
 	def get_url(self):
-		result = URL_PREFIX + socket_utils.hostport_to_address((self.hostname, self.port))
+		result = URL_PREFIX[1] + socket_utils.hostport_to_address((self.hostname, self.port))
 		result += '?'
 		mode = self.mode
 		result += urlencode(dict(key=self.key, mode=mode))
