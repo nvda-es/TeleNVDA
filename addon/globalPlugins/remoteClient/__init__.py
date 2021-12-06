@@ -52,8 +52,7 @@ class GlobalPlugin(_GlobalPlugin):
 		super().__init__(*args, **kwargs)
 		for addon in addonHandler.getAvailableAddons(): 
 			if addon.name == "remote" and not addon.isDisabled:
-				log.error("TeleNVDA cannot be used while NVDA Remote is running. Please, disable NVDA Remote and restart NVDA.")
-				return
+				raise RuntimeError("TeleNVDA cannot be used while NVDA Remote is running. Please, disable NVDA Remote and restart NVDA.")
 		self.local_machine = local_machine.LocalMachine()
 		self.slave_session = None
 		self.master_session = None
@@ -71,7 +70,10 @@ class GlobalPlugin(_GlobalPlugin):
 		self.sd_relay = None
 		self.sd_bridge = None
 		cs = configuration.get_config()['controlserver']
-		self.temp_location = os.path.join(shlobj.SHGetKnownFolderPath(shlobj.FolderId.PROGRAM_DATA), 'temp')
+		try:
+			self.temp_location = os.path.join(shlobj.SHGetKnownFolderPath(shlobj.FolderId.PROGRAM_DATA), 'temp')
+		except:
+			self.temp_location = os.path.join(shlobj.SHGetFolderPath(0, shlobj.CSIDL_COMMON_APPDATA), 'temp')
 		self.ipc_file = os.path.join(self.temp_location, 'remote.ipc')
 		if globalVars.appArgs.secure:
 			self.handle_secure_desktop()
