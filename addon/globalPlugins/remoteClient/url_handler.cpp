@@ -23,14 +23,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR     lpC
 	cds.lpData = (char *)data;
 	cds.cbData = (args.length()*2)+2;
 	HWND hwnd;
-	hwnd = FindWindow(L"NVDARemoteURLHandler", NULL);
+	hwnd = FindWindow(L"TeleNVDAURLHandler", NULL);
 	if (hwnd == 0) {
 		NVDAPath = GetNVDAPath();
 			ShellExecute(0, NULL, NVDAPath.c_str(), NULL, NULL, 0);
 	};
 	for (int tries = 0; tries < 300; tries++) {
 		Sleep(100);
-		hwnd = FindWindow(L"NVDARemoteURLHandler", NULL);
+		hwnd = FindWindow(L"TeleNVDAURLHandler", NULL);
 		if (hwnd > 0) {
 			Sleep(100); /* Needed to ensure the window is fully created */
 			SendMessage(hwnd, WM_COPYDATA, 0, (LPARAM)&cds);
