@@ -14,6 +14,8 @@ from . import connection_info
 import windowUtils
 import wx
 import gui  # provided by NVDA
+import addonHandler
+addonHandler.initTranslation()
 
 class COPYDATASTRUCT(ctypes.Structure):
 	_fields_ = [
@@ -27,7 +29,7 @@ PCOPYDATASTRUCT = ctypes.POINTER(COPYDATASTRUCT)
 MSGFLT_ALLOW = 1
 
 class URLHandlerWindow(windowUtils.CustomWindow):
-	className = u'NVDARemoteURLHandler'
+	className = 'TeleNVDAURLHandler'
 
 	def __init__(self, callback=None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -59,9 +61,11 @@ class URLHandlerWindow(windowUtils.CustomWindow):
 
 def register_url_handler():
 	regobj.HKCU.SOFTWARE.Classes.nvdaremote = URL_HANDLER_REGISTRY
+	regobj.HKCU.SOFTWARE.Classes.telenvda = URL_HANDLER_REGISTRY
 
 def unregister_url_handler():
-	del regobj.HKCU.SOFTWARE.Classes.nvdaremote 
+	del regobj.HKCU.SOFTWARE.Classes.nvdaremote
+	del regobj.HKCU.SOFTWARE.Classes.telenvda
 
 def url_handler_path():
 	return os.path.join(os.path.split(os.path.abspath(__file__))[0], 'url_handler.exe')
