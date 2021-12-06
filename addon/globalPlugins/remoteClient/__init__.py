@@ -48,7 +48,7 @@ import configobj
 import queueHandler
 
 class GlobalPlugin(_GlobalPlugin):
-	scriptCategory = _("NVDA Remote")
+	scriptCategory = _("TeleNVDA")
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
