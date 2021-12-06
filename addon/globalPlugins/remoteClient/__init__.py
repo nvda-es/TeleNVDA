@@ -50,6 +50,10 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def __init__(self, *args, **kwargs):
 		super().__init__(*args, **kwargs)
+		for addon in addonHandler.getAvailableAddons(): 
+			if addon.name == "remote" and not addon.isDisabled:
+				log.error("TeleNVDA cannot be used while NVDA Remote is running. Please, disable NVDA Remote and restart NVDA.")
+				return
 		self.local_machine = local_machine.LocalMachine()
 		self.slave_session = None
 		self.master_session = None
