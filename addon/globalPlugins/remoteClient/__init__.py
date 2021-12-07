@@ -21,6 +21,7 @@ from .session import MasterSession, SlaveSession
 from . import url_handler
 import ui
 import addonHandler
+from scriptHandler import script
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
@@ -47,6 +48,7 @@ import ssl
 import core
 
 class GlobalPlugin(_GlobalPlugin):
+	# Translators: script category for add-on gestures
 	scriptCategory = _("TeleNVDA")
 
 	def __init__(self, *args, **kwargs):
@@ -183,6 +185,9 @@ class GlobalPlugin(_GlobalPlugin):
 		evt.Skip()
 		self.local_machine.is_muted = self.mute_item.IsChecked()
 
+	@script(
+		# Translators: gesture description for the toggle remote mute script
+		_("""Mute or unmute the speech coming from the remote computer"""))
 	def script_toggle_remote_mute(self, gesture):
 		if not self.is_connected() or self.connecting: return
 		self.local_machine.is_muted = not self.local_machine.is_muted
@@ -190,7 +195,6 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 		status = _("Mute speech and sounds from the remote computer") if self.local_machine.is_muted else _("Unmute speech and sounds from the remote computer")
 		ui.message(status)
-	script_toggle_remote_mute.__doc__ = _("""Mute or unmute the speech coming from the remote computer""")
 
 	def on_push_clipboard_item(self, evt):
 		connector = self.slave_transport or self.master_transport
@@ -199,6 +203,10 @@ class GlobalPlugin(_GlobalPlugin):
 		except TypeError:
 			log.exception("Unable to push clipboard")
 
+	@script(
+		# Translators: push clipboard gesture description
+		_("Sends the contents of the clipboard to the remote machine"),
+		gesture="kb:control+shift+NVDA+c")
 	def script_push_clipboard(self, gesture):
 		connector = self.slave_transport or self.master_transport
 		if not getattr(connector,'connected',False):
@@ -209,17 +217,18 @@ class GlobalPlugin(_GlobalPlugin):
 			ui.message(_("Clipboard pushed"))
 		except TypeError:
 			ui.message(_("Unable to push clipboard"))
-	script_push_clipboard.__doc__ = _("Sends the contents of the clipboard to the remote machine")
 
 	def on_copy_link_item(self, evt):
 		session = self.master_session or self.slave_session
 		url = session.get_connection_info().get_url_to_connect()
 		api.copyToClip(str(url))
 
+	@script(
+		# Translators: Copy link gesture description
+		_("Copies a link to the remote session to the clipboard"))
 	def script_copy_link(self, gesture):
 		self.on_copy_link_item(None)
 		ui.message(_("Copied link"))
-	script_copy_link.__doc__ = _("Copies a link to the remote session to the clipboard")
 
 	def on_options_item(self, evt):
 		evt.Skip()
@@ -289,12 +298,15 @@ class GlobalPlugin(_GlobalPlugin):
 			# Translators: Message shown when cannot connect to the remote computer.
 			message=_("Unable to connect to the remote computer"), style=wx.OK | wx.ICON_WARNING)
 
+	@script(
+		# Translators: description for the Disconnect gesture
+		_("""Disconnect a remote session"""),
+		gesture="kb:alt+NVDA+pageDown")
 	def script_disconnect(self, gesture):
 		if self.master_transport is None and self.slave_transport is None:
 			ui.message(_("Not connected."))
 			return
 		self.disconnect()
-	script_disconnect.__doc__ = _("""Disconnect a remote session""")
 
 	def do_connect(self, evt):
 		evt.Skip()
@@ -549,10 +561,3 @@ class GlobalPlugin(_GlobalPlugin):
 		if connector is not None:
 			return connector.connected
 		return False
-
-	__gestures = {
-		"kb:alt+NVDA+pageDown": "disconnect",
-		"kb:control+shift+NVDA+c": "push_clipboard",
-	}
-
-
