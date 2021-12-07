@@ -22,10 +22,10 @@ from . import url_handler
 import ui
 import addonHandler
 from scriptHandler import script
+from logHandler import log
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
-	from logHandler import log
 	log.warning(
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
 	)
@@ -34,7 +34,6 @@ import ctypes
 import ctypes.wintypes
 from winUser import WM_QUIT, VK_F11  # provided by NVDA
 logging.getLogger("keyboard_hook").addHandler(logging.StreamHandler(sys.stdout))
-from logHandler import log
 from . import dialogs
 import IAccessibleHandler
 import globalVars
