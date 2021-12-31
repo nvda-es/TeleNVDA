@@ -137,6 +137,11 @@ class GlobalPlugin(_GlobalPlugin):
 		self.send_ctrl_alt_del_item = self.menu.Append(wx.ID_ANY, _("Send Ctrl+Alt+Del"), _("Send Ctrl+Alt+Del"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_ctrl_alt_del, self.send_ctrl_alt_del_item)
 		self.send_ctrl_alt_del_item.Enable(False)
+
+		# Translators: Menu item in NVDA Remote submenu to send f11 to the remote computer.
+		self.send_f11_item = self.menu.Append(wx.ID_ANY, _("Send f11"), _("Send f11"))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_f11, self.send_f11_item)
+		self.send_f11_item.Enable(False)
 		# Translators: Label of menu in NVDA tools menu.
 		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("NVDA Remote Access"))
 
@@ -164,6 +169,9 @@ class GlobalPlugin(_GlobalPlugin):
 		self.menu.Remove(self.send_ctrl_alt_del_item.Id)
 		self.send_ctrl_alt_del_item.Destroy()
 		self.send_ctrl_alt_del_item=None
+		self.menu.Remove(self.send_f11_item.Id)
+		self.send_f11_item.Destroy()
+		self.send_f11_item=None
 		tools_menu = gui.mainFrame.sysTrayIcon.toolsMenu
 		tools_menu.Remove(self.remote_item.Id)
 		self.remote_item.Destroy()
@@ -238,6 +246,16 @@ class GlobalPlugin(_GlobalPlugin):
 		self.on_copy_link_item(None)
 		ui.message(_("Copied link"))
 
+	@script(
+		# Translators: gesture description for the send f11 key script
+		_("""Sends f11 key to the remote machine"""))
+	def script_sendF11(self, gesture):
+		if not self.is_connected():
+			return gesture.send()
+		self.on_send_f11()
+		# Translators: Report when using gestures to send f11 key to the remote computer.
+		ui.message("f11 in the remote computer")
+
 	def on_options_item(self, evt):
 		evt.Skip()
 		conf = configuration.get_config()
@@ -252,6 +270,10 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def on_send_ctrl_alt_del(self, evt):
 		self.master_transport.send('send_SAS')
+
+	def on_send_f11(self, evt=None):
+		self.master_transport.send(type="key", vk_code= VK_F11, pressed=True)
+		self.master_transport.send(type="key", vk_code= VK_F11, pressed=False)
 
 	def disconnect(self):
 		if self.master_transport is None and self.slave_transport is None:
@@ -351,6 +373,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.push_clipboard_item.Enable(True)
 		self.copy_link_item.Enable(True)
 		self.send_ctrl_alt_del_item.Enable(True)
+		self.send_f11_item.Enable(True)
 		self.hook_thread = threading.Thread(target=self.hook)
 		self.hook_thread.daemon = True
 		self.hook_thread.start()
