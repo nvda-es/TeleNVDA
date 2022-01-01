@@ -254,7 +254,7 @@ class GlobalPlugin(_GlobalPlugin):
 			return gesture.send()
 		self.on_send_f11()
 		# Translators: Report when using gestures to send f11 key to the remote computer.
-		ui.message("f11 in the remote computer")
+		ui.message(_("f11 in the remote computer"))
 
 	def on_options_item(self, evt):
 		evt.Skip()
