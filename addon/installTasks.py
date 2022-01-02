@@ -15,3 +15,4 @@ def onInstall():
 				wx.YES_NO|wx.ICON_QUESTION, gui.mainFrame)
 			if result == wx.YES:
 				addon.enable(False)
+			return
