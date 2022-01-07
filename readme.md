@@ -17,7 +17,7 @@ To do this, first update your existing addon. Then open the NVDA menu, preferenc
 1. Open the NVDA menu, Tools, Remote, Connect.
 2. Choose client in the first radio button.
 3. Select Allow this machine to be controlled in the second set of radio buttons.
-4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234.
+4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234. If you are connecting to an IPV6 address, enter it between square brackets, for example [2603:1020:800:2::32].
 5. Enter a key into the key field, or press the generate key button.
 The key is what others will use to control your computer.
 The machine being controlled and all its clients need to use the same key.
@@ -27,7 +27,7 @@ The machine being controlled and all its clients need to use the same key.
 1. Open the NVDA menu, Tools, Remote, Connect.
 2. Choose client in the first radio button.
 3. Select Control another machine in the second set of radio buttons.
-4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234.
+4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234. If you are connecting to an IPV6 address, enter it between square brackets, for example [2603:1020:800:2::32].
 5. Enter a key into the key field, or press the generate key button.
 The machine being controlled and all its clients need to use the same key.
 6. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
