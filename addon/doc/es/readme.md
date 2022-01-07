@@ -17,7 +17,7 @@ Para hacerlo, primero actualiza el complemento normalmente. Después, abre el me
 1. Abre el menú de NVDA, herramientas, remoto, conectar.
 2. Elige cliente en el primer grupo de botones de opción.
 3. Elige permitir que controlen este equipo en el segundo grupo de botones de opción.
-4. En el campo equipo o servidor, introduce el servidor al que te vas a conectar, por ejemplo remote.nvda.es. Cuando el servidor use un puerto distinto al que este complemento utiliza por defecto, puedes introducir su dirección en formato &lt;equipo&gt;:&lt;puerto&gt;, por ejemplo remote.nvda.es:1234.
+4. En el campo equipo o servidor, introduce el servidor al que te vas a conectar, por ejemplo remote.nvda.es. Cuando el servidor use un puerto distinto al que este complemento utiliza por defecto, puedes introducir su dirección en formato &lt;equipo&gt;:&lt;puerto&gt;, por ejemplo remote.nvda.es:1234. Si te conectas a una dirección IPV6, introdúcela entre corchetes. Por ejemplo: [2603:1020:800:2::32].
 5. Introduce una clave en el campo clave, o pulsa el botón generar clave.
 La clave es lo que otros usarán para controlar tu equipo.
 El equipo controlado y todos sus clientes deben usar la misma clave.
@@ -27,7 +27,7 @@ El equipo controlado y todos sus clientes deben usar la misma clave.
 1. Abre el menú de NVDA, herramientas, remoto, conectar.
 2. Elige cliente en el primer grupo de botones de opción.
 3. Selecciona controlar otro equipo en el segundo grupo de botones de opción.
-4. En el campo equipo o servidor, introduce el servidor al que te vas a conectar, por ejemplo remote.nvda.es. Cuando el servidor use un puerto distinto al que este complemento utiliza por defecto, puedes introducir su dirección en formato &lt;equipo&gt;:&lt;puerto&gt;, por ejemplo remote.nvda.es:1234.
+4. En el campo equipo o servidor, introduce el servidor al que te vas a conectar, por ejemplo remote.nvda.es. Cuando el servidor use un puerto distinto al que este complemento utiliza por defecto, puedes introducir su dirección en formato &lt;equipo&gt;:&lt;puerto&gt;, por ejemplo remote.nvda.es:1234. Si te conectas a una dirección IPV6, introdúcela entre corchetes. Por ejemplo: [2603:1020:800:2::32].
 5. Introduce una clave en el campo clave, o pulsa el botón generar clave.
 El equipo controlado y todos sus clientes deben usar la misma clave.
 6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el servidor incluye un mensaje de bienvenida, este se mostrará en un cuadro de diálogo. Verás este diálogo cada vez que te conectes o sólo la primera vez, dependiendo de la configuración del servidor.
