@@ -98,6 +98,9 @@ Alternativamente, puedes pulsar NVDA+alt+avance página para desconectar la sesi
 La opción enviar portapapeles en el menú remoto te permite enviar texto desde tu portapapeles.
 Cuando esté activada, cualquier texto en el portapapeles se enviará a los otros equipos.
 
+## Enviar f11
+La opción Enviar f11 del menú Remoto permite pulsar la tecla f11 en el equipo remoto. Es útil para conmutar el modo de pantalla completa en algunos programas, por ejemplo.
+
 ##Configurar TeleNVDA para que funcione en el escritorio seguro
 
 Para que TeleNVDA funcione en el escritorio seguro, el complemento debe estar instalado en el NVDA que se ejecuta en el escritorio seguro.
