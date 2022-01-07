@@ -71,7 +71,6 @@ class GlobalPlugin(_GlobalPlugin):
 		self.sd_server = None
 		self.sd_relay = None
 		self.sd_bridge = None
-		cs = configuration.get_config()['controlserver']
 		if hasattr(shlobj, 'SHGetKnownFolderPath'):
 			self.temp_location = os.path.join(shlobj.SHGetKnownFolderPath(shlobj.FolderId.PROGRAM_DATA), 'temp')
 		else:
