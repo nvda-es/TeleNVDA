@@ -85,7 +85,10 @@ class GlobalPlugin(_GlobalPlugin):
 			self.temp_location = os.path.join(shlobj.SHGetFolderPath(0, shlobj.CSIDL_COMMON_APPDATA), 'temp')
 		self.ipc_file = os.path.join(self.temp_location, 'remote.ipc')
 		self.sd_focused = False
+		if hasattr(globalVars, 'teleNVDA'):
+			self.postStartupHandler()
 		core.postNvdaStartup.register(self.postStartupHandler)
+		globalVars.teleNVDA = None
 
 	def postStartupHandler(self):
 		cs = configuration.get_config()['controlserver']
