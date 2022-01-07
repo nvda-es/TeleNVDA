@@ -99,6 +99,9 @@ Alternatively, you can press NVDA+alt+page down to directly disconnect the sessi
 The Push clipboard option in the remote menu allows you to push text from your clipboard.
 when activated, any text on the clipboard will be pushed to the other machines.
 
+## Send f11
+The Send f11 option in the remote menu allows pressing the f11 key on the remote machine. This is useful to toggle full screen mode on some programs, for example.
+
 ## Configuring TeleNVDA to Work on a Secure Desktop
 
 In order for TeleNVDA to work on the secure desktop, the addon must be installed in the NVDA running on the secure desktop.
