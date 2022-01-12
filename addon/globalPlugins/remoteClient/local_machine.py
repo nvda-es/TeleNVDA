@@ -46,7 +46,7 @@ class LocalMachine:
 			return
 		if os.path.exists(fileName):
 			# ignore async / asynchronous from kwargs:
-			# playWaveFile should play asynchronously from NVDA remote.
+			# playWaveFile should play asynchronously from TeleNVDA.
 			nvwave.playWaveFile(fileName=fileName, asynchronous=True)
 
 	def beep(self, hz, length, left, right, **kwargs):
