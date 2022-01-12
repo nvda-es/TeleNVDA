@@ -24,7 +24,7 @@ if not (
 	versionInfo.version_year >= 2021 or
 	(versionInfo.version_year == 2020 and versionInfo.version_major >= 2)
 ):
-	# NVDA versions newer than 2020.2 have a _CancellableSpeechCommand which should be ignored by NVDA remote
+	# NVDA versions newer than 2020.2 have a _CancellableSpeechCommand which should be ignored by TeleNVDA
 	# For older versions, we create a dummy command that won't cause existing commands to be ignored.
 	class _DummyCommand(speech.commands.SpeechCommand): pass
 	speech.commands._CancellableSpeechCommand = _DummyCommand
@@ -187,7 +187,7 @@ class SlaveSession(RemoteSession):
 	def playWaveFile(self, **kwargs):
 		"""This machine played a sound, send it to Master machine"""
 		kwargs.update({
-			# nvWave.playWaveFile should always be asynchronous when called from NVDA remote, so always send 'True'
+			# nvWave.playWaveFile should always be asynchronous when called from TeleNVDA, so always send 'True'
 			# Version 2.2 requires 'async' keyword.
 			'async': True,
 			# Version 2.3 onwards. Not currently used, but matches arguments for nvWave.playWaveFile.
@@ -231,7 +231,7 @@ class MasterSession(RemoteSession):
 
 	def handle_play_wave(self, **kwargs):
 		"""Receive instruction to play a 'wave' from the slave machine
-		This method handles translation (between versions of NVDA Remote) of arguments required for 'msg_wave'
+		This method handles translation (between versions of TeleNVDA) of arguments required for 'msg_wave'
 		"""
 		# Note:
 		# Version 2.2 will send only 'async' in kwargs

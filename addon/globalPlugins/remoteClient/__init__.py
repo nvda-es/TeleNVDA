@@ -114,39 +114,39 @@ class GlobalPlugin(_GlobalPlugin):
 	def create_menu(self):
 		self.menu = wx.Menu()
 		tools_menu = gui.mainFrame.sysTrayIcon.toolsMenu
-		# Translators: Item in NVDA Remote submenu to connect to a remote computer.
-		self.connect_item = self.menu.Append(wx.ID_ANY, _("Connect..."), _("Remotely connect to another computer running NVDA Remote Access"))
+		# Translators: Item in TeleNVDA submenu to connect to a remote computer.
+		self.connect_item = self.menu.Append(wx.ID_ANY, _("Connect..."), _("Remotely connect to another computer running NVDA Remote Access or TeleNVDA"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.do_connect, self.connect_item)
-		# Translators: Item in NVDA Remote submenu to disconnect from a remote computer.
-		self.disconnect_item = self.menu.Append(wx.ID_ANY, _("Disconnect"), _("Disconnect from another computer running NVDA Remote Access"))
+		# Translators: Item in TeleNVDA submenu to disconnect from a remote computer.
+		self.disconnect_item = self.menu.Append(wx.ID_ANY, _("Disconnect"), _("Disconnect from another computer running NVDA Remote Access or TeleNVDA"))
 		self.disconnect_item.Enable(False)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_disconnect_item, self.disconnect_item)
-		# Translators: Menu item in NvDA Remote submenu to mute speech and sounds from the remote computer.
+		# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
 		self.mute_item = self.menu.Append(wx.ID_ANY, _("Mute remote"), _("Mute speech and sounds from the remote computer"), kind=wx.ITEM_CHECK)
 		self.mute_item.Enable(False)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_mute_item, self.mute_item)
-		# Translators: Menu item in NVDA Remote submenu to push clipboard content to the remote computer.
+		# Translators: Menu item in TeleNVDA submenu to push clipboard content to the remote computer.
 		self.push_clipboard_item = self.menu.Append(wx.ID_ANY, _("&Push clipboard"), _("Push the clipboard to the other machine"))
 		self.push_clipboard_item.Enable(False)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_push_clipboard_item, self.push_clipboard_item)
-		# Translators: Menu item in NVDA Remote submenu to copy a link to the current session.
+		# Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 		self.copy_link_item = self.menu.Append(wx.ID_ANY, _("Copy &link"), _("Copy a link to the remote session"))
 		self.copy_link_item.Enable(False)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_copy_link_item, self.copy_link_item)
-		# Translators: Menu item in NvDA Remote submenu to open add-on options.
+		# Translators: Menu item in TeleNVDA submenu to open add-on options.
 		self.options_item = self.menu.Append(wx.ID_ANY, _("&Options..."), _("Options"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_options_item, self.options_item)
-		# Translators: Menu item in NVDA Remote submenu to send Control+Alt+Delete to the remote computer.
+		# Translators: Menu item in TeleNVDA submenu to send Control+Alt+Delete to the remote computer.
 		self.send_ctrl_alt_del_item = self.menu.Append(wx.ID_ANY, _("Send Ctrl+Alt+Del"), _("Send Ctrl+Alt+Del"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_ctrl_alt_del, self.send_ctrl_alt_del_item)
 		self.send_ctrl_alt_del_item.Enable(False)
 
-		# Translators: Menu item in NVDA Remote submenu to send f11 to the remote computer.
+		# Translators: Menu item in TeleNVDA submenu to send f11 to the remote computer.
 		self.send_f11_item = self.menu.Append(wx.ID_ANY, _("Send f11"), _("Send f11"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_f11, self.send_f11_item)
 		self.send_f11_item.Enable(False)
 		# Translators: Label of menu in NVDA tools menu.
-		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("NVDA Remote Access"))
+		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("TeleNVDA"))
 
 	def terminate(self):
 		self.disconnect()
@@ -572,7 +572,7 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def verify_connect(self, con_info):
 		if self.is_connected() or self.connecting:
-			gui.messageBox(_("NVDA Remote is already connected. Disconnect before opening a new connection."), _("NVDA Remote Already Connected"), wx.OK|wx.ICON_WARNING)
+			gui.messageBox(_("TeleNVDA is already connected. Disconnect before opening a new connection."), _("TeleNVDA Already Connected"), wx.OK|wx.ICON_WARNING)
 			return
 		self.connecting = True
 		server_addr = con_info.get_address()
@@ -581,7 +581,7 @@ class GlobalPlugin(_GlobalPlugin):
 			message = _("Do you wish to control the machine on server {server} with key {key}?").format(server=server_addr, key=key)
 		elif con_info.mode == 'slave':
 			message = _("Do you wish to allow this machine to be controlled on server {server} with key {key}?").format(server=server_addr, key=key)
-		if gui.messageBox(message, _("NVDA Remote Connection Request"), wx.YES|wx.NO|wx.NO_DEFAULT|wx.ICON_WARNING) != wx.YES:
+		if gui.messageBox(message, _("TeleNVDA Connection Request"), wx.YES|wx.NO|wx.NO_DEFAULT|wx.ICON_WARNING) != wx.YES:
 			self.connecting = False
 			return
 		if con_info.mode == 'master':
