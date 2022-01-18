@@ -1,20 +1,23 @@
-# Acesso Remoto do NVDA
-Versão 2.2
+# TeleNVDA
 
-Bem-vindo ao extra do Acesso Remoto do NVDA, que lhe permitirá ligar-se a outro computador que esteja a executar o  NVDA. Não faz diferença se  estiver do outro lado da sala ou do outro lado do mundo. A ligação é simples e há poucos comandos para memorizar. Pode ligar-se ao computador de outra pessoa ou permitir que uma pessoa confiável se ligue ao seu sistema para realizar uma manutenção de rotina, diagnosticar um problema ou fornecer-lhe instruções de treino.
+## Introdução
+
+Bem-vindo ao TeleNVDA, um extra para o NVDA que lhe permitirá que se conecte a outro computador que executa o mesmo leitor de ecrã. Pode conectar-se ao computador de outra pessoa ou permitir que uma pessoa confiável se conecte ao seu sistema para executar uma manutenção de rotina, diagnosticar um problema ou para lhe ensinar algo. Este extra é uma versão modificada do [NVDarEMote] (https://nvdarmate.com), e a sua manutenção é da responsabilidade da comunidade de língua espanhola do NVDA. É totalmente compatível com o Remote NVDA. Verá que tanto o extra quanto a documentação têm muito poucas diferenças, pelo menos por enquanto.
 
 ## Antes de  começar
 
-Precisará de instalar o NVDA em ambos os computadores e obter o extra  de Acesso Remoto do NVDA.
-A instalação do NVDA e do addon Remote Access é padrão. Se precisar de mais informações,  pode  encontrá-las no Guia do Usuário do NVDA.
+Precisará de instalar o NVDA em ambos os computadores e obter o extra  de Acesso Remoto TeleNVDA.
+A instalação do NVDA e do TeleNVDA é padrão. Se precisar de mais informações,  pode  encontrá-las no Guia do utilizador do NVDA.
 
 ## Actualizar
 
-Ao actualizar o extra, se  instalou o NVDA Remote na área de trabalho protegida, é recomendável também actualizar a cópia na área de trabalho protegida.
+Ao actualizar o extra, se  instalou o TeleNVDA na área de trabalho protegida, é recomendável também actualizar a cópia na área de trabalho protegida.
 Para fazer isso, primeiro actualize o seu extra. Em seguida, abra o menu do NVDA, as preferências, as configurações,  gerais e pressione o botão "Utilizar as configurações actualmente guardadas no ecrã de início de sessão e noutros ecrãs (requer privilégios de administrador)".
 
 ## Iniciar uma sessão remota através de um servidor de retransmissão
+
 ### No computador a ser controlado
+
 1. Abra o menu do NVDA, Ferramentas, Remoto, ligar.
 2. Escolha cliente no primeiro botão de opção.
 3. Seleccione "Permitir que este  computador seja controlado", no segundo conjunto de botões de opção.
@@ -25,6 +28,7 @@ A máquina que está a ser controlada e todos os seus clientes precisam de usar 
 6. Pressione ok. Uma vez feito,  ouvirá um beep e a palavra "ligado".
 
 ### Na máquina que será o computador de controlo
+
 1. Abra o menu do NVDA, Ferramentas, Remoto, ligar.
 2. Escolha cliente no primeiro botão de opção.
 3. Seleccione Controlar outro computador, no segundo conjunto de botões de opção.
@@ -34,6 +38,7 @@ A máquina que está a ser controlada e todos os seus clientes precisam de usar 
 6. Pressione ok. Uma vez feito,  ouvirá um beep e a palavra "ligado".
 
 ## ligações directas
+
 A opção do servidor na caixa de diálogo de ligação permite que  configure uma ligação directa.
 Uma vez seleccionado, escolha  o modo em que o final da conexão estará.
 A outra pessoa  ligar-se-á  a você usando o oposto.
@@ -52,7 +57,7 @@ Quando a outra pessoa se liga,  pode usar o acesso remoto do NVDA normalmente.
 ## Controlar a máquina remota
 
 Uma vez que a sessão é iniciada, o utilizador da máquina controladora pode pressionar f11 para começar a controlar a máquina remota (por exemplo, enviando as teclas do teclado ou entrada em braille).
-Quando o NVDA diz que controla a máquina remota, as teclas do teclado e da linha braille pressionadas irão para a máquina remota. Além disso, quando a máquina controladora estiver a usar uma linha braille, as informações da máquina remota serão exibidas nela. Pressione f11 novamente para parar de enviar as teclas e voltar para a máquina controladora.
+Quando o NVDA diz que controla a máquina remota, as teclas do teclado e da linha braille pressionadas irão para a máquina remota. Além disso, quando a máquina controladora estiver a usar uma linha braille, as informações da máquina remota serão mostradas nela. Pressione f11 novamente para parar de enviar as teclas e voltar para a máquina controladora.
 Para melhor compatibilidade, certifique-se de que os layouts de teclado nas duas máquinas correspondam.
 
 ## Compartilhar a sua sessão
@@ -62,8 +67,8 @@ Se  estiver conectado como o computador controlador, esse link permitirá que ou
 Se, em vez disso,  configurar o seu computador para ser controlado, a ligação permitirá que as pessoas com quem você o compartilhe controlem sua máquina.
 Muitos aplicativos permitem que os utilizadores activem essa ligação automaticamente, mas se ele não for executado num aplicativo específico, ele poderá ser copiado para a área de transferência e executado a partir da caixa de diálogo de execução.
 
-
 ## Enviar Ctrl + Alt + Del
+
 Durante o envio de teclas, não é possível enviar a combinação CTRL + Alt + del normalmente.
 Se  precisar de enviar CTRL + Alt + del, e o sistema remoto estiver na área de trabalho protegida, use este comando.
 
@@ -82,10 +87,9 @@ Para uso avançado,  também pode configurar o acesso remoto do NVDA  para se li
 
 Nota: A ligação automática nas opções relacionadas à inicialização na caixa de diálogo de opções não se aplica até que o NVDA seja reiniciado.
 
-
 ## Silenciar a voz no computador remoto
-Se  não deseja ouvir a fala do computador remoto ou os sons específicos do NVDA, simplesmente aceda ao menu do NVDA, Ferramentas e Remoto. Seta para baixo para silenciar remoto e pressione Enter. Por favor, note que esta opção não irá desabilitar a saída em braille remoto para a linha braille de controlo quando a máquina controladora estiver a enviar os códigos.
 
+Se  não desejar ouvir a fala do computador remoto ou os sons específicos do NVDA, simplesmente aceda ao menu do NVDA, Ferramentas e Remoto. Seta para baixo para silenciar remoto e pressione Enter. Por favor, note que esta opção não irá desabilitar a saída em braille remoto para a linha braille de controlo quando a máquina controladora estiver a enviar os códigos.
 
 ## Fechar uma sessão remota
 
@@ -95,11 +99,16 @@ Para finalizar uma sessão remota, faça o seguinte:
 
 2. Aceda ao menu do NVDA, depois Ferramentas, Remoto, e pressione Enter em desligar.
 
-## Empurrar a área de transferência
-A opção empurrar a área de transferência no menu remoto permite que  envie texto da sua área de transferência.
-quando activado, qualquer texto na área de transferência será empurrado para as outras máquinas.
+Como alternativa, pode pressionar NVDA + ALT + página para baixo, para desconectar a sessão directamente. Este comando pode ser alterado a partir da caixa de diálogo entrada de comandos. Para manter a outra pessoa segura, pode pressionar este comando durante o envio das  teclas para desconectar o computador remoto.
 
-## Configurar o acesso remoto do NVDA para funcionar em um desktop seguro
+## Enviar a área de transferência
+A opção enviar a área de transferência no menu remoto permite que  envie texto da sua área de transferência.
+quando activado, qualquer texto na área de transferência será enviado para as outras máquinas.
+
+## Enviar F11.
+A opção Enviar F11 no menu remoto permite pressionar a tecla F11 no computador remoto. É útil para alternar o modo de ecrã completo em alguns programas, por exemplo.
+
+## Configurar o acesso remoto do NVDA para funcionar num desktop seguro
 
 Para que o acesso remoto do NVDA  funcione na área de trabalho protegida, o extra deve ser instalado no NVDA em execução na área de trabalho protegida.
 
@@ -108,52 +117,30 @@ Para que o acesso remoto do NVDA  funcione na área de trabalho protegida, o ext
 2. Aceda ao separador "Utilizar as configurações actualmente guardadas no ecrã de início de sessão e noutros ecrãs seguros (requer privilégios de administrador) e pressione Enter.
 
 3. Responda Sim aos prompts relacionados com a  cópia das suas configurações e sobre como copiar plug-ins e responda ao prompt do Controlo de Conta de Usuário que pode aparecer.
+
 4. Quando as configurações forem copiadas, pressione Enter para descartar o botão OK. Tab para OK e Enter mais uma vez para sair da caixa de diálogo.
 
 Depois que o acesso remoto do NVDA  for instalado na área de trabalho segura, se  estiver sendo controlado em uma sessão remota,
- terá acesso de voz e braille à área de trabalho protegida quando alternado.
+terá acesso de voz e braille à área de trabalho protegida quando alternado.
 
-## Contribuições
-Gostaríamos de agradecer aos seguintes colaboradores, entre outros, que ajudaram a tornar o projeto do acesso remoto do NVDA  uma realidade.
+## alteração do TeleNVDA
 
-* Hai Nguyen Ly
-* Chris Westbrook
-* Thomas Huebner
-* John F Crosotn III
-* Darrell Shandrow
-* D Williams
-* Matthew McCubbin
-* Jason Meddaugh
-* ABDULAZIZ ALSHMASI.
-* Tyler W Kavanaugh
-* Casey Mathews
-* Babbage B.V.
-* Leonard de Ruijter
+Este projeto é coberto pela Licença Pública Geral GNU, versão 2 ou posterior. Pode clonar este repositório para fazer alterações ao TeleNVDA, sempre que ler, entender e respeitar os termos desta licença.
 
-## Mudanças
+### Dependências de terceiros
 
-### Versão 2.2
+Podem ser instaladas com Pip:
 
-* Suporte IPv6
-* Suporte para o novo NVDA 2018.3, bem como versões mais antigas
-* Suporte para  comandos Braille específicos do modelo
+* Markdown.
+* SCONS.
 
+Para compilar o executável do URLS Manager, é necessário ter o Visual Studio 2019 ou posterior.
 
-### Versão 2.1
+### para empacotar o extra para distribuição:
 
-* Conexão fixa não salva ao permitir que esta máquina seja controlada
-* Adicionado um script para empurrar a área de transferência com ctrl + shift + NVDA + c
-* A Entrada em braille agora funciona no modo de navegação
-* Comandos  braille específicos do modelo de suporte
-* Os bips gerados pelo NVDA Remote não bloqueiam mais o NVDA
+1. Abra uma linha de pedidos e alterações na raiz deste repositório
+2. Execute a ordem ** SCONS **. O complemento criado, se não houver erros, estará na pasta actual.
 
-### Versão 2.0
-
-* Suporte remoto para Braille
-* Suporte para acesso remoto do nvda: // ligações
-* Diálogos centralizados para se adequar ao resto do NVDA
-* Corrigido portcheck para apontar em um domínio que controlamos, portcheck.nvdaremote.com
-* Suporte conectando-se automaticamente a um servidor de controle no modo mestre
-* Corrigido erro de renderização na documentação
-* Actualização para a versão 2 do protocolo, que inclui um campo de origem em todas as mensagens remotas
-* Limpeza de código  permitindo modificações mais fáceis, no futuro
+## Tradução Portuguesa:
+Equipa Portuguesa do NVDA: Ângelo Abrantes e Rui Fontes
+(13-01-2022)
