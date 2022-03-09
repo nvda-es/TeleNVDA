@@ -1,0 +1,1 @@
+This release is based on the latest NVDA Remote code. Also, it includes localization updates.
