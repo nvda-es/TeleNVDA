@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2022-04-04 15:51+0200\n"
-"PO-Revision-Date: 2022-04-04 15:52+0200\n"
+"POT-Creation-Date: 2022-04-07 16:59+0200\n"
+"PO-Revision-Date: 2022-04-07 17:01+0200\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Jose Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language: es\n"
@@ -188,7 +188,7 @@ msgstr "Desconectar una sesión remota"
 
 #. Translators: Title of the connect dialog.
 #: addon\globalPlugins\remoteClient\__init__.py:345
-#: addon\globalPlugins\remoteClient\dialogs.py:314
+#: addon\globalPlugins\remoteClient\dialogs.py:319
 msgid "Connect"
 msgstr "Conectar"
 
@@ -274,8 +274,8 @@ msgstr "Se debe establecer un equipo o servidor."
 #: addon\globalPlugins\remoteClient\dialogs.py:151
 #: addon\globalPlugins\remoteClient\dialogs.py:189
 #: addon\globalPlugins\remoteClient\dialogs.py:192
-#: addon\globalPlugins\remoteClient\dialogs.py:283
-#: addon\globalPlugins\remoteClient\dialogs.py:285
+#: addon\globalPlugins\remoteClient\dialogs.py:287
+#: addon\globalPlugins\remoteClient\dialogs.py:289
 msgid "Error"
 msgstr "Error"
 
@@ -341,12 +341,12 @@ msgid "Allow this machine to be controlled"
 msgstr "Permitir que controlen este equipo"
 
 #: addon\globalPlugins\remoteClient\dialogs.py:189
-#: addon\globalPlugins\remoteClient\dialogs.py:283
+#: addon\globalPlugins\remoteClient\dialogs.py:287
 msgid "Both host and key must be set."
 msgstr "Tanto el equipo como la clave deben estar configurados."
 
 #: addon\globalPlugins\remoteClient\dialogs.py:192
-#: addon\globalPlugins\remoteClient\dialogs.py:285
+#: addon\globalPlugins\remoteClient\dialogs.py:289
 msgid "Both port and key must be set."
 msgstr "Se deben establecer tanto el puerto como la clave."
 
@@ -369,12 +369,17 @@ msgstr "Crear servidor de control local"
 msgid "Play sounds instead of beeps"
 msgstr "Reproducir sonidos en vez de pitidos"
 
-#. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
+#. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 #: addon\globalPlugins\remoteClient\dialogs.py:233
+msgid "Process speech commands when controlling another computer"
+msgstr "Procesar comandos del habla al controlar otro equipo"
+
+#. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
+#: addon\globalPlugins\remoteClient\dialogs.py:236
 msgid "Delete all trusted fingerprints"
 msgstr "Eliminar todas las huellas de confianza"
 
-#: addon\globalPlugins\remoteClient\dialogs.py:274
+#: addon\globalPlugins\remoteClient\dialogs.py:278
 msgid ""
 "When connecting to an unauthorized server, you will again be prompted to "
 "accepts its certificate."
@@ -382,19 +387,19 @@ msgstr ""
 "Al conectar a un servidor no autorizado, se te pedirá que aceptes su "
 "certificado de nuevo."
 
-#: addon\globalPlugins\remoteClient\dialogs.py:274
+#: addon\globalPlugins\remoteClient\dialogs.py:278
 msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr ""
 "¿Estás seguro de que quieres eliminar todas las huellas de confianza "
 "almacenadas?"
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
-#: addon\globalPlugins\remoteClient\dialogs.py:310
+#: addon\globalPlugins\remoteClient\dialogs.py:315
 msgid "TeleNVDA Connection Security Warning"
 msgstr "Aviso de seguridad de conexión de TeleNVDA"
 
 #. Translators: A message of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
-#: addon\globalPlugins\remoteClient\dialogs.py:312
+#: addon\globalPlugins\remoteClient\dialogs.py:317
 #, python-brace-format
 msgid ""
 "Warning! The certificate of this server could not be verified.\n"
@@ -419,12 +424,12 @@ msgstr ""
 "\n"
 "¿Deseas continuar con la conexión?"
 
-#: addon\globalPlugins\remoteClient\dialogs.py:314
+#: addon\globalPlugins\remoteClient\dialogs.py:319
 msgid "Connect and do not ask again for this server"
 msgstr "Conectar y no volver a preguntar en este servidor"
 
 #. Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
-#: addon\globalPlugins\remoteClient\local_machine.py:115
+#: addon\globalPlugins\remoteClient\local_machine.py:119
 msgid "No permission on device to trigger CTRL+ALT+DEL from remote"
 msgstr ""
 "No hay permisos en el dispositivo para enviar ctrl+alt+supr remotamente"

@@ -2,6 +2,7 @@ import os
 
 import wx
 from . import input
+from . import configuration
 import api
 import nvwave
 import tones
@@ -74,6 +75,8 @@ class LocalMachine:
 		if self.is_muted:
 			return
 		setSpeechCancelledToFalse()
+		if not configuration.get_config()['ui']['allow_speech_commands']:
+			sequence = [s for s in sequence if isinstance(s, str)]
 		wx.CallAfter(speech._manager.speak, sequence, priority)
 
 	def display(self, cells, **kwargs):
