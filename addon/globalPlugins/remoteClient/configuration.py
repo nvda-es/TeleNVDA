@@ -29,6 +29,7 @@ configspec = StringIO("""
 
 [ui]
 	play_sounds = boolean(default=True)
+	allow_speech_commands = boolean(default=True)
 """)
 def get_config():
 	global _config
