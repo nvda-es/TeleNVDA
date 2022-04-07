@@ -14,11 +14,12 @@ try:
 	from systemUtils import hasUiAccess
 except ModuleNotFoundError:
 	from config import hasUiAccess
-	
 import ui
 import versionInfo
 import logging
+import addonHandler
 logger = logging.getLogger('local_machine')
+addonHandler.initTranslation()
 
 
 def setSpeechCancelledToFalse():
