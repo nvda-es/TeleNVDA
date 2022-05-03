@@ -10,11 +10,12 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
     - name: Set up Python 3.7
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v3.1.2
       with:
         python-version: "3.7"
+        architecture: "x86"
     - name: Install dependencies
       run: pip install scons markdown
     - name: Build add-on
