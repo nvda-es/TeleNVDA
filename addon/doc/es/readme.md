@@ -3,7 +3,7 @@
 Bienvenido al complemento TeleNVDA, que te permitirá conectarte a otro equipo que ejecute el lector de pantalla gratuito NVDA. Puedes conectarte al equipo de otra persona, o permitir a una persona de confianza que se conecte a tu sistema para realizar un mantenimiento rutinario, diagnosticar un problema, o enseñarte algo. Este complemento es una versión modificada del [complemento NVDARemote](https://nvdaremote.com), y su mantenimiento está a cargo de la comunidad hispanohablante de NVDA. Es totalmente compatible con NVDA Remote. Estas son las diferencias actuales:
 
 * Una opción permite bloquear los comandos remotos de voz que no sean texto.
-* Soporte mejorado para servidores proxy y servicios ocultos TOR (es necesario el [complemento Soporte Proxy]((https://addons.nvda-project.org/addons/proxy.es.html)).
+* Soporte mejorado para servidores proxy y servicios ocultos TOR (es necesario el [complemento Soporte Proxy](https://addons.nvda-project.org/addons/proxy.es.html)).
 * Posibilidad de enviar la tecla f11 al equipo remoto mediante una opción en el menú Herramientas o un gesto.
 * Varias correcciones de fallos.
 
