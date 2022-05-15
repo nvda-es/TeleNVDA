@@ -1,6 +1,11 @@
 ## Introduction
 
-Welcome to the TeleNVDA addon, which will allow you to connect to another computer running the free NVDA screen reader. With this add-on, you can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training. This add-on is a modified version of the [NVDA Remote add-on](https://nvdaremote.com), and is maintained by the NVDA spanish community. It's fully compatible with NVDA Remote. You will find that both add-on and documentation have only a few differences, at least for now.
+Welcome to the TeleNVDA addon, which will allow you to connect to another computer running the free NVDA screen reader. With this add-on, you can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training. This add-on is a modified version of the [NVDA Remote add-on](https://nvdaremote.com), and is maintained by the NVDA spanish community. It's fully compatible with NVDA Remote. These are the current differences:
+
+* An option allows blocking remote speech commands different from text.
+* Improved support for proxy servers and TOR hidden services ([Proxy support add-on](https://addons.nvda-project.org/addons/proxy.en.html) is required).
+* Ability to send f11 key to the remote machine via an option in the tools menu and a gesture.
+* Several bug fixes.
 
 ## Before You Begin
 
