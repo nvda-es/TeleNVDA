@@ -340,8 +340,16 @@ class GlobalPlugin(_GlobalPlugin):
 			return
 		self.disconnect()
 
+	@script(
+		# Translators: description for the Connect gesture
+		_("""Opens a dialog to start a remote session"""),
+		gesture="kb:alt+NVDA+pageUp")
+	def script_connect(self, gesture):
+		self.do_connect(None)
+
 	def do_connect(self, evt):
-		evt.Skip()
+		if evt:
+			evt.Skip()
 		last_cons = configuration.get_config()['connections']['last_connected']
 		# Translators: Title of the connect dialog.
 		dlg = dialogs.DirectConnectDialog(parent=gui.mainFrame, id=wx.ID_ANY, title=_("Connect"))

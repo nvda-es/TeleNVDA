@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2022-04-07 16:59+0200\n"
-"PO-Revision-Date: 2022-04-07 17:01+0200\n"
+"POT-Creation-Date: 2022-05-22 09:25+0200\n"
+"PO-Revision-Date: 2022-05-22 09:27+0200\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Jose Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language: es\n"
@@ -186,55 +186,60 @@ msgstr "No se ha podido conectar al equipo remoto"
 msgid "Disconnect a remote session"
 msgstr "Desconectar una sesión remota"
 
+#. Translators: description for the Connect gesture
+#: addon\globalPlugins\remoteClient\__init__.py:343
+msgid "Opens a dialog to start a remote session"
+msgstr "Abre un diálogo para iniciar una sesión remota"
+
 #. Translators: Title of the connect dialog.
-#: addon\globalPlugins\remoteClient\__init__.py:345
+#: addon\globalPlugins\remoteClient\__init__.py:353
 #: addon\globalPlugins\remoteClient\dialogs.py:319
 msgid "Connect"
 msgstr "Conectar"
 
 #. Translators: Presented when connected to the remote computer.
-#: addon\globalPlugins\remoteClient\__init__.py:382
+#: addon\globalPlugins\remoteClient\__init__.py:390
 msgid "Connected!"
 msgstr "¡Conectado!"
 
 #. Translators: Presented when connection to a remote computer was interupted.
-#: addon\globalPlugins\remoteClient\__init__.py:387
+#: addon\globalPlugins\remoteClient\__init__.py:395
 msgid "Connection interrupted"
 msgstr "Conexión interrumpida"
 
 #. Translators: Presented in direct (client to server) remote connection when the controlled computer is ready.
-#: addon\globalPlugins\remoteClient\__init__.py:440
+#: addon\globalPlugins\remoteClient\__init__.py:448
 msgid "Connected to control server"
 msgstr "Se ha conectado al servidor de control"
 
 #. This is called from the hook thread and should be executed on the main thread.
 #. Translators: Presented when keyboard control is back to the controlling computer.
-#: addon\globalPlugins\remoteClient\__init__.py:472
+#: addon\globalPlugins\remoteClient\__init__.py:480
 msgid "Controlling local machine."
 msgstr "Controlando equipo local."
 
 #. Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
-#: addon\globalPlugins\remoteClient\__init__.py:479
+#: addon\globalPlugins\remoteClient\__init__.py:487
 msgid "Controlling remote machine."
 msgstr "Controlando equipo remoto."
 
-#: addon\globalPlugins\remoteClient\__init__.py:572
+#: addon\globalPlugins\remoteClient\__init__.py:580
 msgid ""
 "TeleNVDA is already connected. Disconnect before opening a new connection."
 msgstr ""
 "TeleNVDA ya está conectado. Desconéctalo antes de establecer una nueva "
 "conexión."
 
-#: addon\globalPlugins\remoteClient\__init__.py:572
+#: addon\globalPlugins\remoteClient\__init__.py:580
 msgid "TeleNVDA Already Connected"
 msgstr "TeleNVDA ya está conectado"
 
-#: addon\globalPlugins\remoteClient\__init__.py:578
+#: addon\globalPlugins\remoteClient\__init__.py:586
 #, python-brace-format
 msgid "Do you wish to control the machine on server {server} with key {key}?"
 msgstr "¿Quieres controlar el equipo {server} con la clave {key}?"
 
-#: addon\globalPlugins\remoteClient\__init__.py:580
+#: addon\globalPlugins\remoteClient\__init__.py:588
 #, python-brace-format
 msgid ""
 "Do you wish to allow this machine to be controlled on server {server} with "
@@ -243,7 +248,7 @@ msgstr ""
 "¿Quieres permitir que controlen este equipo desde el servidor {server} con "
 "la clave {key}?"
 
-#: addon\globalPlugins\remoteClient\__init__.py:581
+#: addon\globalPlugins\remoteClient\__init__.py:589
 msgid "TeleNVDA Connection Request"
 msgstr "Petición de conexión de TeleNVDA"
 
