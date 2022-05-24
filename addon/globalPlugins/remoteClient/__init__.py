@@ -345,6 +345,9 @@ class GlobalPlugin(_GlobalPlugin):
 		_("""Opens a dialog to start a remote session"""),
 		gesture="kb:alt+NVDA+pageUp")
 	def script_connect(self, gesture):
+		if self.master_transport or self.slave_transport:
+			ui.message(_("TeleNVDA Already Connected"))
+			return
 		self.do_connect(None)
 
 	def do_connect(self, evt):

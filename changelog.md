@@ -1,1 +1,1 @@
-Initial release.
+This release adds a gesture to open the Connect dialog. It is assigned by default to NVDA+alt+page up.
