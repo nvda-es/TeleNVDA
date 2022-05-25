@@ -1,4 +1,4 @@
-REMOTE_KEY = "kb:f11"
+from keyboardHandler import KeyboardInputGesture
 import os
 import sys
 import json
@@ -32,7 +32,7 @@ except addonHandler.AddonError:
 from . import keyboard_hook
 import ctypes
 import ctypes.wintypes
-from winUser import WM_QUIT, VK_F11  # provided by NVDA
+from winUser import WM_QUIT # provided by NVDA
 logging.getLogger("keyboard_hook").addHandler(logging.StreamHandler(sys.stdout))
 from . import dialogs
 import IAccessibleHandler
@@ -69,7 +69,9 @@ class GlobalPlugin(_GlobalPlugin):
 		self.server = None
 		self.hook_thread = None
 		self.sending_keys = False
-		self.key_modified = False
+		self.key_modifiers = set()
+		self.ignoreGesture = False
+		self.guestScripts = (self.script_sendKeys, self.script_ignoreNextGesture)
 		self.sd_server = None
 		self.sd_relay = None
 		self.sd_bridge = None
@@ -140,10 +142,6 @@ class GlobalPlugin(_GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_ctrl_alt_del, self.send_ctrl_alt_del_item)
 		self.send_ctrl_alt_del_item.Enable(False)
 
-		# Translators: Menu item in TeleNVDA submenu to send f11 to the remote computer.
-		self.send_f11_item = self.menu.Append(wx.ID_ANY, _("Send f11"), _("Send f11"))
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_f11, self.send_f11_item)
-		self.send_f11_item.Enable(False)
 		# Translators: Label of menu in NVDA tools menu.
 		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("TeleNVDA"))
 
@@ -171,9 +169,6 @@ class GlobalPlugin(_GlobalPlugin):
 		self.menu.Remove(self.send_ctrl_alt_del_item.Id)
 		self.send_ctrl_alt_del_item.Destroy()
 		self.send_ctrl_alt_del_item=None
-		self.menu.Remove(self.send_f11_item.Id)
-		self.send_f11_item.Destroy()
-		self.send_f11_item=None
 		tools_menu = gui.mainFrame.sysTrayIcon.toolsMenu
 		tools_menu.Remove(self.remote_item.Id)
 		self.remote_item.Destroy()
@@ -246,16 +241,6 @@ class GlobalPlugin(_GlobalPlugin):
 		self.on_copy_link_item(None)
 		ui.message(_("Copied link"))
 
-	@script(
-		# Translators: gesture description for the send f11 key script
-		_("""Sends f11 key to the remote machine"""))
-	def script_sendF11(self, gesture):
-		if not self.is_connected():
-			return gesture.send()
-		self.on_send_f11()
-		# Translators: Report when using gestures to send f11 key to the remote computer.
-		ui.message(_("f11 in the remote computer"))
-
 	def on_options_item(self, evt):
 		evt.Skip()
 		conf = configuration.get_config()
@@ -270,10 +255,6 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def on_send_ctrl_alt_del(self, evt):
 		self.master_transport.send('send_SAS')
-
-	def on_send_f11(self, evt=None):
-		self.master_transport.send(type="key", vk_code= VK_F11, pressed=True)
-		self.master_transport.send(type="key", vk_code= VK_F11, pressed=False)
 
 	def disconnect(self):
 		if self.master_transport is None and self.slave_transport is None:
@@ -312,8 +293,7 @@ class GlobalPlugin(_GlobalPlugin):
 			ctypes.windll.user32.PostThreadMessageW(self.hook_thread.ident, WM_QUIT, 0, 0)
 			self.hook_thread.join()
 			self.hook_thread = None
-			self.removeGestureBinding(REMOTE_KEY)
-		self.key_modified = False
+		self.key_modifiers = set()
 
 	def disconnect_as_slave(self):
 		self.slave_transport.close()
@@ -384,11 +364,9 @@ class GlobalPlugin(_GlobalPlugin):
 		self.push_clipboard_item.Enable(True)
 		self.copy_link_item.Enable(True)
 		self.send_ctrl_alt_del_item.Enable(True)
-		self.send_f11_item.Enable(True)
 		self.hook_thread = threading.Thread(target=self.hook)
 		self.hook_thread.daemon = True
 		self.hook_thread.start()
-		self.bindGesture(REMOTE_KEY, "sendKeys")
 		# Translators: Presented when connected to the remote computer.
 		ui.message(_("Connected!"))
 		cues.connected()
@@ -473,23 +451,52 @@ class GlobalPlugin(_GlobalPlugin):
 		#Prevent disabling sending keys if another key is held down
 		if not self.sending_keys:
 			return False
-		if kwargs['vk_code'] != VK_F11:
-			self.key_modified = kwargs['pressed']
-		if kwargs['vk_code'] == VK_F11 and kwargs['pressed'] and not self.key_modified:
-			self.sending_keys = False
-			self.set_receiving_braille(False)
-			# This is called from the hook thread and should be executed on the main thread.
-			# Translators: Presented when keyboard control is back to the controlling computer.
-			wx.CallAfter(ui.message, _("Controlling local machine."))
-			return True #Don't pass it on
+		keyCode = (kwargs['vk_code'], kwargs['extended'])
+		gesture = KeyboardInputGesture(self.key_modifiers, keyCode[0], kwargs['scan_code'], keyCode[1])
+		if gesture.isModifier:
+			if kwargs['pressed']:
+				self.key_modifiers.add(keyCode)
+			else:
+				self.key_modifiers.discard(keyCode)
+		elif kwargs['pressed']:
+			script = gesture.script
+			if self.ignoreGesture:
+				self.ignoreGesture = False
+			elif script in self.guestScripts:
+				wx.CallAfter(script, gesture)
+				return True
 		self.master_transport.send(type="key", **kwargs)
 		return True #Don't pass it on
 
+
+	@script(
+		# Translators: gesture description for the ignoreNextGesture script
+		_("""Set the host to ignore the next gesture completely, sending next gesture to the guest as is. Useful when you need to use the gesture asigned to toggle between guest and host, in the guest machine."""),
+		gesture = "kb:control+f11")
+	def script_ignoreNextGesture(self, gesture):
+		if not self.master_transport or not self.sending_keys:
+			return gesture.send()
+		self.ignoreGesture = True
+		# Translators: Report when the next gesture will be send to the guest ignoring everything else.
+		ui.message(_("Send next gesture to the guest"))
+
+	@script(
+		# Translators: Documentation string for the script that toggles the control between guest and host machine.
+		_("Toggles the control between guest and host machine"),
+		gesture="kb:f11"
+	)
 	def script_sendKeys(self, gesture):
-		# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
-		ui.message(_("Controlling remote machine."))
-		self.sending_keys = True
-		self.set_receiving_braille(True)
+		if not self.master_transport:
+			gesture.send()
+			return
+		self.sending_keys = not self.sending_keys
+		self.set_receiving_braille(self.sending_keys)
+		if self.sending_keys:
+			# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
+			ui.message(_("Controlling remote machine."))
+		else:
+			# Translators: Presented when keyboard control is back to the controlling computer.
+			ui.message(_("Controlling local machine."))
 
 	def set_receiving_braille(self, state):
 		if state and self.master_session.patch_callbacks_added and braille.handler.enabled:
