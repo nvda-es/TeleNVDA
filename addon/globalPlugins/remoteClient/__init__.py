@@ -73,6 +73,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.hook_thread = None
 		self.sending_keys = False
 		self.key_modifiers = set()
+		self.hostPendingModifiers = set()
 		self.ignoreGesture = False
 		self.guestScripts = (self.script_sendKeys, self.script_ignoreNextGesture)
 		self.sd_server = None
@@ -419,6 +420,9 @@ class GlobalPlugin(_GlobalPlugin):
 		if not self.sending_keys:
 			return False
 		keyCode = (kwargs['vk_code'], kwargs['extended'])
+		if not kwargs['pressed'] and keyCode in self.hostPendingModifiers:
+			self.hostPendingModifiers.discard(keyCode)
+			return False
 		gesture = KeyboardInputGesture(self.key_modifiers, keyCode[0], kwargs['scan_code'], keyCode[1])
 		if gesture.isModifier:
 			if kwargs['pressed']:
@@ -613,9 +617,14 @@ class GlobalPlugin(_GlobalPlugin):
 		self.sending_keys = not self.sending_keys
 		self.set_receiving_braille(self.sending_keys)
 		if self.sending_keys:
+			self.hostPendingModifiers = gesture.modifiers
 			# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
 			ui.message(_("Controlling remote machine."))
 		else:
+			# release all pressed keys in the guest.
+			for k in self.key_modifiers:
+				self.master_transport.send(type="key", vk_code=k[0], extended=k[1], pressed=False)
+			self.key_modifiers = set()
 			# Translators: Presented when keyboard control is back to the controlling computer.
 			ui.message(_("Controlling local machine."))
 
