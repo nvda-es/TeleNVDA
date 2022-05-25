@@ -1,52 +1,55 @@
-from keyboardHandler import KeyboardInputGesture
-import os
-import sys
+import addonHandler
+import api
+import configobj
+import core
+import braille
+import ctypes
+import ctypes.wintypes
+import globalVars
+import gui
+import IAccessibleHandler
 import json
-import threading
-import socket
-from globalPluginHandler import GlobalPlugin as _GlobalPlugin
 import logging
-logger = logging.getLogger(__name__)
+import os
+import queueHandler
+import shlobj
+import speech
+import socket
+import ssl
+import sys
+import threading
+import ui
+import uuid
 import wx
 from config import isInstalledCopy
+from globalPluginHandler import GlobalPlugin as _GlobalPlugin
+from keyboardHandler import KeyboardInputGesture
+from logHandler import log
+from scriptHandler import script
+from winUser import WM_QUIT
+
+logger = logging.getLogger(__name__)
+
+from . import bridge
 from . import configuration
 from . import cues
-import gui
-import speech
-from .transport import RelayTransport, TransportEvents
-import braille
+from . import dialogs
+from . import keyboard_hook
 from . import local_machine
 from . import serializer
-from .session import MasterSession, SlaveSession
+from . import server
 from . import url_handler
-import ui
-import addonHandler
-from scriptHandler import script
-from logHandler import log
+from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
+from .transport import RelayTransport, TransportEvents
+
+from .session import MasterSession, SlaveSession
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
 	log.warning(
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
 	)
-from . import keyboard_hook
-import ctypes
-import ctypes.wintypes
-from winUser import WM_QUIT # provided by NVDA
 logging.getLogger("keyboard_hook").addHandler(logging.StreamHandler(sys.stdout))
-from . import dialogs
-import IAccessibleHandler
-import globalVars
-import shlobj
-import uuid
-from . import server
-from . import bridge
-from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
-import api
-import ssl
-import configobj
-import queueHandler
-import core
 
 class GlobalPlugin(_GlobalPlugin):
 	# Translators: script category for add-on gestures
@@ -196,17 +199,6 @@ class GlobalPlugin(_GlobalPlugin):
 		evt.Skip()
 		self.local_machine.is_muted = self.mute_item.IsChecked()
 
-	@script(
-		# Translators: gesture description for the toggle remote mute script
-		_("""Mute or unmute the speech coming from the remote computer"""))
-	def script_toggle_remote_mute(self, gesture):
-		if not self.is_connected() or self.connecting: return
-		self.local_machine.is_muted = not self.local_machine.is_muted
-		self.mute_item.Check(self.local_machine.is_muted)
-		# Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
-		status = _("Mute speech and sounds from the remote computer") if self.local_machine.is_muted else _("Unmute speech and sounds from the remote computer")
-		ui.message(status)
-
 	def on_push_clipboard_item(self, evt):
 		connector = self.slave_transport or self.master_transport
 		try:
@@ -214,32 +206,10 @@ class GlobalPlugin(_GlobalPlugin):
 		except TypeError:
 			log.exception("Unable to push clipboard")
 
-	@script(
-		# Translators: push clipboard gesture description
-		_("Sends the contents of the clipboard to the remote machine"),
-		gesture="kb:control+shift+NVDA+c")
-	def script_push_clipboard(self, gesture):
-		connector = self.slave_transport or self.master_transport
-		if not getattr(connector,'connected',False):
-			ui.message(_("Not connected."))
-			return
-		try:
-			connector.send(type='set_clipboard_text', text=api.getClipData())
-			ui.message(_("Clipboard pushed"))
-		except TypeError:
-			ui.message(_("Unable to push clipboard"))
-
 	def on_copy_link_item(self, evt):
 		session = self.master_session or self.slave_session
 		url = session.get_connection_info().get_url_to_connect()
 		api.copyToClip(str(url))
-
-	@script(
-		# Translators: Copy link gesture description
-		_("Copies a link to the remote session to the clipboard"))
-	def script_copy_link(self, gesture):
-		self.on_copy_link_item(None)
-		ui.message(_("Copied link"))
 
 	def on_options_item(self, evt):
 		evt.Skip()
@@ -307,26 +277,6 @@ class GlobalPlugin(_GlobalPlugin):
 			gui.messageBox(parent=gui.mainFrame, caption=_("Error Connecting"),
 			# Translators: Message shown when cannot connect to the remote computer.
 			message=_("Unable to connect to the remote computer"), style=wx.OK | wx.ICON_WARNING)
-
-	@script(
-		# Translators: description for the Disconnect gesture
-		_("""Disconnect a remote session"""),
-		gesture="kb:alt+NVDA+pageDown")
-	def script_disconnect(self, gesture):
-		if self.master_transport is None and self.slave_transport is None:
-			ui.message(_("Not connected."))
-			return
-		self.disconnect()
-
-	@script(
-		# Translators: description for the Connect gesture
-		_("""Opens a dialog to start a remote session"""),
-		gesture="kb:alt+NVDA+pageUp")
-	def script_connect(self, gesture):
-		if self.master_transport or self.slave_transport:
-			ui.message(_("TeleNVDA Already Connected"))
-			return
-		self.do_connect(None)
 
 	def do_connect(self, evt):
 		if evt:
@@ -468,36 +418,6 @@ class GlobalPlugin(_GlobalPlugin):
 		self.master_transport.send(type="key", **kwargs)
 		return True #Don't pass it on
 
-
-	@script(
-		# Translators: gesture description for the ignoreNextGesture script
-		_("""Set the host to ignore the next gesture completely, sending next gesture to the guest as is. Useful when you need to use the gesture asigned to toggle between guest and host, in the guest machine."""),
-		gesture = "kb:control+f11")
-	def script_ignoreNextGesture(self, gesture):
-		if not self.master_transport or not self.sending_keys:
-			return gesture.send()
-		self.ignoreGesture = True
-		# Translators: Report when the next gesture will be send to the guest ignoring everything else.
-		ui.message(_("Send next gesture to the guest"))
-
-	@script(
-		# Translators: Documentation string for the script that toggles the control between guest and host machine.
-		_("Toggles the control between guest and host machine"),
-		gesture="kb:f11"
-	)
-	def script_sendKeys(self, gesture):
-		if not self.master_transport:
-			gesture.send()
-			return
-		self.sending_keys = not self.sending_keys
-		self.set_receiving_braille(self.sending_keys)
-		if self.sending_keys:
-			# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
-			ui.message(_("Controlling remote machine."))
-		else:
-			# Translators: Presented when keyboard control is back to the controlling computer.
-			ui.message(_("Controlling local machine."))
-
 	def set_receiving_braille(self, state):
 		if state and self.master_session.patch_callbacks_added and braille.handler.enabled:
 			self.master_session.patcher.patch_braille_input()
@@ -610,3 +530,85 @@ class GlobalPlugin(_GlobalPlugin):
 		if connector is not None:
 			return connector.connected
 		return False
+
+	@script(
+		# Translators: Copy link gesture description
+		_("Copies a link to the remote session to the clipboard"))
+	def script_copy_link(self, gesture):
+		self.on_copy_link_item(None)
+		ui.message(_("Copied link"))
+
+	@script(
+		# Translators: description for the Connect gesture
+		_("""Opens a dialog to start a remote session"""),
+		gesture="kb:alt+NVDA+pageUp")
+	def script_connect(self, gesture):
+		if self.master_transport or self.slave_transport:
+			ui.message(_("TeleNVDA Already Connected"))
+			return
+		self.do_connect(None)
+
+	@script(
+		# Translators: description for the Disconnect gesture
+		_("""Disconnect a remote session"""),
+		gesture="kb:alt+NVDA+pageDown")
+	def script_disconnect(self, gesture):
+		if self.master_transport is None and self.slave_transport is None:
+			ui.message(_("Not connected."))
+			return
+		self.disconnect()
+
+	@script(
+		# Translators: gesture description for the ignoreNextGesture script
+		_("""Set the host to ignore the next gesture completely, sending next gesture to the guest as is. Useful when you need to use the gesture asigned to toggle between guest and host, in the guest machine."""),
+		gesture = "kb:control+f11")
+	def script_ignoreNextGesture(self, gesture):
+		if not self.master_transport or not self.sending_keys:
+			return gesture.send()
+		self.ignoreGesture = True
+		# Translators: Report when the next gesture will be send to the guest ignoring everything else.
+		ui.message(_("Send next gesture to the guest"))
+
+	@script(
+		# Translators: push clipboard gesture description
+		_("Sends the contents of the clipboard to the remote machine"),
+		gesture="kb:control+shift+NVDA+c")
+	def script_push_clipboard(self, gesture):
+		connector = self.slave_transport or self.master_transport
+		if not getattr(connector,'connected',False):
+			ui.message(_("Not connected."))
+			return
+		try:
+			connector.send(type='set_clipboard_text', text=api.getClipData())
+			ui.message(_("Clipboard pushed"))
+		except TypeError:
+			ui.message(_("Unable to push clipboard"))
+
+	@script(
+		# Translators: Documentation string for the script that toggles the control between guest and host machine.
+		_("Toggles the control between guest and host machine"),
+		gesture="kb:f11"
+	)
+	def script_sendKeys(self, gesture):
+		if not self.master_transport:
+			gesture.send()
+			return
+		self.sending_keys = not self.sending_keys
+		self.set_receiving_braille(self.sending_keys)
+		if self.sending_keys:
+			# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
+			ui.message(_("Controlling remote machine."))
+		else:
+			# Translators: Presented when keyboard control is back to the controlling computer.
+			ui.message(_("Controlling local machine."))
+
+	@script(
+		# Translators: gesture description for the toggle remote mute script
+		_("""Mute or unmute the speech coming from the remote computer"""))
+	def script_toggle_remote_mute(self, gesture):
+		if not self.is_connected() or self.connecting: return
+		self.local_machine.is_muted = not self.local_machine.is_muted
+		self.mute_item.Check(self.local_machine.is_muted)
+		# Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
+		status = _("Mute speech and sounds from the remote computer") if self.local_machine.is_muted else _("Unmute speech and sounds from the remote computer")
+		ui.message(status)
