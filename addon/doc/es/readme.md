@@ -4,10 +4,11 @@ Bienvenido al complemento TeleNVDA, que te permitirá conectarte a otro equipo q
 
 * Una opción permite bloquear los comandos remotos de voz que no sean texto.
 * Soporte mejorado para servidores proxy y servicios ocultos TOR (es necesario el [complemento Soporte Proxy](https://addons.nvda-project.org/addons/proxy.es.html)).
-* Posibilidad de enviar la tecla f11 al equipo remoto mediante una opción en el menú Herramientas o un gesto.
+* Posibilidad de cambiar la tecla f11 por otro gesto. Ahora funciona como un script común, por lo que puedes asignar otros gestos en el diálogo "Gestos de entrada".
+* Capacidad de ignorar completamente el siguiente gesto inmediato, es útil si necesitas enviar a la máquina remota el gesto utilizado para alternar entre el equipo local y la máquina remota.
 * Varias correcciones de fallos.
 
-##Antes de empezar
+## Antes de empezar
 
 Es necesario tener instalado NVDA en ambos equipos, y obtener el complemento TeleNVDA.
 La instalación de NVDA y del complemento no varía con respecto a otras. Si necesitas más información, puedes encontrarla en la guía de usuario de NVDA.
@@ -17,8 +18,8 @@ La instalación de NVDA y del complemento no varía con respecto a otras. Si nec
 Cuando actualices el complemento, si has instalado TeleNVDA en el escritorio seguro, es recomendable que lo actualices también allí.
 Para hacerlo, primero actualiza el complemento normalmente. Después, abre el menú de NVDA, preferencias, Opciones Generales, y pulsa el botón etiquetado como "Utilizar opciones actualmente guardadas en la autentificación (logon) y otras pantallas seguras (requiere privilegios de administrador)".
 
-##Iniciar una sesión remota a través de un servidor externo
-###En el equipo controlado
+## Iniciar una sesión remota a través de un servidor externo
+### En el equipo controlado
 1. Abre el menú de NVDA, herramientas, remoto, conectar.
 2. Elige cliente en el primer grupo de botones de opción.
 3. Elige permitir que controlen este equipo en el segundo grupo de botones de opción.
@@ -28,7 +29,7 @@ La clave es lo que otros usarán para controlar tu equipo.
 El equipo controlado y todos sus clientes deben usar la misma clave.
 6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el servidor incluye un mensaje de bienvenida, este se mostrará en un cuadro de diálogo. Verás este diálogo cada vez que te conectes o sólo la primera vez, dependiendo de la configuración del servidor.
 
-###En el equipo desde el que se controla
+### En el equipo desde el que se controla
 1. Abre el menú de NVDA, herramientas, remoto, conectar.
 2. Elige cliente en el primer grupo de botones de opción.
 3. Selecciona controlar otro equipo en el segundo grupo de botones de opción.
@@ -37,7 +38,7 @@ El equipo controlado y todos sus clientes deben usar la misma clave.
 El equipo controlado y todos sus clientes deben usar la misma clave.
 6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el servidor incluye un mensaje de bienvenida, este se mostrará en un cuadro de diálogo. Verás este diálogo cada vez que te conectes o sólo la primera vez, dependiendo de la configuración del servidor.
 
-##Conexiones directas
+## Conexiones directas
 La opción servidor en el diálogo conectar permite establecer una conexión directa.
 Una vez seleccionada, elige el modo en el que se comportará tu equipo durante la conexión.
 La otra persona se conectará usando el contrario.
@@ -52,9 +53,9 @@ Introduce una clave en el campo clave, o pulsa generar. La otra persona necesita
 Una vez pulses aceptar, estarás conectado.
 Cuando la otra persona se conecte, podrás usar NVDA Remote con normalidad.
 
-##Control sobre el equipo remoto
+## Control sobre el equipo remoto
 
-Una vez la sesión está conectada, el usuario del equipo controlador puede pulsar f11 para empezar a controlar el equipo remoto (por ejemplo, enviando pulsaciones de teclado o entrada Braille).
+Una vez la sesión está conectada, el usuario del equipo controlador puede pulsar f11 para empezar a controlar el equipo remoto (por ejemplo, enviando pulsaciones de teclado o entrada Braille). Este gesto se puede cambiar desde el diálogo Gestos de entrada de NVDA.
 Cuando NVDA diga controlando equipo remoto, las teclas que pulses en tu teclado o pantalla braille irán al equipo remoto. Más aún, si el equipo controlador dispone de una pantalla braille, la información remota se mostrará en ella. Pulsa f11 de nuevo para detener el envío de pulsaciones y volver al equipo controlador.
 Para mayor compatibilidad, asegúrate de que las distribuciones de teclado de ambos equipos coinciden.
 
@@ -66,11 +67,20 @@ Si por el contrario has configurado tu equipo para ser controlado, el enlace per
 Muchas aplicaciones permiten a los usuarios activar este enlace automáticamente, pero si no se abre desde una aplicación específica, puedes copiarlo y abrirlo desde el diálogo ejecutar.
 
 
-##Enviar ctrl+alt+supr
+## Enviar ctrl+alt+supr
 Aunque el envío de teclas esté activado, la combinación ctrl+alt+supr no se puede enviar como el resto.
 Si necesitas enviar ctrl+alt+supr, y el sistema remoto se encuentra en el escritorio seguro, elige esta opción.
 
-##Control remoto de un equipo desatendido
+## Enviar tecla de alternar entre equipo local y equipo remoto
+Usualmente cuando pulsas el gesto asignado para cambiar entre el equipo local y el remoto, este no se enviará al equipo controlado si no que alternará entre la máquina local y el equipo remoto.
+
+Si necesitas enviar este o cualquier gesto a la máquina remota, puedes omitir este comportamiento para el siguiente gesto inmediato activando el escript ignorar el siguiente gesto.
+
+Por defecto, este script está asignado a la tecla control + f11. Este gesto se puede cambiar desde el diálogo Gestos de entrada de NVDA.
+
+Al llamar este script, se ignorará el siguiente gesto y se enviará a la máquina remota, incluido el gesto para activar el script ignorar el siguiente gesto. Una vez enviado el siguiente gesto, regresará al comportamiento habitual.
+
+## Control remoto de un equipo desatendido
 
 A veces puedes querer controlar uno de tus propios equipos remotamente. Esto es especialmente útil si te encuentras viajando, y quieres controlar el pc de casa desde el portátil, o controlar un equipo en una habitación de tu casa mientras estás fuera con otro pc. Con una preparación un poco avanzada esto se hace posible.
 
@@ -86,11 +96,11 @@ Para un uso avanzado, puedes también configurar TeleNVDA para que se conecte a 
 Nota: las opciones relacionadas con conectar automáticamente al arrancar en el diálogo de opciones no tienen efecto hasta que se reinicia NVDA.
 
 
-##Silenciar la voz del equipo remoto
+## Silenciar la voz del equipo remoto
 Si no quieres oír la voz del ordenador remoto o sonidos específicos de NVDA, es tan simple como ir al menú de NVDA, herramientas, remoto. Baja con flecha abajo hasta oír silenciar equipo remoto, y pulsa intro. Ten en cuenta que esta opción no desactivará la salida braille remota a la pantalla controladora cuando el equipo controlador esté enviando pulsaciones.
 
 
-##Finalizar una sesión remota
+## Finalizar una sesión remota
 
 Para finalizar una sesión remota, haz lo siguiente:
 
@@ -99,14 +109,11 @@ Para finalizar una sesión remota, haz lo siguiente:
 
 Alternativamente, puedes pulsar NVDA+alt+avance página para desconectar la sesión directamente. Este gesto se puede cambiar desde el diálogo Gestos de entrada de NVDA. Para mantener a salvo a la otra persona, puedes pulsar este gesto mientras envías teclas para desconectar el equipo remoto.
 
-##Enviar portapapeles
+## Enviar portapapeles
 La opción enviar portapapeles en el menú remoto te permite enviar texto desde tu portapapeles.
 Cuando esté activada, cualquier texto en el portapapeles se enviará a los otros equipos.
 
-## Enviar f11
-La opción Enviar f11 del menú Remoto permite pulsar la tecla f11 en el equipo remoto. Es útil para conmutar el modo de pantalla completa en algunos programas, por ejemplo.
-
-##Configurar TeleNVDA para que funcione en el escritorio seguro
+## Configurar TeleNVDA para que funcione en el escritorio seguro
 
 Para que TeleNVDA funcione en el escritorio seguro, el complemento debe estar instalado en el NVDA que se ejecuta en el escritorio seguro.
 
@@ -134,4 +141,3 @@ Para compilar el ejecutable manejador de URLs, es necesario disponer de Visual S
 
 1. Abre una línea de órdenes y cambia a la raíz de este repositorio
 2. Ejecuta la orden **scons**. El complemento creado, si no hubo errores, se encuentra en la carpeta actual.
-

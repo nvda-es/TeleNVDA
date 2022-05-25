@@ -4,7 +4,8 @@ Welcome to the TeleNVDA addon, which will allow you to connect to another comput
 
 * An option allows blocking remote speech commands different from text.
 * Improved support for proxy servers and TOR hidden services ([Proxy support add-on](https://addons.nvda-project.org/addons/proxy.en.html) is required).
-* Ability to send f11 key to the remote machine via an option in the tools menu and a gesture.
+* Ability to change the f11 key to another gesture. Now this works as a common script so, you can assign gestures in the "Input Gestures" dialog.
+* Ability to ignore the next immediate gesture completelly, it is useful if you need to send to the remote machine the gesture used to toggle between host and remote machine.
 * Several bug fixes.
 
 ## Before You Begin
@@ -59,7 +60,7 @@ When the other person connects, you can use NVDA Remote normally.
 
 ## Controlling the remote machine
 
-Once the session is connected, the user of the controlling machine can press f11 to start controlling the remote machine (e.g. by sending keyboard keys or braille input).
+Once the session is connected, the user of the controlling machine can press f11 to start controlling the remote machine (e.g. by sending keyboard keys or braille input). This gesture can be changed from NVDA Input Gestures Dialog.
 When NVDA says controlling remote machine, the keyboard and braille display keys you press will go to the remote machine. Furthermore, when the controlling machine is using a braille display, information from the remote machine will be displayed on it. Press f11 again to stop sending keys and switch back to the controlling machine.
 For best compatibility, please ensure that the keyboard layouts on both machines match.
 
@@ -74,6 +75,15 @@ Many applications will allow users to activate this link automatically, but if i
 ## Send Ctrl+Alt+Del
 While sending keys, it is not possible to send the CTRL+Alt+del combination normally.
 If you need to send CTRL+Alt+del, and the remote system is on the secure desktop, use this command.
+
+## Send toggle key between local and remote computer
+Usually when you press the assigned gesture to switch between the local and the remote machine, it won't be sent to the remote machine; it will switch between the local machine and the remote machine instead.
+
+If you need to send this or any gesture to the remote machine, you can override this behavior for the next immediate gesture by activating the ignore next gesture script.
+
+By default, this script is assigned to the control + f11 key. This gesture can be changed from NVDA Input Gestures Dialog.
+
+When this script is called, the next gesture will be ignored and will be sent to the remote machine, including the gesture to activate the ignore next gesture script. Once the next gesture has been sent, it will return to the usual behavior.
 
 ## Remotely Controlling an Unattended Computer
 
@@ -108,9 +118,6 @@ Alternatively, you can press NVDA+alt+page down to directly disconnect the sessi
 The Push clipboard option in the remote menu allows you to push text from your clipboard.
 when activated, any text on the clipboard will be pushed to the other machines.
 
-## Send f11
-The Send f11 option in the remote menu allows pressing the f11 key on the remote machine. This is useful to toggle full screen mode on some programs, for example.
-
 ## Configuring TeleNVDA to Work on a Secure Desktop
 
 In order for TeleNVDA to work on the secure desktop, the addon must be installed in the NVDA running on the secure desktop.
@@ -142,4 +149,3 @@ In order to build the URL handler executable, you need Visual Studio 2019 or lat
 
 1. Open a command line, change to the root of this repo
 2. Run the **scons** command. The created add-on, if there were no errors, is placed in the current directory.
-
