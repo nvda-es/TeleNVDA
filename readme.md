@@ -5,7 +5,7 @@ Welcome to the TeleNVDA addon, which will allow you to connect to another comput
 * An option allows blocking remote speech commands different from text.
 * Improved support for proxy servers and TOR hidden services ([Proxy support add-on](https://addons.nvda-project.org/addons/proxy.en.html) is required).
 * Ability to change the f11 key to another gesture. Now this works as a common script so, you can assign gestures in the "Input Gestures" dialog.
-* Ability to ignore the next immediate gesture completelly, it is useful if you need to send to the remote machine the gesture used to toggle between host and remote machine.
+* Ability to ignore the next immediate gesture completely, it is useful if you need to send to the remote machine the gesture used to toggle between host and remote machine.
 * Several bug fixes.
 
 ## Before You Begin

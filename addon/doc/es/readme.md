@@ -38,6 +38,10 @@ El equipo controlado y todos sus clientes deben usar la misma clave.
 El equipo controlado y todos sus clientes deben usar la misma clave.
 6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el servidor incluye un mensaje de bienvenida, este se mostrará en un cuadro de diálogo. Verás este diálogo cada vez que te conectes o sólo la primera vez, dependiendo de la configuración del servidor.
 
+### Avisos de seguridad de la conexión
+Si te conectas a un servidor con un certificado SSL no válido, recibirás un aviso sobre la seguridad de la conexión.
+Esto puede significar que tu conexión es insegura. Si confías en la huella del servidor, puedes pulsar "Conectar" para conectarte una vez, o "Conectar y no volver a preguntar para este servidor" para conectarte y guardar la huella.
+
 ## Conexiones directas
 La opción servidor en el diálogo conectar permite establecer una conexión directa.
 Una vez seleccionada, elige el modo en el que se comportará tu equipo durante la conexión.
@@ -123,6 +127,9 @@ Para que TeleNVDA funcione en el escritorio seguro, el complemento debe estar in
 4. Cuando la configuración se haya copiado, pulsa intro para aceptar la confirmación. Pulsa tabulador hasta aceptar y pulsa intro de nuevo para salir del diálogo.
 
 En cuanto TeleNVDA esté instalado en el escritorio seguro, si te controlan en una sesión remota, el escritorio seguro tendrá soporte de voz y braille cuando se entre en él.
+
+## Eliminación de las huellas de los certificados SSL
+Si ya no quieres confiar en huellas de servidores en las que has confiado, puedes eliminar todas las huellas de confianza pulsando el botón "Eliminar todas las huellas de confianza" desde el diálogo de opciones.
 
 ## Alteración de TeleNVDA
 
