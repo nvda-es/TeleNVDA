@@ -591,21 +591,6 @@ class GlobalPlugin(_GlobalPlugin):
 		ui.message(_("Send next gesture to the guest"))
 
 	@script(
-		# Translators: push clipboard gesture description
-		_("Sends the contents of the clipboard to the remote machine"),
-		gesture="kb:control+shift+NVDA+c")
-	def script_push_clipboard(self, gesture):
-		connector = self.slave_transport or self.master_transport
-		if not getattr(connector,'connected',False):
-			ui.message(_("Not connected."))
-			return
-		try:
-			connector.send(type='set_clipboard_text', text=api.getClipData())
-			ui.message(_("Clipboard pushed"))
-		except TypeError:
-			ui.message(_("Unable to push clipboard"))
-
-	@script(
 		# Translators: Documentation string for the script that toggles the control between guest and host machine.
 		_("Toggles the control between guest and host machine"),
 		gesture="kb:f11"
