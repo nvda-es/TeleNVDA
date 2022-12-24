@@ -87,6 +87,7 @@ class SlaveSession(RemoteSession):
 		self.patch_callbacks_added = False
 		self.transport.callback_manager.register_callback('msg_channel_joined', self.handle_channel_joined)
 		self.transport.callback_manager.register_callback('msg_set_clipboard_text', self.local_machine.set_clipboard_text)
+		self.transport.callback_manager.register_callback('msg_file_transfer', self.local_machine.file_transfer)
 		self.transport.callback_manager.register_callback('msg_set_braille_info', self.handle_braille_info)
 		self.transport.callback_manager.register_callback('msg_set_display_size', self.set_display_size)
 		self.transport.callback_manager.register_callback('msg_braille_input', self.local_machine.braille_input)
@@ -225,6 +226,7 @@ class MasterSession(RemoteSession):
 		self.transport.callback_manager.register_callback('msg_client_left', self.handle_client_disconnected)
 		self.transport.callback_manager.register_callback('msg_channel_joined', self.handle_channel_joined)
 		self.transport.callback_manager.register_callback('msg_set_clipboard_text', self.local_machine.set_clipboard_text)
+		self.transport.callback_manager.register_callback('msg_file_transfer', self.local_machine.file_transfer)
 		self.transport.callback_manager.register_callback('msg_send_braille_info', self.send_braille_info)
 		self.transport.callback_manager.register_callback(TransportEvents.CONNECTED, self.handle_connected)
 		self.transport.callback_manager.register_callback(TransportEvents.DISCONNECTED, self.handle_disconnected)

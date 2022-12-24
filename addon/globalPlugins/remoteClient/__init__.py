@@ -21,6 +21,7 @@ import threading
 import ui
 import uuid
 import wx
+import base64
 from config import isInstalledCopy
 from globalPluginHandler import GlobalPlugin as _GlobalPlugin
 from keyboardHandler import KeyboardInputGesture
@@ -134,6 +135,10 @@ class GlobalPlugin(_GlobalPlugin):
 		self.push_clipboard_item = self.menu.Append(wx.ID_ANY, _("&Push clipboard"), _("Push the clipboard to the other machine"))
 		self.push_clipboard_item.Enable(False)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_push_clipboard_item, self.push_clipboard_item)
+		# Translators: Menu item in TeleNVDA submenu to send a file to the remote computer.
+		self.send_file_item = self.menu.Append(wx.ID_ANY, _("Send &file..."), _("Send a file to the other machine"))
+		self.send_file_item.Enable(False)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_file_item, self.send_file_item)
 		# Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 		self.copy_link_item = self.menu.Append(wx.ID_ANY, _("Copy &link"), _("Copy a link to the remote session"))
 		self.copy_link_item.Enable(False)
@@ -164,6 +169,9 @@ class GlobalPlugin(_GlobalPlugin):
 		self.menu.Remove(self.push_clipboard_item.Id)
 		self.push_clipboard_item.Destroy()
 		self.push_clipboard_item=None
+		self.menu.Remove(self.send_file_item.Id)
+		self.send_file_item.Destroy()
+		self.send_file_item=None
 		self.menu.Remove(self.copy_link_item.Id)
 		self.copy_link_item.Destroy()
 		self.copy_link_item = None
@@ -207,6 +215,56 @@ class GlobalPlugin(_GlobalPlugin):
 			cues.clipboard_pushed()
 		except TypeError:
 			log.exception("Unable to push clipboard")
+
+	def on_send_file_item(self, evt):
+		connector = self.slave_transport or self.master_transport
+		if not getattr(connector,'connected',False):
+			ui.message(_("Not connected."))
+			return
+		if globalVars.appArgs.secure:
+			return
+		fd = wx.FileDialog(gui.mainFrame,
+		# Translators: message displayed in transfer file dialog when sending a file
+		message=_("Choose the file you want to send to the remote computer"),
+		# Translators: supported file types when sending or receiving files
+		wildcard=_("All files (*.*)")+"|*.*",
+		defaultDir=os.environ['userprofile'], style=wx.FD_OPEN|wx.FD_FILE_MUST_EXIST | wx.FD_PREVIEW)
+		if fd.ShowModal() != wx.ID_OK:
+			return
+		filename = os.path.basename(fd.GetPath())
+		try:
+			f = open(fd.GetPath(), "rb")
+			file_content = f.read()
+			f.close()
+		except:
+			logger.exception("Unable to read the specified file")
+		if len(file_content) > 10485760:
+			gui.messageBox(
+			# Translators: error message when a file is too big
+			message=_("This file is too large. Only files smaller than 10 MB are supported."),
+			# Translators: error message caption
+			caption=_("Error"),
+			style=wx.ICON_ERROR)
+			return
+		result = gui.messageBox(
+		# Translators: question before sending a file
+		message=_("The session will be blocked until the transfer is complete. Are you sure you want to continue?"),
+		# Translators: question title
+		caption=_("Warning!"),
+		style=wx.YES | wx.NO | wx.ICON_WARNING)
+		if result == wx.YES:
+			file_content = base64.b64encode(file_content)
+			connector.send(type='file_transfer', name=filename, content=file_content.decode("utf-8"))
+			cues.clipboard_pushed()
+			# Translators: message spoken when the file has been sent successfully
+			ui.message(_("File sent"))
+
+	@script(
+		# Translators: send file gesture description
+		_("Sends the specified file to the remote machine"),
+		gesture="kb:control+shift+NVDA+f")
+	def script_send_file(self, gesture):
+		self.on_send_file_item(None)
 
 	@script(
 		# Translators: push clipboard gesture description
@@ -258,6 +316,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.disconnect_item.Enable(False)
 		self.connect_item.Enable(True)
 		self.push_clipboard_item.Enable(False)
+		self.send_file_item.Enable(False)
 		self.copy_link_item.Enable(False)
 
 	def disconnect_as_master(self):
@@ -272,6 +331,7 @@ class GlobalPlugin(_GlobalPlugin):
 			self.mute_item.Check(False)
 			self.mute_item.Enable(False)
 			self.push_clipboard_item.Enable(False)
+			self.send_file_item.Enable(False)
 			self.copy_link_item.Enable(False)
 			self.send_ctrl_alt_del_item.Enable(False)
 		if self.local_machine:
@@ -330,6 +390,8 @@ class GlobalPlugin(_GlobalPlugin):
 		self.connect_item.Enable(False)
 		self.mute_item.Enable(True)
 		self.push_clipboard_item.Enable(True)
+		if not globalVars.appArgs.secure:
+			self.send_file_item.Enable(True)
 		self.copy_link_item.Enable(True)
 		self.send_ctrl_alt_del_item.Enable(True)
 		self.hook_thread = threading.Thread(target=self.hook)
@@ -396,6 +458,8 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: Presented in direct (client to server) remote connection when the controlled computer is ready.
 		speech.speakMessage(_("Connected to control server"))
 		self.push_clipboard_item.Enable(True)
+		if not globalVars.appArgs.secure:
+			self.send_file_item.Enable(True)
 		self.copy_link_item.Enable(True)
 		configuration.write_connection_to_config(self.slave_transport.address)
 

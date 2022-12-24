@@ -19,6 +19,9 @@ import ui
 import versionInfo
 import logging
 import addonHandler
+import globalVars
+import base64
+import gui
 logger = logging.getLogger('local_machine')
 addonHandler.initTranslation()
 
@@ -105,6 +108,7 @@ class LocalMachine:
 
 	def set_clipboard_text(self, text, **kwargs):
 		cues.clipboard_received()
+		ui.message(_("Clipboard updated"))
 		api.copyToClip(text=text)
 
 	def send_SAS(self, **kwargs):
@@ -119,3 +123,25 @@ class LocalMachine:
 			# Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
 			ui.message(_("No permission on device to trigger CTRL+ALT+DEL from remote"))
 			logger.warning("UI Access is disabled on this machine so cannot trigger CTRL+ALT+DEL")
+
+	def file_transfer(self, name, content, **kwargs):
+		if globalVars.appArgs.secure:
+			return
+		fd = wx.FileDialog(gui.mainFrame,
+		# Translators: message displayed in transfer file dialog when receiving a file
+		message=_("Choose where to save the received file"),
+		defaultDir=os.environ['userprofile'], defaultFile=name,
+		# Translators: supported file types when sending or receiving files
+		wildcard=_("All files (*.*)")+"|*.*",
+		style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+		if fd.ShowModal() == wx.ID_OK:
+			try:
+				f = open(fd.GetPath(), "wb")
+				file_content = base64.b64decode(content.encode("utf-8"))
+				f.write(file_content)
+				f.close()
+				cues.clipboard_received()
+				# Translators: message spoken when the file has been received successfully
+				ui.message(_("File received"))
+			except:
+				logger.exception("Unable to save received file to disk")
