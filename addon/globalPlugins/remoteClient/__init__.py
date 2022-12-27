@@ -264,7 +264,7 @@ class GlobalPlugin(_GlobalPlugin):
 		_("Sends the specified file to the remote machine"),
 		gesture="kb:control+shift+NVDA+f")
 	def script_send_file(self, gesture):
-		self.on_send_file_item(None)
+		wx.CallAfter(self.on_send_file_item, None)
 
 	@script(
 		# Translators: push clipboard gesture description
