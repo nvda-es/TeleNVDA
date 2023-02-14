@@ -117,6 +117,10 @@ Alternativamente, puedes pulsar NVDA+alt+avance página para desconectar la sesi
 La opción enviar portapapeles en el menú remoto te permite enviar texto desde tu portapapeles.
 Cuando esté activada, cualquier texto en el portapapeles se enviará a los otros equipos.
 
+## Enviar archivos
+La opción Enviar archivo en el menú remoto permite enviar pequeños archivos a todos los miembros de la sesión, incluyendo el equipo controlado. Ten en cuenta que sólo puedes enviar archivos menores de 10 MB. No se permite enviar o recibir archivos en pantallas seguras.
+Cuando el archivo se reciba en los equipos remotos, aparecerá un cuadro de diálogo Guardar como, lo que te permitirá elegir dónde guardarlo.
+
 ## Configurar TeleNVDA para que funcione en el escritorio seguro
 
 Para que TeleNVDA funcione en el escritorio seguro, el complemento debe estar instalado en el NVDA que se ejecuta en el escritorio seguro.

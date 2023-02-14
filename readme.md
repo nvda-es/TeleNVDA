@@ -118,6 +118,10 @@ Alternatively, you can press NVDA+alt+page down to directly disconnect the sessi
 The Push clipboard option in the remote menu allows you to push text from your clipboard.
 when activated, any text on the clipboard will be pushed to the other machines.
 
+## Sending files
+The Send file option in the remote menu allows you to send small files to all session members, including the controlled machine. Please note, you can only send files smaller than 10 MB. Sending or receiving files on secure screens is not allowed.
+When the file is received on the remote machines, a Save as dialog will pop up, allowing you to choose where to save the file.
+
 ## Configuring TeleNVDA to Work on a Secure Desktop
 
 In order for TeleNVDA to work on the secure desktop, the addon must be installed in the NVDA running on the secure desktop.

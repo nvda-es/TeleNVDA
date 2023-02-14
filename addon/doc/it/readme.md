@@ -112,6 +112,11 @@ In alternativa è possibile premere NVDA+alt+pagina giù, combinazione che è po
 L'opzione Invia appunti nel menu remote permette di inviare del testo dagli appunti.
 quando attivata, qualsiasi testo negli appunti sarà inviato agli altri Pc.
 
+## Inviare file
+
+L'opzione Invia file nel menu remoto consente di inviare piccoli file a tutti i membri della sessione, incluso il computer controllato. Tieni presente che puoi inviare solo file di dimensioni inferiori a 10 MB. L'invio o la ricezione di file non è consentito su schermi protetti.
+Quando il file viene ricevuto sui computer remoti, viene visualizzata una finestra di dialogo Salva con nome, che consente di scegliere dove salvarlo.
+
 ## Configurazione di NVDA remote per consentirne l'accesso  al desktop sicuro e finestra di logon
 
 Affinché TeleNVDA funzioni sul desktop sicuro e finestra di logon, l'addon deve essere installato in una versione di NVDA che ha l'accesso al desktop sicuro e finestra di logon.
