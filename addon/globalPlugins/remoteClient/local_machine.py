@@ -44,6 +44,13 @@ class LocalMachine:
 	def __init__(self):
 		self.is_muted = False
 		self.receiving_braille=False
+		self._cached_sizes = None
+		if versionInfo.version_year >= 2023:
+			braille.decide_enabled.register(self.handle_decide_enabled)
+
+	def terminate(self):
+		if versionInfo.version_year >= 2023:
+			braille.decide_enabled.unregister(self.handle_decide_enabled)
 
 	def play_wave(self, fileName):
 		"""Instructed by remote machine to play a wave file."""
@@ -95,6 +102,9 @@ class LocalMachine:
 			pass
 
 	def set_braille_display_size(self, sizes, **kwargs):
+		if versionInfo.version_year >= 2023:
+			self._cached_sizes = sizes
+			return
 		sizes.append(braille.handler.display.numCells)
 		try:
 			size=min(i for i in sizes if i>0)
@@ -102,6 +112,18 @@ class LocalMachine:
 			size = braille.handler.display.numCells
 		braille.handler.displaySize = size
 		braille.handler.enabled = bool(size)
+
+	def handle_filter_displaySize(self, value):
+		if not self._cached_sizes:
+			return value
+		sizes = self._cached_sizes + [value]
+		try:
+			return min(i for i in sizes if i>0)
+		except ValueError:
+			return value
+
+	def handle_decide_enabled(self):
+		return not self.receiving_braille
 
 	def send_key(self, vk_code=None, extended=None, pressed=None, **kwargs):
 		wx.CallAfter(input.send_key, vk_code, None, extended, pressed)

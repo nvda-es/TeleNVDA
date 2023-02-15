@@ -12,6 +12,7 @@ import json
 import logging
 import os
 import queueHandler
+import versionInfo
 import shlobj
 import speech
 import socket
@@ -156,6 +157,7 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def terminate(self):
 		self.disconnect()
+		self.local_machine.terminate()
 		self.local_machine = None
 		self.menu.Remove(self.connect_item.Id)
 		self.connect_item.Destroy()
@@ -432,7 +434,6 @@ class GlobalPlugin(_GlobalPlugin):
 		self.disconnect()
 		try:
 			cert_hash = transport.last_fail_fingerprint
-				
 			wnd = dialogs.CertificateUnauthorizedDialog(None, fingerprint=cert_hash)
 			a = wnd.ShowModal()
 			if a == wx.ID_YES:
@@ -506,20 +507,22 @@ class GlobalPlugin(_GlobalPlugin):
 	def set_receiving_braille(self, state):
 		if state and self.master_session.patch_callbacks_added and braille.handler.enabled:
 			self.master_session.patcher.patch_braille_input()
-			braille.handler.enabled = False
-			if braille.handler._cursorBlinkTimer:
-				braille.handler._cursorBlinkTimer.Stop()
-				braille.handler._cursorBlinkTimer=None
-			if braille.handler.buffer is braille.handler.messageBuffer:
-				braille.handler.buffer.clear()
-				braille.handler.buffer = braille.handler.mainBuffer
-				if braille.handler._messageCallLater:
-					braille.handler._messageCallLater.Stop()
-					braille.handler._messageCallLater = None
+			if versionInfo.version_year < 2023:
+				braille.handler.enabled = False
+				if braille.handler._cursorBlinkTimer:
+					braille.handler._cursorBlinkTimer.Stop()
+					braille.handler._cursorBlinkTimer=None
+				if braille.handler.buffer is braille.handler.messageBuffer:
+					braille.handler.buffer.clear()
+					braille.handler.buffer = braille.handler.mainBuffer
+					if braille.handler._messageCallLater:
+						braille.handler._messageCallLater.Stop()
+						braille.handler._messageCallLater = None
 			self.local_machine.receiving_braille=True
 		elif not state:
 			self.master_session.patcher.unpatch_braille_input()
-			braille.handler.enabled = bool(braille.handler.displaySize)
+			if versionInfo.version_year < 2023:
+				braille.handler.enabled = bool(braille.handler.displaySize)
 			self.local_machine.receiving_braille=False
 
 	def event_gainFocus(self, obj, nextHandler):
