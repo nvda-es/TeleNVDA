@@ -23,7 +23,7 @@ import ui
 import uuid
 import wx
 import base64
-from config import isInstalledCopy
+from config import conf as nvda_conf, isInstalledCopy
 from globalPluginHandler import GlobalPlugin as _GlobalPlugin
 from keyboardHandler import KeyboardInputGesture
 from logHandler import log
@@ -102,7 +102,7 @@ class GlobalPlugin(_GlobalPlugin):
 		if globalVars.appArgs.secure:
 			self.handle_secure_desktop()
 		if cs['autoconnect'] and not self.master_session and not self.slave_session:
-			self.perform_autoconnect()
+			wx.CallLater(50,self.perform_autoconnect)
 
 	def perform_autoconnect(self):
 		cs = configuration.get_config()['controlserver']
@@ -419,6 +419,12 @@ class GlobalPlugin(_GlobalPlugin):
 		self.master_transport.reconnector_thread.start()
 
 	def connect_as_slave(self, address, key, insecure=False):
+		if not nvda_conf['keyboard']['handleInjectedKeys'] and gui.messageBox(
+		# Translators: A message to warn the user that handle keys from other applications should be on.
+		message=_("The option to handle keys from other applications is disabled in your NVDA keyboard settings. In order to allow the keyboard of this machine to be controlled, this option should be enabled. Would you like to do this now?"),
+		# Translators: The title of the warning dialog displayed when handle keys from other applications is disabled.
+		caption=_("Warning"),style=wx.YES|wx.NO|wx.ICON_WARNING)==wx.YES:
+			nvda_conf['keyboard']['handleInjectedKeys']=True
 		transport = RelayTransport(serializer=serializer.JSONSerializer(), address=address, channel=key, connection_type='slave', insecure=insecure)
 		self.slave_session = SlaveSession(transport=transport, local_machine=self.local_machine)
 		self.slave_transport = transport
