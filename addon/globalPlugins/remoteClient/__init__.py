@@ -314,6 +314,8 @@ class GlobalPlugin(_GlobalPlugin):
 			self.disconnect_as_master()
 		if self.slave_transport is not None:
 			self.disconnect_as_slave()
+		# Translators: Presented when disconnected from the remote computer.
+		ui.message(_("Disconnected!"))
 		cues.disconnected()
 		self.disconnect_item.Enable(False)
 		self.connect_item.Enable(True)
