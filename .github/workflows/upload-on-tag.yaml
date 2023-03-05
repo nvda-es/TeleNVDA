@@ -20,6 +20,8 @@ jobs:
       run: pip install scons markdown
     - name: Build add-on
       run: scons
+    - name: Calculate sha256
+      run: sha256sum *.nvda-addon >> changelog.md
     - name: Release
       uses: softprops/action-gh-release@v1
       env:
