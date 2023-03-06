@@ -1,5 +1,5 @@
 This release brings the following changes:
 
-* Updated turkish translation.
+* Updated ukrainian translation.
 
 SHA256: 
