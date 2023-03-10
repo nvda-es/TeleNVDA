@@ -1,5 +1,5 @@
 This release brings the following changes:
 
-* Updated traditional chinese translation.
+* Updated finnish translation.
 
 SHA256: 
