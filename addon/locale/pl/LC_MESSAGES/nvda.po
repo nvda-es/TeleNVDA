@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'remote' '1.03'\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2023-03-10 12:08+0100\n"
-"PO-Revision-Date: 2023-03-10 12:16+0100\n"
+"PO-Revision-Date: 2023-03-11 11:08+0100\n"
 "Last-Translator: Piotr Rakowski <piter.9521@wp.pl>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -26,14 +26,15 @@ msgid ""
 "TeleNVDA to work without conflicts, NVDA Remote must be disabled. Otherwise, "
 "TeleNVDA will refuse to work. Would you like to disable NVDA Remote now?"
 msgstr ""
-"NVDA Remote został wykryty podczas instalacji NVDA. Aby TeleNVDA działał bez "
-"konfliktów, NVDA Remote musi być wyłączony. W przeciwnym razie TeleNVDA nie "
-"będzie działał. Czy chcesz teraz wyłączyć NVDA Remote?"
+"Dodatek NVDA Remote został wykryty podczas instalacji NVDA. Aby dodatek "
+"TeleNVDA działał bez konfliktów, NVDA Remote musi być wyłączony. W "
+"przeciwnym razie dodatek TeleNVDA nie będzie działał. Czy chcesz teraz "
+"wyłączyć NVDA Remote?"
 
 #. Translators: question title
 #: addon\installTasks.py:14
 msgid "Running NVDA Remote detected"
-msgstr "Wykryto uruchomienie NVDA Remote"
+msgstr "Wykryto uruchomiony dodatek NVDA Remote"
 
 #. Translators: script category for add-on gestures
 #: addon\globalPlugins\remoteClient\__init__.py:58
@@ -99,7 +100,7 @@ msgstr "Wyślij &Plik..."
 
 #: addon\globalPlugins\remoteClient\__init__.py:140
 msgid "Send a file to the other machine"
-msgstr "Wysyła pliku do innego komputera"
+msgstr "Wysyła plik do innego komputera"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 #: addon\globalPlugins\remoteClient\__init__.py:144
@@ -108,7 +109,7 @@ msgstr "Skopiuj &link"
 
 #: addon\globalPlugins\remoteClient\__init__.py:144
 msgid "Copy a link to the remote session"
-msgstr "Skopiuj link do sesji zdalnej"
+msgstr "Kopiuje link do sesji zdalnej"
 
 #. Translators: Menu item in TeleNVDA submenu to open add-on options.
 #: addon\globalPlugins\remoteClient\__init__.py:148
@@ -135,7 +136,7 @@ msgstr "Zdaln&e"
 #: addon\globalPlugins\remoteClient\__init__.py:278
 #: addon\globalPlugins\remoteClient\__init__.py:653
 msgid "Not connected."
-msgstr "Niepołączony."
+msgstr "Niepołączono."
 
 #. Translators: message displayed in transfer file dialog when sending a file
 #: addon\globalPlugins\remoteClient\__init__.py:230
@@ -204,7 +205,7 @@ msgstr "Nie można wysłać schowka"
 #. Translators: Presented when disconnected from the remote computer.
 #: addon\globalPlugins\remoteClient\__init__.py:318
 msgid "Disconnected!"
-msgstr "Rozłączony!"
+msgstr "Rozłączono!"
 
 #. Translators: Title of the connection error dialog.
 #: addon\globalPlugins\remoteClient\__init__.py:359
@@ -225,7 +226,7 @@ msgstr "Połącz"
 #. Translators: Presented when connected to the remote computer.
 #: addon\globalPlugins\remoteClient\__init__.py:405
 msgid "Connected!"
-msgstr "Połączony!"
+msgstr "Połączono!"
 
 #. Translators: Presented when connection to a remote computer was interupted.
 #: addon\globalPlugins\remoteClient\__init__.py:410
@@ -241,7 +242,7 @@ msgid ""
 msgstr ""
 "Opcja obsługi klawiatury z innych aplikacji jest wyłączona w ustawieniach "
 "klawiatury NVDA. Aby umożliwić sterowanie klawiaturą tego urządzenia, opcja "
-"ta powinna być włączona. Chcesz to zrobić teraz?"
+"ta powinna być włączona. Czy chcesz to zrobić teraz?"
 
 #. Translators: The title of the warning dialog displayed when handle keys from other applications is disabled.
 #: addon\globalPlugins\remoteClient\__init__.py:428
@@ -258,12 +259,12 @@ msgstr "Połączono z serwerem kontrolującym"
 msgid ""
 "TeleNVDA is already connected. Disconnect before opening a new connection."
 msgstr ""
-"TeleNVDA jest już podłączony. Rozłącz się przed otwarciem nowego połączenia."
+"TeleNVDA jest już połączony. Rozłącz się przed otwarciem nowego połączenia."
 
 #: addon\globalPlugins\remoteClient\__init__.py:606
 #: addon\globalPlugins\remoteClient\__init__.py:643
 msgid "TeleNVDA Already Connected"
-msgstr "TeleNVDA już podłączony"
+msgstr "TeleNVDA już połączony"
 
 #: addon\globalPlugins\remoteClient\__init__.py:612
 #, python-brace-format
@@ -309,20 +310,20 @@ msgid ""
 "the guest as is. Useful when you need to use the gesture asigned to toggle "
 "between guest and host, in the guest machine."
 msgstr ""
-"Ustaw gospodarza tak, aby całkowicie zignorował następny gest, wysyłając "
-"następny gest do gościa bez zmian. Przydatne, gdy trzeba użyć gestu "
-"przypisanego do przełączania się między gościem a gospodarzem na komputerze "
-"gościa."
+"Ustaw host tak, aby całkowicie zignorował następny gest, wysyłając następny "
+"gest do komputera kontrolowanego bez zmian. Przydatne, gdy trzeba użyć gestu "
+"przypisanego do przełączania się między komputerem kontrolowanym a hostem na "
+"komputerze kontrolowanym."
 
 #. Translators: Report when the next gesture will be send to the guest ignoring everything else.
 #: addon\globalPlugins\remoteClient\__init__.py:666
 msgid "Send next gesture to the guest"
-msgstr "Wyślij następny gest do gościa"
+msgstr "Wyślij następny gest do komputera kontrolowanego"
 
 #. Translators: Documentation string for the script that toggles the control between guest and host machine.
 #: addon\globalPlugins\remoteClient\__init__.py:670
 msgid "Toggles the control between guest and host machine"
-msgstr "Przełącza sterowanie między gościem a hostem"
+msgstr "Przełącza sterowanie między komputerem kontrolowanym a kontrolującym"
 
 #. Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
 #: addon\globalPlugins\remoteClient\__init__.py:682
@@ -364,7 +365,7 @@ msgstr "&Generuj klucz"
 
 #: addon\globalPlugins\remoteClient\dialogs.py:45
 msgid "Host must be set."
-msgstr "Serwer musi być ustawiony."
+msgstr "Host musi być ustawiony."
 
 #. Translators: Used in server mode to obtain the external IP address for the server (controlled computer) for direct connection.
 #: addon\globalPlugins\remoteClient\dialogs.py:89
@@ -394,13 +395,13 @@ msgstr "Sukces"
 #: addon\globalPlugins\remoteClient\dialogs.py:144
 #, python-brace-format
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
-msgstr "Pobrano zewnętrzny adres IP, ale port {port} nie jest przekazywany."
+msgstr "Pobrano zewnętrzny adres IP, ale port {port} nie jest otwarty."
 
 #: addon\globalPlugins\remoteClient\dialogs.py:151
 msgid ""
 "Unable to contact portcheck server, please manually retrieve your IP address"
 msgstr ""
-"Nie udało się połączyć z serwerem portcheck, ręcznie uzyskaj twój adres IP"
+"Nie udało się połączyć z serwerem portcheck, ręcznie uzyskaj swój adres IP"
 
 #: addon\globalPlugins\remoteClient\dialogs.py:158
 msgid "Client"
@@ -470,7 +471,7 @@ msgstr ""
 #: addon\globalPlugins\remoteClient\dialogs.py:278
 msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr ""
-"Czy jesteś pewien, że chcesz usunąc wszystkie zapisane zaufane odciski "
+"Czy jesteś pewien, że chcesz usunąć wszystkie zapisane zaufane odciski "
 "palców?"
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
@@ -568,7 +569,7 @@ msgid ""
 "Allows remote control of and remote access to another machine. This add-on "
 "is based on NVDA Remote."
 msgstr ""
-"Umożliwia zdalne sterowanie i zdalny dostęp do innej maszyny. Ten dodatek "
+"Umożliwia zdalne sterowanie i zdalny dostęp do innego komputera. Ten dodatek "
 "jest oparty na NVDA Remote."
 
 #~ msgid "NVDA Remote"
