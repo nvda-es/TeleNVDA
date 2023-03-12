@@ -398,9 +398,12 @@ class GlobalPlugin(_GlobalPlugin):
 			self.send_file_item.Enable(True)
 		self.copy_link_item.Enable(True)
 		self.send_ctrl_alt_del_item.Enable(True)
-		self.hook_thread = threading.Thread(target=self.hook)
-		self.hook_thread.daemon = True
-		self.hook_thread.start()
+		# We might have already created a hook thread before if we're restoring an
+		# interrupted connection. We must not create another.
+		if not self.hook_thread:
+			self.hook_thread = threading.Thread(target=self.hook)
+			self.hook_thread.daemon = True
+			self.hook_thread.start()
 		# Translators: Presented when connected to the remote computer.
 		ui.message(_("Connected!"))
 		cues.connected()
