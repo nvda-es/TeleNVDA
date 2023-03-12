@@ -1,8 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: NVDARemote\n"
-"POT-Creation-Date: 2023-03-07 09:29+0200\n"
-"PO-Revision-Date: 2023-03-07 20:33+0200\n"
+"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
+"POT-Creation-Date: 2023-03-12 10:08+0000\n"
+"PO-Revision-Date: 2023-03-12 15:08+0200\n"
 "Last-Translator: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language-Team: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language: fi_FI\n"
@@ -15,175 +16,219 @@ msgstr ""
 "X-Poedit-SearchPath-0: D:\\src\\nvda\\addons\\TeleNVDA\\addon\\globalPlugins"
 "\\remoteClient\n"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:58
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:156
+#. Translators: message asking the user wether NVDA Remote whould be disabled or not
+#: addon\installTasks.py:12
+msgid ""
+"NVDA Remote has been detected on your NVDA installation. In order for "
+"TeleNVDA to work without conflicts, NVDA Remote must be disabled. Otherwise, "
+"TeleNVDA will refuse to work. Would you like to disable NVDA Remote now?"
+msgstr ""
+"NVDA-etäkäyttö-lisäosa on havaittu NVDA-asennuksessasi. Jotta TeleNVDA "
+"toimisi ongelmitta, NVDA-etäkäyttö on poistettava käytöstä. Muutoin TeleNVDA "
+"kieltäytyy toimimasta. Haluatko poistaa NVDA-etäkäyttö-lisäosan käytöstä nyt?"
+
+#. Translators: question title
+#: addon\installTasks.py:14
+msgid "Running NVDA Remote detected"
+msgstr "Käynnissä oleva NVDA-etäkäyttö-lisäosa havaittu"
+
+#. Translators: script category for add-on gestures
+#: addon\globalPlugins\remoteClient\__init__.py:58
+#: addon\globalPlugins\remoteClient\__init__.py:156
 msgid "TeleNVDA"
 msgstr "TeleNVDA"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:88
+#: addon\globalPlugins\remoteClient\__init__.py:88
 msgid "Your NVDA Remote configuration was corrupted and has been reset."
 msgstr "NVDA-etäkäyttö-asetuksesi olivat vioittuneet ja ne on nyt nollattu."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:88
+#: addon\globalPlugins\remoteClient\__init__.py:88
 msgid "NVDA Remote Configuration Error"
 msgstr "NVDA-etäkäytön asetusvirhe"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:125
+#. Translators: Item in TeleNVDA submenu to connect to a remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:125
 msgid "Connect..."
 msgstr "Yhdistä..."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:125
+#: addon\globalPlugins\remoteClient\__init__.py:125
 msgid ""
 "Remotely connect to another computer running NVDA Remote Access or TeleNVDA"
 msgstr ""
 "Yhdistä toiseen NVDA-etäkäyttöä tai TeleNVDA:ta käyttävään tietokoneeseen"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:128
+#. Translators: Item in TeleNVDA submenu to disconnect from a remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:128
 msgid "Disconnect"
 msgstr "Katkaise yhteys"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:128
+#: addon\globalPlugins\remoteClient\__init__.py:128
 msgid "Disconnect from another computer running NVDA Remote Access or TeleNVDA"
 msgstr ""
 "Katkaise yhteys toiseen NVDA-etäkäyttöä tai TeleNVDA:ta käyttävään "
 "tietokoneeseen"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:132
+#. Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:132
 msgid "Mute remote"
 msgstr "Mykistä etäkone"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:132
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:699
+#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:132
+#: addon\globalPlugins\remoteClient\__init__.py:702
 msgid "Mute speech and sounds from the remote computer"
 msgstr "Mykistä etäkoneen äänet ja puhe."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:136
+#. Translators: Menu item in TeleNVDA submenu to push clipboard content to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:136
 msgid "&Push clipboard"
 msgstr "&Lähetä leikepöytä"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:136
+#: addon\globalPlugins\remoteClient\__init__.py:136
 msgid "Push the clipboard to the other machine"
 msgstr "Lähetä leikepöydän sisältö toiseen tietokoneeseen"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:140
+#. Translators: Menu item in TeleNVDA submenu to send a file to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:140
 msgid "Send &file..."
 msgstr "Lähetä t&iedosto..."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:140
+#: addon\globalPlugins\remoteClient\__init__.py:140
 msgid "Send a file to the other machine"
 msgstr "Lähetä tiedosto toiselle tietokoneelle"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:144
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
+#: addon\globalPlugins\remoteClient\__init__.py:144
 msgid "Copy &link"
 msgstr "Kopioi &linkki"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:144
+#: addon\globalPlugins\remoteClient\__init__.py:144
 msgid "Copy a link to the remote session"
 msgstr "Kopioi linkki etäistuntoon"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:148
+#. Translators: Menu item in TeleNVDA submenu to open add-on options.
+#: addon\globalPlugins\remoteClient\__init__.py:148
 msgid "&Options..."
 msgstr "&Asetukset..."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:148
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:296
+#. Translators: The title of the add-on options dialog.
+#: addon\globalPlugins\remoteClient\__init__.py:148
+#: addon\globalPlugins\remoteClient\__init__.py:296
 msgid "Options"
 msgstr "Asetukset"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:151
+#. Translators: Menu item in TeleNVDA submenu to send Control+Alt+Delete to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:151
 msgid "Send Ctrl+Alt+Del"
 msgstr "Lähetä Ctrl+Alt+Del"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:156
+#. Translators: Label of menu in NVDA tools menu.
+#: addon\globalPlugins\remoteClient\__init__.py:156
 msgid "R&emote"
 msgstr "&Etäkäyttö"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:224
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:278
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:653
+#: addon\globalPlugins\remoteClient\__init__.py:224
+#: addon\globalPlugins\remoteClient\__init__.py:278
+#: addon\globalPlugins\remoteClient\__init__.py:656
 msgid "Not connected."
 msgstr "Ei yhdistetty."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:230
+#. Translators: message displayed in transfer file dialog when sending a file
+#: addon\globalPlugins\remoteClient\__init__.py:230
 msgid "Choose the file you want to send to the remote computer"
 msgstr "Valitse tiedosto, jonka haluat lähettää etätietokoneelle"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:232
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/local_machine.py:157
+#. Translators: supported file types when sending or receiving files
+#: addon\globalPlugins\remoteClient\__init__.py:232
+#: addon\globalPlugins\remoteClient\local_machine.py:157
 msgid "All files (*.*)"
 msgstr "Kaikki tiedostot (*.*)"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:246
+#. Translators: error message when a file is too big
+#: addon\globalPlugins\remoteClient\__init__.py:246
 msgid "This file is too large. Only files smaller than 10 MB are supported."
 msgstr ""
 "Tämä tiedosto on liian suuri. Vain alle 10 Mt:n kokoisia tiedostoja tuetaan."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:248
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:45
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:151
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:189
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:192
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:287
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:289
+#. Translators: error message caption
+#: addon\globalPlugins\remoteClient\__init__.py:248
+#: addon\globalPlugins\remoteClient\dialogs.py:45
+#: addon\globalPlugins\remoteClient\dialogs.py:151
+#: addon\globalPlugins\remoteClient\dialogs.py:189
+#: addon\globalPlugins\remoteClient\dialogs.py:192
+#: addon\globalPlugins\remoteClient\dialogs.py:287
+#: addon\globalPlugins\remoteClient\dialogs.py:289
 msgid "Error"
 msgstr "Virhe"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:253
+#. Translators: question before sending a file
+#: addon\globalPlugins\remoteClient\__init__.py:253
 msgid ""
 "The session will be blocked until the transfer is complete. Are you sure you "
 "want to continue?"
 msgstr "Istunto estetään, kunnes siirto on valmis. Haluatko varmasti jatkaa?"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:255
+#. Translators: question title
+#: addon\globalPlugins\remoteClient\__init__.py:255
 msgid "Warning!"
 msgstr "Varoitus"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:262
+#. Translators: message spoken when the file has been sent successfully
+#: addon\globalPlugins\remoteClient\__init__.py:262
 msgid "File sent"
 msgstr "Tiedosto lähetetty"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:266
+#. Translators: send file gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:266
 msgid "Sends the specified file to the remote machine"
 msgstr "Lähettää määritetyn tiedoston etäkoneelle"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:273
+#. Translators: push clipboard gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:273
 msgid "Sends the contents of the clipboard to the remote machine"
 msgstr "Lähettää leikepöydän sisällön etäkoneelle"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:283
+#: addon\globalPlugins\remoteClient\__init__.py:283
 msgid "Clipboard pushed"
 msgstr "Leikepöytä lähetetty"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:285
+#: addon\globalPlugins\remoteClient\__init__.py:285
 msgid "Unable to push clipboard"
 msgstr "Leikepöytää ei voi lähettää"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:318
+#. Translators: Presented when disconnected from the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:318
 msgid "Disconnected!"
 msgstr "Yhteys katkaistu."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:359
+#. Translators: Title of the connection error dialog.
+#: addon\globalPlugins\remoteClient\__init__.py:359
 msgid "Error Connecting"
 msgstr "Virhe yhdistettäessä"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:361
+#. Translators: Message shown when cannot connect to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:361
 msgid "Unable to connect to the remote computer"
 msgstr "Etätietokoneeseen ei saada yhteyttä"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:368
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:319
+#. Translators: Title of the connect dialog.
+#: addon\globalPlugins\remoteClient\__init__.py:368
+#: addon\globalPlugins\remoteClient\dialogs.py:319
 msgid "Connect"
 msgstr "Yhdistä"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:405
+#. Translators: Presented when connected to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:408
 msgid "Connected!"
 msgstr "Yhdistetty"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:410
+#. Translators: Presented when connection to a remote computer was interupted.
+#: addon\globalPlugins\remoteClient\__init__.py:413
 msgid "Connection interrupted"
 msgstr "Yhteys keskeytetty"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:426
+#. Translators: A message to warn the user that handle keys from other applications should be on.
+#: addon\globalPlugins\remoteClient\__init__.py:429
 msgid ""
 "The option to handle keys from other applications is disabled in your NVDA "
 "keyboard settings. In order to allow the keyboard of this machine to be "
@@ -193,31 +238,33 @@ msgstr ""
 "NVDA:n näppäimistöasetuksissa. Asetuksen on oltava käytössä, jotta tämän "
 "koneen näppäimistöä voidaan hallita. Haluatko ottaa sen käyttöön nyt?"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:428
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:144
+#. Translators: The title of the warning dialog displayed when handle keys from other applications is disabled.
+#: addon\globalPlugins\remoteClient\__init__.py:431
+#: addon\globalPlugins\remoteClient\dialogs.py:144
 msgid "Warning"
 msgstr "Varoitus"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:468
+#. Translators: Presented in direct (client to server) remote connection when the controlled computer is ready.
+#: addon\globalPlugins\remoteClient\__init__.py:471
 msgid "Connected to control server"
 msgstr "Yhdistetty hallintapalvelimeen"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:606
+#: addon\globalPlugins\remoteClient\__init__.py:609
 msgid ""
 "TeleNVDA is already connected. Disconnect before opening a new connection."
 msgstr "TeleNVDA on jo yhdistetty. Katkaise yhteys ennen uuden muodostamista."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:606
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:643
+#: addon\globalPlugins\remoteClient\__init__.py:609
+#: addon\globalPlugins\remoteClient\__init__.py:646
 msgid "TeleNVDA Already Connected"
 msgstr "TeleNVDA on jo yhdistetty"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:612
+#: addon\globalPlugins\remoteClient\__init__.py:615
 #, python-brace-format
 msgid "Do you wish to control the machine on server {server} with key {key}?"
 msgstr "Haluatko hallita konetta palvelimella {server}, jonka avain on {key}?"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:614
+#: addon\globalPlugins\remoteClient\__init__.py:617
 #, python-brace-format
 msgid ""
 "Do you wish to allow this machine to be controlled on server {server} with "
@@ -226,27 +273,31 @@ msgstr ""
 "Haluatko sallia tämän koneen hallinnan palvelimella {server}, jonka avain on "
 "{key}?"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:615
+#: addon\globalPlugins\remoteClient\__init__.py:618
 msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA-yhteyspyyntö"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:632
+#. Translators: Copy link gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:635
 msgid "Copies a link to the remote session to the clipboard"
 msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:635
+#: addon\globalPlugins\remoteClient\__init__.py:638
 msgid "Copied link"
 msgstr "Linkki kopioitu"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:639
+#. Translators: description for the Connect gesture
+#: addon\globalPlugins\remoteClient\__init__.py:642
 msgid "Opens a dialog to start a remote session"
 msgstr "Avaa valintaikkunan etäistunnon aloittamista varten"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:649
+#. Translators: description for the Disconnect gesture
+#: addon\globalPlugins\remoteClient\__init__.py:652
 msgid "Disconnect a remote session"
 msgstr "Katkaise etäistunnon yhteys"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:659
+#. Translators: gesture description for the ignoreNextGesture script
+#: addon\globalPlugins\remoteClient\__init__.py:662
 msgid ""
 "Set the host to ignore the next gesture completely, sending next gesture to "
 "the guest as is. Useful when you need to use the gesture asigned to toggle "
@@ -256,136 +307,152 @@ msgstr ""
 "etäkoneelle sellaisenaan. Tästä on hyötyä, kun sinun tarvitsee käyttää etä- "
 "ja isäntäkoneen välillä vaihtavaa näppäinkomentoa etäkoneessa."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:666
+#. Translators: Report when the next gesture will be send to the guest ignoring everything else.
+#: addon\globalPlugins\remoteClient\__init__.py:669
 msgid "Send next gesture to the guest"
 msgstr "Lähetä seuraava näppäinkomento etäkoneelle"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:670
+#. Translators: Documentation string for the script that toggles the control between guest and host machine.
+#: addon\globalPlugins\remoteClient\__init__.py:673
 msgid "Toggles the control between guest and host machine"
 msgstr "Vaihtaa hallinnan etä- ja isäntäkoneen välillä"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:682
+#. Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
+#: addon\globalPlugins\remoteClient\__init__.py:685
 msgid "Controlling remote machine."
 msgstr "Hallitaan etäkonetta."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:689
+#. Translators: Presented when keyboard control is back to the controlling computer.
+#: addon\globalPlugins\remoteClient\__init__.py:692
 msgid "Controlling local machine."
 msgstr "Hallitaan paikallista konetta."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:693
+#. Translators: gesture description for the toggle remote mute script
+#: addon\globalPlugins\remoteClient\__init__.py:696
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Mykistä tai poista etätietokoneelta tulevan puheen mykistys"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/__init__.py:699
+#: addon\globalPlugins\remoteClient\__init__.py:702
 msgid "Unmute speech and sounds from the remote computer"
 msgstr "Poista etäkoneen äänien ja puheen mykistys"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:30
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:217
+#. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
+#: addon\globalPlugins\remoteClient\dialogs.py:30
+#: addon\globalPlugins\remoteClient\dialogs.py:217
 msgid "&Host:"
 msgstr "&Isäntä:"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:34
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:100
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:225
+#. Translators: Label of the edit field to enter key (password) to secure the remote connection.
+#: addon\globalPlugins\remoteClient\dialogs.py:34
+#: addon\globalPlugins\remoteClient\dialogs.py:100
+#: addon\globalPlugins\remoteClient\dialogs.py:225
 msgid "&Key:"
 msgstr "&Avain:"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:38
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:103
+#. Translators: The button used to generate a random key/password.
+#: addon\globalPlugins\remoteClient\dialogs.py:38
+#: addon\globalPlugins\remoteClient\dialogs.py:103
 msgid "&Generate Key"
 msgstr "&Luo avain"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:45
+#: addon\globalPlugins\remoteClient\dialogs.py:45
 msgid "Host must be set."
 msgstr "Isäntä on määritettävä."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:89
+#. Translators: Used in server mode to obtain the external IP address for the server (controlled computer) for direct connection.
+#: addon\globalPlugins\remoteClient\dialogs.py:89
 msgid "Get External &IP"
 msgstr "Hae ulkoinen &IP"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:93
+#. Translators: Label of the field displaying the external IP address if using direct (client to server) connection.
+#: addon\globalPlugins\remoteClient\dialogs.py:93
 msgid "&External IP:"
 msgstr "&Ulkoinen IP:"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:97
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:221
+#. Translators: The label of an edit field in connect dialog to enter the port the server will listen on.
+#: addon\globalPlugins\remoteClient\dialogs.py:97
+#: addon\globalPlugins\remoteClient\dialogs.py:221
 msgid "&Port:"
 msgstr "&Portti:"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:142
+#: addon\globalPlugins\remoteClient\dialogs.py:142
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "IP-osoite haettu onnistuneesti. Portti {port} on avoinna."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:142
+#: addon\globalPlugins\remoteClient\dialogs.py:142
 msgid "Success"
 msgstr "Onnistui"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:144
+#: addon\globalPlugins\remoteClient\dialogs.py:144
 #, python-brace-format
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "Ulkoinen IP haettu, mutta porttia {port} ei ole uudelleenohjattu."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:151
+#: addon\globalPlugins\remoteClient\dialogs.py:151
 msgid ""
 "Unable to contact portcheck server, please manually retrieve your IP address"
 msgstr ""
 "Portintarkistuspalvelimeen ei saada yhteyttä. Hae IP-osoite manuaalisesti."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:158
+#: addon\globalPlugins\remoteClient\dialogs.py:158
 msgid "Client"
 msgstr "Asiakas"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:158
+#: addon\globalPlugins\remoteClient\dialogs.py:158
 msgid "Server"
 msgstr "Palvelin"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:162
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:212
+#: addon\globalPlugins\remoteClient\dialogs.py:162
+#: addon\globalPlugins\remoteClient\dialogs.py:212
 msgid "Control another machine"
 msgstr "Hallitse toista konetta"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:162
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:212
+#: addon\globalPlugins\remoteClient\dialogs.py:162
+#: addon\globalPlugins\remoteClient\dialogs.py:212
 msgid "Allow this machine to be controlled"
 msgstr "Salli tämän koneen hallinta"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:189
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:287
+#: addon\globalPlugins\remoteClient\dialogs.py:189
+#: addon\globalPlugins\remoteClient\dialogs.py:287
 msgid "Both host and key must be set."
 msgstr "Isäntä ja avain on määritettävä."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:192
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:289
+#: addon\globalPlugins\remoteClient\dialogs.py:192
+#: addon\globalPlugins\remoteClient\dialogs.py:289
 msgid "Both port and key must be set."
 msgstr "Portti ja avain on määritettävä."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:203
+#. Translators: A checkbox in add-on options dialog to set whether remote server is started when NVDA starts.
+#: addon\globalPlugins\remoteClient\dialogs.py:203
 msgid "Auto-connect to control server on startup"
 msgstr "Yhdistä hallintapalvelimeen automaattisesti käynnistyksen yhteydessä"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:207
+#. Translators: Whether or not to use a relay server when autoconnecting
+#: addon\globalPlugins\remoteClient\dialogs.py:207
 msgid "Use Remote Control Server"
 msgstr "Käytä etähallintapalvelinta"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:207
+#: addon\globalPlugins\remoteClient\dialogs.py:207
 msgid "Host Control Server"
 msgstr "Isännöi hallintapalvelinta"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:230
+#. Translators: A checkbox in add-on options dialog to set whether sounds play instead of beeps.
+#: addon\globalPlugins\remoteClient\dialogs.py:230
 msgid "Play sounds instead of beeps"
 msgstr "Toista äänet piippausten asemesta"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:233
+#. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
+#: addon\globalPlugins\remoteClient\dialogs.py:233
 msgid "Process speech commands when controlling another computer"
 msgstr "Käsittele puhekomennot toista tietokonetta hallittaessa"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:236
+#. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
+#: addon\globalPlugins\remoteClient\dialogs.py:236
 msgid "Delete all trusted fingerprints"
 msgstr "Poista kaikki luotetut sormenjäljet"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:278
+#: addon\globalPlugins\remoteClient\dialogs.py:278
 msgid ""
 "When connecting to an unauthorized server, you will again be prompted to "
 "accepts its certificate."
@@ -393,15 +460,17 @@ msgstr ""
 "Sinua kehotetaan valtuuttamattomaan palvelimeen yhdistäessäsi hyväksymään "
 "uudelleen sen varmenne."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:278
+#: addon\globalPlugins\remoteClient\dialogs.py:278
 msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr "Haluatko varmasti poistaa kaikki tallennetut luotetut sormenjäljet?"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:315
+#. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
+#: addon\globalPlugins\remoteClient\dialogs.py:315
 msgid "TeleNVDA Connection Security Warning"
 msgstr "TeleNVDA-yhteyden suojausvaroitus"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:317
+#. Translators: A message of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
+#: addon\globalPlugins\remoteClient\dialogs.py:317
 #, python-brace-format
 msgid ""
 "Warning! The certificate of this server could not be verified.\n"
@@ -426,29 +495,32 @@ msgstr ""
 "\n"
 "Haluatko jatkaa yhdistämistä?"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/dialogs.py:319
+#: addon\globalPlugins\remoteClient\dialogs.py:319
 msgid "Connect and do not ask again for this server"
 msgstr "Yhdistä ja älä kysy uudelleen tästä palvelimesta"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/local_machine.py:133
+#: addon\globalPlugins\remoteClient\local_machine.py:133
 msgid "Clipboard updated"
 msgstr "Leikepöytä päivitetty"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/local_machine.py:146
+#. Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
+#: addon\globalPlugins\remoteClient\local_machine.py:146
 msgid "No permission on device to trigger CTRL+ALT+DEL from remote"
 msgstr ""
 "Laitteella ei ole lupaa suorittaa Ctrl+Alt+Del-näppäinyhdistelmää etäkoneelta"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/local_machine.py:154
+#. Translators: message displayed in transfer file dialog when receiving a file
+#: addon\globalPlugins\remoteClient\local_machine.py:154
 msgid "Choose where to save the received file"
 msgstr "Valitse, minne vastaanotettu tiedosto tallennetaan"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/local_machine.py:167
+#. Translators: message spoken when the file has been received successfully
+#: addon\globalPlugins\remoteClient\local_machine.py:167
 msgid "File received"
 msgstr "Tiedosto vastaanotettu"
 
 #. translators: Message for version mismatch
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/session.py:50
+#: addon\globalPlugins\remoteClient\session.py:50
 msgid ""
 "The version of the relay server which you have connected to is not "
 "compatible with this version of the Remote Client.\n"
@@ -458,27 +530,41 @@ msgstr ""
 "etäkäyttöasiakaslisäosan kanssa.\n"
 "Ole hyvä ja käytä eri palvelinta tai päivitä käyttämäsi lisäosa."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/session.py:57
+#: addon\globalPlugins\remoteClient\session.py:57
 msgid "Message of the Day"
 msgstr "Päivän viesti"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/session.py:256
+#: addon\globalPlugins\remoteClient\session.py:256
 msgid "Remote NVDA not connected."
 msgstr "Etä-NVDA:ta ei yhdistetty."
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/url_handler.py:53
+#: addon\globalPlugins\remoteClient\url_handler.py:53
 msgid "Invalid URL"
 msgstr "Virheellinen URL"
 
-#: D:\src\nvda\addons\TeleNVDA\addon\globalPlugins\remoteClient/url_handler.py:55
+#. Translators: Message shown when an invalid URL has been provided.
+#: addon\globalPlugins\remoteClient\url_handler.py:55
 #, python-format
 msgid "Unable to parse url \"%s\""
 msgstr "URL-osoitetta \"%s\" ei voi jäsentää"
 
-#~ msgid "NVDA Remote"
-#~ msgstr "NVDA-etäkäyttö"
+#. Add-on summary, usually the user visible name of the addon.
+#. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:17
+msgid "Tele NVDA remote assistance"
+msgstr "Tele NVDA -etätuki"
 
-#~ msgid "NVDA Remote Access"
+#. Add-on description
+#. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
+msgid ""
+"Allows remote control of and remote access to another machine. This add-on "
+"is based on NVDA Remote."
+msgstr ""
+"Tämän lisäosan avulla konettasi voidaan käyttää etänä ja voit etäkäyttää "
+"toista konetta. Perustuu NVDA-etäkäyttö-lisäosaan."
+
+#~ msgid "NVDA Remote"
 #~ msgstr "NVDA-etäkäyttö"
 
 #~ msgid "Sending keys."
