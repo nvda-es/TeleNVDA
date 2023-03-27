@@ -1,5 +1,5 @@
 This release brings the following changes:
 
-* Updated finnish translation.
+* Fix freeze when disconnecting after a reconnection due to a socket error.
 
 SHA256: 
