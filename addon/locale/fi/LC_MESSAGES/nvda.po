@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: NVDARemote\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-12 10:08+0000\n"
-"PO-Revision-Date: 2023-03-12 15:08+0200\n"
+"PO-Revision-Date: 2023-03-30 20:35+0200\n"
 "Last-Translator: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language-Team: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language: fi_FI\n"
@@ -426,7 +426,8 @@ msgstr "Portti ja avain on määritettävä."
 #. Translators: A checkbox in add-on options dialog to set whether remote server is started when NVDA starts.
 #: addon\globalPlugins\remoteClient\dialogs.py:203
 msgid "Auto-connect to control server on startup"
-msgstr "Yhdistä hallintapalvelimeen automaattisesti käynnistyksen yhteydessä"
+msgstr ""
+"Muodosta yhteys hallintapalvelimeen automaattisesti käynnistyksen yhteydessä"
 
 #. Translators: Whether or not to use a relay server when autoconnecting
 #: addon\globalPlugins\remoteClient\dialogs.py:207
