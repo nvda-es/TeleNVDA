@@ -140,10 +140,17 @@ class GlobalPlugin(_GlobalPlugin):
 		self.send_file_item = self.menu.Append(wx.ID_ANY, _("Send &file..."), _("Send a file to the other machine"))
 		self.send_file_item.Enable(False)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_file_item, self.send_file_item)
+		self.copyLinkMenu = wx.Menu()
+		# Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+		self.copy_link_remote_item = self.copyLinkMenu .Append(wx.ID_ANY, _("NVDA &Remote protocol (recommended)"), _("Copy a link to the remote session compatible with both NVDA Remote and TeleNVDA"))
+		self.copy_link_remote_item.Enable(False)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_copy_link_remote_item, self.copy_link_remote_item)
+		# Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+		self.copy_link_tele_item = self.copyLinkMenu .Append(wx.ID_ANY, _("&TeleNVDA protocol"), _("Copy a link to the remote session compatible only with TeleNVDA"))
+		self.copy_link_tele_item.Enable(False)
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_copy_link_tele_item, self.copy_link_tele_item)
 		# Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
-		self.copy_link_item = self.menu.Append(wx.ID_ANY, _("Copy &link"), _("Copy a link to the remote session"))
-		self.copy_link_item.Enable(False)
-		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_copy_link_item, self.copy_link_item)
+		self.copy_link_item=self.menu.AppendSubMenu(self.copyLinkMenu, _("Copy &link"), _("Copy a link to the remote session"))
 		# Translators: Menu item in TeleNVDA submenu to open add-on options.
 		self.options_item = self.menu.Append(wx.ID_ANY, _("&Options..."), _("Options"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_options_item, self.options_item)
@@ -159,6 +166,12 @@ class GlobalPlugin(_GlobalPlugin):
 		self.disconnect()
 		self.local_machine.terminate()
 		self.local_machine = None
+		self.copyLinkMenu.Remove(self.copy_link_remote_item.Id)
+		self.copy_link_remote_item.Destroy()
+		self.copy_link_remote_item=None
+		self.copyLinkMenu.Remove(self.copy_link_tele_item.Id)
+		self.copy_link_tele_item.Destroy()
+		self.copy_link_tele_item=None
 		self.menu.Remove(self.connect_item.Id)
 		self.connect_item.Destroy()
 		self.connect_item=None
@@ -189,6 +202,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.remote_item=None
 		try:
 			self.menu.Destroy()
+			self.copyLinkMenu.Destroy()
 		except (RuntimeError, AttributeError):
 			pass
 		try:
@@ -284,9 +298,14 @@ class GlobalPlugin(_GlobalPlugin):
 		except TypeError:
 			ui.message(_("Unable to push clipboard"))
 
-	def on_copy_link_item(self, evt):
+	def on_copy_link_remote_item(self, evt):
 		session = self.master_session or self.slave_session
-		url = session.get_connection_info().get_url_to_connect()
+		url = session.get_connection_info().get_url_to_connect(0)
+		api.copyToClip(str(url))
+
+	def on_copy_link_tele_item(self, evt):
+		session = self.master_session or self.slave_session
+		url = session.get_connection_info().get_url_to_connect(1)
 		api.copyToClip(str(url))
 
 	def on_options_item(self, evt):
@@ -321,7 +340,8 @@ class GlobalPlugin(_GlobalPlugin):
 		self.connect_item.Enable(True)
 		self.push_clipboard_item.Enable(False)
 		self.send_file_item.Enable(False)
-		self.copy_link_item.Enable(False)
+		self.copy_link_remote_item.Enable(False)
+		self.copy_link_tele_item.Enable(False)
 
 	def disconnect_as_master(self):
 		self.master_transport.close()
@@ -336,7 +356,8 @@ class GlobalPlugin(_GlobalPlugin):
 			self.mute_item.Enable(False)
 			self.push_clipboard_item.Enable(False)
 			self.send_file_item.Enable(False)
-			self.copy_link_item.Enable(False)
+			self.copy_link_remote_item.Enable(False)
+			self.copy_link_tele_item.Enable(False)
 			self.send_ctrl_alt_del_item.Enable(False)
 		if self.local_machine:
 			self.local_machine.is_muted = False
@@ -396,7 +417,8 @@ class GlobalPlugin(_GlobalPlugin):
 		self.push_clipboard_item.Enable(True)
 		if not globalVars.appArgs.secure:
 			self.send_file_item.Enable(True)
-		self.copy_link_item.Enable(True)
+		self.copy_link_remote_item.Enable(True)
+		self.copy_link_tele_item.Enable(True)
 		self.send_ctrl_alt_del_item.Enable(True)
 		# We might have already created a hook thread before if we're restoring an
 		# interrupted connection. We must not create another.
@@ -472,7 +494,8 @@ class GlobalPlugin(_GlobalPlugin):
 		self.push_clipboard_item.Enable(True)
 		if not globalVars.appArgs.secure:
 			self.send_file_item.Enable(True)
-		self.copy_link_item.Enable(True)
+		self.copy_link_remote_item.Enable(True)
+		self.copy_link_tele_item.Enable(True)
 		configuration.write_connection_to_config(self.slave_transport.address)
 
 	def start_control_server(self, server_port, channel):
@@ -631,10 +654,25 @@ class GlobalPlugin(_GlobalPlugin):
 		return False
 
 	@script(
-		# Translators: Copy link gesture description
-		_("Copies a link to the remote session to the clipboard"))
-	def script_copy_link(self, gesture):
-		self.on_copy_link_item(None)
+		# Translators: Copy link compatible with NVDA Remote gesture description
+		_("Copies a link to the remote session to the clipboard compatible with both NVDA Remote and TeleNVDA"))
+	def script_copy_remote_link(self, gesture):
+		connector = self.slave_transport or self.master_transport
+		if not getattr(connector,'connected',False):
+			ui.message(_("Not connected."))
+			return
+		self.on_copy_link_remote_item(None)
+		ui.message(_("Copied link"))
+
+	@script(
+		# Translators: Copy link compatible with TeleNVDA gesture description
+		_("Copies a link to the remote session to the clipboard compatible only with TeleNVDA"))
+	def script_copy_tele_link(self, gesture):
+		connector = self.slave_transport or self.master_transport
+		if not getattr(connector,'connected',False):
+			ui.message(_("Not connected."))
+			return
+		self.on_copy_link_tele_item(None)
 		ui.message(_("Copied link"))
 
 	@script(

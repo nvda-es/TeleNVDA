@@ -43,8 +43,8 @@ class ConnectionInfo:
 		hostname = (self.hostname if ':' not in self.hostname else '[' + self.hostname + ']')
 		return '{hostname}:{port}'.format(hostname=hostname, port=self.port)
 
-	def get_url_to_connect(self):
-		result = URL_PREFIX[1] + socket_utils.hostport_to_address((self.hostname, self.port))
+	def get_url_to_connect(self, protocol):
+		result = URL_PREFIX[protocol] + socket_utils.hostport_to_address((self.hostname, self.port))
 		result += '?'
 		mode = self.mode
 		if mode == 'master':
