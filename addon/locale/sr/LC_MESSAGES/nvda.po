@@ -84,6 +84,25 @@ msgstr "Pošalji &datoteku..."
 msgid "Send a file to the other machine"
 msgstr "Pošalji datoteku drugom računaru"
 
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr "Kopira link za daljinski pristup u privremenu memoriju"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#, fuzzy
+msgid "&TeleNVDA protocol"
+msgstr "TeleNVDA"
+
+#, fuzzy
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "Kopira link za daljinski pristup u privremenu memoriju"
+
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
 msgstr "&Kopiraj link"
@@ -222,12 +241,22 @@ msgstr ""
 msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA zahtev za povezivanje"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
 msgstr "Kopira link za daljinski pristup u privremenu memoriju"
 
 msgid "Copied link"
 msgstr "Kopiran link"
+
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr "Kopira link za daljinski pristup u privremenu memoriju"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

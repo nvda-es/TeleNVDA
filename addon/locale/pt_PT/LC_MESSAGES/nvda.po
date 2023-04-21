@@ -84,6 +84,25 @@ msgstr "Enviar &ficheiro..."
 msgid "Send a file to the other machine"
 msgstr "Enviar um ficheiro para a outra máquina"
 
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr "Copia um link para a sessão remota na área de transferência"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#, fuzzy
+msgid "&TeleNVDA protocol"
+msgstr "TeleNVDA"
+
+#, fuzzy
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "Copia um link para a sessão remota na área de transferência"
+
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
 msgstr "Copiar &Ligação"
@@ -160,7 +179,6 @@ msgstr "Impossível empurrar a área de transferência"
 
 #. Translators: Presented when disconnected from the remote computer.
 #, fuzzy
-#| msgid "Disconnect"
 msgid "Disconnected!"
 msgstr "Desligar"
 
@@ -221,12 +239,22 @@ msgstr ""
 msgid "TeleNVDA Connection Request"
 msgstr "Pedido de ligação do TeleNVDA"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
 msgstr "Copia um link para a sessão remota na área de transferência"
 
 msgid "Copied link"
 msgstr "Ligação copiada"
+
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr "Copia um link para a sessão remota na área de transferência"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

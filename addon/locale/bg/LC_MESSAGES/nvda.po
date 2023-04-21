@@ -83,6 +83,25 @@ msgstr "Изпрати &файл..."
 msgid "Send a file to the other machine"
 msgstr "Изпращане на файл до другата машина"
 
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr "Копира връзка към отдалечената сесия в клипборда"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#, fuzzy
+msgid "&TeleNVDA protocol"
+msgstr "TeleNVDA"
+
+#, fuzzy
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "Копира връзка към отдалечената сесия в клипборда"
+
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
 msgstr "Копирай &връзка"
@@ -222,12 +241,22 @@ msgstr ""
 msgid "TeleNVDA Connection Request"
 msgstr "Заявка за връзка с TeleNVDA"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
 msgstr "Копира връзка към отдалечената сесия в клипборда"
 
 msgid "Copied link"
 msgstr "Връзката е копирана"
+
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr "Копира връзка към отдалечената сесия в клипборда"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"
@@ -407,8 +436,8 @@ msgstr "Клипбордът е обновен"
 #. Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
 msgid "No permission on device to trigger CTRL+ALT+DEL from remote"
 msgstr ""
-"Няма разрешение на устройството за задействане от разстояние на "
-"Control+Alt+Delete"
+"Няма разрешение на устройството за задействане от разстояние на Control+Alt"
+"+Delete"
 
 #. Translators: message displayed in transfer file dialog when receiving a file
 msgid "Choose where to save the received file"

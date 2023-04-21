@@ -80,6 +80,25 @@ msgstr "Lähetä t&iedosto..."
 msgid "Send a file to the other machine"
 msgstr "Lähetä tiedosto toiselle tietokoneelle"
 
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#, fuzzy
+msgid "&TeleNVDA protocol"
+msgstr "TeleNVDA"
+
+#, fuzzy
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
+
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
 msgstr "Kopioi &linkki"
@@ -215,12 +234,22 @@ msgstr ""
 msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA-yhteyspyyntö"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
 msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
 
 msgid "Copied link"
 msgstr "Linkki kopioitu"
+
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

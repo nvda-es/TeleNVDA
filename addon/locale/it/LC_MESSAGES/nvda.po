@@ -82,6 +82,25 @@ msgstr "Invia &file..."
 msgid "Send a file to the other machine"
 msgstr "Invia un file all'altro PC"
 
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr "Copia il link per la sessione remota negli appunti"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#, fuzzy
+msgid "&TeleNVDA protocol"
+msgstr "TeleNVDA"
+
+#, fuzzy
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "Copia il link per la sessione remota negli appunti"
+
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
 msgstr "Copia &link"
@@ -224,12 +243,22 @@ msgstr ""
 msgid "TeleNVDA Connection Request"
 msgstr "Richiesta di connessione TeleNVDA"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
 msgstr "Copia il link per la sessione remota negli appunti"
 
 msgid "Copied link"
 msgstr "Link copiato"
+
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr "Copia il link per la sessione remota negli appunti"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

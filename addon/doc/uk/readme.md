@@ -146,9 +146,13 @@ TeleNVDA.
 
 ## Ділимося своїм сеансом
 
-Щоб поділитися посиланням, аби хтось інший міг легко приєднатися до вашого
-сеансу NVDA REMOTE, виберіть "Копіювати посилання" в меню віддаленого
-керування.
+To share a link so someone else can easily join your TeleNVDA session,
+select Copy Link from the Remote menu. You can also assign gestures from the
+NVDA Input Gestures dialog to speed up this task.
+
+You can choose between two link formats. First one is compatible with both
+NVDA Remote and TeleNVDA, and is the most recommended for now. Second one is
+compatible only with TeleNVDA.
 
 Якщо ви під'єднані як керівний комп’ютер, це посилання дозволить комусь
 іншому під’єднатися і бути керованим.
@@ -259,6 +263,12 @@ TeleNVDA.
 ви можете надсилати файли розміром не більше 10 МБ. Надсилання або отримання
 файлів на захищених екранах заборонено.
 
+Also note that sending files may consume too much network traffic on the
+server, depending on the file size, the computers connected to the same
+session and the amount of files sent. Contact your server administrator and
+ask them if the traffic is billed. In that case, consider using another
+platform to exchange files.
+
 Коли файл буде отримано на віддаленому комп’ютері, з'явиться діалог Зберегти
 як, в якому ви зможете вибрати місце збереження файлу.
 
@@ -313,7 +323,6 @@ TeleNVDA за умови, що ви прочитали, зрозуміли і п
 
 [[!tag dev stable]]
 
-[1]: https://addons.nvda-project.org/files/get.php?file=TeleNVDA
+[1]: https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA
 
 [2]: https://github.com/nvda-es/TeleNVDA
-

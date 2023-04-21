@@ -81,6 +81,25 @@ msgstr "Отправить &файл..."
 msgid "Send a file to the other machine"
 msgstr "Отправить файл на другой компьютер"
 
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr "Скопировать ссылку на удалённый сеанс в буфер обмена"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#, fuzzy
+msgid "&TeleNVDA protocol"
+msgstr "TeleNVDA"
+
+#, fuzzy
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "Скопировать ссылку на удалённый сеанс в буфер обмена"
+
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
 msgstr "Скопировать &ссылку на удалённый сеанс"
@@ -222,12 +241,22 @@ msgstr ""
 msgid "TeleNVDA Connection Request"
 msgstr "Запрос на подключение к сеансу TeleNVDA"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
 msgstr "Скопировать ссылку на удалённый сеанс в буфер обмена"
 
 msgid "Copied link"
 msgstr "Ссылка скопирована"
+
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr "Скопировать ссылку на удалённый сеанс в буфер обмена"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

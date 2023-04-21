@@ -47,7 +47,6 @@ msgstr ""
 "deaktiviert werden soll?"
 
 #. Translators: question title
-#| msgid "NVDA Remote Already Connected"
 msgid "Running NVDA Remote detected"
 msgstr "Es wurde das Ausführen von NVDA-Remote erkannt"
 
@@ -59,7 +58,6 @@ msgid "Your NVDA Remote configuration was corrupted and has been reset."
 msgstr ""
 "Die Konfiguration von NVDA-Remote war beschädigt und wurde zurückgesetzt."
 
-#| msgid "NVDA Remote Connection Request"
 msgid "NVDA Remote Configuration Error"
 msgstr "Konfigurationsfehler bei NVDA-Remote"
 
@@ -67,7 +65,6 @@ msgstr "Konfigurationsfehler bei NVDA-Remote"
 msgid "Connect..."
 msgstr "Verbinden..."
 
-#| msgid "Remotely connect to another computer running NVDA Remote Access"
 msgid ""
 "Remotely connect to another computer running NVDA Remote Access or TeleNVDA"
 msgstr ""
@@ -78,7 +75,6 @@ msgstr ""
 msgid "Disconnect"
 msgstr "Verbindung &trennen"
 
-#| msgid "Disconnect from another computer running NVDA Remote Access"
 msgid "Disconnect from another computer running NVDA Remote Access or TeleNVDA"
 msgstr ""
 "Die Verbindung zu einem anderen Computer mit NVDA-Remote oder TeleNVDA "
@@ -103,9 +99,27 @@ msgstr "Überträgt den Inhalt der Zwischenablage auf den Remote-Computer"
 msgid "Send &file..."
 msgstr "Datei &senden..."
 
-#| msgid "Push the clipboard to the other machine"
 msgid "Send a file to the other machine"
 msgstr "Senden einer Datei an den Remote-Computer"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr "Kopiert einen Link zur Fernsteuerungssitzung in die Zwischenablage"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#, fuzzy
+msgid "&TeleNVDA protocol"
+msgstr "TeleNVDA"
+
+#, fuzzy
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "Kopiert einen Link zur Fernsteuerungssitzung in die Zwischenablage"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -134,7 +148,6 @@ msgid "Not connected."
 msgstr "Nicht verbunden."
 
 #. Translators: message displayed in transfer file dialog when sending a file
-#| msgid "Mute speech and sounds from the remote computer"
 msgid "Choose the file you want to send to the remote computer"
 msgstr ""
 "Wählen Sie die Datei aus, die Sie an den Remote-Computer senden möchten"
@@ -161,7 +174,6 @@ msgstr ""
 "Sie fortfahren?"
 
 #. Translators: question title
-#| msgid "Warning"
 msgid "Warning!"
 msgstr "Warnung!"
 
@@ -170,7 +182,6 @@ msgid "File sent"
 msgstr "Datei gesendet"
 
 #. Translators: send file gesture description
-#| msgid "Sends the contents of the clipboard to the remote machine"
 msgid "Sends the specified file to the remote machine"
 msgstr "Sendet die angegebene Datei an den Remote-Computer"
 
@@ -185,7 +196,6 @@ msgid "Unable to push clipboard"
 msgstr "Fehler beim Übertragen des Inhalts der Zwischenablage"
 
 #. Translators: Presented when disconnected from the remote computer.
-#| msgid "Disconnect"
 msgid "Disconnected!"
 msgstr "Verbindung getrennt!"
 
@@ -228,16 +238,12 @@ msgstr "Warnung"
 msgid "Connected to control server"
 msgstr "Mit dem Kontroll-Server verbunden"
 
-#| msgid ""
-#| "NVDA Remote is already connected. Disconnect before opening a new "
-#| "connection."
 msgid ""
 "TeleNVDA is already connected. Disconnect before opening a new connection."
 msgstr ""
 "TeleNVDA ist bereits verbunden. Trennen Sie zuerst die Verbindung, bevor Sie "
 "eine neue Verbindung aufbauen."
 
-#| msgid "NVDA Remote Already Connected"
 msgid "TeleNVDA Already Connected"
 msgstr "TeleNVDA ist bereits verbunden"
 
@@ -255,19 +261,27 @@ msgstr ""
 "Möchten Sie die Steuerung dieses Rechners über den Server {server} mit dem "
 "Schlüssel {key} erlauben?"
 
-#| msgid "NVDA Remote Connection Request"
 msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA-Verbindungsanfrage"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
 msgstr "Kopiert einen Link zur Fernsteuerungssitzung in die Zwischenablage"
 
 msgid "Copied link"
 msgstr "Link kopiert"
 
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr "Kopiert einen Link zur Fernsteuerungssitzung in die Zwischenablage"
+
 #. Translators: description for the Connect gesture
-#| msgid "Copy a link to the remote session"
 msgid "Opens a dialog to start a remote session"
 msgstr "Öffnet ein Dialogfeld zum Starten einer Remote-Sitzung"
 
@@ -291,7 +305,6 @@ msgid "Send next gesture to the guest"
 msgstr "Nächsten Tastenbefehl an den Remote-Computer senden"
 
 #. Translators: Documentation string for the script that toggles the control between guest and host machine.
-#| msgid "Allows remote control of and remote access to another machine."
 msgid "Toggles the control between guest and host machine"
 msgstr "Schaltet die Kontrolle zwischen Remote- und Host-Computer um"
 
@@ -307,7 +320,6 @@ msgstr "Steuerung des lokalen Computers."
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Schaltet die Sprachausgabe auf dem Remote-Computer ein oder aus"
 
-#| msgid "Mute speech and sounds from the remote computer"
 msgid "Unmute speech and sounds from the remote computer"
 msgstr ""
 "Aufheben der Stummschaltung der Sprachausgabe und Signaltöne auf dem Remote-"
@@ -325,7 +337,6 @@ msgstr "&Schlüssel:"
 msgid "&Generate Key"
 msgstr "Schlüssel &generieren"
 
-#| msgid "Both host and key must be set."
 msgid "Host must be set."
 msgstr "Der Host muss festgelegt sein."
 
@@ -447,7 +458,6 @@ msgstr ""
 msgid "Connect and do not ask again for this server"
 msgstr "Verbinden und nicht mehr nach diesem Server fragen"
 
-#| msgid "Clipboard pushed"
 msgid "Clipboard updated"
 msgstr "Inhalt der Zwischenablage aktualisiert"
 
@@ -496,7 +506,6 @@ msgstr "TeleNVDA-Fernunterstützung"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
-#| msgid "Allows remote control of and remote access to another machine."
 msgid ""
 "Allows remote control of and remote access to another machine. This add-on "
 "is based on NVDA Remote."
