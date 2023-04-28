@@ -171,8 +171,13 @@ dass die Tastaturbelegung auf beiden Geräten übereinstimmt.
 ## Aktuelle Sitzung teilen
 
 Um einen Link freizugeben, damit eine andere Person einfach an Ihrer
-TeleNVDA-Sitzung teilnehmen kann, wählen Sie "Link kopieren" aus dem
-Remote-Menü.
+TeleNVDA-Sitzung teilnehmen kann, wählen Sie den Eintrag "Link kopieren" aus
+dem Menü "Fernbedienung". Sie können auch Tastenbefehle aus dem Dialogfeld
+für die Tastenbefehle zuweisen, um diese Aufgabe zu beschleunigen.
+
+Sie können zwischen zwei Link-Formaten auswählen. Das erste Format ist
+sowohl mit NVDA-Remote als auch mit TeleNVDA kompatibel und wird im Moment
+am meisten empfohlen. Das zweite Format ist nur mit TeleNVDA kompatibel.
 
 Wenn Sie als Host-Computer angeschlossen sind, kann über diesen Link eine
 andere Person angeschlossen und gesteuert werden.
@@ -293,6 +298,13 @@ senden. Bitte beachten Sie, dass Sie nur Dateien mit einer Größe von weniger
 als 10 MB senden können. Das Senden oder Empfangen von Dateien auf sicheren
 Bildschirmen ist nicht erlaubt.
 
+Beachten Sie auch, dass das Versenden von Dateien je nach Dateigröße, den
+mit derselben Sitzung verbundenen Computern und der Menge der versendeten
+Dateien zu viel Netzwerkverkehr auf dem Server verbrauchen kann. Wenden Sie
+sich an den Server-Administrator und fragen Sie nach, ob der Datenverkehr in
+Rechnung gestellt wird. In diesem Fall sollten Sie eine andere Plattform für
+den Dateiaustausch in Betracht ziehen.
+
 Wenn die Datei auf den Remote-Computern empfangen wird, erscheint ein
 Dialogfeld "Speichern unter", in dem Sie auswählen können, wo die Datei
 gespeichert werden soll.
@@ -350,7 +362,6 @@ Studio 2019 oder neuer.
 
 [[!tag dev stable]]
 
-[1]: https://addons.nvda-project.org/files/get.php?file=TeleNVDA
+[1]: https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA
 
 [2]: https://github.com/nvda-es/TeleNVDA
-

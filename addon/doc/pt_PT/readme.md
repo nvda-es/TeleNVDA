@@ -153,8 +153,13 @@ em ambas as máquinas coincidem.
 
 ## A partilhar a sua sessão
 
-Para partilhar um link para que outra pessoa possa facilmente juntar-se à
-sua sessão do TeleNVDA, seleccione Copy Link no menu Remote.
+To share a link so someone else can easily join your TeleNVDA session,
+select Copy Link from the Remote menu. You can also assign gestures from the
+NVDA Input Gestures dialog to speed up this task.
+
+You can choose between two link formats. First one is compatible with both
+NVDA Remote and TeleNVDA, and is the most recommended for now. Second one is
+compatible only with TeleNVDA.
 
 SE estiver ligado como computador de controlo, esta ligação permitirá que
 outra pessoa se ligue e seja controlada.
@@ -266,6 +271,12 @@ para todos os membros da sessão, incluindo a máquina controlada. Note que só
 pode enviar ficheiros de tamanho inferior a 10 MB. O envio ou recepção de
 ficheiros em ecrãs seguros não é permitido.
 
+Also note that sending files may consume too much network traffic on the
+server, depending on the file size, the computers connected to the same
+session and the amount of files sent. Contact your server administrator and
+ask them if the traffic is billed. In that case, consider using another
+platform to exchange files.
+
 Quando o ficheiro é recebido nas máquinas remotas, aparecerá uma caixa de
 diálogo Guardar como diálogo, permitindo-lhe escolher onde guardar o
 ficheiro.
@@ -319,7 +330,6 @@ Para construir o manipulador de URL executável, é necessário o Visual Studio
 
 [[!tag dev stable]]
 
-[1]: https://addons.nvda-project.org/files/get.php?file=TeleNVDA
+[1]: https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA
 
 [2]: https://github.com/nvda-es/TeleNVDA
-

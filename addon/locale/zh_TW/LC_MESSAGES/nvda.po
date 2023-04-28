@@ -78,6 +78,25 @@ msgstr "傳送檔案(&f)"
 msgid "Send a file to the other machine"
 msgstr "傳送檔案到另一台電腦"
 
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr ""
+
+#, fuzzy
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr "複製指向遠端電腦的連結到剪貼簿"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#, fuzzy
+msgid "&TeleNVDA protocol"
+msgstr "TeleNVDA"
+
+#, fuzzy
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "複製指向遠端電腦的連結到剪貼簿"
+
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
 msgstr "複製連結(&L)"
@@ -213,12 +232,22 @@ msgstr ""
 msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA 連線請求"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
 msgstr "複製指向遠端電腦的連結到剪貼簿"
 
 msgid "Copied link"
 msgstr "連結已複製"
+
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#, fuzzy
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr "複製指向遠端電腦的連結到剪貼簿"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

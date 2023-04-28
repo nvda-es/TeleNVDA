@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-03-30 13:26+0200\n"
+"POT-Creation-Date: 2023-04-15 12:03+0000\n"
+"PO-Revision-Date: 2023-04-15 16:50+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com\n"
 "Language: tr_TR\n"
@@ -25,10 +25,10 @@ msgid ""
 "TeleNVDA to work without conflicts, NVDA Remote must be disabled. Otherwise, "
 "TeleNVDA will refuse to work. Would you like to disable NVDA Remote now?"
 msgstr ""
-"NVDA kurulumunuzda NVDA Remote algılandı. TeleNVDA'nın çakışma olmadan "
-"çalışması için NVDA Remote'un devre dışı bırakılması gerekir. Aksi takdirde, "
-"TeleNVDA çalışmayı reddedecektir. NVDA Remote'u şimdi devre dışı bırakmak "
-"ister misiniz?"
+"NVDA kurulumunuzda NVDA Uzaktan Destek algılandı. TeleNVDA'nın çakışma "
+"olmadan çalışması için NVDA Uzaktan Destek eklentisinin devre dışı "
+"bırakılması gerekir. Aksi takdirde, TeleNVDA çalışmayı reddedecektir. NVDA "
+"Uzaktan Destek eklentisini şimdi devre dışı bırakmak ister misiniz?"
 
 #. Translators: question title
 msgid "Running NVDA Remote detected"
@@ -83,6 +83,27 @@ msgstr "&Dosya gönder..."
 
 msgid "Send a file to the other machine"
 msgstr "Uzaktaki makineye bir dosya gönder"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+msgid "NVDA &Remote protocol (recommended)"
+msgstr "NVDA Uzaktan Destek p&rotokolü (önerilen)"
+
+#| msgid "Copies a link to the remote session to the clipboard"
+msgid ""
+"Copy a link to the remote session compatible with both NVDA Remote and "
+"TeleNVDA"
+msgstr ""
+"Hem NVDA Uzaktan Destek hem de TeleNVDA ile uyumlu uzak oturuma bir bağlantı "
+"kopyala"
+
+#. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#| msgid "TeleNVDA"
+msgid "&TeleNVDA protocol"
+msgstr "&TeleNVDA protokolü"
+
+#| msgid "Copies a link to the remote session to the clipboard"
+msgid "Copy a link to the remote session compatible only with TeleNVDA"
+msgstr "Yalnızca TeleNVDA ile uyumlu uzak oturuma bir bağlantı kopyala"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -223,12 +244,25 @@ msgstr ""
 msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA Bağlantı Talebi"
 
-#. Translators: Copy link gesture description
-msgid "Copies a link to the remote session to the clipboard"
-msgstr "Panoya uzak oturum için bağlantı kopyalar"
+#. Translators: Copy link compatible with NVDA Remote gesture description
+#| msgid "Copies a link to the remote session to the clipboard"
+msgid ""
+"Copies a link to the remote session to the clipboard compatible with both "
+"NVDA Remote and TeleNVDA"
+msgstr ""
+"Hem NVDA Uzaktan Destek hem de TeleNVDA ile uyumlu uzak oturumun "
+"bağlantısını panoya kopyalar"
 
 msgid "Copied link"
 msgstr "Kopyalanan bağlantı"
+
+#. Translators: Copy link compatible with TeleNVDA gesture description
+#| msgid "Copies a link to the remote session to the clipboard"
+msgid ""
+"Copies a link to the remote session to the clipboard compatible only with "
+"TeleNVDA"
+msgstr ""
+"Yalnızca TeleNVDA ile uyumlu Uzak oturumun bağlantısını panoya kopyalar"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

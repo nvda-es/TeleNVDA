@@ -153,7 +153,13 @@ käytössä sama näppäinasettelu.
 ## Istunnon jakaminen
 
 Jotta muut voivat helposti liittyä TeleNVDA-istuntoosi, valitse
-Etäkäyttö-valikosta Kopioi linkki -vaihtoehto.
+Etäkäyttö-valikosta Kopioi linkki -vaihtoehto. Voit myös tehdä tämän
+nopeammin määrittämällä näppäinkomennon NVDA:n
+Näppäinkomennot-valintaikkunasta.
+
+Voit valita kahden linkkiformaatin väliltä. Ensimmäinen on yhteensopiva sekä
+NVDA-etäkäytön että TeleNVDA:n kanssa ja on tällä hetkellä
+suositeltavin. Toinen on yhteensopiva vain TeleNVDA:n kanssa.
 
 Mikäli olet muodostanut yhteyden hallitsevana tietokoneena, tämä linkki
 sallii jonkun muun henkilön yhdistää tietokoneeseesi sekä hänen koneensa
@@ -267,6 +273,12 @@ lukien. Huom: Voit lähettää vain tiedostoja, jotka ovat pienempiä kuin 10
 Mt. Tiedostojen lähettäminen tai vastaanottaminen ei ole mahdollista
 suojatuissa ruuduissa.
 
+Huomaa myös, että tiedostojen lähettäminen saattaa käyttää liikaa kaistaa
+palvelimella tiedostokoosta, samaan istuntoon yhdistäneiden tietokoneiden
+määrästä ja lähetettyjen tiedostojen määrästä riippuen. Ota yhteyttä
+palvelimen ylläpitäjään ja kysy, laskutetaanko verkkoliikenteestä. Harkitse
+siinä tapauksessa jonkin muun alustan käyttämistä tiedostojen jakamiseen.
+
 Kun tiedosto on vastaanotettu etäkoneilla, näkyviin tulee Tallenna nimellä
 -valintaikkuna, jossa voit valita, minne tiedosto tallennetaan.
 
@@ -319,7 +331,6 @@ uudemman.
 
 [[!tag dev stable]]
 
-[1]: https://addons.nvda-project.org/files/get.php?file=TeleNVDA
+[1]: https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA
 
 [2]: https://github.com/nvda-es/TeleNVDA
-
