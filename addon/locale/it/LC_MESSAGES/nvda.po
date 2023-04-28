@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'remote' '2.5'\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-04-04 11:44+0100\n"
+"PO-Revision-Date: 2023-04-28 10:47+0100\n"
 "Last-Translator: Simone Dal Maso <simone.dalmaso@gmail.com>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -84,22 +84,23 @@ msgstr "Invia un file all'altro PC"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
-msgstr ""
+msgstr "Protocollo NVDA &Remote (consigliato)"
 
-#, fuzzy
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
-msgstr "Copia il link per la sessione remota negli appunti"
+msgstr ""
+"Copia il link per la sessione remota negli appunti compatibile sia con NVDA "
+"Remote che con TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#, fuzzy
 msgid "&TeleNVDA protocol"
-msgstr "TeleNVDA"
+msgstr "Protocollo &TeleNVDA"
 
-#, fuzzy
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
-msgstr "Copia il link per la sessione remota negli appunti"
+msgstr ""
+"Copia il link per la sessione remota negli appunti compatibile solo con "
+"TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -244,21 +245,23 @@ msgid "TeleNVDA Connection Request"
 msgstr "Richiesta di connessione TeleNVDA"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
-msgstr "Copia il link per la sessione remota negli appunti"
+msgstr ""
+"Copia il link per la sessione remota negli appunti compatibile sia con NVDA "
+"Remote che con TeleNVDA"
 
 msgid "Copied link"
 msgstr "Link copiato"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
-msgstr "Copia il link per la sessione remota negli appunti"
+msgstr ""
+"Copia il link per la sessione remota negli appunti compatibile solo con "
+"TeleNVDA"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

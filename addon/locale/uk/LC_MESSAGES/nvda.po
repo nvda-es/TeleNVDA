@@ -3,15 +3,15 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-03-30 13:25+0200\n"
+"PO-Revision-Date: 2023-04-23 19:35+0300\n"
 "Last-Translator: Heorhii <nvda.translation.uk@gmail.com>\n"
 "Language-Team: \n"
 "Language: uk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: переклад/TeleNVDA-teleNVDA/addon\n"
 "X-Poedit-SearchPath-0: globalPlugins/remoteClient\n"
@@ -87,22 +87,20 @@ msgstr "Надіслати файл на інший комп'ютер"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
-msgstr ""
+msgstr "Протокол NVDA &Remote (рекомендовано)"
 
-#, fuzzy
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
-msgstr "Копіює посилання на віддалений сеанс до буфера обміну"
+msgstr ""
+"Копіювати посилання на віддалений сеанс, сумісний з NVDA Remote і TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#, fuzzy
 msgid "&TeleNVDA protocol"
-msgstr "TeleNVDA"
+msgstr "Протокол &TeleNVDA"
 
-#, fuzzy
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
-msgstr "Копіює посилання на віддалений сеанс до буфера обміну"
+msgstr "Копіювати посилання на віддалений сеанс, сумісний лише з TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -243,21 +241,23 @@ msgid "TeleNVDA Connection Request"
 msgstr "Запит на підключення TeleNVDA"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
-msgstr "Копіює посилання на віддалений сеанс до буфера обміну"
+msgstr ""
+"Копіює посилання на віддалений сеанс, сумісний з TeleNVDA і NVDA Remote, в "
+"буфер обміну"
 
 msgid "Copied link"
 msgstr "Посилання скопійовано"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
-msgstr "Копіює посилання на віддалений сеанс до буфера обміну"
+msgstr ""
+"Копіює посилання на віддалений сеанс, сумісний лише з TeleNVDA, в буфер "
+"обміну"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

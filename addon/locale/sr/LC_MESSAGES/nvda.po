@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: remote 2.0\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-04-04 17:05+0100\n"
+"PO-Revision-Date: 2023-04-21 22:25+0100\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr_RS@latin\n"
@@ -86,22 +86,21 @@ msgstr "Pošalji datoteku drugom računaru"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
-msgstr ""
+msgstr "NVDA &Remote protokol (preporučen)"
 
-#, fuzzy
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
-msgstr "Kopira link za daljinski pristup u privremenu memoriju"
+msgstr ""
+"Kopira link za daljinski pristup koji je kompatibilan i sa dodatkom NVDA "
+"Remote kao i teleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#, fuzzy
 msgid "&TeleNVDA protocol"
-msgstr "TeleNVDA"
+msgstr "&TeleNVDA protokol"
 
-#, fuzzy
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
-msgstr "Kopira link za daljinski pristup u privremenu memoriju"
+msgstr "Kopira link za daljinski pristup koji je kompatibilan samo uz teleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -242,21 +241,23 @@ msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA zahtev za povezivanje"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
-msgstr "Kopira link za daljinski pristup u privremenu memoriju"
+msgstr ""
+"Kopira link za daljinski pristup u privremenu memoriju koji je kompatibilan "
+"i sa dodatkom NVDA Remote kao i teleNVDA"
 
 msgid "Copied link"
 msgstr "Kopiran link"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
-msgstr "Kopira link za daljinski pristup u privremenu memoriju"
+msgstr ""
+"Kopira link za daljinski pristup u privremenu memoriju koji je kompatibilan "
+"samo sa dodatkom teleNVDA"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"
