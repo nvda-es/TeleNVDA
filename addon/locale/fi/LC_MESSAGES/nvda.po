@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: NVDARemote\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-03-30 13:31+0200\n"
+"PO-Revision-Date: 2023-04-22 12:28+0200\n"
 "Last-Translator: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language-Team: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language: fi_FI\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 1.6.11\n"
 "X-Poedit-Basepath: .\n"
 "X-Poedit-SearchPath-0: D:/src/nvda/addons/TeleNVDA/addon/globalPlugins/"
 "remoteClient\n"
@@ -82,22 +82,23 @@ msgstr "Lähetä tiedosto toiselle tietokoneelle"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
-msgstr ""
+msgstr "NVDA-etä&käyttö-protokolla (suositellaan)"
 
-#, fuzzy
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
-msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
+msgstr ""
+"Kopioi sekä NVDA-etäkäyttö- että TeleNVDA-yhteensopivaan etäistuntoon "
+"viittaavan linkin leikepöydälle"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#, fuzzy
 msgid "&TeleNVDA protocol"
-msgstr "TeleNVDA"
+msgstr "Te&leNVDA-protokolla"
 
-#, fuzzy
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
-msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
+msgstr ""
+"Kopioi vain TeleNVDA-yhteensopivaan etäistuntoon viittaavan linkin "
+"leikepöydälle"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -235,21 +236,23 @@ msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA-yhteyspyyntö"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
-msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
+msgstr ""
+"Kopioi sekä NVDA-etäkäyttö- että TeleNVDA-yhteensopivaan etäistuntoon "
+"viittaavan linkin leikepöydälle"
 
 msgid "Copied link"
 msgstr "Linkki kopioitu"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
-msgstr "Kopioi etäistuntoon viittaavan linkin leikepöydälle"
+msgstr ""
+"Kopioi vain TeleNVDA-yhteensopivaan etäistuntoon viittaavan linkin "
+"leikepöydälle"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"

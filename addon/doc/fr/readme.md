@@ -164,13 +164,14 @@ des deux ordinateurs correspondent.
 
 ## Partager votre session
 
-To share a link so someone else can easily join your TeleNVDA session,
-select Copy Link from the Remote menu. You can also assign gestures from the
-NVDA Input Gestures dialog to speed up this task.
+Pour partager un lien permettant à quelqu'un d'autre de rejoindre facilement
+votre session de TeleNVDA, choisissez le menu "copier le lien" dans le
+sous-menu Accès distant. Vous pouvez également attribuer des gestes à partir
+du dialogue Gestes de commandes de NVDA pour accélérer cette tâche.
 
-You can choose between two link formats. First one is compatible with both
-NVDA Remote and TeleNVDA, and is the most recommended for now. Second one is
-compatible only with TeleNVDA.
+Vous pouvez choisir entre deux formats de liens. Le premier est compatible
+avec NVDA Remote et TeleNVDA, et est le plus recommandé pour l'instant. Le
+deuxième est compatible uniquement avec TeleNVDA.
 
 Si vous êtes connecté en tant qu'ordinateur contrôleur, ce lien permet à
 quelqu'un d'autre de se connecter et être contrôlé.
@@ -290,11 +291,11 @@ contrôlée. Veuillez noter que vous ne pouvez envoyer que des fichiers
 inférieurs à 10 Mo. Il n'est pas autorisé à envoyer ou à recevoir des
 fichiers sur des écrans sécurisés.
 
-Also note that sending files may consume too much network traffic on the
-server, depending on the file size, the computers connected to the same
-session and the amount of files sent. Contact your server administrator and
-ask them if the traffic is billed. In that case, consider using another
-platform to exchange files.
+Notez également que l'envoi de fichiers peut consommer trop de trafic réseau
+sur le serveur, selon la taille du fichier, les ordinateurs connectés à la
+même session et de la quantité de fichiers envoyés. Contactez votre
+administrateur de serveur et demandez-leur si le trafic est facturé. Dans ce
+cas, envisagez d'utiliser une autre plate-forme pour échanger des fichiers.
 
 Lorsque le fichier est reçu sur les machines distantes, une boîte de
 dialogue Enregistrer sous va apparaître, vous permettant de choisir où

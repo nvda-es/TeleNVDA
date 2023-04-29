@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA 2023.3.28\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 20:20+0000\n"
-"PO-Revision-Date: 2023-04-01 10:26+0300\n"
+"PO-Revision-Date: 2023-04-22 09:13+0300\n"
 "Last-Translator: Kostadin Kolev <k_kolev1985@mail.bg>\n"
 "Language-Team: \n"
 "Language: bg\n"
@@ -85,22 +85,21 @@ msgstr "Изпращане на файл до другата машина"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
-msgstr ""
+msgstr "Протокол на NVDA &Remote (препоръчително)"
 
-#, fuzzy
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
-msgstr "Копира връзка към отдалечената сесия в клипборда"
+msgstr ""
+"Копира връзка към отдалечената сесия, съвместима както с NVDA Remote, така и "
+"с TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#, fuzzy
 msgid "&TeleNVDA protocol"
-msgstr "TeleNVDA"
+msgstr "Протокол на &TeleNVDA"
 
-#, fuzzy
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
-msgstr "Копира връзка към отдалечената сесия в клипборда"
+msgstr "Копира връзка към отдалечената сесия, съвместима само с TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -242,21 +241,22 @@ msgid "TeleNVDA Connection Request"
 msgstr "Заявка за връзка с TeleNVDA"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
-msgstr "Копира връзка към отдалечената сесия в клипборда"
+msgstr ""
+"Копира в клипборда връзка към отдалечената сесия, съвместима както с NVDA "
+"Remote, така и с TeleNVDA"
 
 msgid "Copied link"
 msgstr "Връзката е копирана"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
-msgstr "Копира връзка към отдалечената сесия в клипборда"
+msgstr ""
+"Копира в клипборда връзка към отдалечената сесия, съвместима само с TeleNVDA"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"
@@ -436,8 +436,8 @@ msgstr "Клипбордът е обновен"
 #. Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
 msgid "No permission on device to trigger CTRL+ALT+DEL from remote"
 msgstr ""
-"Няма разрешение на устройството за задействане от разстояние на Control+Alt"
-"+Delete"
+"Няма разрешение на устройството за задействане от разстояние на "
+"Control+Alt+Delete"
 
 #. Translators: message displayed in transfer file dialog when receiving a file
 msgid "Choose where to save the received file"
