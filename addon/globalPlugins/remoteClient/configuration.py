@@ -16,6 +16,7 @@ configspec = StringIO("""
 [controlserver]
 	autoconnect = boolean(default=False)
 	self_hosted = boolean(default=False)
+	UPNP = boolean(default=False)
 	connection_type = integer(default=0)
 	host = string(default="")
 	port = integer(default=6837)

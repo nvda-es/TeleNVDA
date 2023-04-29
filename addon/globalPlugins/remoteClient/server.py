@@ -5,6 +5,9 @@ import socket
 import ssl
 import sys
 import time
+sys.path.append(os.path.dirname(__file__))
+import miniupnpc
+del sys.path[-1]
 
 
 class Server:
@@ -13,7 +16,7 @@ class Server:
 	port: int
 	password: str
 
-	def __init__(self, port, password, bind_host='', bind_host6='[::]'):
+	def __init__(self, port, password, bind_host='', bind_host6='[::]', UPNP=False):
 		self.port = port
 		self.password = password
 		#Maps client sockets to clients
@@ -22,6 +25,9 @@ class Server:
 		self.running = False
 		self.server_socket = self.create_server_socket(socket.AF_INET, socket.SOCK_STREAM, bind_addr=(bind_host, self.port))
 		self.server_socket6 = self.create_server_socket(socket.AF_INET6, socket.SOCK_STREAM, bind_addr=(bind_host6, self.port))
+		self.upnp = None
+		if UPNP:
+			self.upnp = miniupnpc.UPnP()
 
 	def create_server_socket(self, family, type, bind_addr):
 		server_socket = socket.socket(family, type)
@@ -33,6 +39,14 @@ class Server:
 
 	def run(self):
 		self.running = True
+		if self.upnp:
+			try:
+				self.upnp.discoverdelay = 200
+				self.upnp.discover()
+				self.upnp.selectigd()
+				self.upnp.addportmapping(self.port, 'TCP', self.upnp.lanaddr, self.port, 'TeleNVDA', '', 3600)
+			except:
+				self.upnp = None
 		self.last_ping_time = time.time()
 		while self.running:
 			r, w, e = select.select(self.client_sockets+[self.server_socket, self.server_socket6], [], self.client_sockets, 60)
@@ -44,6 +58,8 @@ class Server:
 					continue
 				self.clients[sock].handle_data()
 			if time.time() - self.last_ping_time >= self.PING_TIME:
+				if self.upnp:
+					self.upnp.addportmapping(self.port, 'TCP', self.upnp.lanaddr, self.port, 'TeleNVDA', '', 3600)
 				for client in self.clients.values():
 					if client.authenticated:
 						client.send(type='ping')
@@ -75,6 +91,8 @@ class Server:
 		self.running = False
 		self.server_socket.close()
 		self.server_socket6.close()
+		if self.upnp:
+			self.upnp.deleteportmapping(self.port, 'TCP')
 
 class Client:
 	id: int = 0

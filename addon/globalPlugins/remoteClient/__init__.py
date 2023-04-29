@@ -110,7 +110,8 @@ class GlobalPlugin(_GlobalPlugin):
 		if cs['self_hosted']:
 			port = cs['port']
 			address = ('localhost',port)
-			self.start_control_server(port, channel)
+			UPNP = cs['UPNP']
+			self.start_control_server(port, channel, UPNP)
 		else:
 			address = address_to_hostport(cs['host'])
 		if cs['connection_type']==0:
@@ -402,7 +403,7 @@ class GlobalPlugin(_GlobalPlugin):
 					self.connect_as_slave((server_addr, port), channel)
 			else: #We want a server
 				channel = dlg.panel.key.GetValue()
-				self.start_control_server(int(dlg.panel.port.GetValue()), channel)
+				self.start_control_server(int(dlg.panel.port.GetValue()), channel, useUPNP=bool(dlg.panel.useUPNP.GetValue()))
 				if dlg.connection_type.GetSelection() == 0:
 					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
 				else:
@@ -498,8 +499,8 @@ class GlobalPlugin(_GlobalPlugin):
 		self.copy_link_tele_item.Enable(True)
 		configuration.write_connection_to_config(self.slave_transport.address)
 
-	def start_control_server(self, server_port, channel):
-		self.server = server.Server(server_port, channel)
+	def start_control_server(self, server_port, channel, useUPNP=False):
+		self.server = server.Server(server_port, channel, UPNP=useUPNP)
 		server_thread = threading.Thread(target=self.server.run)
 		server_thread.daemon = True
 		server_thread.start()

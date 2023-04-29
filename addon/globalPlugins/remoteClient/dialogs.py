@@ -17,6 +17,12 @@ except addonHandler.AddonError:
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
 	)
 from . import configuration
+import os
+import sys
+sys.path.append(os.path.dirname(__file__))
+import miniupnpc
+del sys.path[-1]
+
 
 WX_VERSION = int(wx.version()[0])
 WX_CENTER = wx.Center if WX_VERSION>=4 else wx.CENTER_ON_SCREEN
@@ -97,6 +103,9 @@ class ServerPanel(wx.Panel):
 		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Port:")))
 		self.port = wx.TextCtrl(self, wx.ID_ANY, value=str(socket_utils.SERVER_PORT))
 		sizer.Add(self.port)
+		# Translators: label of a checkbox which allows forwarding a port using UPNP
+		self.useUPNP = wx.CheckBox(self, wx.ID_ANY, label=_("Use &UPNP to forward this port if possible"))
+		sizer.Add(self.useUPNP)
 		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Key:")))
 		self.key = wx.TextCtrl(self, wx.ID_ANY)
 		sizer.Add(self.key)
@@ -116,11 +125,31 @@ class ServerPanel(wx.Panel):
 	def on_get_IP(self, evt):
 		evt.Skip()
 		self.get_IP.Enable(False)
-		t = threading.Thread(target=self.do_portcheck, args=[int(self.port.GetValue())])
+		result = gui.messageBox(
+			# Translators: message asking the user wether perform portcheck with UPNP or not
+			_("Would you like to use UPNP to forward the chosen port before detecting your IP address?"),
+			# Translators: title of the message asking the user to try portcheck with UPNP
+			_("Do you want to use UPNP?"),
+			wx.YES_NO|wx.ICON_QUESTION, self)
+		if result==wx.YES:
+			t = threading.Thread(target=self.do_portcheck, args=[int(self.port.GetValue()), True])
+		else:
+			t = threading.Thread(target=self.do_portcheck, args=[int(self.port.GetValue())])
 		t.daemon = True
 		t.start()
 
-	def do_portcheck(self, port):
+	def do_portcheck(self, port, UPNP=False):
+		if UPNP:
+			try:
+				upnp = miniupnpc.UPnP()
+				upnp.discoverdelay = 200
+				upnp.discover()
+				upnp.selectigd()
+				upnp.addportmapping(port, 'TCP', upnp.lanaddr, port, 'TeleNVDA', '', 60)
+			except Exception as e:
+				self.on_get_IP_fail(e)
+				self.get_IP.Enable(True)
+				raise
 		temp_server = server.Server(port=port, password=None)
 		try:
 			req = request.urlopen('https://portcheck.nvdaremote.com/port/%s' % port)
@@ -133,22 +162,24 @@ class ServerPanel(wx.Panel):
 		finally:
 			temp_server.close()
 			self.get_IP.Enable(True)
+			if UPNP:
+				upnp.deleteportmapping(port, 'TCP')
 
 	def on_get_IP_success(self, data):
 		ip = data['host']
 		port = data['port']
 		is_open = data['open']
 		if is_open:
-			wx.MessageBox(message=_("Successfully retrieved IP address. Port {port} is open.").format(port=port), caption=_("Success"), style=wx.OK)
+			gui.messageBox(message=_("Successfully retrieved IP address. Port {port} is open.").format(port=port), caption=_("Success"), style=wx.OK)
 		else:
-			wx.MessageBox(message=_("Retrieved external IP, but port {port} is not currently forwarded.".format(port=port)), caption=_("Warning"), style=wx.ICON_WARNING|wx.OK)
+			gui.messageBox(message=_("Retrieved external IP, but port {port} is not currently forwarded.").format(port=port), caption=_("Warning"), style=wx.ICON_WARNING|wx.OK)
 		self.external_IP.SetValue(ip)
 		self.external_IP.SetSelection(0, len(ip))
 		self.external_IP.SetFocus()
 
 
 	def on_get_IP_fail(self, exc):
-		wx.MessageBox(message=_("Unable to contact portcheck server, please manually retrieve your IP address"), caption=_("Error"), style=wx.ICON_ERROR|wx.OK)
+		gui.messageBox(message=_("Unable to contact portcheck server, please manually retrieve your IP address"), caption=_("Error"), style=wx.ICON_ERROR|wx.OK)
 
 class DirectConnectDialog(wx.Dialog):
 
@@ -222,6 +253,10 @@ class OptionsDialog(wx.Dialog):
 		self.port = wx.TextCtrl(self, wx.ID_ANY)
 		self.port.Enable(False)
 		main_sizer.Add(self.port)
+		# Translators: label of a checkbox which allows forwarding a port using UPNP
+		self.useUPNP = wx.CheckBox(self, wx.ID_ANY, label=_("Use &UPNP to forward this port if possible"))
+		self.useUPNP.Enable(False)
+		main_sizer.Add(self.useUPNP)
 		main_sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Key:")))
 		self.key = wx.TextCtrl(self, wx.ID_ANY)
 		self.key.Enable(False)
@@ -255,6 +290,7 @@ class OptionsDialog(wx.Dialog):
 		self.key.Enable(state)
 		self.host.Enable(not bool(self.client_or_server.GetSelection()) and state)
 		self.port.Enable(bool(self.client_or_server.GetSelection()) and state)
+		self.useUPNP.Enable(bool(self.client_or_server.GetSelection()) and state)
 
 	def on_client_or_server(self, evt):
 		evt.Skip()
@@ -269,6 +305,7 @@ class OptionsDialog(wx.Dialog):
 		self.connection_type.SetSelection(connection_type)
 		self.host.SetValue(cs['host'])
 		self.port.SetValue(str(cs['port']))
+		self.useUPNP.SetValue(cs['UPNP'])
 		self.key.SetValue(cs['key'])
 		self.set_controls()
 		self.play_sounds.SetValue(config['ui']['play_sounds'])
@@ -303,6 +340,7 @@ class OptionsDialog(wx.Dialog):
 			cs['host'] = self.host.GetValue()
 		else:
 			cs['port'] = int(self.port.GetValue())
+			cs['UPNP'] = bool(self.useUPNP.GetValue())
 		cs['key'] = self.key.GetValue()
 		config['ui']['play_sounds'] = self.play_sounds.GetValue()
 		config['ui']['allow_speech_commands'] = self.speech_commands.GetValue()
