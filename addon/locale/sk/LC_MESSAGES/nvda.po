@@ -577,7 +577,7 @@ msgid ""
 "compatible with this version of the Remote Client.\n"
 "Please either use a different server or upgrade your version of the addon."
 msgstr ""
-"Verzia riadiaceho servera, ku ktorému ste sa práve pripojiliNie je "
+"Verzia riadiaceho servera, ku ktorému ste sa práve pripojili, nie je "
 "kompatibilná s vašou inštaláciou doplnku NVDA Remote.\n"
 "Prosím, použite buď iný server alebo skúste aktualizovať doplnok NVDA Remote."
 
