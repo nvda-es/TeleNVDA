@@ -360,9 +360,8 @@ msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Stlmí alebo zruší stlmenie reči vzdialeného počítača"
 
 #: addon/globalPlugins/remoteClient/__init__.py:741
-#, fuzzy
 msgid "Unmute speech and sounds from the remote computer"
-msgstr "Stlmí hlasový výstup a zvuky NVDA na vzdialenom počítači"
+msgstr "Zruší stlmenie hlasového výstup a zvukov NVDA na vzdialenom počítači"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 #: addon/globalPlugins/remoteClient/dialogs.py:36
