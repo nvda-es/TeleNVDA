@@ -152,7 +152,9 @@ class ServerPanel(wx.Panel):
 				raise
 		temp_server = server.Server(port=port, password=None)
 		try:
-			req = request.urlopen('https://portcheck.nvdaremote.com/port/%s' % port)
+			Headers = { 'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)' }
+			p = request.Request('https://nvda.es/portcheck.php?port={port}'.format(port=port), headers=Headers, method="GET")
+			req = request.urlopen(p)
 			data = req.read()
 			result = json.loads(data)
 			wx.CallAfter(self.on_get_IP_success, result)
