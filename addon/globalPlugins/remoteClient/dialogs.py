@@ -101,7 +101,7 @@ class ServerPanel(wx.Panel):
 		sizer.Add(self.external_IP)
 		# Translators: The label of an edit field in connect dialog to enter the port the server will listen on.
 		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Port:")))
-		self.port = wx.TextCtrl(self, wx.ID_ANY, value=str(socket_utils.SERVER_PORT))
+		self.port = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=65535, value=str(socket_utils.SERVER_PORT))
 		sizer.Add(self.port)
 		# Translators: label of a checkbox which allows forwarding a port using UPNP
 		self.useUPNP = wx.CheckBox(self, wx.ID_ANY, label=_("Use &UPNP to forward this port if possible"))
@@ -252,7 +252,7 @@ class OptionsDialog(wx.Dialog):
 		self.host.Enable(False)
 		main_sizer.Add(self.host)
 		main_sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Port:")))
-		self.port = wx.TextCtrl(self, wx.ID_ANY)
+		self.port = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=65535)
 		self.port.Enable(False)
 		main_sizer.Add(self.port)
 		# Translators: label of a checkbox which allows forwarding a port using UPNP
