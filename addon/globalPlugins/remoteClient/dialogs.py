@@ -182,7 +182,7 @@ class ServerPanel(wx.Panel):
 
 
 	def on_get_IP_fail(self, exc):
-		gui.messageBox(message=_("Unable to contact portcheck server or UPNP device, please manually retrieve your IP address and forward ports if required"), caption=_("Error"), style=wx.ICON_ERROR|wx.OK)
+		gui.messageBox(message=_("Unable to contact portcheck server or UPNP device, please manually retrieve your IP address and forward ports if required. See the NVDA log for more details."), caption=_("Error"), style=wx.ICON_ERROR|wx.OK)
 
 class DirectConnectDialog(wx.Dialog):
 
