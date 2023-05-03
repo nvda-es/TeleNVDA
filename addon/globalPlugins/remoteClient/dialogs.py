@@ -139,6 +139,7 @@ class ServerPanel(wx.Panel):
 		t.start()
 
 	def do_portcheck(self, port, UPNP=False):
+		config = configuration.get_config()
 		if UPNP:
 			try:
 				upnp = miniupnpc.UPnP()
@@ -153,7 +154,7 @@ class ServerPanel(wx.Panel):
 		temp_server = server.Server(port=port, password=None)
 		try:
 			Headers = { 'User-Agent' : 'Mozilla/5.0 (Windows NT 6.1; Win64; x64)' }
-			p = request.Request('https://nvda.es/portcheck.php?port={port}'.format(port=port), headers=Headers, method="GET")
+			p = request.Request(config['ui']['portcheck'].format(port=port), headers=Headers, method="GET")
 			req = request.urlopen(p)
 			data = req.read()
 			result = json.loads(data)
@@ -269,6 +270,10 @@ class OptionsDialog(wx.Dialog):
 		# Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 		self.speech_commands = wx.CheckBox(self, wx.ID_ANY, label=_("Process speech commands when controlling another computer"))
 		main_sizer.Add(self.speech_commands)
+		# Translators: a text field in add-on options dialog to set the portcheck service URL
+		main_sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("Portcheck &service URL: ")))
+		self.portcheck = wx.TextCtrl(self, wx.ID_ANY)
+		main_sizer.Add(self.portcheck)
 		# Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 		self.delete_fingerprints = wx.Button(self, wx.ID_ANY, label=_("Delete all trusted fingerprints"))
 		self.delete_fingerprints.Bind(wx.EVT_BUTTON, self.on_delete_fingerprints)
@@ -312,6 +317,7 @@ class OptionsDialog(wx.Dialog):
 		self.set_controls()
 		self.play_sounds.SetValue(config['ui']['play_sounds'])
 		self.speech_commands.SetValue(config['ui']['allow_speech_commands'])
+		self.portcheck.SetValue(config['ui']['portcheck'])
 
 	def on_delete_fingerprints(self, evt):
 		if gui.messageBox(_("When connecting to an unauthorized server, you will again be prompted to accepts its certificate."), _("Are you sure you want to delete all stored trusted fingerprints?"), wx.YES|wx.NO|wx.NO_DEFAULT|wx.ICON_WARNING) == wx.YES:
@@ -321,6 +327,10 @@ class OptionsDialog(wx.Dialog):
 		evt.Skip()
 
 	def on_ok(self, evt):
+		if not "{port}" in self.portcheck.GetValue():
+			# Translators: error message for invalid format on Portcheck service URL
+			gui.messageBox(_("Invalid format for portcheck service URL. You must include {port} somewhere."), _("Error"), wx.OK | wx.ICON_ERROR)
+			return
 		if self.autoconnect.GetValue():
 			if not self.client_or_server.GetSelection() and (not self.host.GetValue() or not self.key.GetValue()):
 				gui.messageBox(_("Both host and key must be set."), _("Error"), wx.OK | wx.ICON_ERROR)
@@ -346,6 +356,7 @@ class OptionsDialog(wx.Dialog):
 		cs['key'] = self.key.GetValue()
 		config['ui']['play_sounds'] = self.play_sounds.GetValue()
 		config['ui']['allow_speech_commands'] = self.speech_commands.GetValue()
+		config['ui']['portcheck'] = self.portcheck.GetValue()
 		config.write()
 
 class CertificateUnauthorizedDialog(wx.MessageDialog):
