@@ -11,6 +11,8 @@ Welcome to the TeleNVDA addon, which will allow you to connect to another comput
 * Ability to change the f11 key to another gesture. Now this works as a common script so, you can assign gestures in the "Input Gestures" dialog.
 * Ability to ignore the next immediate gesture completely, it is useful if you need to send to the remote machine the gesture used to toggle between host and remote machine.
 * Ability to exchange small files (up to 10 MB) among users connected to the same session.
+* Ability to forward ports via UPNP.
+* Ability to use a custom portcheck service.
 * Several bug fixes.
 
 ## Before You Begin
@@ -59,17 +61,19 @@ Once selecting this, select which mode your end of the connection will be in.
 
 The other person will connect to you using the opposite.
 
-Once the mode is selected, you can use the Get External IP button to get your external IP address and make sure the port which is entered in the port field is forwarded correctly.
+Once the mode is selected, you can use the Get External IP button to get your external IP address and make sure the port which is entered in the port field is forwarded correctly. If enabled on your router, you can foorward the port using UPNP before performing portcheck.
 
 If portcheck detects that your port (6837 by default) is not reachable, a warning will appear.
 
-Forward your port and try again.
+Forward your port and try again. Also, ensure that the NVDA process is allowed through Windows firewall.
 
-Note: The process for forwarding ports is outside of the scope of this document. Please consult the information provided with your router for further instruction.
+Note: The process for forwarding ports, enabling UPNP or configuring Windows firewall is outside of the scope of this document. Please consult the information provided with your router for further instruction.
 
 Enter a key into the key field, or press generate. The other person will need your external IP along with the key to connect. If you entered a port other than the default (6837) in the port field, make sure that the other person appends the alternative port to the host address in the form &lt;external ip&gt;:&lt;port&gt;.
 
-Once ok is pressed, you will be connected. When the other person connects, you can use NVDA Remote normally.
+If you want to forward the chosen port using UPNP, enable the "Use UPNP to forward this port if possible" checkbox.
+
+Once ok is pressed, you will be connected. When the other person connects, you can use TeleNVDA normally.
 
 ## Controlling the remote machine
 
@@ -90,6 +94,8 @@ IF you are connected as the controlling computer, this link will allow someone e
 If instead you have set up your computer to be controlled, the link will allow people who you share it with to control your machine.
 
 Many applications will allow users to activate this link automatically, but if it does not run from within a specific app, it can be coppied to the clipboard and run from the run dialog.
+
+Note that the shared link may not work if you copy it from a server running in direct connection mode.
 
 ## Send Ctrl+Alt+Del
 
@@ -113,7 +119,7 @@ Sometimes, you may wish to control one of your own computers remotely. This is e
 
 1. Enter the NVDA menu, and choose Tools, then Remote. Finally, press Enter on Options.
 2. Check the box that says, "Auto connect to control server on startup".
-3. Select whether to use a remote relay server or to locally host the connection. 
+3. Select whether to use a remote relay server or to locally host the connection. If you decide to host the connection, you can try to forward ports using UPNP by checking the provided checkbox.
 4. Select Allow this machine to be controlled in the second set of radio buttons.
 5. If you host the connection yourself, you will need to ensure that the port entered in the port field (6837 by default) on the controlled machine can be accessed from the controlling machines.
 6. If you wish to use a relay server, Fill in both the Host and Key fields, tab to OK, and press Enter. The Generate Key option is not available in this situation. It is best to come up with a key you will remember so you can easily use it from any remote location.
@@ -164,9 +170,13 @@ Once TeleNVDA is installed on the secure desktop, if you are currently being con
 
 If you no longer want to trust the server fingerprints you've trusted, you can clear all of the trusted fingerprints by pressing the "Delete all trusted fingerprints" button in the Options dialog.
 
+## Using a custom portcheck service
+
+By default, TeleNVDA checks open ports using a service provided by the NVDA spanish community. You can change the service URL from the options dialog. Ensure that the port to check is part of the custom URL and the results are returned in the expected format. A portcheck sample script is distributed in TeleNVDA repository, so you can host your own copy if desired.
+
 ## Altering TeleNVDA
 
-This project is covered by the GNU General Public License, version 2 or later. You may clone [this repo][2] to make alteration to TeleNVDA, provided that you read, understand and respect the license terms.
+This project is covered by the GNU General Public License, version 2 or later. You may clone [this repo][2] to make alteration to TeleNVDA, provided that you read, understand and respect the license terms. The MiniUPNP module is licensed under a BSD-3 clause license.
 
 ### 3rd Party dependencies
 
@@ -179,12 +189,11 @@ In order to build the URL handler executable, you need Visual Studio 2019 or lat
 
 ### To package the add-on for distribution:
 
-1. Open a command line, change to the root of this repo
+1. Open a command line, change to the root of [this repo][2]
 2. Run the **scons** command. The created add-on, if there were no errors, is placed in the current directory.
 
 [[!tag dev stable]]
 
-[1]: https://addons.nvda-project.org/files/get.php?file=TeleNVDA
+[1]: https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA
 
 [2]: https://github.com/nvda-es/TeleNVDA
-
