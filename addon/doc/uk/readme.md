@@ -26,6 +26,8 @@ NVDA. Він повністю сумісний із NVDA Remote. Ось пото
   перемикання між хостом і віддаленим комп’ютером.
 * Можливість обмінюватися невеликими файлами (до 10 МБ) між користувачами,
   підключеними до однієї сесії.
+* Ability to forward ports via UPNP.
+* Ability to use a custom portcheck service.
 * Кілька виправлень.
 
 ## Перед тим, як почати
@@ -108,18 +110,20 @@ TeleNVDA.
 
 Інша особа з'єднається з вами, використовуючи режим, відмінний від вашого.
 
-Обравши режим, ви можете скористатися кнопкою "Отримати зовнішню IP-адресу",
-щоб знайти вашу IP-адресу, та переконатися, що порт вказаний у полі "Порт"
-перенаправляється правильно.
+Once the mode is selected, you can use the Get External IP button to get
+your external IP address and make sure the port which is entered in the port
+field is forwarded correctly. If enabled on your router, you can foorward
+the port using UPNP before performing portcheck.
 
 Якщо служба перевірки портів виявить, що ваш порт (типово 6837) недоступний,
 з'явиться попередження.
 
-Перенаправте свій порт і спробуйте знову.
+Forward your port and try again. Also, ensure that the NVDA process is
+allowed through Windows firewall.
 
-Примітка: Процес перенаправлення портів виходить за рамки цього
-документа. Будь ласка, зверніться до документації вашого маршрутизатора для
-отримання подальших інструкцій.
+Note: The process for forwarding ports, enabling UPNP or configuring Windows
+firewall is outside of the scope of this document. Please consult the
+information provided with your router for further instruction.
 
 Введіть ключ у поле ключа або натисніть кнопку «Створити ключ». Для
 підключення іншій людині знадобиться ваш зовнішній IP разом з ключем. Якщо у
@@ -127,8 +131,11 @@ TeleNVDA.
 що інша особа теж додала альтернативний порт до адреси сервера у форматі
 &lt;зовнішня IP-адреса&gt;:&lt;порт&gt;.
 
-Після натискання кнопки «Гаразд» вас буде підключено. Коли інший користувач
-підключиться, ви зможете використовувати NVDA Remote у звичайному режимі.
+If you want to forward the chosen port using UPNP, enable the "Use UPNP to
+forward this port if possible" checkbox.
+
+Once ok is pressed, you will be connected. When the other person connects,
+you can use TeleNVDA normally.
 
 ## Керування віддаленим комп’ютером
 
@@ -163,6 +170,9 @@ compatible only with TeleNVDA.
 Багато програм дадуть змогу користувачам автоматично активувати це
 посилання, але якщо воно не запускається з певної програми, його можна
 скопіювати до буфера обміну та запустити з діалогу "Виконати" (windows+r).
+
+Note that the shared link may not work if you copy it from a server running
+in direct connection mode.
 
 ## Надіслати Ctrl+Alt+Del
 
@@ -202,7 +212,9 @@ compatible only with TeleNVDA.
    керування". Нарешті, натисніть Enter на пункті "Параметри...".
 2. Позначте прапорець "Автопідключення до керівного сервера під час
    запуску".
-3. Виберіть який сервер використовувати: віддалений, чи локальний.
+3. Select whether to use a remote relay server or to locally host the
+   connection. If you decide to host the connection, you can try to forward
+   ports using UPNP by checking the provided checkbox.
 4. Оберіть радіокнопку "Дозволити керувати цим комп'ютером" у другій групі
    радіокнопок.
 5. Якщо ви самі встановлюєте з'єднання, вам необхідно переконатися, що порт,
@@ -298,11 +310,21 @@ platform to exchange files.
 надійних, ви можете видалити всі цифрові відбитки серверів, натиснувши
 кнопку «Видалення всіх надійних відбитків» у діалозі "Параметри".
 
+## Using a custom portcheck service
+
+By default, TeleNVDA checks open ports using a service provided by the NVDA
+spanish community. You can change the service URL from the options
+dialog. Ensure that the port to check is part of the custom URL and the
+results are returned in the expected format. A portcheck sample script is
+distributed in TeleNVDA repository, so you can host your own copy if
+desired.
+
 ## Внесення змін у TeleNVDA
 
-Цей проєкт поширюється на умовах ліцензії GNU General Public License, версія
-2 або новіша. Ви можете клонувати [цей репозиторій][2] для внесення змін до
-TeleNVDA за умови, що ви прочитали, зрозуміли і поважаєте умови ліцензії.
+This project is covered by the GNU General Public License, version 2 or
+later. You may clone [this repo][2] to make alteration to TeleNVDA, provided
+that you read, understand and respect the license terms. The MiniUPNP module
+is licensed under a BSD-3 clause license.
 
 ### Сторонні залежності
 
@@ -316,8 +338,7 @@ TeleNVDA за умови, що ви прочитали, зрозуміли і п
 
 ### Щоб запакувати доповнення для розповсюдження:
 
-1. Відкрийте командний рядок та перейдіть до кореневого каталогу репозиторію
-   проєкту
+1. Open a command line, change to the root of [this repo][2]
 2. Запустіть команду scons. Створений додаток, якщо не виникне помилок, буде
    розміщений в поточному каталозі.
 

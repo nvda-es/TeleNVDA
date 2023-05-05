@@ -7,10 +7,11 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-03-30 13:27+0200\n"
+"POT-Creation-Date: 2023-05-02 13:02+0100\n"
+"PO-Revision-Date: 2023-05-02 13:11+0100\n"
 "Last-Translator: Ângelo Abrantes <ampa4374@gmail.com>\n"
-"Language-Team: Equipa portuguesa do NVDA\n"
+"Language-Team: Equipa portuguesa do NVDA: Ângelo Abrantes e Rui Fontes "
+"(02-05-2023)\n"
 "Language: pt_PT\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -86,22 +87,21 @@ msgstr "Enviar um ficheiro para a outra máquina"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
-msgstr ""
+msgstr "Protocolo NVDA &Remote (recomendado)"
 
-#, fuzzy
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
-msgstr "Copia um link para a sessão remota na área de transferência"
+msgstr ""
+"Copiar uma ligação para a sessão remota compatível com o NVDA Remote e o "
+"TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#, fuzzy
 msgid "&TeleNVDA protocol"
-msgstr "TeleNVDA"
+msgstr "protocolo &TeleNVDA"
 
-#, fuzzy
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
-msgstr "Copia um link para a sessão remota na área de transferência"
+msgstr "Copiar uma ligação para a sessão remota compatível apenas com TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -178,9 +178,8 @@ msgid "Unable to push clipboard"
 msgstr "Impossível empurrar a área de transferência"
 
 #. Translators: Presented when disconnected from the remote computer.
-#, fuzzy
 msgid "Disconnected!"
-msgstr "Desligar"
+msgstr "Desligado!"
 
 #. Translators: Title of the connection error dialog.
 msgid "Error Connecting"
@@ -208,6 +207,10 @@ msgid ""
 "keyboard settings. In order to allow the keyboard of this machine to be "
 "controlled, this option should be enabled. Would you like to do this now?"
 msgstr ""
+"A opção de lidar com teclas de outras aplicações está desactivada nas "
+"definições do seu teclado NVDA. A fim de permitir que o teclado desta "
+"máquina seja controlado, esta opção deve ser activada. Gostaria de fazer "
+"isto agora?"
 
 #. Translators: The title of the warning dialog displayed when handle keys from other applications is disabled.
 msgid "Warning"
@@ -240,21 +243,23 @@ msgid "TeleNVDA Connection Request"
 msgstr "Pedido de ligação do TeleNVDA"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
-msgstr "Copia um link para a sessão remota na área de transferência"
+msgstr ""
+"Copia um link para a sessão remota para a área de transferência compatível "
+"com o NVDA Remote e o TeleNVDA"
 
 msgid "Copied link"
 msgstr "Ligação copiada"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
-msgstr "Copia um link para a sessão remota na área de transferência"
+msgstr ""
+"Copia uma ligação para a sessão remota para a área de transferência, "
+"compatível apenas com TeleNVDA"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"
@@ -325,6 +330,22 @@ msgstr "IP &externo:"
 msgid "&Port:"
 msgstr "&Porta:"
 
+#. Translators: label of a checkbox which allows forwarding a port using UPNP
+msgid "Use &UPNP to forward this port if possible"
+msgstr "Utilize o &UPNP para reencaminhar esta porta, se possível"
+
+#. Translators: message asking the user wether perform portcheck with UPNP or not
+msgid ""
+"Would you like to use UPNP to forward the chosen port before detecting your "
+"IP address?"
+msgstr ""
+"Gostaria de utilizar a UPNP para reencaminhar a porta escolhida antes de "
+"detectar o seu endereço IP?"
+
+#. Translators: title of the message asking the user to try portcheck with UPNP
+msgid "Do you want to use UPNP?"
+msgstr "Pretende utilizar UPNP?"
+
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "O endereço IP foi obtido. a porta {port} está aberta."
@@ -338,11 +359,15 @@ msgstr ""
 "O endereço externo de IP foi carregado, mas a porta {port} não está "
 "correctamente reenviada."
 
+#, fuzzy
 msgid ""
-"Unable to contact portcheck server, please manually retrieve your IP address"
+"Unable to contact portcheck server or UPNP device, please manually retrieve "
+"your IP address and forward ports if required. See the NVDA log for more "
+"details."
 msgstr ""
-"Não foi possível contactar o servidor procurado, obtenha o seu endereço IP "
-"manualmente"
+"Não é possível contactar o servidor de verificação de portas ou o "
+"dispositivo UPNP, por favor, recupere manualmente o seu endereço IP e "
+"reencaminhe as portas, se necessário"
 
 msgid "Client"
 msgstr "Cliente"
@@ -381,6 +406,10 @@ msgstr "Tocar sons em vez de bipes"
 msgid "Process speech commands when controlling another computer"
 msgstr "Processar comandos de voz quando se controla outro computador"
 
+#. Translators: a text field in add-on options dialog to set the portcheck service URL
+msgid "Portcheck &service URL: "
+msgstr ""
+
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
 msgstr "Apagar todas as impressões digitais de confiança"
@@ -396,6 +425,12 @@ msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr ""
 "Tem a certeza de que quer apagar todas as impressões digitais de confiança "
 "armazenadas?"
+
+#. Translators: error message for invalid format on Portcheck service URL
+#, python-brace-format
+msgid ""
+"Invalid format for portcheck service URL. You must include {port} somewhere."
+msgstr ""
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"
@@ -427,7 +462,7 @@ msgstr ""
 "Quer continuar a ligação?"
 
 msgid "Connect and do not ask again for this server"
-msgstr "Ligar e não voltar a perguntar, para este servidor."
+msgstr "Ligar e não voltar a perguntar, para este servidor"
 
 msgid "Clipboard updated"
 msgstr "Área de transferência actualizada"

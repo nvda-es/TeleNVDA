@@ -88,7 +88,6 @@ msgstr "Uzaktaki makineye bir dosya gönder"
 msgid "NVDA &Remote protocol (recommended)"
 msgstr "NVDA Uzaktan Destek p&rotokolü (önerilen)"
 
-#| msgid "Copies a link to the remote session to the clipboard"
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
@@ -97,11 +96,9 @@ msgstr ""
 "kopyala"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#| msgid "TeleNVDA"
 msgid "&TeleNVDA protocol"
 msgstr "&TeleNVDA protokolü"
 
-#| msgid "Copies a link to the remote session to the clipboard"
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
 msgstr "Yalnızca TeleNVDA ile uyumlu uzak oturuma bir bağlantı kopyala"
 
@@ -245,7 +242,6 @@ msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA Bağlantı Talebi"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#| msgid "Copies a link to the remote session to the clipboard"
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
@@ -257,7 +253,6 @@ msgid "Copied link"
 msgstr "Kopyalanan bağlantı"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#| msgid "Copies a link to the remote session to the clipboard"
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
@@ -333,6 +328,20 @@ msgstr "&Harici IP:"
 msgid "&Port:"
 msgstr "&Port:"
 
+#. Translators: label of a checkbox which allows forwarding a port using UPNP
+msgid "Use &UPNP to forward this port if possible"
+msgstr ""
+
+#. Translators: message asking the user wether perform portcheck with UPNP or not
+msgid ""
+"Would you like to use UPNP to forward the chosen port before detecting your "
+"IP address?"
+msgstr ""
+
+#. Translators: title of the message asking the user to try portcheck with UPNP
+msgid "Do you want to use UPNP?"
+msgstr ""
+
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "IP adresi başarıyla alındı. Port {port} açık."
@@ -344,8 +353,11 @@ msgstr "Başarılı"
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "Harici IP alındı, ancak port {port} şu anda yönlendirilmemiş."
 
+#, fuzzy
 msgid ""
-"Unable to contact portcheck server, please manually retrieve your IP address"
+"Unable to contact portcheck server or UPNP device, please manually retrieve "
+"your IP address and forward ports if required. See the NVDA log for more "
+"details."
 msgstr ""
 "Portcheck sunucusuyla bağlantı kurulamıyor, lütfen IP adresinizi manuel "
 "olarak alın"
@@ -387,6 +399,10 @@ msgstr "Bip yerine ses çal"
 msgid "Process speech commands when controlling another computer"
 msgstr "Başka bir bilgisayarı kontrol ederken konuşma komutlarını işle"
 
+#. Translators: a text field in add-on options dialog to set the portcheck service URL
+msgid "Portcheck &service URL: "
+msgstr ""
+
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
 msgstr "Tüm güvenilir parmak izlerini sil"
@@ -401,6 +417,12 @@ msgstr ""
 msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr ""
 "Kayıtlı tüm güvenilir parmak izlerini silmek istediğinizden emin misiniz?"
+
+#. Translators: error message for invalid format on Portcheck service URL
+#, python-brace-format
+msgid ""
+"Invalid format for portcheck service URL. You must include {port} somewhere."
+msgstr ""
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"

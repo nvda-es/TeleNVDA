@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: NVDARemote\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-04-04 19:02+0800\n"
+"PO-Revision-Date: 2023-05-01 09:01+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -83,22 +83,21 @@ msgstr "Отправить файл на другой компьютер"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
-msgstr ""
+msgstr "Протокол NVDA &Remote (рекомендуется)"
 
-#, fuzzy
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
-msgstr "Скопировать ссылку на удалённый сеанс в буфер обмена"
+msgstr ""
+"Скопировать ссылку на удалённый сеанс, совместимую как с NVDA Remote, так и "
+"с TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#, fuzzy
 msgid "&TeleNVDA protocol"
-msgstr "TeleNVDA"
+msgstr "Протокол &TeleNVDA"
 
-#, fuzzy
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
-msgstr "Скопировать ссылку на удалённый сеанс в буфер обмена"
+msgstr "Скопировать ссылку на удалённый сеанс, совместимую только с TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -242,21 +241,23 @@ msgid "TeleNVDA Connection Request"
 msgstr "Запрос на подключение к сеансу TeleNVDA"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
-msgstr "Скопировать ссылку на удалённый сеанс в буфер обмена"
+msgstr ""
+"Скопировать в буфер обмена ссылку на удалённый сеанс, совместимую как с NVDA "
+"Remote, так и с TeleNVDA"
 
 msgid "Copied link"
 msgstr "Ссылка скопирована"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
-msgstr "Скопировать ссылку на удалённый сеанс в буфер обмена"
+msgstr ""
+"Скопировать в буфер обмена ссылку на удалённый сеанс, совместимую только с "
+"TeleNVDA"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"
@@ -327,6 +328,20 @@ msgstr "&Внешний IP-адрес:"
 msgid "&Port:"
 msgstr "&Порт:"
 
+#. Translators: label of a checkbox which allows forwarding a port using UPNP
+msgid "Use &UPNP to forward this port if possible"
+msgstr ""
+
+#. Translators: message asking the user wether perform portcheck with UPNP or not
+msgid ""
+"Would you like to use UPNP to forward the chosen port before detecting your "
+"IP address?"
+msgstr ""
+
+#. Translators: title of the message asking the user to try portcheck with UPNP
+msgid "Do you want to use UPNP?"
+msgstr ""
+
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "Внешний IP-адрес успешно получен. Порт {port} открыт."
@@ -338,8 +353,11 @@ msgstr "Операция успешно завершена"
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "Внешний IP-адрес получен, но порт {port} сейчас закрыт."
 
+#, fuzzy
 msgid ""
-"Unable to contact portcheck server, please manually retrieve your IP address"
+"Unable to contact portcheck server or UPNP device, please manually retrieve "
+"your IP address and forward ports if required. See the NVDA log for more "
+"details."
 msgstr "Не удалось получить внешний IP-адрес. Пожалуйста, укажите его вручную."
 
 msgid "Client"
@@ -379,6 +397,10 @@ msgstr "Воспроизводить звуки вместо тоновых си
 msgid "Process speech commands when controlling another computer"
 msgstr "Обрабатывать речевые команды при управлении другим компьютером"
 
+#. Translators: a text field in add-on options dialog to set the portcheck service URL
+msgid "Portcheck &service URL: "
+msgstr ""
+
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
 msgstr "Удалить все отпечатки доверенных сертификатов"
@@ -394,6 +416,12 @@ msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr ""
 "Вы уверены, что хотите удалить все сохранённые отпечатки доверенных "
 "сертификатов?"
+
+#. Translators: error message for invalid format on Portcheck service URL
+#, python-brace-format
+msgid ""
+"Invalid format for portcheck service URL. You must include {port} somewhere."
+msgstr ""
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"

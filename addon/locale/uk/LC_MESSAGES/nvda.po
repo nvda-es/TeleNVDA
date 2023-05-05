@@ -10,8 +10,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
-"n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
 "X-Generator: Poedit 3.2.2\n"
 "X-Poedit-Basepath: переклад/TeleNVDA-teleNVDA/addon\n"
 "X-Poedit-SearchPath-0: globalPlugins/remoteClient\n"
@@ -327,6 +327,20 @@ msgstr "Зовнішня IP-&адреса:"
 msgid "&Port:"
 msgstr "&Порт:"
 
+#. Translators: label of a checkbox which allows forwarding a port using UPNP
+msgid "Use &UPNP to forward this port if possible"
+msgstr ""
+
+#. Translators: message asking the user wether perform portcheck with UPNP or not
+msgid ""
+"Would you like to use UPNP to forward the chosen port before detecting your "
+"IP address?"
+msgstr ""
+
+#. Translators: title of the message asking the user to try portcheck with UPNP
+msgid "Do you want to use UPNP?"
+msgstr ""
+
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "Зовнішню IP-адресу успішно отримано. Порт {port} відкритий."
@@ -339,8 +353,11 @@ msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr ""
 "Зовнішню IP-адресу отримано, але порт {port} наразі не перенаправляється."
 
+#, fuzzy
 msgid ""
-"Unable to contact portcheck server, please manually retrieve your IP address"
+"Unable to contact portcheck server or UPNP device, please manually retrieve "
+"your IP address and forward ports if required. See the NVDA log for more "
+"details."
 msgstr ""
 "Не вдається з'єднатись з сервером перевірки портів, будь ласка визначте свою "
 "IP-адресу вручну"
@@ -382,6 +399,10 @@ msgstr "Відтворювати звуки замість сигналів"
 msgid "Process speech commands when controlling another computer"
 msgstr "Обробляти мовні команди під час керування іншим комп’ютером"
 
+#. Translators: a text field in add-on options dialog to set the portcheck service URL
+msgid "Portcheck &service URL: "
+msgstr ""
+
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
 msgstr "Видалення всіх надійних відбитків"
@@ -395,6 +416,12 @@ msgstr ""
 
 msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr "Ви впевнені, що хочете видалити всі збережені надійні відбитки?"
+
+#. Translators: error message for invalid format on Portcheck service URL
+#, python-brace-format
+msgid ""
+"Invalid format for portcheck service URL. You must include {port} somewhere."
+msgstr ""
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"
