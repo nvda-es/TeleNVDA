@@ -26,8 +26,8 @@ NVDA Remote. Estas son las diferencias actuales:
   entre el equipo local y la máquina remota.
 * Posibilidad de intercambiar pequeños ficheros (hasta 10 MB) entre usuarios
   conectados a la misma sesión.
-* Ability to forward ports via UPNP.
-* Ability to use a custom portcheck service.
+* Posibilidad de redirigir puertos mediante UPNP.
+* Posibilidad de usar un servicio de comprobación de puertos personalizado.
 * Varias correcciones de fallos.
 
 ## Antes de empezar
@@ -113,20 +113,21 @@ durante la conexión.
 
 La otra persona se conectará usando el contrario.
 
-Once the mode is selected, you can use the Get External IP button to get
-your external IP address and make sure the port which is entered in the port
-field is forwarded correctly. If enabled on your router, you can foorward
-the port using UPNP before performing portcheck.
+Una vez seleccionado el modo, puedes usar el botón obtener IP externa para
+obtener tu dirección IP externa y asegurarte de que el puerto que has
+introducido en el campo puerto está abierto correctamente. Si está activado
+en tu router, puedes redirigir el puerto usando UPNP antes de comprobar si
+el puerto está abierto.
 
 Si portcheck detecta que tu puerto (por defecto 6837) no está abierto,
 aparecerá una advertencia.
 
-Forward your port and try again. Also, ensure that the NVDA process is
-allowed through Windows firewall.
+Redirige tu puerto y prueba otra vez. Comprueba también que se permite el
+proceso de NVDA en el firewall de Windows.
 
-Note: The process for forwarding ports, enabling UPNP or configuring Windows
-firewall is outside of the scope of this document. Please consult the
-information provided with your router for further instruction.
+Nota: el proceso de abrir puertos, habilitar UPNP o configurar el firewall
+de Windows está fuera del propósito de este documento. Consulta la
+documentación que acompaña a tu router para más información.
 
 Introduce una clave en el campo clave, o pulsa generar. La otra persona
 necesitará tu IP externa junto con la clave para conectar. Si has
@@ -134,11 +135,11 @@ introducido un puerto distinto al que se usa por defecto (6837) en el campo
 puerto, asegúrate de que la otra persona añade el puerto alternativo a la
 dirección del equipo usando el formato &lt;ip externa&gt;:&lt;puerto&gt;.
 
-If you want to forward the chosen port using UPNP, enable the "Use UPNP to
-forward this port if possible" checkbox.
+Si quieres redirigir el puerto elegido usando UPNP, marca la casilla "Usar
+UPNP para redirigir este puerto si es posible".
 
-Once ok is pressed, you will be connected. When the other person connects,
-you can use TeleNVDA normally.
+Una vez pulses aceptar, estarás conectado. Cuando la otra persona se
+conecte, podrás usar TeleNVDA con normalidad.
 
 ## Control sobre el equipo remoto
 
@@ -177,8 +178,8 @@ Muchas aplicaciones permiten a los usuarios activar este enlace
 automáticamente, pero si no se abre desde una aplicación específica, puedes
 copiarlo y abrirlo desde el diálogo ejecutar.
 
-Note that the shared link may not work if you copy it from a server running
-in direct connection mode.
+Ten en cuenta que el enlace compartido puede no funcionar si lo copias desde
+un servidor que funciona en modo de conexión directa.
 
 ## Enviar ctrl+alt+supr
 
@@ -218,9 +219,9 @@ esto se hace posible.
    remoto. Finalmente, pulsa intro en opciones.
 2. Marca la casilla que dice "Conectar automáticamente al servidor de
    control al arrancar".
-3. Select whether to use a remote relay server or to locally host the
-   connection. If you decide to host the connection, you can try to forward
-   ports using UPNP by checking the provided checkbox.
+3. Elige usar un servidor de control remoto o alojar la conexión
+   localmente. Si decides alojar la conexión, puedes intentar redirigir los
+   puertos con UPNP marcando la casilla proporcionada.
 4. Elige permitir que controlen este equipo en el segundo grupo de botones
    de opción.
 5. Si creas tu propio servidor, tendrás que asegurarte de que el puerto
@@ -314,21 +315,23 @@ Si ya no quieres confiar en huellas de servidores en las que has confiado,
 puedes eliminar todas las huellas de confianza pulsando el botón "Eliminar
 todas las huellas de confianza" desde el diálogo de opciones.
 
-## Using a custom portcheck service
+## Uso de un servicio personalizado de comprobación de puertos
 
-By default, TeleNVDA checks open ports using a service provided by the NVDA
-spanish community. You can change the service URL from the options
-dialog. Ensure that the port to check is part of the custom URL and the
-results are returned in the expected format. A portcheck sample script is
-distributed in TeleNVDA repository, so you can host your own copy if
-desired.
+Por defecto, TeleNVDA comprueba los puertos abiertos usando un servicio
+proporcionado por la comunidad de NVDA en español. Puedes cambiar la URL del
+servicio desde el diálogo de opciones. Asegúrate de que el puerto a
+comprobar es parte de la URL personalizada y los resultados se devuelven en
+el formato esperado. Se distribuye un script de muestra para la comprobación
+de puertos en el repositorio de TeleNVDA, por lo que puedes alojar tu propia
+copia si lo deseas.
 
 ## Alteración de TeleNVDA
 
-This project is covered by the GNU General Public License, version 2 or
-later. You may clone [this repo][2] to make alteration to TeleNVDA, provided
-that you read, understand and respect the license terms. The MiniUPNP module
-is licensed under a BSD-3 clause license.
+Este proyecto se encuentra cubierto por la licencia pública general GNU,
+versión 2 o posterior. Puedes clonar [este repositorio][2] para hacer
+alteraciones a TeleNVDA, siempre que leas, entiendas y respetes los términos
+de esta licencia. El módulo MiniUPNP está cubierto por una licencia BSD de 3
+cláusulas.
 
 ### Dependencias de terceros
 
@@ -342,7 +345,7 @@ Visual Studio 2019 o posterior.
 
 ### Para empaquetar el complemento para su distribución:
 
-1. Open a command line, change to the root of [this repo][2]
+1. Abre una línea de órdenes y cambia a la raíz de [este repositorio][2]
 2. Ejecuta la orden **scons**. El complemento creado, si no hubo errores, se
    encuentra en la carpeta actual.
 

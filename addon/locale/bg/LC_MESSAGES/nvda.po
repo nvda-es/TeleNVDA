@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA 2023.3.28\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 20:20+0000\n"
-"PO-Revision-Date: 2023-04-22 09:13+0300\n"
+"PO-Revision-Date: 2023-05-06 09:10+0300\n"
 "Last-Translator: Kostadin Kolev <k_kolev1985@mail.bg>\n"
 "Language-Team: \n"
 "Language: bg\n"
@@ -331,17 +331,19 @@ msgstr "&Порт:"
 
 #. Translators: label of a checkbox which allows forwarding a port using UPNP
 msgid "Use &UPNP to forward this port if possible"
-msgstr ""
+msgstr "Използвай &UPNP, за препращане на този порт, ако е възможно"
 
 #. Translators: message asking the user wether perform portcheck with UPNP or not
 msgid ""
 "Would you like to use UPNP to forward the chosen port before detecting your "
 "IP address?"
 msgstr ""
+"Искате ли да използвате UPNP, за да препратите избрания порт, преди да "
+"установите вашия IP адрес?"
 
 #. Translators: title of the message asking the user to try portcheck with UPNP
 msgid "Do you want to use UPNP?"
-msgstr ""
+msgstr "Искате ли да използвате UPNP?"
 
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
@@ -354,14 +356,14 @@ msgstr "Операцията беше успешна"
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "Получен е външен IP, но в момента портът {port} не е отворен."
 
-#, fuzzy
 msgid ""
 "Unable to contact portcheck server or UPNP device, please manually retrieve "
 "your IP address and forward ports if required. See the NVDA log for more "
 "details."
 msgstr ""
-"Свързването със сървъра на portcheck е невъзможно. Моля, извлечете ръчно "
-"своя IP адрес."
+"Свързването със сървъра на portcheck или UPNP устройството е невъзможно. "
+"Моля, извлечете ръчно своя IP адрес. Вижте протоколния файл на NVDA за "
+"повече информация."
 
 msgid "Client"
 msgstr "Клиент"
@@ -402,7 +404,7 @@ msgstr "Обработвай речеви команди при управлен
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
-msgstr ""
+msgstr "URL адрес на &услугата Portcheck: "
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
@@ -424,6 +426,8 @@ msgstr ""
 msgid ""
 "Invalid format for portcheck service URL. You must include {port} somewhere."
 msgstr ""
+"Невалиден формат за URL адреса на услугата Portcheck. Трябва да включите "
+"{port} някъде."
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"
@@ -463,8 +467,8 @@ msgstr "Клипбордът е обновен"
 #. Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
 msgid "No permission on device to trigger CTRL+ALT+DEL from remote"
 msgstr ""
-"Няма разрешение на устройството за задействане от разстояние на Control+Alt"
-"+Delete"
+"Няма разрешение на устройството за задействане от разстояние на "
+"Control+Alt+Delete"
 
 #. Translators: message displayed in transfer file dialog when receiving a file
 msgid "Choose where to save the received file"

@@ -117,8 +117,8 @@ A outra pessoa ligar-se-á a si usando o oposto.
 
 Once the mode is selected, you can use the Get External IP button to get
 your external IP address and make sure the port which is entered in the port
-field is forwarded correctly. If enabled on your router, you can foorward
-the port using UPNP before performing portcheck.
+field is forwarded correctly. If enabled on your router, you can forward the
+port using UPNP before performing portcheck.
 
 Se o portcheck detectar que a sua porta (6837 por defeito) não é alcançável,
 aparecerá um aviso.

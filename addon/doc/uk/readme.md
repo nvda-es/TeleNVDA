@@ -112,8 +112,8 @@ TeleNVDA.
 
 Once the mode is selected, you can use the Get External IP button to get
 your external IP address and make sure the port which is entered in the port
-field is forwarded correctly. If enabled on your router, you can foorward
-the port using UPNP before performing portcheck.
+field is forwarded correctly. If enabled on your router, you can forward the
+port using UPNP before performing portcheck.
 
 Якщо служба перевірки портів виявить, що ваш порт (типово 6837) недоступний,
 з'явиться попередження.

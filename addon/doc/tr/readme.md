@@ -27,8 +27,8 @@ ile tamamen uyumludur. Var olan farklılıklar aşağıdaki gibidir:
   göndermeniz gerekiyorsa kullanışlıdır.
 * Aynı oturuma bağlı kullanıcılar arasında küçük dosya alışverişi (10 MB'a
   kadar) yapabilme.
-* Ability to forward ports via UPNP.
-* Ability to use a custom portcheck service.
+* UPNP aracılığıyla bağlantı noktalarını iletme yeteneği.
+* Özel bir portcheck hizmeti kullanabilme.
 * Birkaç hata düzeltmesi.
 
 ## Başlamadan Önce
@@ -115,20 +115,21 @@ Bunu seçtikten sonra, bağlantınızın sonunun hangi modda olacağını seçin
 
 Diğer kişi ise tam tersini kullanarak size bağlanacaktır.
 
-Once the mode is selected, you can use the Get External IP button to get
-your external IP address and make sure the port which is entered in the port
-field is forwarded correctly. If enabled on your router, you can foorward
-the port using UPNP before performing portcheck.
+Mod seçildikten sonra Harici IP Alın butonunu kullanarak harici IP
+adresinizi alabilir ve port alanına girilen portun doğru yönlendirildiğinden
+emin olabilirsiniz. Yönlendiricinizde etkinleştirildiyse, port kontrolü
+gerçekleştirmeden önce UPNP kullanarak portu iletebilirsiniz.
 
 Bağlantı noktası kontrolü, bağlantı noktanıza (varsayılan olarak 6837)
 ulaşılamadığını tespit ederse, bir uyarı görüntülenir.
 
-Forward your port and try again. Also, ensure that the NVDA process is
-allowed through Windows firewall.
+Bağlantı noktanızı iletin ve tekrar deneyin. Ayrıca, NVDA işlemine Windows
+güvenlik duvarı üzerinden izin verildiğinden emin olun.
 
-Note: The process for forwarding ports, enabling UPNP or configuring Windows
-firewall is outside of the scope of this document. Please consult the
-information provided with your router for further instruction.
+Not: Bağlantı noktalarını iletme, UPNP'yi etkinleştirme veya Windows
+güvenlik duvarını yapılandırma işlemleri bu belgenin kapsamı
+dışındadır. Daha fazla talimat için lütfen yönlendiricinizle birlikte
+verilen bilgilere bakın.
 
 Anahtar alanına bir anahtar girin veya oluştur'a basın. Diğer kişi,
 bağlanmak için anahtarla birlikte harici IP'nize ihtiyaç
@@ -137,11 +138,11 @@ bağlantı noktası girdiyseniz, diğer kişinin alternatif bağlantı noktasın
 ana bilgisayar adresine <harici ip>:<bağlantı noktası> biçiminde
 eklediğinden emin olun.
 
-If you want to forward the chosen port using UPNP, enable the "Use UPNP to
-forward this port if possible" checkbox.
+Seçilen bağlantı noktasını UPNP kullanarak iletmek istiyorsanız, "Mümkünse
+bu bağlantı noktasını iletmek için UPNP kullan" onay kutusunu etkinleştirin.
 
-Once ok is pressed, you will be connected. When the other person connects,
-you can use TeleNVDA normally.
+Tamam düğmesine basıldığında bağlanacaksınız. Diğer kişi bağlandığında,
+TeleNVDA'yı normal şekilde kullanabilirsiniz.
 
 ## Uzak makineyi kontrol etme
 
@@ -182,8 +183,8 @@ etkinleştirmesine izin verir, ancak belirli bir uygulama içinden
 çalışmıyorsa, panoya kopyalanabilir ve çalıştır iletişim kutusundan
 çalıştırılabilir.
 
-Note that the shared link may not work if you copy it from a server running
-in direct connection mode.
+Doğrudan bağlantı modunda çalışan bir sunucudan kopyalarsanız paylaşılan
+bağlantının çalışmayabileceğini unutmayın.
 
 ## Ctrl+Alt+Sil komutu Gönder
 
@@ -224,9 +225,10 @@ uygun ve mümkün kılar.
    olarak, Seçenekler'de Enter tuşuna basın.
 2. "Başlangıçta kontrol sunucusuna otomatik bağlan" yazan kutuyu
    işaretleyin.
-3. Select whether to use a remote relay server or to locally host the
-   connection. If you decide to host the connection, you can try to forward
-   ports using UPNP by checking the provided checkbox.
+3. Bir uzak geçiş sunucusu kullanmayı veya bağlantıyı yerel olarak
+   barındırmayı seçin. Bağlantıyı barındırmaya karar verirseniz, sağlanan
+   onay kutusunu işaretleyerek bağlantı noktalarını UPNP kullanarak iletmeyi
+   deneyebilirsiniz.
 4. İkinci radyo düğmesi setinde Bu bilgisayarın kontrol edilmesine izin ver
    öğesini seçin.
 5. Bağlantıyı kendiniz barındırıyorsanız, kontrol edilen makinede bağlantı
@@ -320,21 +322,22 @@ Güvendiğiniz sunucu parmak izlerine artık güvenmek istemiyorsanız,
 Seçenekler iletişim kutusundaki "Tüm güvenilen parmak izlerini sil"
 düğmesine basarak tüm güvenilen parmak izlerini temizleyebilirsiniz.
 
-## Using a custom portcheck service
+## Özel bir portcheck hizmeti kullanma
 
-By default, TeleNVDA checks open ports using a service provided by the NVDA
-spanish community. You can change the service URL from the options
-dialog. Ensure that the port to check is part of the custom URL and the
-results are returned in the expected format. A portcheck sample script is
-distributed in TeleNVDA repository, so you can host your own copy if
-desired.
+Varsayılan olarak TeleNVDA, NVDA İspanyol topluluğu tarafından sağlanan bir
+hizmeti kullanarak açık bağlantı noktalarını kontrol eder. Hizmet Adresini
+seçenekler iletişim kutusundan değiştirebilirsiniz. Kontrol edilecek
+bağlantı noktasının özel URL'nin parçası olduğundan ve sonuçların beklenen
+biçimde döndürüldüğünden emin olun. TeleNVDA deposunda bir portcheck örnek
+komut dosyası dağıtılır, böylece isterseniz kendi kopyanızı
+barındırabilirsiniz.
 
 ## TeleNVDA'yı Değiştirme
 
-This project is covered by the GNU General Public License, version 2 or
-later. You may clone [this repo][2] to make alteration to TeleNVDA, provided
-that you read, understand and respect the license terms. The MiniUPNP module
-is licensed under a BSD-3 clause license.
+Bu proje, GNU Genel Kamu Lisansı, sürüm 2 veya üzeri kapsamındadır. Lisans
+koşullarını okumanız, anlamanız ve bunlara saygı göstermeniz koşuluyla [bu
+depoyu][2] TeleNVDA'da değişiklik yapmak için kopyalayabilirsiniz. MiniUPNP
+modülü, bir BSD-3 yan tümce lisansı altında lisanslanmıştır.
 
 ### 3. Taraf bağımlılıkları
 
@@ -348,7 +351,7 @@ sonraki bir sürüme ihtiyacınız var.
 
 ### Eklentiyi dağıtım amacıyla paketlemek için:
 
-1. Open a command line, change to the root of [this repo][2]
+1. Bir komut satırı açın, [bu depo][2] kök dizinine geçin
 2. **scons** komutunu çalıştırın. Oluşturulan eklenti, herhangi bir hata
    yoksa geçerli dizine yerleştirilir.
 

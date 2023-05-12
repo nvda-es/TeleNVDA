@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: NVDARemote\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-04-22 12:28+0200\n"
+"PO-Revision-Date: 2023-05-06 18:02+0200\n"
 "Last-Translator: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language-Team: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language: fi_FI\n"
@@ -324,17 +324,19 @@ msgstr "&Portti:"
 
 #. Translators: label of a checkbox which allows forwarding a port using UPNP
 msgid "Use &UPNP to forward this port if possible"
-msgstr ""
+msgstr "Käytä &UPNP:tä tämän portin uudelleenohjaamiseen, jos mahdollista"
 
 #. Translators: message asking the user wether perform portcheck with UPNP or not
 msgid ""
 "Would you like to use UPNP to forward the chosen port before detecting your "
 "IP address?"
 msgstr ""
+"Haluatko käyttää UPNP:tä valitun portin uudelleenohjaamiseen ennen IP-"
+"osoitteesi tunnistusta?"
 
 #. Translators: title of the message asking the user to try portcheck with UPNP
 msgid "Do you want to use UPNP?"
-msgstr ""
+msgstr "Haluatko käyttää UPNP:tä?"
 
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
@@ -347,13 +349,14 @@ msgstr "Onnistui"
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "Ulkoinen IP haettu, mutta porttia {port} ei ole uudelleenohjattu."
 
-#, fuzzy
 msgid ""
 "Unable to contact portcheck server or UPNP device, please manually retrieve "
 "your IP address and forward ports if required. See the NVDA log for more "
 "details."
 msgstr ""
-"Portintarkistuspalvelimeen ei saada yhteyttä. Hae IP-osoite manuaalisesti."
+"Portintarkistuspalvelimeen tai UPNP-laitteeseen ei saada yhteyttä. Hae IP-"
+"osoite manuaalisesti ja uudelleenohjaa portit tarvittaessa. Katso "
+"lisätietoja NVDA:n lokista."
 
 msgid "Client"
 msgstr "Asiakas"
@@ -394,7 +397,7 @@ msgstr "Käsittele puhekomennot toista tietokonetta hallittaessa"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
-msgstr ""
+msgstr "Portintarkistuspa&lvelun URL: "
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
@@ -415,6 +418,8 @@ msgstr "Haluatko varmasti poistaa kaikki tallennetut luotetut sormenjäljet?"
 msgid ""
 "Invalid format for portcheck service URL. You must include {port} somewhere."
 msgstr ""
+"Portintarkistuspalvelun URLin muoto on virheellinen. Siihen on "
+"sisällytettävä {port}."
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"

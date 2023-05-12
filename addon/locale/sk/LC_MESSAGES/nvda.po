@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: 'remote' '1.0'\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-04-30 09:56+0200\n"
-"PO-Revision-Date: 2015-07-04 10:33+0200\n"
-"Last-Translator: Peter Vágner <peter.v@datagate.sk>\n"
+"PO-Revision-Date: 2023-05-06 07:24+0100\n"
+"Last-Translator: Ondrej Rosík <ondrej.rosik@gmail.com>\n"
 "Language-Team: sk\n"
 "Language: sk\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.2\n"
+"X-Generator: Poedit 1.6.11\n"
 "Plural-Forms: nplurals=3; plural=(n==1) ? 1 : (n>=2 && n<=4) ? 2 : 0;\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -360,14 +360,14 @@ msgstr ""
 "Zisťovanie verejnej adresy dokončené. Port {port} ale nie je momentálne "
 "presmerovaný."
 
-#, fuzzy
 msgid ""
 "Unable to contact portcheck server or UPNP device, please manually retrieve "
 "your IP address and forward ports if required. See the NVDA log for more "
 "details."
 msgstr ""
-"Nie je možné pripojiť sa k serveru alebo presmerovať port použitím UPNP a "
-"overiť funkčnosť. Prosím pokúste sa zistiť verejnú adresu IP ručne."
+"Nie je možné pripojiť sa k Portcheck serveru alebo presmerovať port použitím "
+"UPNP a overiť funkčnosť. Prosím pokúste sa zistiť verejnú adresu IP ručne. "
+"Podrobnosti sú zaznamenané v logu NVDA."
 
 msgid "Client"
 msgstr "Klient"
@@ -408,7 +408,7 @@ msgstr "Spracovať rečové príkazy počas ovládania iného počítača"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
-msgstr ""
+msgstr "URL adresa &služby portcheck:"
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
@@ -428,7 +428,7 @@ msgstr "Ste si istí, že chcete zmazať všetky zapamätané dôverované odtla
 #, python-brace-format
 msgid ""
 "Invalid format for portcheck service URL. You must include {port} somewhere."
-msgstr ""
+msgstr "Nesprávny tvar adresi služby portcheck. Je potrebné uviesť {port}."
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"

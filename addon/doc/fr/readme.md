@@ -28,8 +28,8 @@ avec NVDA Remote. Voici les différences actuelles :
   alterner entre la machine locale et la machine distante.
 * Possibilité d'échanger de petits fichiers (jusqu'à 10 Mo) parmi les
   utilisateurs connectés à la même session.
-* Ability to forward ports via UPNP.
-* Ability to use a custom portcheck service.
+* Possibilité de rediriger les ports via UPNP.
+* Possibilité d'utiliser un service portcheck personnalisé.
 * Diverses corrections de bogues.
 
 ## Avant De Commencer
@@ -123,20 +123,22 @@ connexion devra s'établir, contrôleur ou contrôlé.
 L'autre personne se connectera à votre ordinateur en sélectionnant le mode
 opposé.
 
-Once the mode is selected, you can use the Get External IP button to get
-your external IP address and make sure the port which is entered in the port
-field is forwarded correctly. If enabled on your router, you can foorward
-the port using UPNP before performing portcheck.
+Quand le mode est sélectionné, vous pouvez utiliser le bouton "Obtenir
+l'adresse IP publique" pour obtenir votre adresse IP et vous assurer que le
+port de connexion (indiqué dans le champ " Port ", est correctement
+redirigé. Si vous êtes activé sur votre routeur, vous pouvez redirigé le
+port à l'aide de UPNP avant d'effectuer le portcheck.
 
 Si la procédure de vérification détecte que le port spécifié (6837 par
 défaut) n'est pas accessible, un avertissement s'affiche.
 
-Forward your port and try again. Also, ensure that the NVDA process is
-allowed through Windows firewall.
+Redirigez votre port et réessayez. Assurez-vous également que le processus
+NVDA est autorisé via un pare-feu Windows.
 
-Note: The process for forwarding ports, enabling UPNP or configuring Windows
-firewall is outside of the scope of this document. Please consult the
-information provided with your router for further instruction.
+Remarque : Le processus de redirection des ports, d'activation UPNP ou de
+configuration du pare-feu Windows est en dehors de l'objectif de ce
+document. Veuillez consulter les informations fournies avec votre routeur
+pour plus d'instructions.
 
 Saisissez une clé dans le champ "Clé" ou appuyez sur " Générer la Clé
 ". L'autre personne aura besoin de votre adresse IP ainsi que de cette même
@@ -145,11 +147,11 @@ défaut (6837) Dans le champ " Port ", assurez-vous que l'autre personne
 ajoute le port alternatif à l'adresse du serveur sous la forme &lt;ip
 publique&gt;:&lt;port&gt;.
 
-If you want to forward the chosen port using UPNP, enable the "Use UPNP to
-forward this port if possible" checkbox.
+Si vous souhaitez rediriger le port choisi à l'aide de UPNP, activez la case
+à cocher "Utilisez UPNP pour rediriger ce port si possible".
 
-Once ok is pressed, you will be connected. When the other person connects,
-you can use TeleNVDA normally.
+Sitôt OK appuyé, vous serez connecté. Quand l'autre personne se connecte,
+vous pouvez utiliser TeleNVDA normalement.
 
 ## Contrôler l'ordinateur distant
 
@@ -191,8 +193,8 @@ automatiquement, mais s'il ne s'exécute pas au sein d'une application
 précise, le lien peut être copié dans le presse-papiers et utilisé dans la
 commande Exécuter.
 
-Note that the shared link may not work if you copy it from a server running
-in direct connection mode.
+Notez que le lien partagé peut ne pas fonctionner si vous le copiez à partir
+d'un serveur s'exécutant en mode connexion directe.
 
 ## Envoyer Ctrl+Alt+Suppr
 
@@ -237,9 +239,10 @@ rendre le processus simple et confortable.
    distant. Validez ensuite sur Options.
 2. Cochez la case intitulée " Se connecter automatiquement au serveur de
    contrôle au démarrage ".
-3. Select whether to use a remote relay server or to locally host the
-   connection. If you decide to host the connection, you can try to forward
-   ports using UPNP by checking the provided checkbox.
+3. Sélectionnez s'il faut utiliser un serveur de relais distant ou pour
+   héberger localement la connexion. Si vous décidez d'héberger la
+   connexion, vous pouvez essayer de rediriger des ports à l'aide de UPNP en
+   vérifiant la case à cocher fournie.
 4. Sélectionnez " Permettre le contrôle de cet ordinateur " dans le second
    ensemble de boutons radio.
 5. Si vous hébergez le serveur, (mode serveur), assurez-vous que le port
@@ -340,21 +343,22 @@ en qui vous avez confiance, vous pouvez effacer toutes les empreintes
 digitales de confiance en appuyant sur le bouton " Supprimer toutes les
 empreintes digitales de confiance " dans la boîte de dialogue Options.
 
-## Using a custom portcheck service
+## Utilisation d'un service portcheck personnalisé
 
-By default, TeleNVDA checks open ports using a service provided by the NVDA
-spanish community. You can change the service URL from the options
-dialog. Ensure that the port to check is part of the custom URL and the
-results are returned in the expected format. A portcheck sample script is
-distributed in TeleNVDA repository, so you can host your own copy if
-desired.
+Par défaut, TeleNVDA vérifie les ports ouverts à l'aide d'un service fourni
+par la communauté espagnole NVDA. Vous pouvez modifier l'URL de service à
+partir de la boîte de dialogue Options. Assurez-vous que le port à vérifier
+fait partie de l'URL personnalisée et que les résultats sont renvoyés dans
+le format attendu. Un exemple de script portcheck  est distribué sur le
+dépôt TeleNVDA, vous pouvez donc héberger votre propre copie si vous le
+souhaitez.
 
 ## Modification de TeleNVDA
 
-This project is covered by the GNU General Public License, version 2 or
-later. You may clone [this repo][2] to make alteration to TeleNVDA, provided
-that you read, understand and respect the license terms. The MiniUPNP module
-is licensed under a BSD-3 clause license.
+Ce projet est couvert par la licence publique générale GNU, version 2 ou
+version ultérieure. Vous pouvez cloner [ce dépôt][2] pour modifier TeleNVDA,
+à condition de lire, de comprendre et de respecter les conditions de
+licence. Le module MiniUPNP  est sous licence de BSD-3 clause license.
 
 ### Dépendances tierce
 
@@ -368,7 +372,7 @@ Visual Studio 2019 ou version ultérieure.
 
 ### Empaquetage de l'extension pour sa distribution :
 
-1. Open a command line, change to the root of [this repo][2]
+1. Ouvrez une ligne de commande, changer à la racine de [ce dépôt][2]
 2. Exécutez la commande **scons**. L'extension créée, s'il n'y a pas
    d'erreur, sera placée dans le répertoire actuel.
 
