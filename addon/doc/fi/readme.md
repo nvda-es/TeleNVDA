@@ -27,6 +27,8 @@ kanssa. Erot ovat tällä hetkellä seuraavat:
   vaihtava näppäinkomento etäkoneelle.
 * Mahdollisuus lähettää ja vastaanottaa pieniä tiedostoja (enintään 10 Mt)
   samassa istunnossa olevien käyttäjien välillä.
+* Ability to forward ports via UPNP.
+* Ability to use a custom portcheck service.
 * Useita bugikorjauksia.
 
 ## Ennen kuin aloitat
@@ -112,17 +114,20 @@ Kun se on valittuna, valitse myös, missä tilassa yhteytesi tulee olemaan.
 
 Toinen osapuoli yhdistää koneeseesi päinvastaista vaihtoehtoa käyttäen.
 
-Kun tila on valittu, voit käyttää Hae ulkoinen IP -painiketta noutaaksesi
-ulkoisen IP-osoitteesi ja varmistaaksesi, että Portti-muokkauskenttään
-syötetty portti on uudelleenohjattu asianmukaisesti.
+Once the mode is selected, you can use the Get External IP button to get
+your external IP address and make sure the port which is entered in the port
+field is forwarded correctly. If enabled on your router, you can forward the
+port using UPNP before performing portcheck.
 
 Jos portintarkistus havaitsee, ettei porttiin (oletusarvoisesti 6837) saada
 yhteyttä, näkyviin tulee siitä kertova varoitus.
 
-Sinun on tällöin uudelleenohjattava porttisi ja yritettävä sitten uudelleen.
+Forward your port and try again. Also, ensure that the NVDA process is
+allowed through Windows firewall.
 
-Huom: Porttien uudelleenohjausta ei käsitellä tässä dokumentissa. Katso
-lisätietoja reitittimesi mukana toimitetuista ohjeista.
+Note: The process for forwarding ports, enabling UPNP or configuring Windows
+firewall is outside of the scope of this document. Please consult the
+information provided with your router for further instruction.
 
 Kirjoita avain Avain-muokkauskenttään tai paina Luo avain
 -painiketta. Toinen osapuoli tarvitsee yhdistämiseen ulkoisen IP-osoitteesi
@@ -131,8 +136,11 @@ oletusportin (6837), varmista, että toinen osapuoli lisää isäntäkoneen
 osoitteeseen vaihtoehtoisen portin muodossa &lt;ulkoinen
 IP&gt;:&lt;portti&gt;.
 
-Yhteys muodostetaan painettuasi OK-painiketta. Kun toinen osapuoli yhdistää
-koneeseesi, voit käyttää TeleNVDA:ta normaalisti.
+If you want to forward the chosen port using UPNP, enable the "Use UPNP to
+forward this port if possible" checkbox.
+
+Once ok is pressed, you will be connected. When the other person connects,
+you can use TeleNVDA normally.
 
 ## Etäkoneen hallinta
 
@@ -172,6 +180,9 @@ Useat sovellukset mahdollistavat linkin automaattisen avaamisen, mutta
 mikäli se ei onnistu jossain tietyssä sovelluksessa, se voidaan kopioida
 leikepöydälle ja avata Suorita-valintaikkunasta.
 
+Note that the shared link may not work if you copy it from a server running
+in direct connection mode.
+
 ## Lähetä Ctrl+Alt+Del
 
 Ctrl+Alt+Del-näppäinyhdistelmän lähettäminen ei ole mahdollista tavalliseen
@@ -210,8 +221,9 @@ ulkona toisen koneen kanssa. Tämä on mahdollista pienen valmistelun jälkeen.
    Enter Asetukset-vaihtoehdon kohdalla.
 2. Valitse "Muodosta yhteys hallintapalvelimeen automaattisesti
    käynnistyksen yhteydessä" -valintaruutu.
-3. Valitse, käytetäänkö etävälittäjäpalvelinta vai isännöidäänkö yhteyttä
-   paikallisesti.
+3. Select whether to use a remote relay server or to locally host the
+   connection. If you decide to host the connection, you can try to forward
+   ports using UPNP by checking the provided checkbox.
 4. Valitse toisesta valintapainikeryhmästä Salli tämän tietokoneen hallinta.
 5. Mikäli isännöit yhteyttä itse, sinun on varmistettava, että
    hallitsevista koneista saadaan yhteys hallitsevassa koneessa
@@ -307,11 +319,21 @@ Jos et enää luota aiemmin luottamiisi palvelinsormenjälkiin, voit tyhjentää
 ne kaikki painamalla Asetukset-valintaikkunassa "Poista kaikki luotetut
 sormenjäljet" -painiketta.
 
+## Using a custom portcheck service
+
+By default, TeleNVDA checks open ports using a service provided by the NVDA
+spanish community. You can change the service URL from the options
+dialog. Ensure that the port to check is part of the custom URL and the
+results are returned in the expected format. A portcheck sample script is
+distributed in TeleNVDA repository, so you can host your own copy if
+desired.
+
 ## TeleNVDA:n muokkaaminen
 
-Tämä projekti on suojattu GNU GPL v2:lla tai uudemmalla lisenssillä. Voit
-kloonata [tämän koodivaraston][2] tehdäksesi muokkauksia TeleNVDA:han,
-edellyttäen, että luet, ymmärrät ja kunnioitat lisenssin ehtoja.
+This project is covered by the GNU General Public License, version 2 or
+later. You may clone [this repo][2] to make alteration to TeleNVDA, provided
+that you read, understand and respect the license terms. The MiniUPNP module
+is licensed under a BSD-3 clause license.
 
 ### Kolmannen osapuolen riippuvuudet
 
@@ -325,7 +347,7 @@ uudemman.
 
 ### Lisäosan paketointi jakelua varten
 
-1. Avaa komentokehote ja vaihda hakemistoksi tämän koodivaraston juuri.
+1. Open a command line, change to the root of [this repo][2]
 2. Suorita **scons**-komento. Jos virheitä ei ilmennyt, luotu lisäosa
    sijoitetaan nykyiseen hakemistoon.
 

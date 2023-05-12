@@ -26,6 +26,8 @@ NVDA Remote. Estas son las diferencias actuales:
   entre el equipo local y la máquina remota.
 * Posibilidad de intercambiar pequeños ficheros (hasta 10 MB) entre usuarios
   conectados a la misma sesión.
+* Posibilidad de redirigir puertos mediante UPNP.
+* Posibilidad de usar un servicio de comprobación de puertos personalizado.
 * Varias correcciones de fallos.
 
 ## Antes de empezar
@@ -113,16 +115,19 @@ La otra persona se conectará usando el contrario.
 
 Una vez seleccionado el modo, puedes usar el botón obtener IP externa para
 obtener tu dirección IP externa y asegurarte de que el puerto que has
-introducido en el campo puerto está abierto correctamente.
+introducido en el campo puerto está abierto correctamente. Si está activado
+en tu router, puedes redirigir el puerto usando UPNP antes de comprobar si
+el puerto está abierto.
 
 Si portcheck detecta que tu puerto (por defecto 6837) no está abierto,
 aparecerá una advertencia.
 
-Abre el puerto e inténtalo de nuevo.
+Redirige tu puerto y prueba otra vez. Comprueba también que se permite el
+proceso de NVDA en el firewall de Windows.
 
-Nota: el proceso de abrir puertos está fuera del propósito de este
-documento. Consulta la documentación que acompaña a tu router para más
-información.
+Nota: el proceso de abrir puertos, habilitar UPNP o configurar el firewall
+de Windows está fuera del propósito de este documento. Consulta la
+documentación que acompaña a tu router para más información.
 
 Introduce una clave en el campo clave, o pulsa generar. La otra persona
 necesitará tu IP externa junto con la clave para conectar. Si has
@@ -130,8 +135,11 @@ introducido un puerto distinto al que se usa por defecto (6837) en el campo
 puerto, asegúrate de que la otra persona añade el puerto alternativo a la
 dirección del equipo usando el formato &lt;ip externa&gt;:&lt;puerto&gt;.
 
+Si quieres redirigir el puerto elegido usando UPNP, marca la casilla "Usar
+UPNP para redirigir este puerto si es posible".
+
 Una vez pulses aceptar, estarás conectado. Cuando la otra persona se
-conecte, podrás usar NVDA Remote con normalidad.
+conecte, podrás usar TeleNVDA con normalidad.
 
 ## Control sobre el equipo remoto
 
@@ -169,6 +177,9 @@ permitirá a la gente con la que lo compartas controlarlo.
 Muchas aplicaciones permiten a los usuarios activar este enlace
 automáticamente, pero si no se abre desde una aplicación específica, puedes
 copiarlo y abrirlo desde el diálogo ejecutar.
+
+Ten en cuenta que el enlace compartido puede no funcionar si lo copias desde
+un servidor que funciona en modo de conexión directa.
 
 ## Enviar ctrl+alt+supr
 
@@ -208,8 +219,9 @@ esto se hace posible.
    remoto. Finalmente, pulsa intro en opciones.
 2. Marca la casilla que dice "Conectar automáticamente al servidor de
    control al arrancar".
-3. Elige si vas a usar un servidor de control remoto o a crear un servidor
-   local.
+3. Elige usar un servidor de control remoto o alojar la conexión
+   localmente. Si decides alojar la conexión, puedes intentar redirigir los
+   puertos con UPNP marcando la casilla proporcionada.
 4. Elige permitir que controlen este equipo en el segundo grupo de botones
    de opción.
 5. Si creas tu propio servidor, tendrás que asegurarte de que el puerto
@@ -303,12 +315,23 @@ Si ya no quieres confiar en huellas de servidores en las que has confiado,
 puedes eliminar todas las huellas de confianza pulsando el botón "Eliminar
 todas las huellas de confianza" desde el diálogo de opciones.
 
+## Uso de un servicio personalizado de comprobación de puertos
+
+Por defecto, TeleNVDA comprueba los puertos abiertos usando un servicio
+proporcionado por la comunidad de NVDA en español. Puedes cambiar la URL del
+servicio desde el diálogo de opciones. Asegúrate de que el puerto a
+comprobar es parte de la URL personalizada y los resultados se devuelven en
+el formato esperado. Se distribuye un script de muestra para la comprobación
+de puertos en el repositorio de TeleNVDA, por lo que puedes alojar tu propia
+copia si lo deseas.
+
 ## Alteración de TeleNVDA
 
 Este proyecto se encuentra cubierto por la licencia pública general GNU,
 versión 2 o posterior. Puedes clonar [este repositorio][2] para hacer
 alteraciones a TeleNVDA, siempre que leas, entiendas y respetes los términos
-de esta licencia.
+de esta licencia. El módulo MiniUPNP está cubierto por una licencia BSD de 3
+cláusulas.
 
 ### Dependencias de terceros
 
@@ -322,7 +345,7 @@ Visual Studio 2019 o posterior.
 
 ### Para empaquetar el complemento para su distribución:
 
-1. Abre una línea de órdenes y cambia a la raíz de este repositorio
+1. Abre una línea de órdenes y cambia a la raíz de [este repositorio][2]
 2. Ejecuta la orden **scons**. El complemento creado, si no hubo errores, se
    encuentra en la carpeta actual.
 

@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: nvdaremote 2.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-04-04 12:31+0200\n"
+"PO-Revision-Date: 2023-05-06 00:36+0200\n"
 "Last-Translator: Frank Niggemann <fniggemann@gmail.com>\n"
 "Language-Team: David Parduhn <xkill85@gmx.net>\n"
 "Language: de\n"
@@ -104,22 +104,21 @@ msgstr "Senden einer Datei an den Remote-Computer"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
-msgstr ""
+msgstr "NVDA-Remote-Protokoll (empfohlen)"
 
-#, fuzzy
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
-msgstr "Kopiert einen Link zur Fernsteuerungssitzung in die Zwischenablage"
+msgstr ""
+"Einen Link zur Remote-Sitzung kopieren (mit NVDA-Remote als auch mit "
+"TeleNVDA kompatibel)"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
-#, fuzzy
 msgid "&TeleNVDA protocol"
-msgstr "TeleNVDA"
+msgstr "&TeleNVDA-Protokoll"
 
-#, fuzzy
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
-msgstr "Kopiert einen Link zur Fernsteuerungssitzung in die Zwischenablage"
+msgstr "Einen Link zur Remote-Sitzung kopieren (nur mit TeleNVDA kompatibel)"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
 msgid "Copy &link"
@@ -265,21 +264,23 @@ msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA-Verbindungsanfrage"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
-msgstr "Kopiert einen Link zur Fernsteuerungssitzung in die Zwischenablage"
+msgstr ""
+"Kopiert einen Link zur Remote-Sitzung in die Zwischenablage (kompatibel mit "
+"NVDA-Remote und TeleNVDA)"
 
 msgid "Copied link"
 msgstr "Link kopiert"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
-#, fuzzy
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
-msgstr "Kopiert einen Link zur Fernsteuerungssitzung in die Zwischenablage"
+msgstr ""
+"Kopiert einen Link zur Remote-Sitzung in die Zwischenablage (nur kompatibel "
+"mit TeleNVDA)"
 
 #. Translators: description for the Connect gesture
 msgid "Opens a dialog to start a remote session"
@@ -352,6 +353,22 @@ msgstr "&Externe IP-Adresse:"
 msgid "&Port:"
 msgstr "&Port:"
 
+#. Translators: label of a checkbox which allows forwarding a port using UPNP
+msgid "Use &UPNP to forward this port if possible"
+msgstr "&UPnP für Port-Weiterleitungen verwenden, falls möglich"
+
+#. Translators: message asking the user wether perform portcheck with UPNP or not
+msgid ""
+"Would you like to use UPNP to forward the chosen port before detecting your "
+"IP address?"
+msgstr ""
+"Möchten Sie UPnP noch vor der Erkennung Ihrer IP-Adresse verwenden, um den "
+"ausgewählten Port weiterzuleiten?"
+
+#. Translators: title of the message asking the user to try portcheck with UPNP
+msgid "Do you want to use UPNP?"
+msgstr "Möchten Sie UPnP verwenden?"
+
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "Die IP-Adresse wurde erfolgreich abgerufen. Der Port {port} ist offen."
@@ -366,10 +383,13 @@ msgstr ""
 "keine Weiterleitung."
 
 msgid ""
-"Unable to contact portcheck server, please manually retrieve your IP address"
+"Unable to contact portcheck server or UPNP device, please manually retrieve "
+"your IP address and forward ports if required. See the NVDA log for more "
+"details."
 msgstr ""
-"Der Server zur Überprüfung des Ports konnte nicht kontaktiert werden, bitte "
-"rufen Sie Ihre IP-Adresse manuell ab"
+"Der Server für den Port-Check oder das UPnP-Gerät war nicht erreichbar. "
+"Bitte rufen Sie Ihre IP-Adresse manuell ab und leiten Sie bei Bedarf die "
+"Ports weiter. Im NVDA-Protokoll finden Sie dazu weitere Einzelheiten."
 
 msgid "Client"
 msgstr "Client"
@@ -410,6 +430,10 @@ msgstr ""
 "Befehlsverarbeitung der Sprachausgabe bei der Steuerung eines anderen "
 "Computers"
 
+#. Translators: a text field in add-on options dialog to set the portcheck service URL
+msgid "Portcheck &service URL: "
+msgstr "&Service-URL für Port-Check: "
+
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
 msgstr "Alle vertrauenswürdigen Fingerprints entfernen"
@@ -425,6 +449,12 @@ msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr ""
 "Möchten Sie wirklich alle gespeicherten vertrauenswürdigen Fingerprints "
 "entfernen?"
+
+#. Translators: error message for invalid format on Portcheck service URL
+#, python-brace-format
+msgid ""
+"Invalid format for portcheck service URL. You must include {port} somewhere."
+msgstr "Ungültiges Format für die Service-URL des Port-Checks: {port} fehlt."
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"

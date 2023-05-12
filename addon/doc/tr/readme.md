@@ -27,6 +27,8 @@ ile tamamen uyumludur. Var olan farklılıklar aşağıdaki gibidir:
   göndermeniz gerekiyorsa kullanışlıdır.
 * Aynı oturuma bağlı kullanıcılar arasında küçük dosya alışverişi (10 MB'a
   kadar) yapabilme.
+* UPNP aracılığıyla bağlantı noktalarını iletme yeteneği.
+* Özel bir portcheck hizmeti kullanabilme.
 * Birkaç hata düzeltmesi.
 
 ## Başlamadan Önce
@@ -113,17 +115,21 @@ Bunu seçtikten sonra, bağlantınızın sonunun hangi modda olacağını seçin
 
 Diğer kişi ise tam tersini kullanarak size bağlanacaktır.
 
-Mod seçildikten sonra Harici IP Al butonunu kullanarak harici IP adresinizi
-alabilir ve port alanına girilen portun doğru yönlendirildiğinden emin
-olabilirsiniz.
+Mod seçildikten sonra Harici IP Alın butonunu kullanarak harici IP
+adresinizi alabilir ve port alanına girilen portun doğru yönlendirildiğinden
+emin olabilirsiniz. Yönlendiricinizde etkinleştirildiyse, port kontrolü
+gerçekleştirmeden önce UPNP kullanarak portu iletebilirsiniz.
 
 Bağlantı noktası kontrolü, bağlantı noktanıza (varsayılan olarak 6837)
 ulaşılamadığını tespit ederse, bir uyarı görüntülenir.
 
-Bağlantı noktanızı iletin ve tekrar deneyin.
+Bağlantı noktanızı iletin ve tekrar deneyin. Ayrıca, NVDA işlemine Windows
+güvenlik duvarı üzerinden izin verildiğinden emin olun.
 
-Not: Port yönlendirme işlemi bu belgenin kapsamı dışındadır. Daha fazla
-talimat için lütfen yönlendiricinizle birlikte verilen bilgilere bakın.
+Not: Bağlantı noktalarını iletme, UPNP'yi etkinleştirme veya Windows
+güvenlik duvarını yapılandırma işlemleri bu belgenin kapsamı
+dışındadır. Daha fazla talimat için lütfen yönlendiricinizle birlikte
+verilen bilgilere bakın.
 
 Anahtar alanına bir anahtar girin veya oluştur'a basın. Diğer kişi,
 bağlanmak için anahtarla birlikte harici IP'nize ihtiyaç
@@ -132,8 +138,11 @@ bağlantı noktası girdiyseniz, diğer kişinin alternatif bağlantı noktasın
 ana bilgisayar adresine <harici ip>:<bağlantı noktası> biçiminde
 eklediğinden emin olun.
 
-Tamam'a basıldığında bağlanacaksınız. Diğer kişi bağlandığında, NVDA Uzaktan
-desteği normal şekilde kullanabilirsiniz.
+Seçilen bağlantı noktasını UPNP kullanarak iletmek istiyorsanız, "Mümkünse
+bu bağlantı noktasını iletmek için UPNP kullan" onay kutusunu etkinleştirin.
+
+Tamam düğmesine basıldığında bağlanacaksınız. Diğer kişi bağlandığında,
+TeleNVDA'yı normal şekilde kullanabilirsiniz.
 
 ## Uzak makineyi kontrol etme
 
@@ -173,6 +182,9 @@ Birçok uygulama, kullanıcıların bu bağlantıyı otomatik olarak
 etkinleştirmesine izin verir, ancak belirli bir uygulama içinden
 çalışmıyorsa, panoya kopyalanabilir ve çalıştır iletişim kutusundan
 çalıştırılabilir.
+
+Doğrudan bağlantı modunda çalışan bir sunucudan kopyalarsanız paylaşılan
+bağlantının çalışmayabileceğini unutmayın.
 
 ## Ctrl+Alt+Sil komutu Gönder
 
@@ -214,7 +226,9 @@ uygun ve mümkün kılar.
 2. "Başlangıçta kontrol sunucusuna otomatik bağlan" yazan kutuyu
    işaretleyin.
 3. Bir uzak geçiş sunucusu kullanmayı veya bağlantıyı yerel olarak
-   barındırmayı seçin.
+   barındırmayı seçin. Bağlantıyı barındırmaya karar verirseniz, sağlanan
+   onay kutusunu işaretleyerek bağlantı noktalarını UPNP kullanarak iletmeyi
+   deneyebilirsiniz.
 4. İkinci radyo düğmesi setinde Bu bilgisayarın kontrol edilmesine izin ver
    öğesini seçin.
 5. Bağlantıyı kendiniz barındırıyorsanız, kontrol edilen makinede bağlantı
@@ -308,11 +322,22 @@ Güvendiğiniz sunucu parmak izlerine artık güvenmek istemiyorsanız,
 Seçenekler iletişim kutusundaki "Tüm güvenilen parmak izlerini sil"
 düğmesine basarak tüm güvenilen parmak izlerini temizleyebilirsiniz.
 
+## Özel bir portcheck hizmeti kullanma
+
+Varsayılan olarak TeleNVDA, NVDA İspanyol topluluğu tarafından sağlanan bir
+hizmeti kullanarak açık bağlantı noktalarını kontrol eder. Hizmet Adresini
+seçenekler iletişim kutusundan değiştirebilirsiniz. Kontrol edilecek
+bağlantı noktasının özel URL'nin parçası olduğundan ve sonuçların beklenen
+biçimde döndürüldüğünden emin olun. TeleNVDA deposunda bir portcheck örnek
+komut dosyası dağıtılır, böylece isterseniz kendi kopyanızı
+barındırabilirsiniz.
+
 ## TeleNVDA'yı Değiştirme
 
 Bu proje, GNU Genel Kamu Lisansı, sürüm 2 veya üzeri kapsamındadır. Lisans
 koşullarını okumanız, anlamanız ve bunlara saygı göstermeniz koşuluyla [bu
-depoyu][2] TeleNVDA'da değişiklik yapmak için kopyalayabilirsiniz.
+depoyu][2] TeleNVDA'da değişiklik yapmak için kopyalayabilirsiniz. MiniUPNP
+modülü, bir BSD-3 yan tümce lisansı altında lisanslanmıştır.
 
 ### 3. Taraf bağımlılıkları
 
@@ -326,7 +351,7 @@ sonraki bir sürüme ihtiyacınız var.
 
 ### Eklentiyi dağıtım amacıyla paketlemek için:
 
-1. Bir komut satırı açın, bu deponun kök dizinine geçin
+1. Bir komut satırı açın, [bu depo][2] kök dizinine geçin
 2. **scons** komutunu çalıştırın. Oluşturulan eklenti, herhangi bir hata
    yoksa geçerli dizine yerleştirilir.
 

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-04-21 23:23+0200\n"
+"PO-Revision-Date: 2023-05-05 23:17+0200\n"
 "Last-Translator: José Manuel Delicado <jmdaweb@hotmail.com>\n"
 "Language-Team: Jose Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language: es\n"
@@ -329,6 +329,22 @@ msgstr "Dirección &IP externa:"
 msgid "&Port:"
 msgstr "&Puerto:"
 
+#. Translators: label of a checkbox which allows forwarding a port using UPNP
+msgid "Use &UPNP to forward this port if possible"
+msgstr "Usar &UPNP para redirigir este puerto si es posible"
+
+#. Translators: message asking the user wether perform portcheck with UPNP or not
+msgid ""
+"Would you like to use UPNP to forward the chosen port before detecting your "
+"IP address?"
+msgstr ""
+"¿Te gustaría usar UPNP para redirigir el puerto elegido antes de detectar tu "
+"dirección IP?"
+
+#. Translators: title of the message asking the user to try portcheck with UPNP
+msgid "Do you want to use UPNP?"
+msgstr "¿Quieres usar UPNP?"
+
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr ""
@@ -343,10 +359,13 @@ msgstr ""
 "Obtenida la dirección IP externa, pero el puerto {port} no está abierto."
 
 msgid ""
-"Unable to contact portcheck server, please manually retrieve your IP address"
+"Unable to contact portcheck server or UPNP device, please manually retrieve "
+"your IP address and forward ports if required. See the NVDA log for more "
+"details."
 msgstr ""
-"No se ha podido contactar con el servidor de portcheck, obtén tu dirección "
-"IP manualmente"
+"No se ha podido contactar con el servicio de comprobación de puertos o el "
+"dispositivo UPNP, obtén tu dirección IP manualmente y abre los puertos si es "
+"necesario. Consulta el registro de NVDA para más detalles."
 
 msgid "Client"
 msgstr "Cliente"
@@ -385,6 +404,10 @@ msgstr "Reproducir sonidos en vez de pitidos"
 msgid "Process speech commands when controlling another computer"
 msgstr "Procesar comandos del habla al controlar otro equipo"
 
+#. Translators: a text field in add-on options dialog to set the portcheck service URL
+msgid "Portcheck &service URL: "
+msgstr "URL del &servicio de comprobación de puertos: "
+
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
 msgstr "Eliminar todas las huellas de confianza"
@@ -400,6 +423,14 @@ msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr ""
 "¿Estás seguro de que quieres eliminar todas las huellas de confianza "
 "almacenadas?"
+
+#. Translators: error message for invalid format on Portcheck service URL
+#, python-brace-format
+msgid ""
+"Invalid format for portcheck service URL. You must include {port} somewhere."
+msgstr ""
+"Formato no válido para la URL del servicio de comprobación de puertos. Debes "
+"incluir {port} en alguna parte."
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"

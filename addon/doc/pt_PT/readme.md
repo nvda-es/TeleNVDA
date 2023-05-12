@@ -26,6 +26,8 @@ actuais:
   entre o anfitrião e a máquina remota.
 * Possibilidade de trocar pequenos ficheiros (até 10 MB) entre utilizadores
   ligados à mesma sessão.
+* Ability to forward ports via UPNP.
+* Ability to use a custom portcheck service.
 * Várias correcções de bugs.
 
 ## Antes de Começar
@@ -113,18 +115,20 @@ Uma vez seleccionado, seleccione em que modo o seu fim de ligação estará.
 
 A outra pessoa ligar-se-á a si usando o oposto.
 
-Uma vez seleccionado o modo, pode usar o botão obter endereço de IP externo
-para obter o seu endereço IP externo e certificar-se de que a porta que é
-introduzida no campo de porta é encaminhada correctamente.
+Once the mode is selected, you can use the Get External IP button to get
+your external IP address and make sure the port which is entered in the port
+field is forwarded correctly. If enabled on your router, you can forward the
+port using UPNP before performing portcheck.
 
 Se o portcheck detectar que a sua porta (6837 por defeito) não é alcançável,
 aparecerá um aviso.
 
-Indique a sua porta e tente novamente.
+Forward your port and try again. Also, ensure that the NVDA process is
+allowed through Windows firewall.
 
-Nota: O processo de encaminhamento de portas está fora do âmbito deste
-documento. Consulte as informações fornecidas com o seu router para mais
-instruções.
+Note: The process for forwarding ports, enabling UPNP or configuring Windows
+firewall is outside of the scope of this document. Please consult the
+information provided with your router for further instruction.
 
 Insira uma senha no campo senha, ou pressione gerar. A outra pessoa
 precisará do seu IP externo juntamente com a senha para se ligar. Se
@@ -132,8 +136,11 @@ introduziu uma porta diferente da indicada por defeito (6837) no campo de
 porta, certifique-se de que a outra pessoa anexa a porta alternativa ao
 endereço de anfitrião no formulário &lt;ip&gt externo;:&lt;port&gt;.
 
-Uma vez pressionado o ok, será ligado. Quando a outra pessoa se liga, pode
-utilizar o NVDA Remote normalmente.
+If you want to forward the chosen port using UPNP, enable the "Use UPNP to
+forward this port if possible" checkbox.
+
+Once ok is pressed, you will be connected. When the other person connects,
+you can use TeleNVDA normally.
 
 ## A controlar o computador remoto.
 
@@ -173,6 +180,9 @@ automaticamente, mas se não for executada a partir de uma aplicação
 específica, pode ser copiada para a área de transferência e executada a
 partir do diálogo de execução.
 
+Note that the shared link may not work if you copy it from a server running
+in direct connection mode.
+
 ## Enviar ctrl+alt+del
 
 Enquanto envia teclas, não é possível enviar normalmente a combinação
@@ -211,8 +221,9 @@ e possível.
 1. Entrar no menu do NVDA, e escolher Ferramentas, depois
    Remoto. Finalmente, prima Enter em Opções.
 2. Marque a caixa que diz, "Auto connect to control server on startup".
-3. Seleccione se pretende utilizar um servidor de retransmissão remoto ou se
-   pretende alojar localmente a ligação.
+3. Select whether to use a remote relay server or to locally host the
+   connection. If you decide to host the connection, you can try to forward
+   ports using UPNP by checking the provided checkbox.
 4. Seleccionar Permitir que esta máquina seja controlada no segundo conjunto
    de botões de rádio.
 5. Se for o próprio anfitrião da ligação, terá de assegurar que a porta
@@ -306,11 +317,21 @@ Se já não quiser confiar nas impressões digitais do servidor em que confiou,
 pode apagar todas as impressões digitais de confiança premindo o botão
 "Apagar todas as impressões digitais de confiança" no diálogo Opções.
 
+## Using a custom portcheck service
+
+By default, TeleNVDA checks open ports using a service provided by the NVDA
+spanish community. You can change the service URL from the options
+dialog. Ensure that the port to check is part of the custom URL and the
+results are returned in the expected format. A portcheck sample script is
+distributed in TeleNVDA repository, so you can host your own copy if
+desired.
+
 ## A alterar o TeleNVDA
 
-Este projecto é abrangido pela Licença Pública Geral GNU, versão 2 ou
-posterior. Pode clonar [esta repo][2] para fazer alterações ao TeleNVDA,
-desde que leia, compreenda e respeite os termos da licença.
+This project is covered by the GNU General Public License, version 2 or
+later. You may clone [this repo][2] to make alteration to TeleNVDA, provided
+that you read, understand and respect the license terms. The MiniUPNP module
+is licensed under a BSD-3 clause license.
 
 ### dependências de terceiros
 
@@ -324,7 +345,7 @@ Para construir o manipulador de URL executável, é necessário o Visual Studio
 
 ### Para preparar o extra para distribuição:
 
-1. Abrir uma linha de comando, mudar para a raiz deste repositório
+1. Open a command line, change to the root of [this repo][2]
 2. Executar o comando **scons***. O extra criado, se não houver erros, é
    colocado no directório actual.
 

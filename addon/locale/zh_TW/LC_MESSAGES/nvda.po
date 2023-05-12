@@ -316,6 +316,20 @@ msgstr "外部 IP (&E):"
 msgid "&Port:"
 msgstr "連接埠(&P):"
 
+#. Translators: label of a checkbox which allows forwarding a port using UPNP
+msgid "Use &UPNP to forward this port if possible"
+msgstr ""
+
+#. Translators: message asking the user wether perform portcheck with UPNP or not
+msgid ""
+"Would you like to use UPNP to forward the chosen port before detecting your "
+"IP address?"
+msgstr ""
+
+#. Translators: title of the message asking the user to try portcheck with UPNP
+msgid "Do you want to use UPNP?"
+msgstr ""
+
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "已成功取得 IP 位址，連接埠 {port} 開啟。"
@@ -327,8 +341,11 @@ msgstr "成功"
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "已取得外部 IP, 但連接埠 {port} 未正常轉送。"
 
+#, fuzzy
 msgid ""
-"Unable to contact portcheck server, please manually retrieve your IP address"
+"Unable to contact portcheck server or UPNP device, please manually retrieve "
+"your IP address and forward ports if required. See the NVDA log for more "
+"details."
 msgstr "無法連線至連接埠檢查伺服器，請手動取得 IP 位址"
 
 msgid "Client"
@@ -368,6 +385,10 @@ msgstr "播放音效而不是嗶嗶聲"
 msgid "Process speech commands when controlling another computer"
 msgstr "在控制另一台電腦時處理語音命令"
 
+#. Translators: a text field in add-on options dialog to set the portcheck service URL
+msgid "Portcheck &service URL: "
+msgstr ""
+
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
 msgstr "刪除所有受信任指紋"
@@ -379,6 +400,12 @@ msgstr "當連線到未經授權的伺服器時，將再次提示您接受其憑
 
 msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr "您確定要刪除所有已儲存的受信任指紋嗎？"
+
+#. Translators: error message for invalid format on Portcheck service URL
+#, python-brace-format
+msgid ""
+"Invalid format for portcheck service URL. You must include {port} somewhere."
+msgstr ""
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"

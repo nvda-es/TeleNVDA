@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: remote 2.0\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-04-21 22:25+0100\n"
+"PO-Revision-Date: 2023-05-07 23:47+0100\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr_RS@latin\n"
@@ -328,6 +328,22 @@ msgstr "&IP adresa:"
 msgid "&Port:"
 msgstr "&Port:"
 
+#. Translators: label of a checkbox which allows forwarding a port using UPNP
+msgid "Use &UPNP to forward this port if possible"
+msgstr "Koristi &UPNP za preusmeravanje ovog porta ako je moguće"
+
+#. Translators: message asking the user wether perform portcheck with UPNP or not
+msgid ""
+"Would you like to use UPNP to forward the chosen port before detecting your "
+"IP address?"
+msgstr ""
+"Da li želite da koristite UPNP da preusmerite izabrani port pre "
+"prepoznavanja vaše IP adrese?"
+
+#. Translators: title of the message asking the user to try portcheck with UPNP
+msgid "Do you want to use UPNP?"
+msgstr "Da li želite da koristite UPNP?"
+
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "Uspešno preuzeta IP adresa. Port {port} je otvoren."
@@ -340,10 +356,13 @@ msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "Preuzeta IP adresa, ali port{port} trenutno nije otvoren."
 
 msgid ""
-"Unable to contact portcheck server, please manually retrieve your IP address"
+"Unable to contact portcheck server or UPNP device, please manually retrieve "
+"your IP address and forward ports if required. See the NVDA log for more "
+"details."
 msgstr ""
-"Nemoguće kontaktirati server za proveru porta, molimo ručno preuzmite IP "
-"adresu"
+"Nemoguće kontaktirati server za proveru portaili UPNP uređaj, molimo ručno "
+"pronađite vašu IP adresu i preusmerite portove ako je neophodno. Pogledajte "
+"NVDA dnevnik za više detalja."
 
 msgid "Client"
 msgstr "Klijent"
@@ -382,6 +401,10 @@ msgstr "Reprodukuj zvukove umesto pištanja"
 msgid "Process speech commands when controlling another computer"
 msgstr "Obrađuj govorne komande kadase kontroliše drugi računar "
 
+#. Translators: a text field in add-on options dialog to set the portcheck service URL
+msgid "Portcheck &service URL: "
+msgstr "Adresa &usluge provere porta: "
+
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
 msgstr "Obriši sve dozvoljene sertifikate"
@@ -395,6 +418,13 @@ msgstr ""
 
 msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr "Da li ste sigurni da želite da obrišete sve odobrene sertifikate?"
+
+#. Translators: error message for invalid format on Portcheck service URL
+#, python-brace-format
+msgid ""
+"Invalid format for portcheck service URL. You must include {port} somewhere."
+msgstr ""
+"Neispravan format adrese usluge za proveru porta. Negde morate dodati {port}."
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"
