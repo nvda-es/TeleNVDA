@@ -26,8 +26,8 @@ NVDA. Він повністю сумісний із NVDA Remote. Ось пото
   перемикання між хостом і віддаленим комп’ютером.
 * Можливість обмінюватися невеликими файлами (до 10 МБ) між користувачами,
   підключеними до однієї сесії.
-* Ability to forward ports via UPNP.
-* Ability to use a custom portcheck service.
+* Можливість переадресації портів через UPNP.
+* Можливість використовувати власну службу перевірки портів.
 * Кілька виправлень.
 
 ## Перед тим, як почати
@@ -110,20 +110,22 @@ TeleNVDA.
 
 Інша особа з'єднається з вами, використовуючи режим, відмінний від вашого.
 
-Once the mode is selected, you can use the Get External IP button to get
-your external IP address and make sure the port which is entered in the port
-field is forwarded correctly. If enabled on your router, you can forward the
-port using UPNP before performing portcheck.
+Обравши режим, ви можете скористатися кнопкою «Отримати зовнішню IP-адресу»,
+щоб знайти вашу IP-адресу й переконатися, що порт, вказаний у полі «Порт»,
+переспрямовується правильно. Якщо це ввімкнено на вашому маршрутизаторі, ви
+можете переадресувати порт за допомогою UPNP, перш ніж виконувати перевірку
+порту.
 
 Якщо служба перевірки портів виявить, що ваш порт (типово 6837) недоступний,
 з'явиться попередження.
 
-Forward your port and try again. Also, ensure that the NVDA process is
-allowed through Windows firewall.
+Переспрямуйте порт і спробуйте ще раз. Також переконайтеся, що процес NVDA
+дозволено у брандмауері Windows.
 
-Note: The process for forwarding ports, enabling UPNP or configuring Windows
-firewall is outside of the scope of this document. Please consult the
-information provided with your router for further instruction.
+Примітка: Процес переспрямування портів, увімкнення UPNP та налаштування
+брандмауера Windows виходить за рамки цього документа. Будь ласка,
+зверніться до документації вашого маршрутизатора для отримання подальших
+інструкцій.
 
 Введіть ключ у поле ключа або натисніть кнопку «Створити ключ». Для
 підключення іншій людині знадобиться ваш зовнішній IP разом з ключем. Якщо у
@@ -131,11 +133,12 @@ information provided with your router for further instruction.
 що інша особа теж додала альтернативний порт до адреси сервера у форматі
 &lt;зовнішня IP-адреса&gt;:&lt;порт&gt;.
 
-If you want to forward the chosen port using UPNP, enable the "Use UPNP to
-forward this port if possible" checkbox.
+Якщо ви хочете переспрямувати вибраний порт із використанням UPNP, позначте
+прапорець «Використовувати UPNP для переспрямування цього порту якщо
+можливо».
 
-Once ok is pressed, you will be connected. When the other person connects,
-you can use TeleNVDA normally.
+Після натискання кнопки «Гаразд» вас буде підключено. Коли інший користувач
+підключиться, ви зможете використовувати TeleNVDA у звичайному режимі.
 
 ## Керування віддаленим комп’ютером
 
@@ -153,13 +156,14 @@ you can use TeleNVDA normally.
 
 ## Ділимося своїм сеансом
 
-To share a link so someone else can easily join your TeleNVDA session,
-select Copy Link from the Remote menu. You can also assign gestures from the
-NVDA Input Gestures dialog to speed up this task.
+Щоб поділитися посиланням, аби хтось інший міг легко приєднатися до вашого
+сеансу TeleNVDA, виберіть "Копіювати посилання" в меню віддаленого
+керування. LЩоб пришвидшити виконання цього завдання, призначте на нього
+жест в діалозі «Жести вводу».
 
-You can choose between two link formats. First one is compatible with both
-NVDA Remote and TeleNVDA, and is the most recommended for now. Second one is
-compatible only with TeleNVDA.
+Ви можете вибрати один з двох форматів посилань. Перший сумісний як з NVDA
+Remote, так і з TeleNVDA, і наразі є найбільш рекомендованим. Другий формат
+сумісний лише з TeleNVDA.
 
 Якщо ви під'єднані як керівний комп’ютер, це посилання дозволить комусь
 іншому під’єднатися і бути керованим.
@@ -171,8 +175,8 @@ compatible only with TeleNVDA.
 посилання, але якщо воно не запускається з певної програми, його можна
 скопіювати до буфера обміну та запустити з діалогу "Виконати" (windows+r).
 
-Note that the shared link may not work if you copy it from a server running
-in direct connection mode.
+Зауважте, що спільне посилання може не працювати, якщо ви скопіюєте його з
+сервера, який працює в режимі прямого з'єднання.
 
 ## Надіслати Ctrl+Alt+Del
 
@@ -212,9 +216,10 @@ in direct connection mode.
    керування". Нарешті, натисніть Enter на пункті "Параметри...".
 2. Позначте прапорець "Автопідключення до керівного сервера під час
    запуску".
-3. Select whether to use a remote relay server or to locally host the
-   connection. If you decide to host the connection, you can try to forward
-   ports using UPNP by checking the provided checkbox.
+3. Виберіть, чи використовувати віддалений сервер ретрансляції, чи локально
+   розміщувати з'єднання. Якщо ви вирішите розміщувати з'єднання на сервері,
+   ви можете спробувати переспрямувати порти за допомогою UPNP, встановивши
+   відповідний прапорець.
 4. Оберіть радіокнопку "Дозволити керувати цим комп'ютером" у другій групі
    радіокнопок.
 5. Якщо ви самі встановлюєте з'єднання, вам необхідно переконатися, що порт,
@@ -275,11 +280,12 @@ in direct connection mode.
 ви можете надсилати файли розміром не більше 10 МБ. Надсилання або отримання
 файлів на захищених екранах заборонено.
 
-Also note that sending files may consume too much network traffic on the
-server, depending on the file size, the computers connected to the same
-session and the amount of files sent. Contact your server administrator and
-ask them if the traffic is billed. In that case, consider using another
-platform to exchange files.
+Також зауважте, що надсилання файлів може споживати занадто багато
+мережевого трафіку на сервері, залежно від розміру файлу, кількості
+комп'ютерів, підключених до одного сеансу, та кількості надісланих
+файлів. Зверніться до адміністратора вашого сервера й запитайте, чи
+тарифікується трафік. У такому випадку розгляньте можливість використання
+іншої платформи для обміну файлами.
 
 Коли файл буде отримано на віддаленому комп’ютері, з'явиться діалог Зберегти
 як, в якому ви зможете вибрати місце збереження файлу.
@@ -310,21 +316,21 @@ platform to exchange files.
 надійних, ви можете видалити всі цифрові відбитки серверів, натиснувши
 кнопку «Видалення всіх надійних відбитків» у діалозі "Параметри".
 
-## Using a custom portcheck service
+## Використання власної служби перевірки портів
 
-By default, TeleNVDA checks open ports using a service provided by the NVDA
-spanish community. You can change the service URL from the options
-dialog. Ensure that the port to check is part of the custom URL and the
-results are returned in the expected format. A portcheck sample script is
-distributed in TeleNVDA repository, so you can host your own copy if
-desired.
+Початково TeleNVDA перевіряє відкриті порти за допомогою сервісу іспанської
+спільноти NVDA. Ви можете змінити адресу сервісу за допомогою діалогу
+параметрів. Переконайтеся, що порт, який перевіряється, є частиною
+користувацької URL-адреси, а результати перевірки повертаються в очікуваному
+форматі. Зразок сценарію перевірки портів розміщено у репозиторії TeleNVDA,
+тому ви можете створити власну копію, якщо бажаєте.
 
 ## Внесення змін у TeleNVDA
 
-This project is covered by the GNU General Public License, version 2 or
-later. You may clone [this repo][2] to make alteration to TeleNVDA, provided
-that you read, understand and respect the license terms. The MiniUPNP module
-is licensed under a BSD-3 clause license.
+Цей проєкт поширюється на умовах ліцензії GNU General Public License, версія
+2 або новіша. Ви можете клонувати [цей репозиторій][2] для внесення змін до
+TeleNVDA за умови, що ви прочитали, зрозуміли і поважаєте умови
+ліцензії. Модуль MiniUPNP ліцензовано за ліцензією BSD-3.
 
 ### Сторонні залежності
 
@@ -338,7 +344,8 @@ is licensed under a BSD-3 clause license.
 
 ### Щоб запакувати доповнення для розповсюдження:
 
-1. Open a command line, change to the root of [this repo][2]
+1. Відкрийте командний рядок та перейдіть до кореневого каталогу [цього
+   репозиторію][2]
 2. Запустіть команду scons. Створений додаток, якщо не виникне помилок, буде
    розміщений в поточному каталозі.
 

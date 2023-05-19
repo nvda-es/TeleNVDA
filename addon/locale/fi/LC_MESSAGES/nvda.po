@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: NVDARemote\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-05-06 18:02+0200\n"
+"PO-Revision-Date: 2023-05-13 13:03+0200\n"
 "Last-Translator: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language-Team: Jani Kinnunen <janikinnunen340@gmail.com>\n"
 "Language: fi_FI\n"
@@ -491,7 +491,7 @@ msgstr "Virheellinen URL"
 #. Translators: Message shown when an invalid URL has been provided.
 #, python-format
 msgid "Unable to parse url \"%s\""
-msgstr "URL-osoitetta \"%s\" ei voi jäsentää"
+msgstr "URLia \"%s\" ei voi jäsentää"
 
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
