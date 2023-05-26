@@ -3,8 +3,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NVDARemote 2.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2023-04-18 15:17+0800\n"
-"PO-Revision-Date: 2023-04-18 15:32+0800\n"
+"POT-Creation-Date: 2023-05-21 13:46+0800\n"
+"PO-Revision-Date: 2023-05-21 13:47+0800\n"
 "Last-Translator: 完美很难 <1872265132@qq.com>\n"
 "Language-Team: NVDA Simplified Chinese Team <dingpengyu06@gmail.com>\n"
 "Language: zh_CN\n"
@@ -310,17 +310,17 @@ msgstr "端口(&P):"
 
 #. Translators: label of a checkbox which allows forwarding a port using UPNP
 msgid "Use &UPNP to forward this port if possible"
-msgstr ""
+msgstr "使用 UPNP 转发此端口（如果可能）"
 
 #. Translators: message asking the user wether perform portcheck with UPNP or not
 msgid ""
 "Would you like to use UPNP to forward the chosen port before detecting your "
 "IP address?"
-msgstr ""
+msgstr "您想在检测 IP 地址之前使用 UPNP 转发所选端口吗？"
 
 #. Translators: title of the message asking the user to try portcheck with UPNP
 msgid "Do you want to use UPNP?"
-msgstr ""
+msgstr "您想使用 UPNP 吗？"
 
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
@@ -333,12 +333,13 @@ msgstr "成功"
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "检索到公网 IP，但当前未转发端口 {port}。"
 
-#, fuzzy
 msgid ""
 "Unable to contact portcheck server or UPNP device, please manually retrieve "
 "your IP address and forward ports if required. See the NVDA log for more "
 "details."
-msgstr "无法连接端口检测服务器，请手动检索 IP 地址"
+msgstr ""
+"无法连接端口检测服务器或 UPNP 设备，请手动检索 IP 地址并根据需要转发端口。有"
+"关详细信息，请参阅 NVDA 日志。"
 
 msgid "Client"
 msgstr "客户端"
@@ -379,7 +380,7 @@ msgstr "在控制对方计算机时处理语音命令"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
-msgstr ""
+msgstr "端口检测服务 URL(&S)"
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
@@ -397,7 +398,7 @@ msgstr "您确定要移除所有存储的已信任指纹吗？"
 #, python-brace-format
 msgid ""
 "Invalid format for portcheck service URL. You must include {port} somewhere."
-msgstr ""
+msgstr "端口检测服务 URL 格式无效。必须在某处包含 {port}。"
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
 msgid "TeleNVDA Connection Security Warning"
