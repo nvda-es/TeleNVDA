@@ -8,6 +8,7 @@ import time
 sys.path.append(os.path.dirname(__file__))
 import miniupnpc
 del sys.path[-1]
+from logHandler import log
 
 
 class Server:
@@ -48,6 +49,7 @@ class Server:
 			except:
 				self.upnp = None
 		self.last_ping_time = time.time()
+		log.info("TeleNVDA direct connection server started")
 		while self.running:
 			r, w, e = select.select(self.client_sockets+[self.server_socket, self.server_socket6], [], self.client_sockets, 60)
 			if not self.running:
@@ -68,11 +70,13 @@ class Server:
 	def accept_new_connection(self, sock):
 		try:
 			client_sock, addr = sock.accept()
+			log.info("New incoming connection from "+addr[0])
 		except (ssl.SSLError, socket.error, OSError):
 			return
 		client_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 		client = Client(server=self, socket=client_sock)
 		self.add_client(client)
+		log.info("Created client "+str(client.id))
 
 	def add_client(self, client):
 		self.clients[client.socket] = client
@@ -86,6 +90,7 @@ class Server:
 		self.remove_client(client)
 		if client.authenticated:
 			client.send_to_others(type='client_left', user_id=client.id, client=client.as_dict())
+		log.info("client "+str(client.id)+" has disconnected")
 
 	def close(self):
 		self.running = False
@@ -93,6 +98,7 @@ class Server:
 		self.server_socket6.close()
 		if self.upnp:
 			self.upnp.deleteportmapping(self.port, 'TCP')
+		log.info("TeleNVDA direct connection server stopped")
 
 class Client:
 	id: int = 0
@@ -160,6 +166,7 @@ class Client:
 		password = obj.get('channel', None)
 		if password != self.server.password:
 			self.send(type='error', message='incorrect_password')
+			log.info("Client "+str(self.id)+" rejected due to wrong password. Password used: "+password)
 			self.close()
 			return
 		self.connection_type = obj.get('connection_type')
@@ -173,6 +180,7 @@ class Client:
 			client_ids.append(c.id)
 		self.send(type='channel_joined', channel=self.server.password, user_ids=client_ids, clients=clients)
 		self.send_to_others(type='client_joined', user_id=self.id, client=self.as_dict())
+		log.info("Client joined current session")
 
 	def do_protocol_version(self, obj):
 		version = obj.get('version')
