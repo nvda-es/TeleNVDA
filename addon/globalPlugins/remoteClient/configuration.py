@@ -37,7 +37,7 @@ def get_config():
 	global _config
 	if not _config:
 		path = os.path.abspath(os.path.join(globalVars.appArgs.configPath, CONFIG_FILE_NAME))
-		_config = configobj.ConfigObj(infile=path, configspec=configspec, create_empty=True)
+		_config = configobj.ConfigObj(infile=path, configspec=configspec, default_encoding='utf8', create_empty=True)
 		val = validate.Validator()
 		_config.validate(val, copy=True)
 	return _config
