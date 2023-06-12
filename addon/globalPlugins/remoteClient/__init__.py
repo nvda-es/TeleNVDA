@@ -173,13 +173,13 @@ class GlobalPlugin(_GlobalPlugin):
 		self.copyLinkMenu.Remove(self.copy_link_tele_item.Id)
 		self.copy_link_tele_item.Destroy()
 		self.copy_link_tele_item=None
-		self.menu.Remove(self.connect_item.Id)
-		self.connect_item.Destroy()
-		self.connect_item=None
 		try:
+			self.menu.Remove(self.connect_item.Id)
 			self.menu.Remove(self.disconnect_item.Id)
 		except:
 			pass
+		self.connect_item.Destroy()
+		self.connect_item=None
 		self.disconnect_item.Destroy()
 		self.disconnect_item=None
 		self.menu.Remove(self.mute_item.Id)
