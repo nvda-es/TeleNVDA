@@ -130,7 +130,7 @@ class GlobalPlugin(_GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_disconnect_item, self.disconnect_item)
 		self.menu.Remove(self.disconnect_item.Id)
 		# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
-		self.mute_item = self.menu.Append(wx.ID_ANY, _("Mute remote"), _("Mute speech and sounds from the remote computer"), kind=wx.ITEM_CHECK)
+		self.mute_item = self.menu.Append(wx.ID_ANY, _("Mute remote"), _("Mute speech and sounds from the remote computer"))
 		self.mute_item.Enable(False)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_mute_item, self.mute_item)
 		# Translators: Menu item in TeleNVDA submenu to push clipboard content to the remote computer.
@@ -225,8 +225,15 @@ class GlobalPlugin(_GlobalPlugin):
 		self.disconnect()
 
 	def on_mute_item(self, evt):
-		evt.Skip()
-		self.local_machine.is_muted = self.mute_item.IsChecked()
+		if evt:
+			evt.Skip()
+		self.local_machine.is_muted = not self.local_machine.is_muted
+		if self.local_machine.is_muted:
+			# Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
+			self.mute_item.SetItemLabel(_("Unmute remote"))
+		else:
+			# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
+			self.mute_item.SetItemLabel(_("Mute remote"))
 
 	def on_push_clipboard_item(self, evt):
 		connector = self.slave_transport or self.master_transport
@@ -744,8 +751,7 @@ class GlobalPlugin(_GlobalPlugin):
 		_("""Mute or unmute the speech coming from the remote computer"""))
 	def script_toggle_remote_mute(self, gesture):
 		if not self.is_connected() or self.connecting: return
-		self.local_machine.is_muted = not self.local_machine.is_muted
-		self.mute_item.Check(self.local_machine.is_muted)
+		self.on_mute_item(None)
 		# Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 		status = _("Mute speech and sounds from the remote computer") if self.local_machine.is_muted else _("Unmute speech and sounds from the remote computer")
 		ui.message(status)
