@@ -365,7 +365,8 @@ class GlobalPlugin(_GlobalPlugin):
 				self.menu.Insert(0, self.connect_item)
 			if self.menu.FindItemById(self.disconnect_item.Id):
 				self.menu.Remove(self.disconnect_item.Id)
-			self.mute_item.Check(False)
+			# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
+			self.mute_item.SetItemLabel(_("Mute remote"))
 			self.mute_item.Enable(False)
 			self.push_clipboard_item.Enable(False)
 			self.send_file_item.Enable(False)
