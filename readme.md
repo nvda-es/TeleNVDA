@@ -4,6 +4,8 @@
 * NVDA Compatibility: 2019.3 and beyond
 * Download [stable version][1]
 
+Note: in order to make download easier for users who need assistance or training and have limited computing skills, we provide an alternate link to the latest stable version which is easy to remember and share. You can go to [nvda.es/tele](https://nvda.es/tele) and download the add-on directly, without intermediate web pages.
+
 Welcome to the TeleNVDA addon, which will allow you to connect to another computer running the free NVDA screen reader. With this add-on, you can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training. This add-on is a modified version of the [NVDA Remote add-on](https://nvdaremote.com), and is maintained by the NVDA spanish community. It's fully compatible with NVDA Remote. These are the current differences:
 
 * An option allows blocking remote speech commands different from text.
@@ -13,6 +15,7 @@ Welcome to the TeleNVDA addon, which will allow you to connect to another comput
 * Ability to exchange small files (up to 10 MB) among users connected to the same session.
 * Ability to forward ports via UPNP.
 * Ability to use a custom portcheck service.
+* Some GUI tweaks.
 * Several bug fixes.
 
 ## Before You Begin
@@ -61,7 +64,7 @@ Once selecting this, select which mode your end of the connection will be in.
 
 The other person will connect to you using the opposite.
 
-Once the mode is selected, you can use the Get External IP button to get your external IP address and make sure the port which is entered in the port field is forwarded correctly. If enabled on your router, you can foorward the port using UPNP before performing portcheck.
+Once the mode is selected, you can use the Get External IP button to get your external IP address and make sure the port which is entered in the port field is forwarded correctly. If enabled on your router, you can forward the port using UPNP before performing portcheck.
 
 If portcheck detects that your port (6837 by default) is not reachable, a warning will appear.
 
