@@ -356,6 +356,7 @@ class GlobalPlugin(_GlobalPlugin):
 		if self.menu:
 			if not self.menu.FindItemById(self.connect_item.Id):
 				self.menu.Insert(0, self.connect_item)
+			if self.menu.FindItemById(self.disconnect_item.Id):
 				self.menu.Remove(self.disconnect_item.Id)
 			self.mute_item.Check(False)
 			self.mute_item.Enable(False)
@@ -416,8 +417,10 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def on_connected_as_master(self):
 		configuration.write_connection_to_config(self.master_transport.address)
-		self.menu.Insert(0, self.disconnect_item)
-		self.menu.Remove(self.connect_item.Id)
+		if not self.menu.FindItemById(self.disconnect_item.Id):
+			self.menu.Insert(0, self.disconnect_item)
+		if self.menu.FindItemById(self.connect_item.Id):
+			self.menu.Remove(self.connect_item.Id)
 		self.mute_item.Enable(True)
 		self.push_clipboard_item.Enable(True)
 		if not globalVars.appArgs.secure:
@@ -463,8 +466,10 @@ class GlobalPlugin(_GlobalPlugin):
 		transport.callback_manager.register_callback(TransportEvents.CERTIFICATE_AUTHENTICATION_FAILED, self.on_certificate_as_slave_failed)
 		self.slave_transport.callback_manager.register_callback(TransportEvents.CONNECTED, self.on_connected_as_slave)
 		self.slave_transport.reconnector_thread.start()
-		self.menu.Insert(0, self.disconnect_item)
-		self.menu.Remove(self.connect_item.Id)
+		if not self.menu.FindItemById(self.disconnect_item.Id):
+			self.menu.Insert(0, self.disconnect_item)
+		if self.menu.FindItemById(self.connect_item.Id):
+			self.menu.Remove(self.connect_item.Id)
 
 	def handle_certificate_failed(self, transport):
 		self.last_fail_address = transport.address
