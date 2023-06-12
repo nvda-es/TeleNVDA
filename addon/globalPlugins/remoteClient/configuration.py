@@ -12,13 +12,13 @@ CONFIG_FILE_NAME = 'teleNVDA.ini'
 _config = None
 configspec = StringIO("""
 [connections]
-	last_connected = list(default=list())
+	last_connected = list(default=list("remote.nvda.es"))
 [controlserver]
 	autoconnect = boolean(default=False)
 	self_hosted = boolean(default=False)
 	UPNP = boolean(default=False)
 	connection_type = integer(default=0)
-	host = string(default="")
+	host = string(default="remote.nvda.es")
 	port = integer(default=6837)
 	key = string(default="")
 
