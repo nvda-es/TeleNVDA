@@ -127,8 +127,8 @@ class GlobalPlugin(_GlobalPlugin):
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.do_connect, self.connect_item)
 		# Translators: Item in TeleNVDA submenu to disconnect from a remote computer.
 		self.disconnect_item = self.menu.Append(wx.ID_ANY, _("Disconnect"), _("Disconnect from another computer running NVDA Remote Access or TeleNVDA"))
-		self.disconnect_item.Enable(False)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_disconnect_item, self.disconnect_item)
+		self.menu.Remove(self.disconnect_item.Id)
 		# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
 		self.mute_item = self.menu.Append(wx.ID_ANY, _("Mute remote"), _("Mute speech and sounds from the remote computer"), kind=wx.ITEM_CHECK)
 		self.mute_item.Enable(False)
@@ -176,7 +176,10 @@ class GlobalPlugin(_GlobalPlugin):
 		self.menu.Remove(self.connect_item.Id)
 		self.connect_item.Destroy()
 		self.connect_item=None
-		self.menu.Remove(self.disconnect_item.Id)
+		try:
+			self.menu.Remove(self.disconnect_item.Id)
+		except:
+			pass
 		self.disconnect_item.Destroy()
 		self.disconnect_item=None
 		self.menu.Remove(self.mute_item.Id)
@@ -337,8 +340,8 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: Presented when disconnected from the remote computer.
 		ui.message(_("Disconnected!"))
 		cues.disconnected()
-		self.disconnect_item.Enable(False)
-		self.connect_item.Enable(True)
+		self.menu.Remove(self.disconnect_item.Id)
+		self.menu.Insert(0, self.connect_item)
 		self.push_clipboard_item.Enable(False)
 		self.send_file_item.Enable(False)
 		self.copy_link_remote_item.Enable(False)
@@ -351,8 +354,9 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def disconnecting_as_master(self):
 		if self.menu:
-			self.connect_item.Enable(True)
-			self.disconnect_item.Enable(False)
+			if not self.menu.FindItemById(self.connect_item.Id):
+				self.menu.Insert(0, self.connect_item)
+				self.menu.Remove(self.disconnect_item.Id)
 			self.mute_item.Check(False)
 			self.mute_item.Enable(False)
 			self.push_clipboard_item.Enable(False)
@@ -412,8 +416,8 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def on_connected_as_master(self):
 		configuration.write_connection_to_config(self.master_transport.address)
-		self.disconnect_item.Enable(True)
-		self.connect_item.Enable(False)
+		self.menu.Insert(0, self.disconnect_item)
+		self.menu.Remove(self.connect_item.Id)
 		self.mute_item.Enable(True)
 		self.push_clipboard_item.Enable(True)
 		if not globalVars.appArgs.secure:
@@ -459,8 +463,8 @@ class GlobalPlugin(_GlobalPlugin):
 		transport.callback_manager.register_callback(TransportEvents.CERTIFICATE_AUTHENTICATION_FAILED, self.on_certificate_as_slave_failed)
 		self.slave_transport.callback_manager.register_callback(TransportEvents.CONNECTED, self.on_connected_as_slave)
 		self.slave_transport.reconnector_thread.start()
-		self.disconnect_item.Enable(True)
-		self.connect_item.Enable(False)
+		self.menu.Insert(0, self.disconnect_item)
+		self.menu.Remove(self.connect_item.Id)
 
 	def handle_certificate_failed(self, transport):
 		self.last_fail_address = transport.address
