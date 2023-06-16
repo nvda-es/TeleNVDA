@@ -120,6 +120,11 @@ msgstr "傳送 Ctrl+Alt+Del 指令"
 msgid "R&emote"
 msgstr "Remote(&E)"
 
+#. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
+#, fuzzy
+msgid "Unmute remote"
+msgstr "遠端電腦靜音"
+
 msgid "Not connected."
 msgstr "沒有連線。"
 

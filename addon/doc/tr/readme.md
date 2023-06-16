@@ -5,6 +5,12 @@
 * NVDA Uyumluluğu: 2019.3 ve sonrası
 * [Kararlı sürümü indir][1]
 
+Not: Yardıma veya eğitime ihtiyaç duyan ve sınırlı bilgi işlem becerilerine
+sahip kullanıcılar için indirmeyi kolaylaştırmak amacıyla, hatırlaması ve
+paylaşması kolay en son kararlı sürüme alternatif bir bağlantı
+sağlıyoruz. [nvda.es/tele](https://nvda.es/tele) adresine gidip eklentiyi
+ara web sayfaları olmadan doğrudan indirebilirsiniz.
+
 Ücretsiz NVDA ekran okuyucusunu çalıştıran başka bir bilgisayara
 bağlanmanızı sağlayacak TeleNVDA eklentisine hoş geldiniz. Bu eklenti ile
 başka bir kişinin bilgisayarına bağlanabilir veya güvendiğiniz bir kişinin
@@ -29,6 +35,7 @@ ile tamamen uyumludur. Var olan farklılıklar aşağıdaki gibidir:
   kadar) yapabilme.
 * UPNP aracılığıyla bağlantı noktalarını iletme yeteneği.
 * Özel bir portcheck hizmeti kullanabilme.
+* Bazı GUI düzenlemeleri.
 * Birkaç hata düzeltmesi.
 
 ## Başlamadan Önce

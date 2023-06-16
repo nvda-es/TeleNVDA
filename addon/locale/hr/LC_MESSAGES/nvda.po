@@ -124,6 +124,11 @@ msgstr "Pritisni Ctrl+Alt+Delete"
 msgid "R&emote"
 msgstr "U&daljeno"
 
+#. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
+#, fuzzy
+msgid "Unmute remote"
+msgstr "Utišaj udaljeno računalo"
+
 msgid "Not connected."
 msgstr "Nije spojeno."
 

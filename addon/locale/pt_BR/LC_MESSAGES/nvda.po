@@ -126,6 +126,11 @@ msgstr "Enviar ctrl+alt+del"
 msgid "R&emote"
 msgstr "R&emoto"
 
+#. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
+#, fuzzy
+msgid "Unmute remote"
+msgstr "Silenciar remoto"
+
 msgid "Not connected."
 msgstr "Sem ligação."
 

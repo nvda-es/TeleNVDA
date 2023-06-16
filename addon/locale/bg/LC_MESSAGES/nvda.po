@@ -124,6 +124,11 @@ msgstr "Изпрати Control+Alt+Delete"
 msgid "R&emote"
 msgstr "Отдалечен &достъп"
 
+#. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
+#, fuzzy
+msgid "Unmute remote"
+msgstr "Заглуши отдалечената машина"
+
 msgid "Not connected."
 msgstr "Няма установена връзка."
 
@@ -467,8 +472,8 @@ msgstr "Клипбордът е обновен"
 #. Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
 msgid "No permission on device to trigger CTRL+ALT+DEL from remote"
 msgstr ""
-"Няма разрешение на устройството за задействане от разстояние на "
-"Control+Alt+Delete"
+"Няма разрешение на устройството за задействане от разстояние на Control+Alt"
+"+Delete"
 
 #. Translators: message displayed in transfer file dialog when receiving a file
 msgid "Choose where to save the received file"

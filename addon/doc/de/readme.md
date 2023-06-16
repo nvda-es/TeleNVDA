@@ -5,6 +5,13 @@
 * NVDA-Kompatibilität: 2019.3 und neuer
 * [Stabile Version herunterladen][1]
 
+Hinweis: Um das Herunterladen für Benutzer zu erleichtern, die Unterstützung
+oder Schulung benötigen und nur über begrenzte Computerkenntnisse verfügen,
+bieten wir einen alternativen Link zur neuesten stabilen Version an, der
+leicht zu merken ist und weitergegeben werden kann. Sie können zu
+[nvda.es/tele](https://nvda.es/tele) gehen und die NVDA-Erweiterung direkt
+herunterladen, ohne zwischengeschaltete Webseiten.
+
 Willkommen bei TeleNVDA, mit dem Sie eine Verbindung zu einem anderen
 Computer herstellen können, auf dem der kostenfreie Screenreader NVDA
 läuft. Mit diesem Add-on können Sie sich mit dem Computer einer anderen
@@ -33,6 +40,7 @@ aktuellen Unterschiede:
   auszutauschen, die mit der gleichen Sitzung verbunden sind.
 * Möglichkeit zur Weiterleitung von Ports über UPnP.
 * Möglichkeit der Verwendung eines benutzerdefinierten Port-Check-Dienstes.
+* Einige Änderungen an der grafischen Benutzeroberfläche.
 * Mehrere Fehlerkorrekturen.
 
 ## Vorbereitungen

@@ -5,6 +5,12 @@
 * Compatibilidad con NVDA: de 2019.3 en adelante
 * Descargar [versión estable][1]
 
+Nota: para facilitar la descarga a usuarios que necesitan asistencia o
+formación y tienen conocimientos limitados en informática, proporcionamos un
+enlace alternativo a la versión estable más reciente que es fácil de
+recordar y compartir. Puedes ir a [nvda.es/tele](https://nvda.es/tele) y
+descargar el complemento directamente, sin páginas web intermedias.
+
 Bienvenido al complemento TeleNVDA, que te permitirá conectarte a otro
 equipo que ejecute el lector de pantalla gratuito NVDA. Puedes conectarte al
 equipo de otra persona, o permitir a una persona de confianza que se conecte
@@ -28,6 +34,7 @@ NVDA Remote. Estas son las diferencias actuales:
   conectados a la misma sesión.
 * Posibilidad de redirigir puertos mediante UPNP.
 * Posibilidad de usar un servicio de comprobación de puertos personalizado.
+* Algunos retoques a la interfaz gráfica.
 * Varias correcciones de fallos.
 
 ## Antes de empezar

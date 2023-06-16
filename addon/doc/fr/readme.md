@@ -5,6 +5,13 @@
 * Compatibilité NVDA : 2019.3 et au-delà.
 * Télécharger [version stable][1]
 
+Remarque : Afin de faciliter le téléchargement pour les utilisateurs qui ont
+besoin d'aide ou de formation et qui ont des compétences informatiques
+limitées, nous fournissons un autre lien vers la dernière version stable qui
+est facile à retenir et à partager. Vous pouvez vous rendre sur
+[nvda.es/tele](https://nvda.es/tele) et téléchargez directement l'extension
+sans pages Web intermédiaires.
+
 Bienvenue à l'extension TeleNVDA, une extension qui vous permettra de vous
 connecter à un ordinateur distant exécutant le lecteur d'écran libre et
 gratuit NVDA. Vous pouvez vous connecter à l'ordinateur d'une autre personne
@@ -30,6 +37,7 @@ avec NVDA Remote. Voici les différences actuelles :
   utilisateurs connectés à la même session.
 * Possibilité de rediriger les ports via UPNP.
 * Possibilité d'utiliser un service portcheck personnalisé.
+* Quelques ajustements de l'interface graphique.
 * Diverses corrections de bogues.
 
 ## Avant De Commencer

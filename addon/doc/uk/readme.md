@@ -5,6 +5,12 @@
 * Сумісність з NVDA: 2019.3 і пізніші
 * Завантажити [стабільну версію][1]
 
+Note: in order to make download easier for users who need assistance or
+training and have limited computing skills, we provide an alternate link to
+the latest stable version which is easy to remember and share. You can go to
+[nvda.es/tele](https://nvda.es/tele) and download the add-on directly,
+without intermediate web pages.
+
 Ласкаво просимо до додатка TeleNVDA, який дозволить вам підключатися до
 іншого комп’ютера, на якому запущено безкоштовну програму зчитування екрана
 NVDA. За допомогою цього додатка ви можете підключитися до комп’ютера іншої
@@ -28,6 +34,7 @@ NVDA. Він повністю сумісний із NVDA Remote. Ось пото
   підключеними до однієї сесії.
 * Можливість переадресації портів через UPNP.
 * Можливість використовувати власну службу перевірки портів.
+* Some GUI tweaks.
 * Кілька виправлень.
 
 ## Перед тим, як почати
