@@ -347,8 +347,10 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: Presented when disconnected from the remote computer.
 		ui.message(_("Disconnected!"))
 		cues.disconnected()
-		self.menu.Remove(self.disconnect_item.Id)
-		self.menu.Insert(0, self.connect_item)
+		if self.menu.FindItemById(self.disconnect_item.Id):
+			self.menu.Remove(self.disconnect_item.Id)
+		if not self.menu.FindItemById(self.connect_item.Id):
+			self.menu.Insert(0, self.connect_item)
 		self.push_clipboard_item.Enable(False)
 		self.send_file_item.Enable(False)
 		self.copy_link_remote_item.Enable(False)

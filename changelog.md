@@ -1,8 +1,3 @@
-This release brings the following changes:
-
-* Instead of disabling Connect and Disconnect menu items, they are removed and re-added as needed (#14).
-* The Mute remote menu item will change its label instead of adding a checkmark when the remote session is muted.
-* Set default host in options and connection dialogs to remote.nvda.es.
-* Updated localizations.
+This release fixes a bug introduced in the previous stable version. The add-on was unable to connect if the server fingerprint was not previously stored.
 
 SHA256: 
