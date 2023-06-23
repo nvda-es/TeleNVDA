@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-04-15 12:03+0000\n"
-"PO-Revision-Date: 2023-05-13 17:07+0300\n"
+"PO-Revision-Date: 2023-06-17 20:11+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com\n"
 "Language: tr_TR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -126,9 +126,8 @@ msgid "R&emote"
 msgstr "&Uzak bağlantı"
 
 #. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
-#, fuzzy
 msgid "Unmute remote"
-msgstr "Uzaktakini sustur"
+msgstr "Uzaktakinin sesini aç"
 
 msgid "Not connected."
 msgstr "Bağlı değil."

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: remote 2.0\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-05-07 23:47+0100\n"
+"PO-Revision-Date: 2023-06-19 17:46+0100\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr_RS@latin\n"
@@ -126,9 +126,8 @@ msgid "R&emote"
 msgstr "R&emote"
 
 #. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
-#, fuzzy
 msgid "Unmute remote"
-msgstr "Isključi zvuk daljinskog računara"
+msgstr "Utišaj drugig računar"
 
 msgid "Not connected."
 msgstr "Niste povezani."
