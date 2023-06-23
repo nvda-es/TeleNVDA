@@ -4,15 +4,15 @@ msgstr ""
 "Project-Id-Version: NVDARemote 2.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-05-21 13:46+0800\n"
-"PO-Revision-Date: 2023-05-21 13:47+0800\n"
+"PO-Revision-Date: 2023-06-17 10:17+0800\n"
 "Last-Translator: 完美很难 <1872265132@qq.com>\n"
 "Language-Team: NVDA Simplified Chinese Team <dingpengyu06@gmail.com>\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.3\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Poedit 3.3.1\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -115,9 +115,8 @@ msgid "R&emote"
 msgstr "远程(&E)"
 
 #. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
-#, fuzzy
 msgid "Unmute remote"
-msgstr "远程计算机静音(&M)"
+msgstr "取消远程静音"
 
 msgid "Not connected."
 msgstr "未连接。"
@@ -385,7 +384,7 @@ msgstr "在控制对方计算机时处理语音命令"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
-msgstr "端口检测服务 URL(&S)"
+msgstr "端口检测服务 URL(&S):"
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"

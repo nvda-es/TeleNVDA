@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-05-09 23:03+0200\n"
+"PO-Revision-Date: 2023-06-20 16:57+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Corentin Bacqué-Cazenave <corentin@progaccess.net>\n"
 "Language: fr\n"
@@ -127,9 +127,8 @@ msgid "R&emote"
 msgstr "&Accès distant"
 
 #. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
-#, fuzzy
 msgid "Unmute remote"
-msgstr "Co&uper le son distant"
+msgstr "Rétablir le son distant"
 
 msgid "Not connected."
 msgstr "Non connecté."

@@ -5,11 +5,12 @@
 * Yhteensopivuus: NVDA 2019.3 ja uudemmat
 * Lataa [vakaa versio][1]
 
-Note: in order to make download easier for users who need assistance or
-training and have limited computing skills, we provide an alternate link to
-the latest stable version which is easy to remember and share. You can go to
-[nvda.es/tele](https://nvda.es/tele) and download the add-on directly,
-without intermediate web pages.
+Huom: Jotta lataaminen olisi helpompaa apua tai koulutusta tarvitseville
+käyttäjille tai joilla on rajoitetut tietokonetaidot, tarjoamme
+vaihtoehtoisen linkin viimeisimpään vakaaseen versioon, joka on helppo
+muistaa ja jakaa. Voit siirtyä osoitteeseen
+[nvda.es/tele](https://nvda.es/tele) ja ladata lisäosan suoraan ilman
+välisivuja.
 
 Tervetuloa TeleNVDA-lisäosaan, jonka avulla voit yhdistää toiseen ilmaista
 NVDA-ruudunlukuohjelmaa käyttävään tietokoneeseen. Voit yhdistää toisen
@@ -35,7 +36,7 @@ kanssa. Erot ovat tällä hetkellä seuraavat:
   samassa istunnossa olevien käyttäjien välillä.
 * Mahdollisuus porttien uudelleenohjaamiseen UPNP:n kautta.
 * Mahdollisuus mukautetun portintarkistuspalvelun käyttämiseen.
-* Some GUI tweaks.
+* Käyttöliittymän hienosäätöjä.
 * Useita bugikorjauksia.
 
 ## Ennen kuin aloitat
