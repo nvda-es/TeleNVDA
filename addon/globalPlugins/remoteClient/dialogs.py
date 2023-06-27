@@ -4,6 +4,7 @@ import threading
 from urllib import request
 import wx
 import gui
+from gui.settingsDialogs import SettingsPanel
 from . import serializer
 from . import server
 from . import transport
@@ -17,6 +18,7 @@ except addonHandler.AddonError:
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
 	)
 from . import configuration
+import config as NVDAConfig
 import os
 import sys
 sys.path.append(os.path.dirname(__file__))
@@ -228,64 +230,57 @@ class DirectConnectDialog(wx.Dialog):
 		else:
 			evt.Skip()
 
-class OptionsDialog(wx.Dialog):
+class OptionsDialog(SettingsPanel):
 
-	def __init__(self, parent, id, title):
-		super().__init__(parent, id, title=title)
-		main_sizer = wx.BoxSizer(wx.VERTICAL)
+	# Translators: title for the TeleNVDA settings category in NVDA settings dialog
+	title = _("TeleNVDA")
+
+	def makeSettings(self, sizer):
 		# Translators: A checkbox in add-on options dialog to set whether remote server is started when NVDA starts.
 		self.autoconnect = wx.CheckBox(self, wx.ID_ANY, label=_("Auto-connect to control server on startup"))
 		self.autoconnect.Bind(wx.EVT_CHECKBOX, self.on_autoconnect)
-		main_sizer.Add(self.autoconnect)
+		sizer.Add(self.autoconnect)
 		#Translators: Whether or not to use a relay server when autoconnecting
 		self.client_or_server = wx.RadioBox(self, wx.ID_ANY, choices=(_("Use Remote Control Server"), _("Host Control Server")), style=wx.RA_VERTICAL)
 		self.client_or_server.Bind(wx.EVT_RADIOBOX, self.on_client_or_server)
 		self.client_or_server.SetSelection(0)
 		self.client_or_server.Enable(False)
-		main_sizer.Add(self.client_or_server)
+		sizer.Add(self.client_or_server)
 		choices = [_("Allow this machine to be controlled"), _("Control another machine")]
 		self.connection_type = wx.RadioBox(self, wx.ID_ANY, choices=choices, style=wx.RA_VERTICAL)
 		self.connection_type.SetSelection(0)
 		self.connection_type.Enable(False)
-		main_sizer.Add(self.connection_type)
-		main_sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Host:")))
+		sizer.Add(self.connection_type)
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Host:")))
 		self.host = wx.TextCtrl(self, wx.ID_ANY)
 		self.host.Enable(False)
-		main_sizer.Add(self.host)
-		main_sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Port:")))
+		sizer.Add(self.host)
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Port:")))
 		self.port = wx.SpinCtrl(self, wx.ID_ANY, min=1, max=65535)
 		self.port.Enable(False)
-		main_sizer.Add(self.port)
+		sizer.Add(self.port)
 		# Translators: label of a checkbox which allows forwarding a port using UPNP
 		self.useUPNP = wx.CheckBox(self, wx.ID_ANY, label=_("Use &UPNP to forward this port if possible"))
 		self.useUPNP.Enable(False)
-		main_sizer.Add(self.useUPNP)
-		main_sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Key:")))
+		sizer.Add(self.useUPNP)
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("&Key:")))
 		self.key = wx.TextCtrl(self, wx.ID_ANY)
 		self.key.Enable(False)
-		main_sizer.Add(self.key)
+		sizer.Add(self.key)
 		# Translators: A checkbox in add-on options dialog to set whether sounds play instead of beeps.
 		self.play_sounds = wx.CheckBox(self, wx.ID_ANY, label=_("Play sounds instead of beeps"))
-		main_sizer.Add(self.play_sounds)
+		sizer.Add(self.play_sounds)
 		# Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 		self.speech_commands = wx.CheckBox(self, wx.ID_ANY, label=_("Process speech commands when controlling another computer"))
-		main_sizer.Add(self.speech_commands)
+		sizer.Add(self.speech_commands)
 		# Translators: a text field in add-on options dialog to set the portcheck service URL
-		main_sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("Portcheck &service URL: ")))
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("Portcheck &service URL: ")))
 		self.portcheck = wx.TextCtrl(self, wx.ID_ANY)
-		main_sizer.Add(self.portcheck)
+		sizer.Add(self.portcheck)
 		# Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 		self.delete_fingerprints = wx.Button(self, wx.ID_ANY, label=_("Delete all trusted fingerprints"))
 		self.delete_fingerprints.Bind(wx.EVT_BUTTON, self.on_delete_fingerprints)
-		main_sizer.Add(self.delete_fingerprints)
-		buttons = self.CreateButtonSizer(wx.OK | wx.CANCEL)
-		main_sizer.Add(buttons, flag=wx.BOTTOM)
-		main_sizer.Fit(self)
-		self.SetSizer(main_sizer)
-		self.Center(wx.BOTH | WX_CENTER)
-		ok = wx.FindWindowById(wx.ID_OK, self)
-		ok.Bind(wx.EVT_BUTTON, self.on_ok)
-		self.autoconnect.SetFocus()
+		sizer.Add(self.delete_fingerprints)
 
 	def on_autoconnect(self, evt):
 		self.set_controls()
@@ -303,7 +298,8 @@ class OptionsDialog(wx.Dialog):
 		evt.Skip()
 		self.set_controls()
 
-	def set_from_config(self, config):
+	def onPanelActivated(self):
+		config = configuration.get_config()
 		cs = config['controlserver']
 		self_hosted = cs['self_hosted']
 		connection_type = cs['connection_type']
@@ -318,6 +314,9 @@ class OptionsDialog(wx.Dialog):
 		self.play_sounds.SetValue(config['ui']['play_sounds'])
 		self.speech_commands.SetValue(config['ui']['allow_speech_commands'])
 		self.portcheck.SetValue(config['ui']['portcheck'])
+		self.originalProfileName = NVDAConfig.conf.profiles[-1].name
+		NVDAConfig.conf.profiles[-1].name = None
+		self.Show()
 
 	def on_delete_fingerprints(self, evt):
 		if gui.messageBox(_("When connecting to an unauthorized server, you will again be prompted to accepts its certificate."), _("Are you sure you want to delete all stored trusted fingerprints?"), wx.YES|wx.NO|wx.NO_DEFAULT|wx.ICON_WARNING) == wx.YES:
@@ -326,22 +325,27 @@ class OptionsDialog(wx.Dialog):
 			config.write()
 		evt.Skip()
 
-	def on_ok(self, evt):
+	def onPanelDeactivated(self):
+		NVDAConfig.conf.profiles[-1].name = self.originalProfileName
+		self.Hide()
+
+	def onDiscard(self):
+		NVDAConfig.conf.profiles[-1].name = self.originalProfileName
+
+	def onSave(self):
 		if not "{port}" in self.portcheck.GetValue():
 			# Translators: error message for invalid format on Portcheck service URL
 			gui.messageBox(_("Invalid format for portcheck service URL. You must include {port} somewhere."), _("Error"), wx.OK | wx.ICON_ERROR)
-			return
+			raise
 		if self.autoconnect.GetValue():
 			if not self.client_or_server.GetSelection() and (not self.host.GetValue() or not self.key.GetValue()):
 				gui.messageBox(_("Both host and key must be set."), _("Error"), wx.OK | wx.ICON_ERROR)
+				raise
 			elif self.client_or_server.GetSelection() and not self.port.GetValue() or not self.key.GetValue():
 				gui.messageBox(_("Both port and key must be set."), _("Error"), wx.OK | wx.ICON_ERROR)
-			else:
-				evt.Skip()
-		else:
-			evt.Skip()
-
-	def write_to_config(self, config):
+				raise
+		NVDAConfig.conf.profiles[-1].name = self.originalProfileName
+		config = configuration.get_config()
 		cs = config['controlserver']
 		cs['autoconnect'] = self.autoconnect.GetValue()
 		self_hosted = bool(self.client_or_server.GetSelection())

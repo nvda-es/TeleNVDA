@@ -7,6 +7,7 @@ import ctypes
 import ctypes.wintypes
 import globalVars
 import gui
+from gui import NVDASettingsDialog
 import IAccessibleHandler
 import json
 import logging
@@ -66,6 +67,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.slave_session = None
 		self.master_session = None
 		self.create_menu()
+		NVDASettingsDialog.categoryClasses.append(dialogs.OptionsDialog)
 		self.connecting = False
 		self.url_handler_window = url_handler.URLHandlerWindow(callback=self.verify_connect)
 		url_handler.register_url_handler()
@@ -167,6 +169,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.disconnect()
 		self.local_machine.terminate()
 		self.local_machine = None
+		NVDASettingsDialog.categoryClasses.remove(dialogs.OptionsDialog)
 		self.copyLinkMenu.Remove(self.copy_link_remote_item.Id)
 		self.copy_link_remote_item.Destroy()
 		self.copy_link_remote_item=None
@@ -320,16 +323,8 @@ class GlobalPlugin(_GlobalPlugin):
 		api.copyToClip(str(url))
 
 	def on_options_item(self, evt):
+		wx.CallAfter(gui.mainFrame._popupSettingsDialog, gui.NVDASettingsDialog, dialogs.OptionsDialog)
 		evt.Skip()
-		conf = configuration.get_config()
-		# Translators: The title of the add-on options dialog.
-		dlg = dialogs.OptionsDialog(gui.mainFrame, wx.ID_ANY, title=_("Options"))
-		dlg.set_from_config(conf)
-		def handle_dlg_complete(dlg_result):
-			if dlg_result != wx.ID_OK:
-				return
-			dlg.write_to_config(conf)
-		gui.runScriptModalDialog(dlg, callback=handle_dlg_complete)
 
 	def on_send_ctrl_alt_del(self, evt):
 		self.master_transport.send('send_SAS')
