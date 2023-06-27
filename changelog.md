@@ -1,3 +1,3 @@
-This release includes updated localizations.
+In this development release, the standalone options dialog has been integrated into the NVDA settings dialog in a new category for TeleNVDA.
 
 SHA256: 
