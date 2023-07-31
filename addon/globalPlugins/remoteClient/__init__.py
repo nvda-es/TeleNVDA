@@ -323,7 +323,7 @@ class GlobalPlugin(_GlobalPlugin):
 		api.copyToClip(str(url))
 
 	def on_options_item(self, evt):
-		wx.CallAfter(gui.mainFrame._popupSettingsDialog, gui.NVDASettingsDialog, dialogs.OptionsDialog)
+		wx.CallAfter(gui.mainFrame.popupSettingsDialog if hasattr(gui.mainFrame, "popupSettingsDialog") else gui.mainFrame._popupSettingsDialog, gui.NVDASettingsDialog, dialogs.OptionsDialog)
 		evt.Skip()
 
 	def on_send_ctrl_alt_del(self, evt):
