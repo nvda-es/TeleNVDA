@@ -229,22 +229,21 @@ class GlobalPlugin(_GlobalPlugin):
 		def disconnect_as_slave_with_alert():
 			if (self.slave_transport is not None
 				and configuration.get_config()['ui']['alert_before_slave_disconnect']
-				and gui.messageBox(
+				and not gui.message.isModalMessageBoxActive()):  # Check if a modal message box is open
+				result = gui.messageBox(
 					# Translators: question before disconnecting
 					message=_("Are you sure you want to disconnect the slave?"),
 					# Translators: question title
 					caption=_("Warning!"),
 					style=wx.YES | wx.NO | wx.ICON_WARNING
-				) == wx.YES
-			):
+				)
+				if result == wx.YES:
+					self.disconnect()
+			elif (self.master_transport is not None
+				  or (self.slave_transport is not None
+					  and not configuration.get_config()['ui']['alert_before_slave_disconnect'])):
 				self.disconnect()
 		wx.CallAfter(disconnect_as_slave_with_alert)
-		if (self.master_transport is not None
-			or (
-				self.slave_transport is not None 
-				and not configuration.get_config()['ui']['alert_before_slave_disconnect'])
-		):
-			self.disconnect()
 
 	def on_mute_item(self, evt):
 		if evt:
@@ -265,21 +264,31 @@ class GlobalPlugin(_GlobalPlugin):
 		except TypeError:
 			log.exception("Unable to push clipboard")
 
+
 	def on_send_file_item(self, evt):
 		connector = self.slave_transport or self.master_transport
-		if not getattr(connector,'connected',False):
+		if not getattr(connector, 'connected', False):
 			ui.message(_("Not connected."))
 			return
 		if globalVars.appArgs.secure:
 			return
-		fd = wx.FileDialog(gui.mainFrame,
-		# Translators: message displayed in transfer file dialog when sending a file
-		message=_("Choose the file you want to send to the remote computer"),
-		# Translators: supported file types when sending or receiving files
-		wildcard=_("All files (*.*)")+"|*.*",
-		defaultDir=os.environ['userprofile'], style=wx.FD_OPEN|wx.FD_FILE_MUST_EXIST | wx.FD_PREVIEW)
-		if fd.ShowModal() != wx.ID_OK:
+		# Check if a file dialog is already open
+		if getattr(self, 'is_send_file_dialog_open', False):
 			return
+		# Set the flag to True, indicating that the file dialog is open
+		setattr(self, 'is_send_file_dialog_open', True)
+		fd = wx.FileDialog(gui.mainFrame,
+			# Translators: message displayed in transfer file dialog when sending a file
+			message=_("Choose the file you want to send to the remote computer"),
+			# Translators: supported file types when sending or receiving files
+			wildcard=_("All files (*.*)") + "|*.*",
+			defaultDir=os.environ['userprofile'], style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST | wx.FD_PREVIEW)
+		if fd.ShowModal() != wx.ID_OK:
+			# Reset the flag to False after the file dialog is closed
+			setattr(self, 'is_send_file_dialog_open', False)
+			return
+		# Reset the flag to False after the file dialog is closed
+		setattr(self, 'is_send_file_dialog_open', False)
 		filename = os.path.basename(fd.GetPath())
 		try:
 			f = open(fd.GetPath(), "rb")
@@ -289,18 +298,18 @@ class GlobalPlugin(_GlobalPlugin):
 			logger.exception("Unable to read the specified file")
 		if len(file_content) > 10485760:
 			gui.messageBox(
-			# Translators: error message when a file is too big
-			message=_("This file is too large. Only files smaller than 10 MB are supported."),
-			# Translators: error message caption
-			caption=_("Error"),
-			style=wx.ICON_ERROR)
+				# Translators: error message when a file is too big
+				message=_("This file is too large. Only files smaller than 10 MB are supported."),
+				# Translators: error message caption
+				caption=_("Error"),
+				style=wx.ICON_ERROR)
 			return
 		result = gui.messageBox(
-		# Translators: question before sending a file
-		message=_("The session will be blocked until the transfer is complete. Are you sure you want to continue?"),
-		# Translators: question title
-		caption=_("Warning!"),
-		style=wx.YES | wx.NO | wx.ICON_WARNING)
+			# Translators: question before sending a file
+			message=_("The session will be blocked until the transfer is complete. Are you sure you want to continue?"),
+			# Translators: question title
+			caption=_("Warning!"),
+			style=wx.YES | wx.NO | wx.ICON_WARNING)
 		if result == wx.YES:
 			file_content = base64.b64encode(file_content)
 			connector.send(type='file_transfer', name=filename, content=file_content.decode("utf-8"))
@@ -414,6 +423,11 @@ class GlobalPlugin(_GlobalPlugin):
 	def do_connect(self, evt):
 		if evt:
 			evt.Skip()
+		# Check if the connect dialog is already open
+		if getattr(self, 'is_connect_dialog_open', False):
+			return
+		# Set the flag to True, indicating that the connect dialog is open
+		setattr(self, 'is_connect_dialog_open', True)
 		last_cons = configuration.get_config()['connections']['last_connected']
 		# Translators: Title of the connect dialog.
 		dlg = dialogs.DirectConnectDialog(parent=gui.mainFrame, id=wx.ID_ANY, title=_("Connect"))
@@ -421,6 +435,8 @@ class GlobalPlugin(_GlobalPlugin):
 		dlg.panel.host.SetSelection(0)
 		def handle_dlg_complete(dlg_result):
 			if dlg_result != wx.ID_OK:
+				# Reset the flag to False when the dialog is closed
+				setattr(self, 'is_connect_dialog_open', False)
 				return
 			if dlg.client_or_server.GetSelection() == 0: #client
 				host = dlg.panel.host.GetValue()
@@ -437,6 +453,8 @@ class GlobalPlugin(_GlobalPlugin):
 					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
 				else:
 					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
+			# Reset the flag to False when the dialog is closed
+			setattr(self, 'is_connect_dialog_open', False)
 		gui.runScriptModalDialog(dlg, callback=handle_dlg_complete)
 
 	def on_connected_as_master(self):
