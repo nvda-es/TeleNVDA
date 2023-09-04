@@ -423,6 +423,11 @@ class GlobalPlugin(_GlobalPlugin):
 	def do_connect(self, evt):
 		if evt:
 			evt.Skip()
+		# Check if the connect dialog is already open
+		if getattr(self, 'is_connect_dialog_open', False):
+			return
+		# Set the flag to True, indicating that the connect dialog is open
+		setattr(self, 'is_connect_dialog_open', True)
 		last_cons = configuration.get_config()['connections']['last_connected']
 		# Translators: Title of the connect dialog.
 		dlg = dialogs.DirectConnectDialog(parent=gui.mainFrame, id=wx.ID_ANY, title=_("Connect"))
@@ -430,6 +435,8 @@ class GlobalPlugin(_GlobalPlugin):
 		dlg.panel.host.SetSelection(0)
 		def handle_dlg_complete(dlg_result):
 			if dlg_result != wx.ID_OK:
+				# Reset the flag to False when the dialog is closed
+				setattr(self, 'is_connect_dialog_open', False)
 				return
 			if dlg.client_or_server.GetSelection() == 0: #client
 				host = dlg.panel.host.GetValue()
@@ -446,6 +453,8 @@ class GlobalPlugin(_GlobalPlugin):
 					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
 				else:
 					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
+			# Reset the flag to False when the dialog is closed
+			setattr(self, 'is_connect_dialog_open', False)
 		gui.runScriptModalDialog(dlg, callback=handle_dlg_complete)
 
 	def on_connected_as_master(self):
