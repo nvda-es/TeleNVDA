@@ -264,21 +264,31 @@ class GlobalPlugin(_GlobalPlugin):
 		except TypeError:
 			log.exception("Unable to push clipboard")
 
+
 	def on_send_file_item(self, evt):
 		connector = self.slave_transport or self.master_transport
-		if not getattr(connector,'connected',False):
+		if not getattr(connector, 'connected', False):
 			ui.message(_("Not connected."))
 			return
 		if globalVars.appArgs.secure:
 			return
-		fd = wx.FileDialog(gui.mainFrame,
-		# Translators: message displayed in transfer file dialog when sending a file
-		message=_("Choose the file you want to send to the remote computer"),
-		# Translators: supported file types when sending or receiving files
-		wildcard=_("All files (*.*)")+"|*.*",
-		defaultDir=os.environ['userprofile'], style=wx.FD_OPEN|wx.FD_FILE_MUST_EXIST | wx.FD_PREVIEW)
-		if fd.ShowModal() != wx.ID_OK:
+		# Check if a file dialog is already open
+		if getattr(self, 'is_send_file_dialog_open', False):
 			return
+		# Set the flag to True, indicating that the file dialog is open
+		setattr(self, 'is_send_file_dialog_open', True)
+		fd = wx.FileDialog(gui.mainFrame,
+			# Translators: message displayed in transfer file dialog when sending a file
+			message=_("Choose the file you want to send to the remote computer"),
+			# Translators: supported file types when sending or receiving files
+			wildcard=_("All files (*.*)") + "|*.*",
+			defaultDir=os.environ['userprofile'], style=wx.FD_OPEN | wx.FD_FILE_MUST_EXIST | wx.FD_PREVIEW)
+		if fd.ShowModal() != wx.ID_OK:
+			# Reset the flag to False after the file dialog is closed
+			setattr(self, 'is_send_file_dialog_open', False)
+			return
+		# Reset the flag to False after the file dialog is closed
+		setattr(self, 'is_send_file_dialog_open', False)
 		filename = os.path.basename(fd.GetPath())
 		try:
 			f = open(fd.GetPath(), "rb")
@@ -288,18 +298,18 @@ class GlobalPlugin(_GlobalPlugin):
 			logger.exception("Unable to read the specified file")
 		if len(file_content) > 10485760:
 			gui.messageBox(
-			# Translators: error message when a file is too big
-			message=_("This file is too large. Only files smaller than 10 MB are supported."),
-			# Translators: error message caption
-			caption=_("Error"),
-			style=wx.ICON_ERROR)
+				# Translators: error message when a file is too big
+				message=_("This file is too large. Only files smaller than 10 MB are supported."),
+				# Translators: error message caption
+				caption=_("Error"),
+				style=wx.ICON_ERROR)
 			return
 		result = gui.messageBox(
-		# Translators: question before sending a file
-		message=_("The session will be blocked until the transfer is complete. Are you sure you want to continue?"),
-		# Translators: question title
-		caption=_("Warning!"),
-		style=wx.YES | wx.NO | wx.ICON_WARNING)
+			# Translators: question before sending a file
+			message=_("The session will be blocked until the transfer is complete. Are you sure you want to continue?"),
+			# Translators: question title
+			caption=_("Warning!"),
+			style=wx.YES | wx.NO | wx.ICON_WARNING)
 		if result == wx.YES:
 			file_content = base64.b64encode(file_content)
 			connector.send(type='file_transfer', name=filename, content=file_content.decode("utf-8"))
