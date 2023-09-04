@@ -232,7 +232,7 @@ class GlobalPlugin(_GlobalPlugin):
 				and not gui.message.isModalMessageBoxActive()):  # Check if a modal message box is open
 				result = gui.messageBox(
 					# Translators: question before disconnecting
-					message=_("Are you sure you want to disconnect the slave?"),
+					message=_("Are you sure you want to disconnect the controlled computer?"),
 					# Translators: question title
 					caption=_("Warning!"),
 					style=wx.YES | wx.NO | wx.ICON_WARNING
