@@ -229,22 +229,21 @@ class GlobalPlugin(_GlobalPlugin):
 		def disconnect_as_slave_with_alert():
 			if (self.slave_transport is not None
 				and configuration.get_config()['ui']['alert_before_slave_disconnect']
-				and gui.messageBox(
+				and not gui.message.isModalMessageBoxActive()):  # Check if a modal message box is open
+				result = gui.messageBox(
 					# Translators: question before disconnecting
 					message=_("Are you sure you want to disconnect the slave?"),
 					# Translators: question title
 					caption=_("Warning!"),
 					style=wx.YES | wx.NO | wx.ICON_WARNING
-				) == wx.YES
-			):
+				)
+				if result == wx.YES:
+					self.disconnect()
+			elif (self.master_transport is not None
+				  or (self.slave_transport is not None
+					  and not configuration.get_config()['ui']['alert_before_slave_disconnect'])):
 				self.disconnect()
 		wx.CallAfter(disconnect_as_slave_with_alert)
-		if (self.master_transport is not None
-			or (
-				self.slave_transport is not None 
-				and not configuration.get_config()['ui']['alert_before_slave_disconnect'])
-		):
-			self.disconnect()
 
 	def on_mute_item(self, evt):
 		if evt:
