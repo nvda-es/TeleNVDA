@@ -224,8 +224,27 @@ class GlobalPlugin(_GlobalPlugin):
 		core.postNvdaStartup.unregister(self.postStartupHandler)
 
 	def on_disconnect_item(self, evt):
-		evt.Skip()
-		self.disconnect()
+		if evt:
+			evt.Skip()
+		def disconnect_as_slave_with_alert():
+			if (self.slave_transport is not None
+				and configuration.get_config()['ui']['alert_before_slave_disconnect']
+				and gui.messageBox(
+					# Translators: question before disconnecting
+					message=_("Are you sure you want to disconnect the slave?"),
+					# Translators: question title
+					caption=_("Warning!"),
+					style=wx.YES | wx.NO | wx.ICON_WARNING
+				) == wx.YES
+			):
+				self.disconnect()
+		wx.CallAfter(disconnect_as_slave_with_alert)
+		if (self.master_transport is not None
+			or (
+				self.slave_transport is not None 
+				and not configuration.get_config()['ui']['alert_before_slave_disconnect'])
+		):
+			self.disconnect()
 
 	def on_mute_item(self, evt):
 		if evt:
@@ -708,7 +727,7 @@ class GlobalPlugin(_GlobalPlugin):
 		if self.master_transport is None and self.slave_transport is None:
 			ui.message(_("Not connected."))
 			return
-		self.disconnect()
+		self.on_disconnect_item(None)
 
 	@script(
 		# Translators: gesture description for the ignoreNextGesture script
