@@ -1,6 +1,5 @@
-This development release includes the following changes contributed by @cary-rowen:
+This development release includes the following changes:
 
-* A new setting allows displaying a warning message when trying to disconnect the controlled machine. This can prevent accidents which may cause remote control loss.
-* The add-on nolonger will load multiple instances of the same dialog.
+* Support for API changes introduced in future NVDA 2024.1 related to secure desktop handling.
 
 SHA256: 
