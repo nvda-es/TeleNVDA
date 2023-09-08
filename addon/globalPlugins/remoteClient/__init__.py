@@ -13,6 +13,10 @@ import json
 import logging
 import os
 import queueHandler
+try:
+	from winAPI.secureDesktop import post_secureDesktopStateChange
+except:
+	post_secureDesktopStateChange = None
 import versionInfo
 import shlobj
 import speech
@@ -94,6 +98,8 @@ class GlobalPlugin(_GlobalPlugin):
 			self.temp_location = os.path.join(shlobj.SHGetFolderPath(0, shlobj.CSIDL_COMMON_APPDATA), 'temp')
 		self.ipc_file = os.path.join(self.temp_location, 'remote.ipc')
 		self.sd_focused = False
+		if post_secureDesktopStateChange:
+			post_secureDesktopStateChange.register(self.onSecureDesktopChange)
 		if hasattr(globalVars, 'teleNVDA'):
 			self.postStartupHandler()
 		core.postNvdaStartup.register(self.postStartupHandler)
@@ -166,6 +172,8 @@ class GlobalPlugin(_GlobalPlugin):
 		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("TeleNVDA"))
 
 	def terminate(self):
+		if post_secureDesktopStateChange:
+			post_secureDesktopStateChange.unregister(self.onSecureDesktopChange)
 		self.disconnect()
 		self.local_machine.terminate()
 		self.local_machine = None
@@ -611,7 +619,19 @@ class GlobalPlugin(_GlobalPlugin):
 				braille.handler.enabled = bool(braille.handler.displaySize)
 			self.local_machine.receiving_braille=False
 
+	def onSecureDesktopChange(self, isSecureDesktop: bool):
+		'''
+		@param isSecureDesktop: True if the new desktop is the secure desktop.
+		'''
+		if isSecureDesktop:
+			self.enter_secure_desktop()
+		else:
+			self.leave_secure_desktop()
+
 	def event_gainFocus(self, obj, nextHandler):
+		if not hasattr(IAccessibleHandler, 'SecureDesktopNVDAObject'):
+			nextHandler()
+			return
 		if isinstance(obj, IAccessibleHandler.SecureDesktopNVDAObject):
 			self.sd_focused = True
 			self.enter_secure_desktop()
