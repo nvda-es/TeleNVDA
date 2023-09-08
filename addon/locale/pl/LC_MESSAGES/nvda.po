@@ -35,6 +35,7 @@ msgid "Running NVDA Remote detected"
 msgstr "Wykryto uruchomiony dodatek NVDA Remote"
 
 #. Translators: script category for add-on gestures
+#. Translators: title for the TeleNVDA settings category in NVDA settings dialog
 msgid "TeleNVDA"
 msgstr "TeleNVDA"
 
@@ -113,7 +114,6 @@ msgstr "Kopiuje link do sesji zdalnej"
 msgid "&Options..."
 msgstr "&Opcje..."
 
-#. Translators: The title of the add-on options dialog.
 msgid "Options"
 msgstr "Opcje"
 
@@ -124,6 +124,17 @@ msgstr "Wyślij Ctrl+Alt+Del"
 #. Translators: Label of menu in NVDA tools menu.
 msgid "R&emote"
 msgstr "Zdaln&e"
+
+#. Translators: question before disconnecting
+#, fuzzy
+msgid "Are you sure you want to disconnect the controlled computer?"
+msgstr ""
+"Czy jesteś pewien, że chcesz usunąć wszystkie zapisane zaufane odciski "
+"palców?"
+
+#. Translators: question title
+msgid "Warning!"
+msgstr "Uwaga!"
 
 #. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
 msgid "Unmute remote"
@@ -155,10 +166,6 @@ msgid ""
 msgstr ""
 "Sesja zostanie zablokowana do czasu zakończenia transferu. Czy na pewno "
 "chcesz kontynuować?"
-
-#. Translators: question title
-msgid "Warning!"
-msgstr "Uwaga!"
 
 #. Translators: message spoken when the file has been sent successfully
 msgid "File sent"
@@ -397,6 +404,10 @@ msgstr "~serwer kontrolujący hosta"
 #. Translators: A checkbox in add-on options dialog to set whether sounds play instead of beeps.
 msgid "Play sounds instead of beeps"
 msgstr "Zamiast dźwięków, odtwarzaj sygnale dźwiękowe"
+
+#. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
+msgid "Display an alert before the controlled computer disconnects"
+msgstr ""
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
