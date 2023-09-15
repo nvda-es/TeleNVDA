@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: remote 2.0\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-06-19 17:46+0100\n"
+"PO-Revision-Date: 2023-09-09 16:50+0100\n"
 "Last-Translator: Nikola Jović <wwenikola123@gmail.com>\n"
 "Language-Team: \n"
 "Language: sr_RS@latin\n"
@@ -126,9 +126,9 @@ msgid "R&emote"
 msgstr "R&emote"
 
 #. Translators: question before disconnecting
-#, fuzzy
 msgid "Are you sure you want to disconnect the controlled computer?"
-msgstr "Da li ste sigurni da želite da obrišete sve odobrene sertifikate?"
+msgstr ""
+"Da li ste sigurni da želite da prekinete vezu računara kojeg kontrolišete?"
 
 #. Translators: question title
 msgid "Warning!"
@@ -408,7 +408,7 @@ msgstr "Reprodukuj zvukove umesto pištanja"
 
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
-msgstr ""
+msgstr "Prikaži upozorenje pre nego što računar koji kontrolišete prekine vezu"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

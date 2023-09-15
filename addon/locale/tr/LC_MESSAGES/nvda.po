@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-04-15 12:03+0000\n"
-"PO-Revision-Date: 2023-06-17 20:11+0300\n"
+"PO-Revision-Date: 2023-09-09 12:59+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com\n"
 "Language: tr_TR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -126,10 +126,9 @@ msgid "R&emote"
 msgstr "&Uzak bağlantı"
 
 #. Translators: question before disconnecting
-#, fuzzy
 msgid "Are you sure you want to disconnect the controlled computer?"
 msgstr ""
-"Kayıtlı tüm güvenilir parmak izlerini silmek istediğinizden emin misiniz?"
+"Kontrol edilen bilgisayarın bağlantısını kesmek istediğinizden emin misiniz?"
 
 #. Translators: question title
 msgid "Warning!"
@@ -410,6 +409,7 @@ msgstr "Bip yerine ses çal"
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
+"Kontrol edilen bilgisayarın bağlantısı kesilmeden önce bir uyarı görüntüle"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

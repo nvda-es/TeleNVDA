@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-06-16 22:30+0200\n"
+"PO-Revision-Date: 2023-09-08 23:00+0200\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: Jose Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.3.2\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -126,11 +126,8 @@ msgid "R&emote"
 msgstr "&Remoto"
 
 #. Translators: question before disconnecting
-#, fuzzy
 msgid "Are you sure you want to disconnect the controlled computer?"
-msgstr ""
-"¿Estás seguro de que quieres eliminar todas las huellas de confianza "
-"almacenadas?"
+msgstr "¿Seguro que quieres desconectar el equipo controlado?"
 
 #. Translators: question title
 msgid "Warning!"
@@ -413,7 +410,7 @@ msgstr "Reproducir sonidos en vez de pitidos"
 
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
-msgstr ""
+msgstr "Mostrar una alerta antes de que el equipo controlado se desconecte"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
