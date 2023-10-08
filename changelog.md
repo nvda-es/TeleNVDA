@@ -1,3 +1,3 @@
-This release removes compatibility with NVDA 2024.1. Last tested NVDA version will be updated once first beta is released.
+This release includes localization updates.
 
 SHA256: 
