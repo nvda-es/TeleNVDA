@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'remote' '1.03'\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-09-09 09:33+0200\n"
+"PO-Revision-Date: 2023-10-05 12:39+0200\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: \n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
 msgid ""
@@ -408,7 +408,7 @@ msgstr "Pokazuj powiadomienie przed rozłączeniem kontrolowanego komputera"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
-msgstr "Przetwarzanie poleceń głosowych podczas sterowania innym komputerem"
+msgstr "Przetwarzaj polecenia mowy podczas sterowania innym komputerem"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
