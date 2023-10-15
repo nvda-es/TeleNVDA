@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-09-11 21:00+0300\n"
+"PO-Revision-Date: 2023-10-08 00:22+0300\n"
 "Last-Translator: Heorhii <nvda.translation.uk@gmail.com>\n"
 "Language-Team: \n"
 "Language: uk\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-Basepath: переклад/TeleNVDA-teleNVDA/addon\n"
 "X-Poedit-SearchPath-0: globalPlugins/remoteClient\n"
 "X-Poedit-SearchPath-1: installTasks.py\n"
@@ -126,9 +126,8 @@ msgid "R&emote"
 msgstr "Віддалене &керування"
 
 #. Translators: question before disconnecting
-#, fuzzy
 msgid "Are you sure you want to disconnect the controlled computer?"
-msgstr "Ви впевнені, що хочете видалити всі збережені надійні відбитки?"
+msgstr "Ви впевнені, що хочете від'єднати керований комп'ютер?"
 
 #. Translators: question title
 msgid "Warning!"

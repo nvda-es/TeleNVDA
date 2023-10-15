@@ -4,7 +4,7 @@ msgstr ""
 "Project-Id-Version: NVDARemote 2.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-06-17 14:16+0300\n"
+"PO-Revision-Date: 2023-10-11 10:54+0300\n"
 "Last-Translator: Florian Ionașcu <florianionascu@hotmail.com>\n"
 "Language-Team: NVDA Romanian translation Team <florianionascu@hotmail.com>\n"
 "Language: ro\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -58,7 +58,8 @@ msgstr "Deconectare"
 
 msgid "Disconnect from another computer running NVDA Remote Access or TeleNVDA"
 msgstr ""
-"Deconectați-vă de la un alt computer rulând NVDA Remote Access sau TeleNVDA"
+"Deconectați-vă de la un alt computer care rulează NVDA Remote Access sau "
+"TeleNVDA"
 
 #. Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
 msgid "Mute remote"
@@ -126,10 +127,8 @@ msgid "R&emote"
 msgstr "R&emote"
 
 #. Translators: question before disconnecting
-#, fuzzy
 msgid "Are you sure you want to disconnect the controlled computer?"
-msgstr ""
-"Sunteți sigur că doriți să ștergeți toate amprentele de încredere stocate?"
+msgstr "Sunteți sigur că doriți să deconectați calculatorul controlat?"
 
 #. Translators: question title
 msgid "Warning!"
@@ -421,6 +420,8 @@ msgstr "Redă sunete în loc de bipuri"
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
+"Afișează un mesaj de alertă înainte ca dispozitivul controlat să se "
+"deconecteze"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

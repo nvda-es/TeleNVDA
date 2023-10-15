@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-06-09 12:06+0200\n"
+"PO-Revision-Date: 2023-10-06 23:47+0200\n"
 "Last-Translator: Juan C. Buño <oprisniki@gmail.com>\n"
 "Language-Team: \n"
 "Language: gl\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.1\n"
+"X-Generator: Poedit 3.4\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -125,20 +125,16 @@ msgid "R&emote"
 msgstr "&Remoto"
 
 #. Translators: question before disconnecting
-#, fuzzy
 msgid "Are you sure you want to disconnect the controlled computer?"
-msgstr ""
-"¿Estás seguro de que queres eliminar todas as pegadas de confianza "
-"almacenadas?"
+msgstr "Estás seguro de querer que o computador controlado se desconecte?"
 
 #. Translators: question title
 msgid "Warning!"
 msgstr "¡Advertencia!"
 
 #. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
-#, fuzzy
 msgid "Unmute remote"
-msgstr "Silenciar equipo remoto"
+msgstr "Desilenciar equipo remoto"
 
 msgid "Not connected."
 msgstr "Sin conexión."
@@ -410,6 +406,7 @@ msgstr "Reproducir sons en vez de pitidos"
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
+"Amosar una advertenza antes de que o computador controlado se desconecte"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
