@@ -24,6 +24,8 @@ def wrap_socket(sock, keyfile=None, certfile=None, server_side=False, cert_reqs=
 	if keyfile and not certfile:
 		raise ValueError("certfile must be specified")
 	context = ssl.SSLContext(ssl_version)
+	if cert_reqs == ssl.CERT_NONE and ssl_version == ssl.PROTOCOL_TLS_CLIENT:
+		context.check_hostname = False
 	context.verify_mode = cert_reqs
 	if ca_certs:
 		context.load_verify_locations(ca_certs)
