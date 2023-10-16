@@ -9,6 +9,7 @@ sys.path.append(os.path.dirname(__file__))
 import miniupnpc
 del sys.path[-1]
 from logHandler import log
+from . import socket_utils
 
 
 class Server:
@@ -33,7 +34,7 @@ class Server:
 	def create_server_socket(self, family, type, bind_addr):
 		server_socket = socket.socket(family, type)
 		certfile = os.path.join(os.path.abspath(os.path.dirname(__file__)), 'server.pem')
-		server_socket = ssl.wrap_socket(server_socket, certfile=certfile)
+		server_socket = socket_utils.wrap_socket(server_socket, certfile=certfile)
 		server_socket.bind(bind_addr)
 		server_socket.listen(5)
 		return server_socket

@@ -125,7 +125,7 @@ class TCPTransport(Transport):
 			server_sock.settimeout(self.timeout)
 		server_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 		server_sock.ioctl(socket.SIO_KEEPALIVE_VALS, (1, 60000, 2000))
-		ctx = (ssl.SSLContext())
+		ctx = (ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT))
 		if insecure: ctx.verify_mode = ssl.CERT_NONE
 		ctx.check_hostname = not insecure
 		ctx.load_default_certs()

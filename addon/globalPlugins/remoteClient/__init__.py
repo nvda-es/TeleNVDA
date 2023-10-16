@@ -46,7 +46,7 @@ from . import local_machine
 from . import serializer
 from . import server
 from . import url_handler
-from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
+from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address, wrap_socket
 from .transport import RelayTransport, TransportEvents
 
 from .session import MasterSession, SlaveSession
@@ -687,7 +687,7 @@ class GlobalPlugin(_GlobalPlugin):
 			os.unlink(self.ipc_file)
 			port, channel = data
 			test_socket=socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-			test_socket=ssl.wrap_socket(test_socket)
+			test_socket=wrap_socket(test_socket, ssl_version=ssl.PROTOCOL_TLS_CLIENT)
 			test_socket.connect(('127.0.0.1', port))
 			test_socket.close()
 			self.connect_as_slave(('127.0.0.1', port), channel, insecure=True)
