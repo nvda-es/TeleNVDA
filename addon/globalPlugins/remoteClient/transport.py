@@ -126,8 +126,9 @@ class TCPTransport(Transport):
 		server_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 		server_sock.ioctl(socket.SIO_KEEPALIVE_VALS, (1, 60000, 2000))
 		ctx = (ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT))
-		if insecure: ctx.verify_mode = ssl.CERT_NONE
-		ctx.check_hostname = not insecure
+		if insecure:
+			ctx.check_hostname = False
+			ctx.verify_mode = ssl.CERT_NONE
 		ctx.load_default_certs()
 		server_sock = ctx.wrap_socket(sock=server_sock, server_hostname=host)
 		return server_sock
