@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-06-17 04:31+0800\n"
+"PO-Revision-Date: 2023-10-16 15:57+0800\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -123,11 +123,8 @@ msgid "R&emote"
 msgstr "&Удалённое управление"
 
 #. Translators: question before disconnecting
-#, fuzzy
 msgid "Are you sure you want to disconnect the controlled computer?"
-msgstr ""
-"Вы уверены, что хотите удалить все сохранённые отпечатки доверенных "
-"сертификатов?"
+msgstr "Вы уверены, что хотите отключить управляемый компьютер?"
 
 #. Translators: question title
 msgid "Warning!"
@@ -410,7 +407,7 @@ msgstr "Воспроизводить звуки вместо тоновых си
 
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
-msgstr ""
+msgstr "Показывать предупреждение перед отключением управляемого компьютера"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
@@ -422,7 +419,7 @@ msgstr "URL-адрес &службы проверки порта:"
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
-msgstr "Удалить все отпечатки доверенных сертификатов"
+msgstr "Удалить отпечатки всех доверенных сертификатов"
 
 msgid ""
 "When connecting to an unauthorized server, you will again be prompted to "
