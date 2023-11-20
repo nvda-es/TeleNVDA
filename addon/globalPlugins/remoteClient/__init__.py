@@ -473,13 +473,13 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def on_connected_as_master(self):
 		configuration.write_connection_to_config(self.master_transport.address)
+		self.copy_link_remote_item.Enable(True)
+		self.copy_link_tele_item.Enable(True)
 		if not self.menu.FindItemById(self.send_ctrl_alt_del_item.Id):
 			self.menu.Insert(0, self.send_ctrl_alt_del_item)
 		if not globalVars.appArgs.secure:
 			if not self.menu.FindItemById(self.send_file_item.Id):
 				self.menu.Insert(0, self.send_file_item)
-		self.copy_link_remote_item.Enable(True)
-		self.copy_link_tele_item.Enable(True)
 		if not self.menu.FindItemById(self.push_clipboard_item.Id):
 			self.menu.Insert(0, self.push_clipboard_item)
 		if not self.menu.FindItemById(self.mute_item.Id):
@@ -557,13 +557,13 @@ class GlobalPlugin(_GlobalPlugin):
 		cues.control_server_connected()
 		# Translators: Presented in direct (client to server) remote connection when the controlled computer is ready.
 		speech.speakMessage(_("Connected to control server"))
+		self.copy_link_remote_item.Enable(True)
+		self.copy_link_tele_item.Enable(True)
 		if not globalVars.appArgs.secure:
 			if not self.menu.FindItemById(self.send_file_item.Id):
 				self.menu.Insert(0, self.send_file_item)
 		if not self.menu.FindItemById(self.push_clipboard_item.Id):
 			self.menu.Insert(0, self.push_clipboard_item)
-		self.copy_link_remote_item.Enable(True)
-		self.copy_link_tele_item.Enable(True)
 		if not self.menu.FindItemById(self.disconnect_item.Id):
 			self.menu.Insert(0, self.disconnect_item)
 		if self.menu.FindItemById(self.connect_item.Id):
