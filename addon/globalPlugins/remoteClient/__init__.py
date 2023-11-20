@@ -139,15 +139,15 @@ class GlobalPlugin(_GlobalPlugin):
 		self.menu.Remove(self.disconnect_item.Id)
 		# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
 		self.mute_item = self.menu.Append(wx.ID_ANY, _("Mute remote"), _("Mute speech and sounds from the remote computer"))
-		self.mute_item.Enable(False)
+		self.menu.Remove(self.mute_item.Id)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_mute_item, self.mute_item)
 		# Translators: Menu item in TeleNVDA submenu to push clipboard content to the remote computer.
 		self.push_clipboard_item = self.menu.Append(wx.ID_ANY, _("&Push clipboard"), _("Push the clipboard to the other machine"))
-		self.push_clipboard_item.Enable(False)
+		self.menu.Remove(self.push_clipboard_item.Id)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_push_clipboard_item, self.push_clipboard_item)
 		# Translators: Menu item in TeleNVDA submenu to send a file to the remote computer.
 		self.send_file_item = self.menu.Append(wx.ID_ANY, _("Send &file..."), _("Send a file to the other machine"))
-		self.send_file_item.Enable(False)
+		self.menu.Remove(self.send_file_item.Id)
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_file_item, self.send_file_item)
 		self.copyLinkMenu = wx.Menu()
 		# Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
@@ -166,7 +166,7 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: Menu item in TeleNVDA submenu to send Control+Alt+Delete to the remote computer.
 		self.send_ctrl_alt_del_item = self.menu.Append(wx.ID_ANY, _("Send Ctrl+Alt+Del"), _("Send Ctrl+Alt+Del"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_ctrl_alt_del, self.send_ctrl_alt_del_item)
-		self.send_ctrl_alt_del_item.Enable(False)
+		self.menu.Remove(self.send_ctrl_alt_del_item.Id)
 
 		# Translators: Label of menu in NVDA tools menu.
 		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("TeleNVDA"))
@@ -382,8 +382,10 @@ class GlobalPlugin(_GlobalPlugin):
 			self.menu.Remove(self.disconnect_item.Id)
 		if not self.menu.FindItemById(self.connect_item.Id):
 			self.menu.Insert(0, self.connect_item)
-		self.push_clipboard_item.Enable(False)
-		self.send_file_item.Enable(False)
+		if self.menu.FindItemById(self.push_clipboard_item.Id):
+			self.menu.Remove(self.push_clipboard_item.Id)
+		if self.menu.FindItemById(self.send_file_item.Id):
+			self.menu.Remove(self.send_file_item.Id)
 		self.copy_link_remote_item.Enable(False)
 		self.copy_link_tele_item.Enable(False)
 
@@ -400,12 +402,16 @@ class GlobalPlugin(_GlobalPlugin):
 				self.menu.Remove(self.disconnect_item.Id)
 			# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
 			self.mute_item.SetItemLabel(_("Mute remote"))
-			self.mute_item.Enable(False)
-			self.push_clipboard_item.Enable(False)
-			self.send_file_item.Enable(False)
+			if self.menu.FindItemById(self.mute_item.Id):
+				self.menu.Remove(self.mute_item.Id)
+			if self.menu.FindItemById(self.push_clipboard_item.Id):
+				self.menu.Remove(self.push_clipboard_item.Id)
+			if self.menu.FindItemById(self.send_file_item.Id):
+				self.menu.Remove(self.send_file_item.Id)
 			self.copy_link_remote_item.Enable(False)
 			self.copy_link_tele_item.Enable(False)
-			self.send_ctrl_alt_del_item.Enable(False)
+			if self.menu.FindItemById(self.send_ctrl_alt_del_item.Id):
+				self.menu.Remove(self.send_ctrl_alt_del_item.Id)
 		if self.local_machine:
 			self.local_machine.is_muted = False
 		self.sending_keys = False
@@ -467,17 +473,21 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def on_connected_as_master(self):
 		configuration.write_connection_to_config(self.master_transport.address)
+		if not self.menu.FindItemById(self.send_ctrl_alt_del_item.Id):
+			self.menu.Insert(0, self.send_ctrl_alt_del_item)
+		if not globalVars.appArgs.secure:
+			if not self.menu.FindItemById(self.send_file_item.Id):
+				self.menu.Insert(0, self.send_file_item)
+		self.copy_link_remote_item.Enable(True)
+		self.copy_link_tele_item.Enable(True)
+		if not self.menu.FindItemById(self.push_clipboard_item.Id):
+			self.menu.Insert(0, self.push_clipboard_item)
+		if not self.menu.FindItemById(self.mute_item.Id):
+			self.menu.Insert(0, self.mute_item)
 		if not self.menu.FindItemById(self.disconnect_item.Id):
 			self.menu.Insert(0, self.disconnect_item)
 		if self.menu.FindItemById(self.connect_item.Id):
 			self.menu.Remove(self.connect_item.Id)
-		self.mute_item.Enable(True)
-		self.push_clipboard_item.Enable(True)
-		if not globalVars.appArgs.secure:
-			self.send_file_item.Enable(True)
-		self.copy_link_remote_item.Enable(True)
-		self.copy_link_tele_item.Enable(True)
-		self.send_ctrl_alt_del_item.Enable(True)
 		# We might have already created a hook thread before if we're restoring an
 		# interrupted connection. We must not create another.
 		if not self.hook_thread:
@@ -516,10 +526,6 @@ class GlobalPlugin(_GlobalPlugin):
 		transport.callback_manager.register_callback(TransportEvents.CERTIFICATE_AUTHENTICATION_FAILED, self.on_certificate_as_slave_failed)
 		self.slave_transport.callback_manager.register_callback(TransportEvents.CONNECTED, self.on_connected_as_slave)
 		self.slave_transport.reconnector_thread.start()
-		if not self.menu.FindItemById(self.disconnect_item.Id):
-			self.menu.Insert(0, self.disconnect_item)
-		if self.menu.FindItemById(self.connect_item.Id):
-			self.menu.Remove(self.connect_item.Id)
 
 	def handle_certificate_failed(self, transport):
 		self.last_fail_address = transport.address
@@ -551,11 +557,17 @@ class GlobalPlugin(_GlobalPlugin):
 		cues.control_server_connected()
 		# Translators: Presented in direct (client to server) remote connection when the controlled computer is ready.
 		speech.speakMessage(_("Connected to control server"))
-		self.push_clipboard_item.Enable(True)
 		if not globalVars.appArgs.secure:
-			self.send_file_item.Enable(True)
+			if not self.menu.FindItemById(self.send_file_item.Id):
+				self.menu.Insert(0, self.send_file_item)
+		if not self.menu.FindItemById(self.push_clipboard_item.Id):
+			self.menu.Insert(0, self.push_clipboard_item)
 		self.copy_link_remote_item.Enable(True)
 		self.copy_link_tele_item.Enable(True)
+		if not self.menu.FindItemById(self.disconnect_item.Id):
+			self.menu.Insert(0, self.disconnect_item)
+		if self.menu.FindItemById(self.connect_item.Id):
+			self.menu.Remove(self.connect_item.Id)
 		configuration.write_connection_to_config(self.slave_transport.address)
 
 	def start_control_server(self, server_port, channel, useUPNP=False):
