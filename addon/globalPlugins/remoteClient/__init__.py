@@ -408,10 +408,10 @@ class GlobalPlugin(_GlobalPlugin):
 				self.menu.Remove(self.push_clipboard_item.Id)
 			if self.menu.FindItemById(self.send_file_item.Id):
 				self.menu.Remove(self.send_file_item.Id)
-			self.copy_link_remote_item.Enable(False)
-			self.copy_link_tele_item.Enable(False)
 			if self.menu.FindItemById(self.send_ctrl_alt_del_item.Id):
 				self.menu.Remove(self.send_ctrl_alt_del_item.Id)
+			self.copy_link_remote_item.Enable(False)
+			self.copy_link_tele_item.Enable(False)
 		if self.local_machine:
 			self.local_machine.is_muted = False
 		self.sending_keys = False
