@@ -819,7 +819,7 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: gesture description for the toggle remote mute script
 		_("""Mute or unmute the speech coming from the remote computer"""))
 	def script_toggle_remote_mute(self, gesture):
-		if not self.is_connected() or self.connecting: return
+		if not self.is_connected() or self.connecting or self.slave_transport: return
 		self.on_mute_item(None)
 		# Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 		status = _("Mute speech and sounds from the remote computer") if self.local_machine.is_muted else _("Unmute speech and sounds from the remote computer")
