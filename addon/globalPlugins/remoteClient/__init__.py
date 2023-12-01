@@ -366,6 +366,8 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def on_send_ctrl_alt_del(self, evt):
 		self.master_transport.send('send_SAS')
+		# Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+		ui.message(_("Ctrl+Alt+Delete has been sent to the remote machine"))
 
 	def disconnect(self):
 		if self.master_transport is None and self.slave_transport is None:
@@ -809,3 +811,10 @@ class GlobalPlugin(_GlobalPlugin):
 	def script_toggle_remote_mute(self, gesture):
 		if not self.is_connected() or self.connecting or self.slave_transport: return
 		self.on_mute_item(None)
+
+	@script(
+		# Translators: send Ctrl+Alt+Delete gesture description
+		_("""Sends the Ctrl+Alt+Delete to the remote machine"""))
+	def script_send_ctrl_alt_del(self, gesture):
+		if not self.is_connected() or self.connecting or self.slave_transport: return
+		self.on_send_ctrl_alt_del(None)
