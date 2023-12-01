@@ -11,7 +11,7 @@ Welcome to the TeleNVDA addon, which will allow you to connect to another comput
 * An option allows blocking remote speech commands different from text.
 * Improved support for proxy servers and TOR hidden services ([Proxy support add-on](https://addons.nvda-project.org/addons/proxy.en.html) is required).
 * Ability to change the f11 key to another gesture. Now this works as a common script so, you can assign gestures in the "Input Gestures" dialog.
-* Ability to assign a gesture to the send ctrl+alt+delete option in the input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete keys to this option. Doing it  will stil work normally, but anytime you press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote machine, your own machine will also be effected by the ctrl+alt+delete function, which is likely not what you expect!
+* Ability to assign a gesture to the send ctrl+alt+delete option in the input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete keys to this option. Doing it  will stil work normally, but anytime you press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote machine, your own machine will also be affected by the ctrl+alt+delete function, which is likely not what you expect!
 * Ability to ignore the next immediate gesture completely, it is useful if you need to send to the remote machine the gesture used to toggle between host and remote machine.
 * Ability to exchange small files (up to 10 MB) among users connected to the same session.
 * Ability to forward ports via UPNP.

@@ -1,3 +1,3 @@
-This release fixes a bug which caused that the mute/unmute gesture was available when the machine was being controlled.
+This release adds a gesture (unassigned by default) to send control+alt+del keystroke to the remote machine.
 
 SHA256: 
