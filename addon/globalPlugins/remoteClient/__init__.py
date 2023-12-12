@@ -818,3 +818,9 @@ class GlobalPlugin(_GlobalPlugin):
 	def script_send_ctrl_alt_del(self, gesture):
 		if not self.is_connected() or self.connecting or self.slave_transport: return
 		self.on_send_ctrl_alt_del(None)
+
+	@script(
+		# Translators: open addon options gesture description
+		_("""Opens the addon options"""))
+	def script_options(self, gesture):
+		self.on_options_item(None)
