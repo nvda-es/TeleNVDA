@@ -1,3 +1,3 @@
-This release adds a gesture (unassigned by default) to send control+alt+del keystroke to the remote machine.
+This release adds a gesture (unassigned by default) to open directly the add-on settings category in the NVDA settings dialog. Note that translations aren't updated while the NV Access translation system is paused.
 
 SHA256: 
