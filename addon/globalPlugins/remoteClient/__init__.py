@@ -56,6 +56,7 @@ except addonHandler.AddonError:
 	log.warning(
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
 	)
+speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
 logging.getLogger("keyboard_hook").addHandler(logging.StreamHandler(sys.stdout))
 
 class GlobalPlugin(_GlobalPlugin):
@@ -330,14 +331,16 @@ class GlobalPlugin(_GlobalPlugin):
 	@script(
 		# Translators: send file gesture description
 		_("Sends the specified file to the remote machine"),
-		gesture="kb:control+shift+NVDA+f")
+		gesture="kb:control+shift+NVDA+f",
+		**speakOnDemand)
 	def script_send_file(self, gesture):
 		wx.CallAfter(self.on_send_file_item, None)
 
 	@script(
 		# Translators: push clipboard gesture description
 		_("Sends the contents of the clipboard to the remote machine"),
-		gesture="kb:control+shift+NVDA+c")
+		gesture="kb:control+shift+NVDA+c",
+		**speakOnDemand)
 	def script_push_clipboard(self, gesture):
 		connector = self.slave_transport or self.master_transport
 		if not getattr(connector,'connected',False):
@@ -731,7 +734,8 @@ class GlobalPlugin(_GlobalPlugin):
 
 	@script(
 		# Translators: Copy link compatible with NVDA Remote gesture description
-		_("Copies a link to the remote session to the clipboard compatible with both NVDA Remote and TeleNVDA"))
+		description=_("Copies a link to the remote session to the clipboard compatible with both NVDA Remote and TeleNVDA"),
+		**speakOnDemand)
 	def script_copy_remote_link(self, gesture):
 		connector = self.slave_transport or self.master_transport
 		if not getattr(connector,'connected',False):
@@ -742,7 +746,8 @@ class GlobalPlugin(_GlobalPlugin):
 
 	@script(
 		# Translators: Copy link compatible with TeleNVDA gesture description
-		_("Copies a link to the remote session to the clipboard compatible only with TeleNVDA"))
+		description=_("Copies a link to the remote session to the clipboard compatible only with TeleNVDA"),
+		**speakOnDemand)
 	def script_copy_tele_link(self, gesture):
 		connector = self.slave_transport or self.master_transport
 		if not getattr(connector,'connected',False):
@@ -754,7 +759,8 @@ class GlobalPlugin(_GlobalPlugin):
 	@script(
 		# Translators: description for the Connect gesture
 		_("""Opens a dialog to start a remote session"""),
-		gesture="kb:alt+NVDA+pageUp")
+		gesture="kb:alt+NVDA+pageUp",
+		**speakOnDemand)
 	def script_connect(self, gesture):
 		if self.master_transport or self.slave_transport:
 			ui.message(_("TeleNVDA Already Connected"))
@@ -764,7 +770,8 @@ class GlobalPlugin(_GlobalPlugin):
 	@script(
 		# Translators: description for the Disconnect gesture
 		_("""Disconnect a remote session"""),
-		gesture="kb:alt+NVDA+pageDown")
+		gesture="kb:alt+NVDA+pageDown",
+		**speakOnDemand)
 	def script_disconnect(self, gesture):
 		if self.master_transport is None and self.slave_transport is None:
 			ui.message(_("Not connected."))
@@ -774,7 +781,8 @@ class GlobalPlugin(_GlobalPlugin):
 	@script(
 		# Translators: gesture description for the ignoreNextGesture script
 		_("""Set the host to ignore the next gesture completely, sending next gesture to the guest as is. Useful when you need to use the gesture asigned to toggle between guest and host, in the guest machine."""),
-		gesture = "kb:control+f11")
+		gesture = "kb:control+f11",
+		**speakOnDemand)
 	def script_ignoreNextGesture(self, gesture):
 		if not self.master_transport or not self.sending_keys:
 			return gesture.send()
@@ -784,9 +792,9 @@ class GlobalPlugin(_GlobalPlugin):
 
 	@script(
 		# Translators: Documentation string for the script that toggles the control between guest and host machine.
-		_("Toggles the control between guest and host machine"),
-		gesture="kb:f11"
-	)
+		description=_("Toggles the control between guest and host machine"),
+		gesture="kb:f11",
+		**speakOnDemand)
 	def script_sendKeys(self, gesture):
 		if not self.master_transport:
 			gesture.send()
@@ -807,20 +815,22 @@ class GlobalPlugin(_GlobalPlugin):
 
 	@script(
 		# Translators: gesture description for the toggle remote mute script
-		_("""Mute or unmute the speech coming from the remote computer"""))
+		description=_("""Mute or unmute the speech coming from the remote computer"""),
+		**speakOnDemand)
 	def script_toggle_remote_mute(self, gesture):
 		if not self.is_connected() or self.connecting or self.slave_transport: return
 		self.on_mute_item(None)
 
 	@script(
 		# Translators: send Ctrl+Alt+Delete gesture description
-		_("""Sends the Ctrl+Alt+Delete to the remote machine"""))
+		description=_("""Sends Ctrl+Alt+Delete to the remote machine"""),
+		**speakOnDemand)
 	def script_send_ctrl_alt_del(self, gesture):
 		if not self.is_connected() or self.connecting or self.slave_transport: return
 		self.on_send_ctrl_alt_del(None)
 
 	@script(
-		# Translators: open addon options gesture description
-		_("""Opens the addon options"""))
+		# Translators: open addon settings gesture description
+		description=_("""Opens the addon settings panel inside NVDA settings dialog"""))
 	def script_options(self, gesture):
 		self.on_options_item(None)
