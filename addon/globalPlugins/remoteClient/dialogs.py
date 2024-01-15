@@ -273,6 +273,9 @@ class OptionsDialog(SettingsPanel):
 		# Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 		self.alert_before_slave_disconnect = wx.CheckBox(self, wx.ID_ANY, label=_("Display an alert before the controlled computer disconnects"))
 		sizer.Add(self.alert_before_slave_disconnect)
+		# Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+		self.mute_when_controlling_local_machine = wx.CheckBox(self, wx.ID_ANY, label=_("Mute remote speech when controlling local machine"))
+		sizer.Add(self.mute_when_controlling_local_machine)
 		# Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 		self.speech_commands = wx.CheckBox(self, wx.ID_ANY, label=_("Process speech commands when controlling another computer"))
 		sizer.Add(self.speech_commands)
@@ -316,6 +319,7 @@ class OptionsDialog(SettingsPanel):
 		self.set_controls()
 		self.play_sounds.SetValue(config['ui']['play_sounds'])
 		self.alert_before_slave_disconnect.SetValue(config['ui']['alert_before_slave_disconnect'])
+		self.mute_when_controlling_local_machine.SetValue(config['ui']['mute_when_controlling_local_machine'])
 		self.speech_commands.SetValue(config['ui']['allow_speech_commands'])
 		self.portcheck.SetValue(config['ui']['portcheck'])
 		self.originalProfileName = NVDAConfig.conf.profiles[-1].name
@@ -364,6 +368,7 @@ class OptionsDialog(SettingsPanel):
 		cs['key'] = self.key.GetValue()
 		config['ui']['play_sounds'] = self.play_sounds.GetValue()
 		config['ui']['alert_before_slave_disconnect'] = self.alert_before_slave_disconnect.GetValue()
+		config['ui']['mute_when_controlling_local_machine'] = self.mute_when_controlling_local_machine.GetValue()
 		config['ui']['allow_speech_commands'] = self.speech_commands.GetValue()
 		config['ui']['portcheck'] = self.portcheck.GetValue()
 		config.write()
