@@ -801,6 +801,8 @@ class GlobalPlugin(_GlobalPlugin):
 			return
 		self.sending_keys = not self.sending_keys
 		self.set_receiving_braille(self.sending_keys)
+		if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and self.local_machine.is_muted:
+			self.on_mute_item(None)
 		if self.sending_keys:
 			self.hostPendingModifiers = gesture.modifiers
 			# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
@@ -810,6 +812,8 @@ class GlobalPlugin(_GlobalPlugin):
 			for k in self.key_modifiers:
 				self.master_transport.send(type="key", vk_code=k[0], extended=k[1], pressed=False)
 			self.key_modifiers = set()
+			if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and not self.local_machine.is_muted:
+				self.on_mute_item(None)
 			# Translators: Presented when keyboard control is back to the controlling computer.
 			ui.message(_("Controlling local machine."))
 
