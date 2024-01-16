@@ -485,8 +485,6 @@ class GlobalPlugin(_GlobalPlugin):
 		self.copy_link_remote_item.Enable(True)
 		self.copy_link_tele_item.Enable(True)
 		self.send_ctrl_alt_del_item.Enable(True)
-		if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and not self.local_machine.is_muted:
-			self.on_mute_item(None)
 		# We might have already created a hook thread before if we're restoring an
 		# interrupted connection. We must not create another.
 		if not self.hook_thread:
