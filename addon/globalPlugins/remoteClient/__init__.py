@@ -261,11 +261,9 @@ class GlobalPlugin(_GlobalPlugin):
 		if self.local_machine.is_muted:
 			# Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
 			self.mute_item.SetItemLabel(_("Unmute remote"))
-			ui.message(_("Mute speech and sounds from the remote computer"))
 		else:
 			# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
 			self.mute_item.SetItemLabel(_("Mute remote"))
-			ui.message(_("Unmute speech and sounds from the remote computer"))
 
 	def on_push_clipboard_item(self, evt):
 		connector = self.slave_transport or self.master_transport
@@ -824,6 +822,9 @@ class GlobalPlugin(_GlobalPlugin):
 	def script_toggle_remote_mute(self, gesture):
 		if not self.is_connected() or self.connecting or self.slave_transport: return
 		self.on_mute_item(None)
+		# Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
+		status = _("Mute speech and sounds from the remote computer") if self.local_machine.is_muted else _("Unmute speech and sounds from the remote computer")
+		ui.message(status)
 
 	@script(
 		# Translators: send Ctrl+Alt+Delete gesture description
