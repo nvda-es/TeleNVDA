@@ -74,6 +74,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.create_menu()
 		NVDASettingsDialog.categoryClasses.append(dialogs.OptionsDialog)
 		self.connecting = False
+		self.muted = False # Used to know if mute remote was activated manually
 		self.url_handler_window = url_handler.URLHandlerWindow(callback=self.verify_connect)
 		url_handler.register_url_handler()
 		self.master_transport = None
@@ -257,15 +258,20 @@ class GlobalPlugin(_GlobalPlugin):
 	def on_mute_item(self, evt):
 		if evt:
 			evt.Skip()
-		self.local_machine.is_muted = not self.local_machine.is_muted
-		if self.local_machine.is_muted:
+		if not self.muted:
 			# Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
 			self.mute_item.SetItemLabel(_("Unmute remote"))
 			ui.message(_("Mute speech and sounds from the remote computer"))
+			if not configuration.get_config()['ui']['mute_when_controlling_local_machine']:
+				self.local_machine.is_muted = True
+			self.muted = True
 		else:
 			# Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
 			self.mute_item.SetItemLabel(_("Mute remote"))
 			ui.message(_("Unmute speech and sounds from the remote computer"))
+			if not configuration.get_config()['ui']['mute_when_controlling_local_machine']:
+				self.local_machine.is_muted = False
+			self.muted = False
 
 	def on_push_clipboard_item(self, evt):
 		connector = self.slave_transport or self.master_transport
@@ -494,6 +500,8 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: Presented when connected to the remote computer.
 		ui.message(_("Connected!"))
 		cues.connected()
+		if configuration.get_config()['ui']['mute_when_controlling_local_machine']:
+			self.local_machine.is_muted = True
 
 	def on_disconnected_as_master(self):
 		# Translators: Presented when connection to a remote computer was interupted.
@@ -801,21 +809,22 @@ class GlobalPlugin(_GlobalPlugin):
 			return
 		self.sending_keys = not self.sending_keys
 		self.set_receiving_braille(self.sending_keys)
-		if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and self.local_machine.is_muted:
-			self.on_mute_item(None)
 		if self.sending_keys:
 			self.hostPendingModifiers = gesture.modifiers
 			# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
 			ui.message(_("Controlling remote machine."))
+			if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and not self.muted:
+				# Only change this value if user didn't explicitly mute the remote machine
+				self.local_machine.is_muted = False
 		else:
 			# release all pressed keys in the guest.
 			for k in self.key_modifiers:
 				self.master_transport.send(type="key", vk_code=k[0], extended=k[1], pressed=False)
 			self.key_modifiers = set()
-			if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and not self.local_machine.is_muted:
-				self.on_mute_item(None)
 			# Translators: Presented when keyboard control is back to the controlling computer.
 			ui.message(_("Controlling local machine."))
+			if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and not self.muted:
+				self.local_machine.is_muted = True
 
 	@script(
 		# Translators: gesture description for the toggle remote mute script
