@@ -136,7 +136,9 @@ Note: The autoconnect at startup-related options in the options dialog do not ap
 
 ## Muting Speech on the Remote Computer
 
-If you do not wish to hear the remote computer's speech or NVDA specific sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute Remote, and press Enter. Please note that this option will not disable remote braille output to the controlling display when the controlling machine is sending keys.
+If you do not wish to hear the remote computer's speech or NVDA specific sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute Remote, and press Enter. You can assign a gesture to this option from the NVDA Input Gestures dialog. Please note that this option will not disable remote braille output to the controlling display when the controlling machine is sending keys.
+
+You can mute permanently the remote speech while you work on your local machine by enable that setting from the TeleNVDA category on the NVDA settings dialog.
 
 ## Ending a remote Session
 
