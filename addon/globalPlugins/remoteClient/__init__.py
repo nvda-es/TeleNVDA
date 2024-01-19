@@ -422,6 +422,7 @@ class GlobalPlugin(_GlobalPlugin):
 		if self.local_machine:
 			self.local_machine.is_muted = False
 		self.sending_keys = False
+		self.muted = False
 		if self.hook_thread is not None:
 			ctypes.windll.user32.PostThreadMessageW(self.hook_thread.ident, WM_QUIT, 0, 0)
 			self.hook_thread.join()
@@ -500,7 +501,7 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: Presented when connected to the remote computer.
 		ui.message(_("Connected!"))
 		cues.connected()
-		if configuration.get_config()['ui']['mute_when_controlling_local_machine']:
+		if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and not self.sending_keys:
 			self.local_machine.is_muted = True
 
 	def on_disconnected_as_master(self):
