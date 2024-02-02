@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2023-04-15 12:03+0000\n"
-"PO-Revision-Date: 2023-09-09 12:59+0300\n"
+"POT-Creation-Date: 2024-01-19 18:59+0000\n"
+"PO-Revision-Date: 2024-01-21 19:17+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com\n"
 "Language: tr_TR\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -67,7 +67,6 @@ msgstr ""
 msgid "Mute remote"
 msgstr "Uzaktakini sustur"
 
-#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 msgid "Mute speech and sounds from the remote computer"
 msgstr "Uzak bağlanılan bilgisayardaki konuşma ve sesleri sustur"
 
@@ -138,6 +137,9 @@ msgstr "Uyarı!"
 msgid "Unmute remote"
 msgstr "Uzaktakinin sesini aç"
 
+msgid "Unmute speech and sounds from the remote computer"
+msgstr "Uzak bağlanılan bilgisayardaki konuşma ve sesleri aç"
+
 msgid "Not connected."
 msgstr "Bağlı değil."
 
@@ -182,6 +184,10 @@ msgstr "Panoya gönderildi"
 
 msgid "Unable to push clipboard"
 msgstr "Panoya gönderilemedi"
+
+#. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+msgid "Ctrl+Alt+Delete has been sent to the remote machine"
+msgstr "CTRL+Alt+Delete tuşları uzak makineye gönderildi"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -307,8 +313,13 @@ msgstr "Yerel makine kullanılıyor."
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Uzaktaki bilgisayardan gelen konuşmayı susturur ya da açar"
 
-msgid "Unmute speech and sounds from the remote computer"
-msgstr "Uzak bağlanılan bilgisayardaki konuşma ve sesleri aç"
+#. Translators: send Ctrl+Alt+Delete gesture description
+msgid "Sends Ctrl+Alt+Delete to the remote machine"
+msgstr "Ctrl+Alt+Delete tuşlarını uzaktaki makineye gönderir"
+
+#. Translators: open addon settings gesture description
+msgid "Opens the addon settings panel inside NVDA settings dialog"
+msgstr "NVDA ayarları iletişim kutusunda eklenti ayarları panelini açar"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -410,6 +421,11 @@ msgstr "Bip yerine ses çal"
 msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
 "Kontrol edilen bilgisayarın bağlantısı kesilmeden önce bir uyarı görüntüle"
+
+#. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#| msgid "Controlling local machine."
+msgid "Mute remote speech when controlling local machine"
+msgstr "Yerel makineyi kontrol ederken uzaktaki konuşmayı sessize al"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
@@ -525,3 +541,6 @@ msgid ""
 msgstr ""
 "Başka bir makinenin uzaktan kontrolüne ve uzaktan erişime izin verir. Bu "
 "eklenti, NVDA Remote'a dayanmaktadır."
+
+#~ msgid "Opens the addon options"
+#~ msgstr "Eklenti seçeneklerini açar"
