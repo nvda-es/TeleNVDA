@@ -66,7 +66,6 @@ msgstr ""
 msgid "Mute remote"
 msgstr "Заглуши отдалечената машина"
 
-#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 msgid "Mute speech and sounds from the remote computer"
 msgstr "Заглушаване на речта и звуците, идващи от отдалечената машина"
 
@@ -137,6 +136,9 @@ msgstr "Предупреждение!"
 msgid "Unmute remote"
 msgstr "Изключи заглушаването на отдалечената машина"
 
+msgid "Unmute speech and sounds from the remote computer"
+msgstr "Премахване на заглушаването на речта, идваща от отдалечената машина"
+
 msgid "Not connected."
 msgstr "Няма установена връзка."
 
@@ -182,6 +184,11 @@ msgstr "Съдържанието на клипборда е изпратено"
 
 msgid "Unable to push clipboard"
 msgstr "Не може да се прехвърли клипборда"
+
+#. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+#, fuzzy
+msgid "Ctrl+Alt+Delete has been sent to the remote machine"
+msgstr "Изпраща посочения файл до отдалечената машина"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -308,8 +315,14 @@ msgstr ""
 "Заглушаване или премахване на заглушаването на речта, идваща от отдалечената "
 "машина"
 
-msgid "Unmute speech and sounds from the remote computer"
-msgstr "Премахване на заглушаването на речта, идваща от отдалечената машина"
+#. Translators: send Ctrl+Alt+Delete gesture description
+#, fuzzy
+msgid "Sends Ctrl+Alt+Delete to the remote machine"
+msgstr "Изпраща посочения файл до отдалечената машина"
+
+#. Translators: open addon settings gesture description
+msgid "Opens the addon settings panel inside NVDA settings dialog"
+msgstr ""
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -412,6 +425,11 @@ msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
 "Показвай предупреждение, преди връзката с контролирания компютър да бъде "
 "прекъсната"
+
+#. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#, fuzzy
+msgid "Mute remote speech when controlling local machine"
+msgstr "Управлява се локалната машина."
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

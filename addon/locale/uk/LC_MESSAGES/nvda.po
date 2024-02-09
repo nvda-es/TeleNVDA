@@ -68,7 +68,6 @@ msgstr ""
 msgid "Mute remote"
 msgstr "Вимкнути звук віддаленого комп'ютера"
 
-#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 msgid "Mute speech and sounds from the remote computer"
 msgstr "Вимкнення мовлення та звуків віддаленого комп'ютера"
 
@@ -137,6 +136,9 @@ msgstr "Увага!"
 msgid "Unmute remote"
 msgstr "Вимкнути звук віддаленого комп'ютера"
 
+msgid "Unmute speech and sounds from the remote computer"
+msgstr "Увімкнення мовлення та звуків віддаленого комп'ютера"
+
 msgid "Not connected."
 msgstr "Не під'єднано."
 
@@ -181,6 +183,11 @@ msgstr "Буфер обміну передано"
 
 msgid "Unable to push clipboard"
 msgstr "Неможливо передати буфер обміну"
+
+#. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+#, fuzzy
+msgid "Ctrl+Alt+Delete has been sent to the remote machine"
+msgstr "Надсилає вибраний файл на віддалений компьютер"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -305,8 +312,14 @@ msgstr "Керування локальним комп'ютером."
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Вимикає або вмикає мовлення з віддаленого комп'ютера"
 
-msgid "Unmute speech and sounds from the remote computer"
-msgstr "Увімкнення мовлення та звуків віддаленого комп'ютера"
+#. Translators: send Ctrl+Alt+Delete gesture description
+#, fuzzy
+msgid "Sends Ctrl+Alt+Delete to the remote machine"
+msgstr "Надсилає вибраний файл на віддалений компьютер"
+
+#. Translators: open addon settings gesture description
+msgid "Opens the addon settings panel inside NVDA settings dialog"
+msgstr ""
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -408,6 +421,11 @@ msgstr "Відтворювати звуки замість сигналів"
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
 msgstr "Показувати сповіщення перед відключенням керованого комп’ютера"
+
+#. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#, fuzzy
+msgid "Mute remote speech when controlling local machine"
+msgstr "Керування локальним комп'ютером."
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

@@ -65,7 +65,6 @@ msgstr ""
 msgid "Mute remote"
 msgstr "Puneți pe mut sintetizatorul computerului la care sunteți conectat"
 
-#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 msgid "Mute speech and sounds from the remote computer"
 msgstr ""
 "Puneți pe mut vorbirea și sunetele care provin de la calculatorul la care "
@@ -139,6 +138,11 @@ msgid "Unmute remote"
 msgstr ""
 "Dați de pe mut vorbirea și sunetele computerului la care sunteți conectat"
 
+msgid "Unmute speech and sounds from the remote computer"
+msgstr ""
+"Dați de pe mut vorbirea și sunetele care provin de la calculatorul la care "
+"sunteți conectat"
+
 msgid "Not connected."
 msgstr "Neconectat."
 
@@ -187,6 +191,11 @@ msgstr "Planșetă trimisă"
 
 msgid "Unable to push clipboard"
 msgstr "Nu se poate trimite la planșetă"
+
+#. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+#, fuzzy
+msgid "Ctrl+Alt+Delete has been sent to the remote machine"
+msgstr "Trimite fișierul specificat calculatorului aflat la distanță"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -315,10 +324,14 @@ msgstr ""
 "Puneți sau dați de pe mut vorbirea care vine de la calculatorul aflat la "
 "distanță"
 
-msgid "Unmute speech and sounds from the remote computer"
+#. Translators: send Ctrl+Alt+Delete gesture description
+#, fuzzy
+msgid "Sends Ctrl+Alt+Delete to the remote machine"
+msgstr "Trimite fișierul specificat calculatorului aflat la distanță"
+
+#. Translators: open addon settings gesture description
+msgid "Opens the addon settings panel inside NVDA settings dialog"
 msgstr ""
-"Dați de pe mut vorbirea și sunetele care provin de la calculatorul la care "
-"sunteți conectat"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -422,6 +435,11 @@ msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
 "Afișează un mesaj de alertă înainte ca dispozitivul controlat să se "
 "deconecteze"
+
+#. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#, fuzzy
+msgid "Mute remote speech when controlling local machine"
+msgstr "Se controlează calculatorul local."
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

@@ -65,7 +65,6 @@ msgstr "Disconnetti da un altro computer che esegue NVDA Remote o TeleNVDA"
 msgid "Mute remote"
 msgstr "Silenzia dispositivo remoto"
 
-#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 msgid "Mute speech and sounds from the remote computer"
 msgstr "Sintetizzatore e suoni del dispositivo remoto disattivati"
 
@@ -137,6 +136,9 @@ msgstr "Avviso!"
 msgid "Unmute remote"
 msgstr "Riattiva voce dispositivo remoto"
 
+msgid "Unmute speech and sounds from the remote computer"
+msgstr "Suoni e sintesi vocale riattivati dal computer remoto"
+
 msgid "Not connected."
 msgstr "Non connesso."
 
@@ -183,6 +185,11 @@ msgstr "Appunti inviati"
 
 msgid "Unable to push clipboard"
 msgstr "Impossibile inviare gli appunti"
+
+#. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+#, fuzzy
+msgid "Ctrl+Alt+Delete has been sent to the remote machine"
+msgstr "Invia il file specificato al dispositivo remoto"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -312,8 +319,14 @@ msgstr ""
 "Disattivazione o riattivazione del sintetizzatore proveniente dal computer "
 "remoto"
 
-msgid "Unmute speech and sounds from the remote computer"
-msgstr "Suoni e sintesi vocale riattivati dal computer remoto"
+#. Translators: send Ctrl+Alt+Delete gesture description
+#, fuzzy
+msgid "Sends Ctrl+Alt+Delete to the remote machine"
+msgstr "Invia il file specificato al dispositivo remoto"
+
+#. Translators: open addon settings gesture description
+msgid "Opens the addon settings panel inside NVDA settings dialog"
+msgstr ""
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -416,6 +429,11 @@ msgstr "Utilizza campioni audio al posto dei beep"
 msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
 "Visualizza un avviso prima della disconnessione del computer controllato"
+
+#. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#, fuzzy
+msgid "Mute remote speech when controlling local machine"
+msgstr "Controllo locale."
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

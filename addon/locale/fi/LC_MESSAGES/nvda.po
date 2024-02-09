@@ -63,7 +63,6 @@ msgstr ""
 msgid "Mute remote"
 msgstr "Mykistä etäkone"
 
-#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 msgid "Mute speech and sounds from the remote computer"
 msgstr "Mykistä etäkoneen äänet ja puhe."
 
@@ -135,6 +134,9 @@ msgstr "Varoitus"
 msgid "Unmute remote"
 msgstr "Poista etäkoneen mykistys"
 
+msgid "Unmute speech and sounds from the remote computer"
+msgstr "Poista etäkoneen äänien ja puheen mykistys"
+
 msgid "Not connected."
 msgstr "Ei yhdistetty."
 
@@ -178,6 +180,11 @@ msgstr "Leikepöytä lähetetty"
 
 msgid "Unable to push clipboard"
 msgstr "Leikepöytää ei voi lähettää"
+
+#. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+#, fuzzy
+msgid "Ctrl+Alt+Delete has been sent to the remote machine"
+msgstr "Lähettää määritetyn tiedoston etäkoneelle"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -300,8 +307,14 @@ msgstr "Hallitaan paikallista konetta."
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Mykistä tai poista etätietokoneelta tulevan puheen mykistys"
 
-msgid "Unmute speech and sounds from the remote computer"
-msgstr "Poista etäkoneen äänien ja puheen mykistys"
+#. Translators: send Ctrl+Alt+Delete gesture description
+#, fuzzy
+msgid "Sends Ctrl+Alt+Delete to the remote machine"
+msgstr "Lähettää määritetyn tiedoston etäkoneelle"
+
+#. Translators: open addon settings gesture description
+msgid "Opens the addon settings panel inside NVDA settings dialog"
+msgstr ""
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -402,6 +415,11 @@ msgstr "Toista äänet piippausten asemesta"
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
 msgstr "Näytä ilmoitus ennen kuin hallittavan tietokoneen yhteys katkaistaan"
+
+#. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#, fuzzy
+msgid "Mute remote speech when controlling local machine"
+msgstr "Hallitaan paikallista konetta."
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

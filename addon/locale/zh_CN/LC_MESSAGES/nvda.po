@@ -58,7 +58,6 @@ msgstr "与另一台运行 NVDA 远程或 Tele NVDA 的计算机断开连接"
 msgid "Mute remote"
 msgstr "远程计算机静音(&M)"
 
-#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 msgid "Mute speech and sounds from the remote computer"
 msgstr "静音来自远程计算机的语音和声音"
 
@@ -126,6 +125,9 @@ msgstr "警告！"
 msgid "Unmute remote"
 msgstr "取消远程静音"
 
+msgid "Unmute speech and sounds from the remote computer"
+msgstr "恢复远程计算机的语音和声音"
+
 msgid "Not connected."
 msgstr "未连接。"
 
@@ -168,6 +170,11 @@ msgstr "发送剪贴板"
 
 msgid "Unable to push clipboard"
 msgstr "无法发送剪贴板"
+
+#. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+#, fuzzy
+msgid "Ctrl+Alt+Delete has been sent to the remote machine"
+msgstr "发送指定文件到远程计算机"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -286,8 +293,14 @@ msgstr "控制本地计算机。"
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "静音或恢复来自远程计算机的语音"
 
-msgid "Unmute speech and sounds from the remote computer"
-msgstr "恢复远程计算机的语音和声音"
+#. Translators: send Ctrl+Alt+Delete gesture description
+#, fuzzy
+msgid "Sends Ctrl+Alt+Delete to the remote machine"
+msgstr "发送指定文件到远程计算机"
+
+#. Translators: open addon settings gesture description
+msgid "Opens the addon settings panel inside NVDA settings dialog"
+msgstr ""
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -385,6 +398,11 @@ msgstr "用音效代替蜂鸣音 (&P)"
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
 msgid "Display an alert before the controlled computer disconnects"
 msgstr "在被控端断开连接前询问用户"
+
+#. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#, fuzzy
+msgid "Mute remote speech when controlling local machine"
+msgstr "控制本地计算机。"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

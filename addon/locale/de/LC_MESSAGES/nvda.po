@@ -85,7 +85,6 @@ msgstr ""
 msgid "Mute remote"
 msgstr "Sprachausgabe auf Remote-Computer stummschalten"
 
-#. Translators: Report when using gestures to mute or unmute the speech coming from the remote computer.
 msgid "Mute speech and sounds from the remote computer"
 msgstr "Sprachausgabe und Signaltöne auf dem Remote-Computer stummschalten"
 
@@ -155,6 +154,11 @@ msgstr "Warnung!"
 msgid "Unmute remote"
 msgstr "Stummschaltung der Sprachausgabe auf Remote-Computer aufheben"
 
+msgid "Unmute speech and sounds from the remote computer"
+msgstr ""
+"Aufheben der Stummschaltung der Sprachausgabe und Signaltöne auf dem Remote-"
+"Computer"
+
 msgid "Not connected."
 msgstr "Nicht verbunden."
 
@@ -201,6 +205,11 @@ msgstr "Inhalt der Zwischenablage übertragen"
 
 msgid "Unable to push clipboard"
 msgstr "Fehler beim Übertragen des Inhalts der Zwischenablage"
+
+#. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+#, fuzzy
+msgid "Ctrl+Alt+Delete has been sent to the remote machine"
+msgstr "Sendet die angegebene Datei an den Remote-Computer"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -329,10 +338,14 @@ msgstr "Steuerung des lokalen Computers."
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Schaltet die Sprachausgabe auf dem Remote-Computer ein oder aus"
 
-msgid "Unmute speech and sounds from the remote computer"
+#. Translators: send Ctrl+Alt+Delete gesture description
+#, fuzzy
+msgid "Sends Ctrl+Alt+Delete to the remote machine"
+msgstr "Sendet die angegebene Datei an den Remote-Computer"
+
+#. Translators: open addon settings gesture description
+msgid "Opens the addon settings panel inside NVDA settings dialog"
 msgstr ""
-"Aufheben der Stummschaltung der Sprachausgabe und Signaltöne auf dem Remote-"
-"Computer"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -437,6 +450,11 @@ msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
 "Eine Warnung anzeigen, bevor die Verbindung zum Remote-Computer unterbrochen "
 "wird"
+
+#. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#, fuzzy
+msgid "Mute remote speech when controlling local machine"
+msgstr "Steuerung des lokalen Computers."
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
