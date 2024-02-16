@@ -1,7 +1,7 @@
 # TeleNVDA #
 
-* Tekijä: Asociación Comunidad Hispanohablante de NVDA ja muut
-  avustajat. Alkuperäisen lisäosan tehnyt Tyler Spivey ja Christopher Toth
+* Authors: Asociación Comunidad Hispanohablante de NVDA and other
+  contributors. Original work by Tyler Spivey and Christopher Toth
 * Yhteensopivuus: NVDA 2019.3 ja uudemmat
 * Lataa [vakaa versio][1]
 
@@ -23,12 +23,21 @@ kanssa. Erot ovat tällä hetkellä seuraavat:
 
 * Asetus mahdollistaa sellaisten etäpuhekomentojen estämisen, jotka eroavat
   tekstistä.
+* An option to mute remote speech when controlling the local machine and
+  unmute it when controlling the remote machine.
 * Paranneltu tuki välityspalvelimille ja TOR-piilopalveluille
   ([Välityspalvelintuki-lisäosa](https://addons.nvda-project.org/addons/proxy.fi.html)
   vaaditaan).
 * Mahdollisuus F11-näppäinkomennon vaihtamiseen. Se toimii nyt
   yleisskriptinä, joten näppäinkomento voidaan määrittää
   Näppäinkomennot-valintaikkunassa.
+* a gesture (unassigned by default) to open the addon options
+* Ability to assign a gesture to the send ctrl+alt+delete option in the
+  input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete
+  keys to this option. Doing it will stil work normally, but anytime you
+  press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote
+  machine, your own machine will also be affected by the ctrl+alt+delete
+  function, which is likely not what you expect!
 * Mahdollisuus seuraavan näppäinkomennon ohittamiseen kokonaan. Tästä on
   hyötyä, mikäli sinun tarvitsee lähettää etä- ja isäntäkoneen välillä
   vaihtava näppäinkomento etäkoneelle.
@@ -198,8 +207,9 @@ käyttävältä palvelimelta.
 Ctrl+Alt+Del-näppäinyhdistelmän lähettäminen ei ole mahdollista tavalliseen
 tapaan näppäinpainalluksia lähetettäessä.
 
-Käytä tätä komentoa, mikäli sinun on lähetettävä Ctrl+Alt+Del
-etäjärjestelmälle, jossa suojattu työpöytä on aktiivisena.
+If you need to send CTRL+Alt+del, and the remote system is on the secure
+desktop, use this command. You can also assighn a gesture for this command
+in the input Gestures dialog.
 
 ## Lähetä tilanvaihtonäppäin paikallisen ja etäkoneen välillä
 
@@ -256,12 +266,16 @@ vaikutusta ennen NVDA:n uudelleenkäynnistystä.
 
 ## Puheen mykistäminen etätietokoneessa
 
-Jos et halua kuulla etäkoneen puhetta tai NVDA:n äänimerkkejä, avaa
-NVDA-valikko ja valitse Työkalut -> Etäkäyttö. Siirry lopuksi
-alanuolinäppäimellä kohtaan Mykistä etäkone ja paina Enter. Huom: Tämä
-asetus ei poista käytöstä hallitsevan koneen pistenäytölle tuotettavaa
-etäpistekirjoituspalautetta, kun hallitsevan koneen näppäinpainallusten
-lähettäminen on käytössä.
+If you do not wish to hear the remote computer's speech or NVDA specific
+sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute
+Remote, and press Enter. You can assign a gesture to this option from the
+NVDA Input Gestures dialog. Please note that this option will not disable
+remote braille output to the controlling display when the controlling
+machine is sending keys.
+
+You can mute permanently the remote speech while you work on your local
+machine by enable that setting from the TeleNVDA category on the NVDA
+settings dialog.
 
 ## Etäistunnon lopettaminen
 

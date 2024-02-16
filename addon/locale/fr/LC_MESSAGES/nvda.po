@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-09-09 11:09+0200\n"
+"PO-Revision-Date: 2024-02-10 17:27+0100\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Corentin Bacqué-Cazenave <corentin@progaccess.net>\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.8\n"
+"X-Generator: Poedit 3.2.2\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -189,9 +189,8 @@ msgid "Unable to push clipboard"
 msgstr "Impossible d'envoyer le presse-papiers"
 
 #. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
-#, fuzzy
 msgid "Ctrl+Alt+Delete has been sent to the remote machine"
-msgstr "Envoyer le fichier spécifié à l'ordinateur distant"
+msgstr "Ctrl+Alt+Suppr a été envoyé à l'ordinateur distant"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -321,13 +320,14 @@ msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Couper ou rétablir le son de l'ordinateur distant"
 
 #. Translators: send Ctrl+Alt+Delete gesture description
-#, fuzzy
 msgid "Sends Ctrl+Alt+Delete to the remote machine"
-msgstr "Envoyer le fichier spécifié à l'ordinateur distant"
+msgstr "Envoyer Ctrl+Alt+Suppr à l'ordinateur distant"
 
 #. Translators: open addon settings gesture description
 msgid "Opens the addon settings panel inside NVDA settings dialog"
 msgstr ""
+"Ouvre le panneau des paramètres de l'extension dans la boîte de dialogue des "
+"paramètres de NVDA"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -432,9 +432,8 @@ msgid "Display an alert before the controlled computer disconnects"
 msgstr "Afficher une alerte avant que l'ordinateur contrôlé ne déconnecte"
 
 #. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
-#, fuzzy
 msgid "Mute remote speech when controlling local machine"
-msgstr "Contrôle de la machine locale"
+msgstr "Couper la parole à distance lors du contrôle de la machine locale"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"

@@ -1,7 +1,7 @@
 # TeleNVDA #
 
-* Авторы: Ассоциация испаноязычного сообщества NVDA и другие
-  участники. Исходная работа: Tyler Spivey и Christopher Toth
+* Authors: Asociación Comunidad Hispanohablante de NVDA and other
+  contributors. Original work by Tyler Spivey and Christopher Toth
 * Совместимость с NVDA: 2019.3 и выше
 * Загрузить [стабильную версию][1]
 
@@ -24,12 +24,21 @@
 
 * Опциональная возможность блокировки удалённых речевых команд отличных от
   обычного текста.
+* An option to mute remote speech when controlling the local machine and
+  unmute it when controlling the remote machine.
 * Улучшенная поддержка proxy-серверов и скрытых сервисов TOR (требуется
   [дополнение Proxy
   support](https://addons.nvda-project.org/addons/proxy.ru.html)).
 * Возможность изменить клавишу F11 на другую клавишу или сочетание
   клавиш. Теперь это работает как обычный скрипт, поэтому можно просто
   назначить желаемый жест в диалоговом окне «Жесты ввода».
+* a gesture (unassigned by default) to open the addon options
+* Ability to assign a gesture to the send ctrl+alt+delete option in the
+  input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete
+  keys to this option. Doing it will stil work normally, but anytime you
+  press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote
+  machine, your own machine will also be affected by the ctrl+alt+delete
+  function, which is likely not what you expect!
 * Возможность полностью игнорировать следующий непосредственный жест. Это
   полезно, если вам нужно отправить на удалённый компьютер жест,
   используемый для переключения между локальной и удалённой машиной.
@@ -206,9 +215,9 @@ Remote, так и с TeleNVDA, и на данный момент являетс�
 клавиш Control+Alt+Del простым её нажатием, поскольку она всё равно будет
 перехвачена системой управляющего компьютера.
 
-Если вам требуется нажать на удалённом компьютере сочетание клавиш
-Control+Alt+Del, то на управляющем компьютере откройте меню NVDA → Сервис →
-Удалённое управление и активируйте пункт «Отправить Control+Alt+Del».
+If you need to send CTRL+Alt+del, and the remote system is on the secure
+desktop, use this command. You can also assighn a gesture for this command
+in the input Gestures dialog.
 
 ## Отправка клавиши переключения между локальным и удалённым компьютером
 
@@ -263,11 +272,16 @@ Control+Alt+Del, то на управляющем компьютере откр�
 
 ## Отключение речи и звуков с удалённого компьютера
 
-Если вы не хотите слышать речь и стандартные звуки NVDA с управляемого
-компьютера, то просто откройте меню NVDA → Сервис → Удалённое управление и
-активируйте пункт «Отключить удалённую речь и звуки». Обратите внимание, что
-эта опция не отключает удаленный брайлевский вывод на управляющем
-компьютере.
+If you do not wish to hear the remote computer's speech or NVDA specific
+sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute
+Remote, and press Enter. You can assign a gesture to this option from the
+NVDA Input Gestures dialog. Please note that this option will not disable
+remote braille output to the controlling display when the controlling
+machine is sending keys.
+
+You can mute permanently the remote speech while you work on your local
+machine by enable that setting from the TeleNVDA category on the NVDA
+settings dialog.
 
 ## Завершение сеанса удалённого управления
 

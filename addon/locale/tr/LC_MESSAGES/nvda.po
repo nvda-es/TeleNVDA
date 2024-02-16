@@ -20,6 +20,7 @@ msgstr ""
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
+#: addon\installTasks.py:12
 msgid ""
 "NVDA Remote has been detected on your NVDA installation. In order for "
 "TeleNVDA to work without conflicts, NVDA Remote must be disabled. Otherwise, "
@@ -31,63 +32,84 @@ msgstr ""
 "Uzaktan Destek eklentisini şimdi devre dışı bırakmak ister misiniz?"
 
 #. Translators: question title
+#: addon\installTasks.py:14
 msgid "Running NVDA Remote detected"
 msgstr "NVDA Uzaktan destek eklentisinin çalıştığı algılandı"
 
 #. Translators: script category for add-on gestures
 #. Translators: title for the TeleNVDA settings category in NVDA settings dialog
+#: addon\globalPlugins\remoteClient\__init__.py:64
+#: addon\globalPlugins\remoteClient\__init__.py:174
+#: addon\globalPlugins\remoteClient\dialogs.py:236
 msgid "TeleNVDA"
 msgstr "Tele NVDA"
 
+#: addon\globalPlugins\remoteClient\__init__.py:96
 msgid "Your NVDA Remote configuration was corrupted and has been reset."
 msgstr "NVDA Uzaktan Destek  yapılandırmanız bozulduğu için sıfırlandı."
 
+#: addon\globalPlugins\remoteClient\__init__.py:96
 msgid "NVDA Remote Configuration Error"
 msgstr "NVDA Uzaktan destek Yapılandırma Hatası"
 
 #. Translators: Item in TeleNVDA submenu to connect to a remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:136
 msgid "Connect..."
 msgstr "Bağlan..."
 
+#: addon\globalPlugins\remoteClient\__init__.py:136
 msgid ""
 "Remotely connect to another computer running NVDA Remote Access or TeleNVDA"
 msgstr ""
 "NVDA Uzaktan Destek veya TeleNVDA çalıştıran başka bir bilgisayara bağlanın"
 
 #. Translators: Item in TeleNVDA submenu to disconnect from a remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:139
 msgid "Disconnect"
 msgstr "Bağlantıyı kes"
 
+#: addon\globalPlugins\remoteClient\__init__.py:139
 msgid "Disconnect from another computer running NVDA Remote Access or TeleNVDA"
 msgstr ""
 "NVDA Uzaktan destek veya TeleNVDA çalıştıran başka bir bilgisayarla "
 "bağlantıyı kesin"
 
 #. Translators: Menu item in TeleNVDA submenu to mute speech and sounds from the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:143
+#: addon\globalPlugins\remoteClient\__init__.py:270
+#: addon\globalPlugins\remoteClient\__init__.py:415
 msgid "Mute remote"
 msgstr "Uzaktakini sustur"
 
+#: addon\globalPlugins\remoteClient\__init__.py:143
+#: addon\globalPlugins\remoteClient\__init__.py:264
 msgid "Mute speech and sounds from the remote computer"
 msgstr "Uzak bağlanılan bilgisayardaki konuşma ve sesleri sustur"
 
 #. Translators: Menu item in TeleNVDA submenu to push clipboard content to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:147
 msgid "&Push clipboard"
 msgstr "&Pano içeriğini gönder"
 
+#: addon\globalPlugins\remoteClient\__init__.py:147
 msgid "Push the clipboard to the other machine"
 msgstr "Pano içeriğini uzaktaki makineye gönder"
 
 #. Translators: Menu item in TeleNVDA submenu to send a file to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:151
 msgid "Send &file..."
 msgstr "&Dosya gönder..."
 
+#: addon\globalPlugins\remoteClient\__init__.py:151
 msgid "Send a file to the other machine"
 msgstr "Uzaktaki makineye bir dosya gönder"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
+#: addon\globalPlugins\remoteClient\__init__.py:156
 msgid "NVDA &Remote protocol (recommended)"
 msgstr "NVDA Uzaktan Destek p&rotokolü (önerilen)"
 
+#: addon\globalPlugins\remoteClient\__init__.py:156
 msgid ""
 "Copy a link to the remote session compatible with both NVDA Remote and "
 "TeleNVDA"
@@ -96,70 +118,101 @@ msgstr ""
 "kopyala"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with TeleNVDA.
+#: addon\globalPlugins\remoteClient\__init__.py:160
 msgid "&TeleNVDA protocol"
 msgstr "&TeleNVDA protokolü"
 
+#: addon\globalPlugins\remoteClient\__init__.py:160
 msgid "Copy a link to the remote session compatible only with TeleNVDA"
 msgstr "Yalnızca TeleNVDA ile uyumlu uzak oturuma bir bağlantı kopyala"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session.
+#: addon\globalPlugins\remoteClient\__init__.py:164
 msgid "Copy &link"
 msgstr "Bağ&lantıyı kopyala"
 
+#: addon\globalPlugins\remoteClient\__init__.py:164
 msgid "Copy a link to the remote session"
 msgstr "Uzak oturum için bir bağlantı kopyala"
 
 #. Translators: Menu item in TeleNVDA submenu to open add-on options.
+#: addon\globalPlugins\remoteClient\__init__.py:166
 msgid "&Options..."
 msgstr "&Seçenekler..."
 
+#: addon\globalPlugins\remoteClient\__init__.py:166
 msgid "Options"
 msgstr "Seçenekler"
 
 #. Translators: Menu item in TeleNVDA submenu to send Control+Alt+Delete to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:169
 msgid "Send Ctrl+Alt+Del"
 msgstr "CTRL+alt+sil komutu gönder"
 
 #. Translators: Label of menu in NVDA tools menu.
+#: addon\globalPlugins\remoteClient\__init__.py:174
 msgid "R&emote"
 msgstr "&Uzak bağlantı"
 
 #. Translators: question before disconnecting
+#: addon\globalPlugins\remoteClient\__init__.py:245
 msgid "Are you sure you want to disconnect the controlled computer?"
 msgstr ""
 "Kontrol edilen bilgisayarın bağlantısını kesmek istediğinizden emin misiniz?"
 
 #. Translators: question title
+#: addon\globalPlugins\remoteClient\__init__.py:247
+#: addon\globalPlugins\remoteClient\__init__.py:328
 msgid "Warning!"
 msgstr "Uyarı!"
 
 #. Translators: Menu item in TeleNVDA submenu to unmute speech and sounds from the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:263
 msgid "Unmute remote"
 msgstr "Uzaktakinin sesini aç"
 
+#: addon\globalPlugins\remoteClient\__init__.py:271
 msgid "Unmute speech and sounds from the remote computer"
 msgstr "Uzak bağlanılan bilgisayardaki konuşma ve sesleri aç"
 
+#: addon\globalPlugins\remoteClient\__init__.py:288
+#: addon\globalPlugins\remoteClient\__init__.py:353
+#: addon\globalPlugins\remoteClient\__init__.py:751
+#: addon\globalPlugins\remoteClient\__init__.py:763
+#: addon\globalPlugins\remoteClient\__init__.py:786
 msgid "Not connected."
 msgstr "Bağlı değil."
 
 #. Translators: message displayed in transfer file dialog when sending a file
+#: addon\globalPlugins\remoteClient\__init__.py:299
 msgid "Choose the file you want to send to the remote computer"
 msgstr "Uzak bilgisayara göndermek istediğiniz dosyayı seçin"
 
 #. Translators: supported file types when sending or receiving files
+#: addon\globalPlugins\remoteClient\__init__.py:301
+#: addon\globalPlugins\remoteClient\local_machine.py:157
 msgid "All files (*.*)"
 msgstr "Tüm dosyalar (*.*)"
 
 #. Translators: error message when a file is too big
+#: addon\globalPlugins\remoteClient\__init__.py:319
 msgid "This file is too large. Only files smaller than 10 MB are supported."
 msgstr "Bu dosya çok büyük. Yalnızca 10 MB'tan küçük dosyalar desteklenir."
 
 #. Translators: error message caption
+#: addon\globalPlugins\remoteClient\__init__.py:321
+#: addon\globalPlugins\remoteClient\dialogs.py:53
+#: addon\globalPlugins\remoteClient\dialogs.py:187
+#: addon\globalPlugins\remoteClient\dialogs.py:225
+#: addon\globalPlugins\remoteClient\dialogs.py:228
+#: addon\globalPlugins\remoteClient\dialogs.py:346
+#: addon\globalPlugins\remoteClient\dialogs.py:350
+#: addon\globalPlugins\remoteClient\dialogs.py:353
 msgid "Error"
 msgstr "Hata"
 
 #. Translators: question before sending a file
+#: addon\globalPlugins\remoteClient\__init__.py:326
 msgid ""
 "The session will be blocked until the transfer is complete. Are you sure you "
 "want to continue?"
@@ -168,52 +221,66 @@ msgstr ""
 "istediğinizden emin misiniz?"
 
 #. Translators: message spoken when the file has been sent successfully
+#: addon\globalPlugins\remoteClient\__init__.py:335
 msgid "File sent"
 msgstr "Dosya gönderildi"
 
 #. Translators: send file gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:339
 msgid "Sends the specified file to the remote machine"
 msgstr "Belirtilen dosyayı uzak makineye gönderir"
 
 #. Translators: push clipboard gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:347
 msgid "Sends the contents of the clipboard to the remote machine"
 msgstr "Uzak makine için pano içeriğini gönderir"
 
+#: addon\globalPlugins\remoteClient\__init__.py:358
 msgid "Clipboard pushed"
 msgstr "Panoya gönderildi"
 
+#: addon\globalPlugins\remoteClient\__init__.py:360
 msgid "Unable to push clipboard"
 msgstr "Panoya gönderilemedi"
 
 #. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
+#: addon\globalPlugins\remoteClient\__init__.py:379
 msgid "Ctrl+Alt+Delete has been sent to the remote machine"
 msgstr "CTRL+Alt+Delete tuşları uzak makineye gönderildi"
 
 #. Translators: Presented when disconnected from the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:392
 msgid "Disconnected!"
 msgstr "Bağlantı kesildi!"
 
 #. Translators: Title of the connection error dialog.
+#: addon\globalPlugins\remoteClient\__init__.py:441
 msgid "Error Connecting"
 msgstr "Bağlantı Hatası"
 
 #. Translators: Message shown when cannot connect to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:443
 msgid "Unable to connect to the remote computer"
 msgstr "Uzak bilgisayara bağlanılamıyor"
 
 #. Translators: Title of the connect dialog.
+#: addon\globalPlugins\remoteClient\__init__.py:455
+#: addon\globalPlugins\remoteClient\dialogs.py:384
 msgid "Connect"
 msgstr "Bağlan"
 
 #. Translators: Presented when connected to the remote computer.
+#: addon\globalPlugins\remoteClient\__init__.py:502
 msgid "Connected!"
 msgstr "Bağlandı!"
 
 #. Translators: Presented when connection to a remote computer was interupted.
+#: addon\globalPlugins\remoteClient\__init__.py:509
 msgid "Connection interrupted"
 msgstr "Bağlantı kesildi"
 
 #. Translators: A message to warn the user that handle keys from other applications should be on.
+#: addon\globalPlugins\remoteClient\__init__.py:525
 msgid ""
 "The option to handle keys from other applications is disabled in your NVDA "
 "keyboard settings. In order to allow the keyboard of this machine to be "
@@ -224,27 +291,35 @@ msgstr ""
 "seçeneğin etkinleştirilmesi gerekir. Bunu şimdi yapmak ister misin?"
 
 #. Translators: The title of the warning dialog displayed when handle keys from other applications is disabled.
+#: addon\globalPlugins\remoteClient\__init__.py:527
+#: addon\globalPlugins\remoteClient\dialogs.py:180
 msgid "Warning"
 msgstr "Uyarı"
 
 #. Translators: Presented in direct (client to server) remote connection when the controlled computer is ready.
+#: addon\globalPlugins\remoteClient\__init__.py:569
 msgid "Connected to control server"
 msgstr "Kontrol sunucusuna bağlanıldı"
 
+#: addon\globalPlugins\remoteClient\__init__.py:720
 msgid ""
 "TeleNVDA is already connected. Disconnect before opening a new connection."
 msgstr ""
 "TeleNVDA zaten bağlı. Yeni bir bağlantı kurabilmek için önce aktif "
 "bağlantıyı kesin."
 
+#: addon\globalPlugins\remoteClient\__init__.py:720
+#: addon\globalPlugins\remoteClient\__init__.py:775
 msgid "TeleNVDA Already Connected"
 msgstr "TeleNVDA Zaten Bağlı"
 
+#: addon\globalPlugins\remoteClient\__init__.py:726
 #, python-brace-format
 msgid "Do you wish to control the machine on server {server} with key {key}?"
 msgstr ""
 "{server} sunucusundaki makineyi {key} anahtarıyla kullanmak istiyor musunuz?"
 
+#: addon\globalPlugins\remoteClient\__init__.py:728
 #, python-brace-format
 msgid ""
 "Do you wish to allow this machine to be controlled on server {server} with "
@@ -253,10 +328,12 @@ msgstr ""
 "Bu makinenin {server} sunucusundaki makine tarafından {key} anahtarıyla "
 "kullanılmasını istiyor musunuz?"
 
+#: addon\globalPlugins\remoteClient\__init__.py:729
 msgid "TeleNVDA Connection Request"
 msgstr "TeleNVDA Bağlantı Talebi"
 
 #. Translators: Copy link compatible with NVDA Remote gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:746
 msgid ""
 "Copies a link to the remote session to the clipboard compatible with both "
 "NVDA Remote and TeleNVDA"
@@ -264,10 +341,13 @@ msgstr ""
 "Hem NVDA Uzaktan Destek hem de TeleNVDA ile uyumlu uzak oturumun "
 "bağlantısını panoya kopyalar"
 
+#: addon\globalPlugins\remoteClient\__init__.py:754
+#: addon\globalPlugins\remoteClient\__init__.py:766
 msgid "Copied link"
 msgstr "Kopyalanan bağlantı"
 
 #. Translators: Copy link compatible with TeleNVDA gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:758
 msgid ""
 "Copies a link to the remote session to the clipboard compatible only with "
 "TeleNVDA"
@@ -275,14 +355,17 @@ msgstr ""
 "Yalnızca TeleNVDA ile uyumlu Uzak oturumun bağlantısını panoya kopyalar"
 
 #. Translators: description for the Connect gesture
+#: addon\globalPlugins\remoteClient\__init__.py:770
 msgid "Opens a dialog to start a remote session"
 msgstr "Uzak oturum başlatmak için bir iletişim kutusu açar"
 
 #. Translators: description for the Disconnect gesture
+#: addon\globalPlugins\remoteClient\__init__.py:781
 msgid "Disconnect a remote session"
 msgstr "Uzak bağlantıyı keser"
 
 #. Translators: gesture description for the ignoreNextGesture script
+#: addon\globalPlugins\remoteClient\__init__.py:792
 msgid ""
 "Set the host to ignore the next gesture completely, sending next gesture to "
 "the guest as is. Useful when you need to use the gesture asigned to toggle "
@@ -294,65 +377,87 @@ msgstr ""
 "gerektiğinde kullanışlıdır."
 
 #. Translators: Report when the next gesture will be send to the guest ignoring everything else.
+#: addon\globalPlugins\remoteClient\__init__.py:800
 msgid "Send next gesture to the guest"
 msgstr "Misafire bir sonraki hareketi gönder"
 
 #. Translators: Documentation string for the script that toggles the control between guest and host machine.
+#: addon\globalPlugins\remoteClient\__init__.py:804
 msgid "Toggles the control between guest and host machine"
 msgstr "Konuk ve ana makine arasındaki kontrolü değiştirir"
 
 #. Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
+#: addon\globalPlugins\remoteClient\__init__.py:816
 msgid "Controlling remote machine."
 msgstr "Uzak makine kullanılıyor."
 
 #. Translators: Presented when keyboard control is back to the controlling computer.
+#: addon\globalPlugins\remoteClient\__init__.py:826
 msgid "Controlling local machine."
 msgstr "Yerel makine kullanılıyor."
 
 #. Translators: gesture description for the toggle remote mute script
+#: addon\globalPlugins\remoteClient\__init__.py:832
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Uzaktaki bilgisayardan gelen konuşmayı susturur ya da açar"
 
 #. Translators: send Ctrl+Alt+Delete gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:840
 msgid "Sends Ctrl+Alt+Delete to the remote machine"
 msgstr "Ctrl+Alt+Delete tuşlarını uzaktaki makineye gönderir"
 
 #. Translators: open addon settings gesture description
+#: addon\globalPlugins\remoteClient\__init__.py:848
 msgid "Opens the addon settings panel inside NVDA settings dialog"
 msgstr "NVDA ayarları iletişim kutusunda eklenti ayarları panelini açar"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
+#: addon\globalPlugins\remoteClient\dialogs.py:38
+#: addon\globalPlugins\remoteClient\dialogs.py:254
 msgid "&Host:"
 msgstr "&Ana bilgisayar:"
 
 #. Translators: Label of the edit field to enter key (password) to secure the remote connection.
+#: addon\globalPlugins\remoteClient\dialogs.py:42
+#: addon\globalPlugins\remoteClient\dialogs.py:111
+#: addon\globalPlugins\remoteClient\dialogs.py:266
 msgid "&Key:"
 msgstr "&Anahtar:"
 
 #. Translators: The button used to generate a random key/password.
+#: addon\globalPlugins\remoteClient\dialogs.py:46
+#: addon\globalPlugins\remoteClient\dialogs.py:114
 msgid "&Generate Key"
 msgstr "&Anahtar Oluştur"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:53
 msgid "Host must be set."
 msgstr "Ana bilgisayar ayarlanmalıdır."
 
 #. Translators: Used in server mode to obtain the external IP address for the server (controlled computer) for direct connection.
+#: addon\globalPlugins\remoteClient\dialogs.py:97
 msgid "Get External &IP"
 msgstr "Harici &IP'yi al"
 
 #. Translators: Label of the field displaying the external IP address if using direct (client to server) connection.
+#: addon\globalPlugins\remoteClient\dialogs.py:101
 msgid "&External IP:"
 msgstr "&Harici IP:"
 
 #. Translators: The label of an edit field in connect dialog to enter the port the server will listen on.
+#: addon\globalPlugins\remoteClient\dialogs.py:105
+#: addon\globalPlugins\remoteClient\dialogs.py:258
 msgid "&Port:"
 msgstr "&Port:"
 
 #. Translators: label of a checkbox which allows forwarding a port using UPNP
+#: addon\globalPlugins\remoteClient\dialogs.py:109
+#: addon\globalPlugins\remoteClient\dialogs.py:263
 msgid "Use &UPNP to forward this port if possible"
 msgstr "Mümkünse bu bağlantı noktasını iletmek için &UPNP kullan"
 
 #. Translators: message asking the user wether perform portcheck with UPNP or not
+#: addon\globalPlugins\remoteClient\dialogs.py:132
 msgid ""
 "Would you like to use UPNP to forward the chosen port before detecting your "
 "IP address?"
@@ -361,20 +466,25 @@ msgstr ""
 "UPNP'yi kullanmak ister misiniz?"
 
 #. Translators: title of the message asking the user to try portcheck with UPNP
+#: addon\globalPlugins\remoteClient\dialogs.py:134
 msgid "Do you want to use UPNP?"
 msgstr "UPNP'yi kullanmak ister misiniz?"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:178
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
 msgstr "IP adresi başarıyla alındı. Port {port} açık."
 
+#: addon\globalPlugins\remoteClient\dialogs.py:178
 msgid "Success"
 msgstr "Başarılı"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:180
 #, python-brace-format
 msgid "Retrieved external IP, but port {port} is not currently forwarded."
 msgstr "Harici IP alındı, ancak port {port} şu anda yönlendirilmemiş."
 
+#: addon\globalPlugins\remoteClient\dialogs.py:187
 msgid ""
 "Unable to contact portcheck server or UPNP device, please manually retrieve "
 "your IP address and forward ports if required. See the NVDA log for more "
@@ -384,61 +494,81 @@ msgstr ""
 "adresinizi manuel olarak alın ve gerekirse portları yönlendirin. Daha fazla "
 "ayrıntı için NVDA günlüğüne bakın."
 
+#: addon\globalPlugins\remoteClient\dialogs.py:194
 msgid "Client"
 msgstr "İstemci"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:194
 msgid "Server"
 msgstr "Sunucu"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:198
+#: addon\globalPlugins\remoteClient\dialogs.py:249
 msgid "Control another machine"
 msgstr "Başka bir bilgisayarı yönet"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:198
+#: addon\globalPlugins\remoteClient\dialogs.py:249
 msgid "Allow this machine to be controlled"
 msgstr "Bu bilgisayarın yönetilmesine izin ver"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:225
+#: addon\globalPlugins\remoteClient\dialogs.py:350
 msgid "Both host and key must be set."
 msgstr "Host ve anahtar ayarlanmalı."
 
+#: addon\globalPlugins\remoteClient\dialogs.py:228
+#: addon\globalPlugins\remoteClient\dialogs.py:353
 msgid "Both port and key must be set."
 msgstr "Hem port hem anahtar ayarlanmalı."
 
 #. Translators: A checkbox in add-on options dialog to set whether remote server is started when NVDA starts.
+#: addon\globalPlugins\remoteClient\dialogs.py:240
 msgid "Auto-connect to control server on startup"
 msgstr "Başlangıçta kontrol sunucusuna Otomatik bağlan"
 
 #. Translators: Whether or not to use a relay server when autoconnecting
+#: addon\globalPlugins\remoteClient\dialogs.py:244
 msgid "Use Remote Control Server"
 msgstr "Uzak kontrol sunucusunu kullan"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:244
 msgid "Host Control Server"
 msgstr "Ana Kontrol Sunucusu"
 
 #. Translators: A checkbox in add-on options dialog to set whether sounds play instead of beeps.
+#: addon\globalPlugins\remoteClient\dialogs.py:271
 msgid "Play sounds instead of beeps"
 msgstr "Bip yerine ses çal"
 
 #. Translators: A checkbox in add-on options dialog to set whether to display an alert before the controlled computer disconnects.
+#: addon\globalPlugins\remoteClient\dialogs.py:274
 msgid "Display an alert before the controlled computer disconnects"
 msgstr ""
 "Kontrol edilen bilgisayarın bağlantısı kesilmeden önce bir uyarı görüntüle"
 
 #. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
+#: addon\globalPlugins\remoteClient\dialogs.py:277
 #| msgid "Controlling local machine."
 msgid "Mute remote speech when controlling local machine"
 msgstr "Yerel makineyi kontrol ederken uzaktaki konuşmayı sessize al"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
+#: addon\globalPlugins\remoteClient\dialogs.py:280
 msgid "Process speech commands when controlling another computer"
 msgstr "Başka bir bilgisayarı kontrol ederken konuşma komutlarını işle"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
+#: addon\globalPlugins\remoteClient\dialogs.py:283
 msgid "Portcheck &service URL: "
 msgstr "Portcheck hizmet Adre&si: "
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
+#: addon\globalPlugins\remoteClient\dialogs.py:287
 msgid "Delete all trusted fingerprints"
 msgstr "Tüm güvenilir parmak izlerini sil"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:330
 msgid ""
 "When connecting to an unauthorized server, you will again be prompted to "
 "accepts its certificate."
@@ -446,11 +576,13 @@ msgstr ""
 "Yetkisiz bir sunucuya bağlanırken, sertifikasını yeniden kabul etmeniz "
 "istenecektir."
 
+#: addon\globalPlugins\remoteClient\dialogs.py:330
 msgid "Are you sure you want to delete all stored trusted fingerprints?"
 msgstr ""
 "Kayıtlı tüm güvenilir parmak izlerini silmek istediğinizden emin misiniz?"
 
 #. Translators: error message for invalid format on Portcheck service URL
+#: addon\globalPlugins\remoteClient\dialogs.py:346
 #, python-brace-format
 msgid ""
 "Invalid format for portcheck service URL. You must include {port} somewhere."
@@ -458,10 +590,12 @@ msgstr ""
 "Portcheck hizmet Adresi için geçersiz biçim. Bir yere {port} eklemelisiniz."
 
 #. Translators: A title bar of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
+#: addon\globalPlugins\remoteClient\dialogs.py:380
 msgid "TeleNVDA Connection Security Warning"
 msgstr "TeleNVDA Bağlantı Güvenliği Uyarısı"
 
 #. Translators: A message of a window presented when an attempt has been made to connect with a server with unauthorized certificate.
+#: addon\globalPlugins\remoteClient\dialogs.py:382
 #, python-brace-format
 msgid ""
 "Warning! The certificate of this server could not be verified.\n"
@@ -486,25 +620,31 @@ msgstr ""
 "\n"
 "Bağlantı kurmaya devam etmek istiyor musunuz?"
 
+#: addon\globalPlugins\remoteClient\dialogs.py:384
 msgid "Connect and do not ask again for this server"
 msgstr "Bağlan ve bu sunucu için bir daha sorma"
 
+#: addon\globalPlugins\remoteClient\local_machine.py:133
 msgid "Clipboard updated"
 msgstr "Pano güncellendi"
 
 #. Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
+#: addon\globalPlugins\remoteClient\local_machine.py:146
 msgid "No permission on device to trigger CTRL+ALT+DEL from remote"
 msgstr "Cihazda uzak bilgisayar için  CTRL+ALT+DEL'e basma  izni yok"
 
 #. Translators: message displayed in transfer file dialog when receiving a file
+#: addon\globalPlugins\remoteClient\local_machine.py:154
 msgid "Choose where to save the received file"
 msgstr "Alınan dosyanın nereye kaydedileceğini seçin"
 
 #. Translators: message spoken when the file has been received successfully
+#: addon\globalPlugins\remoteClient\local_machine.py:167
 msgid "File received"
 msgstr "Dosya alındı"
 
 #. translators: Message for version mismatch
+#: addon\globalPlugins\remoteClient\session.py:50
 msgid ""
 "The version of the relay server which you have connected to is not "
 "compatible with this version of the Remote Client.\n"
@@ -514,27 +654,33 @@ msgstr ""
 "değil.\n"
 "Lütfen başka bir sunucu kullanın ya da eklentiyi günncelleyin."
 
+#: addon\globalPlugins\remoteClient\session.py:57
 msgid "Message of the Day"
 msgstr "Günün mesajı"
 
+#: addon\globalPlugins\remoteClient\session.py:256
 msgid "Remote NVDA not connected."
 msgstr "Uzak NVDA bağlanmadı."
 
+#: addon\globalPlugins\remoteClient\url_handler.py:53
 msgid "Invalid URL"
 msgstr "Geçersiz URL"
 
 #. Translators: Message shown when an invalid URL has been provided.
+#: addon\globalPlugins\remoteClient\url_handler.py:55
 #, python-format
 msgid "Unable to parse url \"%s\""
 msgstr "Url  \\\"%s\\\" ayrıştırılamadı"
 
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
+#: buildVars.py:17
 msgid "Tele NVDA remote assistance"
 msgstr "Tele NVDA uzaktan Destek"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
+#: buildVars.py:20
 msgid ""
 "Allows remote control of and remote access to another machine. This add-on "
 "is based on NVDA Remote."
