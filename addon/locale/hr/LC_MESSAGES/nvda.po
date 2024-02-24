@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: nvdaremote 1.0\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-09-09 09:53+0200\n"
+"PO-Revision-Date: 2024-02-17 08:23+0100\n"
 "Last-Translator: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language-Team: zvonimir stanecic <zvonimirek222@yandex.com>\n"
 "Language: hr\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: rechner/nvda-git/nvdaremote\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: .\n"
@@ -182,9 +182,8 @@ msgid "Unable to push clipboard"
 msgstr "Nemoguće poslati međuspremnik"
 
 #. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
-#, fuzzy
 msgid "Ctrl+Alt+Delete has been sent to the remote machine"
-msgstr "Šalje navedenu datoteku na udaljeno računalo"
+msgstr "Prečac Ctrl+Alt+Delete je poslan udaljenom računalu"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -308,13 +307,12 @@ msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Utišava ili odtišava zvuk udaljenog računala"
 
 #. Translators: send Ctrl+Alt+Delete gesture description
-#, fuzzy
 msgid "Sends Ctrl+Alt+Delete to the remote machine"
-msgstr "Šalje navedenu datoteku na udaljeno računalo"
+msgstr "Šalje prečac Ctrl+Alt+Delete udaljenom računalu"
 
 #. Translators: open addon settings gesture description
 msgid "Opens the addon settings panel inside NVDA settings dialog"
-msgstr ""
+msgstr "Otvara kategoriju postavki unutar dijaloškog okvira NVDA postavki"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -418,9 +416,8 @@ msgid "Display an alert before the controlled computer disconnects"
 msgstr "Prikaži upozorenje prije prekida veze upravljanog računala"
 
 #. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
-#, fuzzy
 msgid "Mute remote speech when controlling local machine"
-msgstr "Kontroliranje lokalnog računala."
+msgstr "Utišaj udaljeni govor prilikom kontrole lokalnog računala"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
