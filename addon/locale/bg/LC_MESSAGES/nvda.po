@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: TeleNVDA 2023.3.28\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-31 20:20+0000\n"
-"PO-Revision-Date: 2024-02-10 08:49+0200\n"
-"Last-Translator: Kostadin Kolev <k_kolev1985@mail.bg>\n"
+"PO-Revision-Date: 2024-05-03 17:19+0300\n"
+"Last-Translator: Kostadin Kolev <k.kolev1985@gmail.com>\n"
 "Language-Team: \n"
 "Language: bg\n"
 "MIME-Version: 1.0\n"
@@ -536,7 +536,7 @@ msgstr "URL адресът \"%s\" не може да бъде анализира
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "Tele NVDA remote assistance"
-msgstr "Дистанционна помощ чрез Tele NVDA"
+msgstr "Дистанционна помощ чрез Tele NVDA (Tele NVDA remote assistance)"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager

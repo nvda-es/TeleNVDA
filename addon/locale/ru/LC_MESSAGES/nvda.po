@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-10-16 15:57+0800\n"
+"PO-Revision-Date: 2024-05-03 15:45+0500\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 1.6.11\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -184,9 +184,8 @@ msgid "Unable to push clipboard"
 msgstr "Не удалось передать буфер обмена"
 
 #. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
-#, fuzzy
 msgid "Ctrl+Alt+Delete has been sent to the remote machine"
-msgstr "Отправить указанный файл на удалённый компьютер"
+msgstr "Ctrl+Alt+Delete отправлена на  удалённый компьютер"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -224,7 +223,7 @@ msgstr ""
 
 #. Translators: The title of the warning dialog displayed when handle keys from other applications is disabled.
 msgid "Warning"
-msgstr "Внимание!"
+msgstr "Внимание"
 
 #. Translators: Presented in direct (client to server) remote connection when the controlled computer is ready.
 msgid "Connected to control server"
@@ -291,7 +290,7 @@ msgstr ""
 "Игнорировать следующее нажатие клавиш на управляющем компьютере, передав его "
 "на управляемый компьютер. Полезно при необходимости нажать на управляемом "
 "компьютере сочетание клавиш, используемое для переключения управления между "
-"локальным и удалённым компьютером"
+"локальным и удалённым компьютером."
 
 #. Translators: Report when the next gesture will be send to the guest ignoring everything else.
 msgid "Send next gesture to the guest"
@@ -303,24 +302,23 @@ msgstr "Переключить управление между локальны�
 
 #. Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
 msgid "Controlling remote machine."
-msgstr "Управление удалённым компьютером"
+msgstr "Управление удалённым компьютером."
 
 #. Translators: Presented when keyboard control is back to the controlling computer.
 msgid "Controlling local machine."
-msgstr "Управление локальным компьютером"
+msgstr "Управление локальным компьютером."
 
 #. Translators: gesture description for the toggle remote mute script
 msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Отключить или включить речь идущую от удалённого компьютера"
 
 #. Translators: send Ctrl+Alt+Delete gesture description
-#, fuzzy
 msgid "Sends Ctrl+Alt+Delete to the remote machine"
-msgstr "Отправить указанный файл на удалённый компьютер"
+msgstr "Отправляет Ctrl+Alt+Delete на удалённый компьютер"
 
 #. Translators: open addon settings gesture description
 msgid "Opens the addon settings panel inside NVDA settings dialog"
-msgstr ""
+msgstr "Открывает настройки дополнения в диалоге настройки NVDA"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -363,7 +361,7 @@ msgstr ""
 
 #. Translators: title of the message asking the user to try portcheck with UPNP
 msgid "Do you want to use UPNP?"
-msgstr "Использование UPnP"
+msgstr "Вы хотите использовать UPNP?"
 
 #, python-brace-format
 msgid "Successfully retrieved IP address. Port {port} is open."
@@ -423,9 +421,8 @@ msgid "Display an alert before the controlled computer disconnects"
 msgstr "Показывать предупреждение перед отключением управляемого компьютера"
 
 #. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
-#, fuzzy
 msgid "Mute remote speech when controlling local machine"
-msgstr "Управление локальным компьютером"
+msgstr "Отключать удалённую речь при управлении локальным компьютером"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
@@ -433,7 +430,7 @@ msgstr "Обрабатывать речевые команды при управ
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
-msgstr "URL-адрес &службы проверки порта:"
+msgstr "URL-адрес &службы проверки порта: "
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"

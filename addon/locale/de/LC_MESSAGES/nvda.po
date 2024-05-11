@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: nvdaremote 2.1\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2023-09-09 00:05+0200\n"
+"PO-Revision-Date: 2024-04-29 02:10+0200\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: David Parduhn <xkill85@gmx.net>\n"
 "Language: de\n"
@@ -11,7 +11,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4.2\n"
 "X-Poedit-Basepath: ../../../globalPlugins/remoteClient\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-SearchPath-0: __init__.py\n"
@@ -207,9 +207,9 @@ msgid "Unable to push clipboard"
 msgstr "Fehler beim Übertragen des Inhalts der Zwischenablage"
 
 #. Translators: message spoken when the Ctrl+Alt+Delete has been sent to the remote machine successfully
-#, fuzzy
 msgid "Ctrl+Alt+Delete has been sent to the remote machine"
-msgstr "Sendet die angegebene Datei an den Remote-Computer"
+msgstr ""
+"Die Tastenkombination Strg+Alt+Entf wurde an den Remote-Computer gesendet"
 
 #. Translators: Presented when disconnected from the remote computer.
 msgid "Disconnected!"
@@ -339,13 +339,12 @@ msgid "Mute or unmute the speech coming from the remote computer"
 msgstr "Schaltet die Sprachausgabe auf dem Remote-Computer ein oder aus"
 
 #. Translators: send Ctrl+Alt+Delete gesture description
-#, fuzzy
 msgid "Sends Ctrl+Alt+Delete to the remote machine"
-msgstr "Sendet die angegebene Datei an den Remote-Computer"
+msgstr "Sendet die Tastenkombination Strg+Alt+Entf an den Remote-Computer"
 
 #. Translators: open addon settings gesture description
 msgid "Opens the addon settings panel inside NVDA settings dialog"
-msgstr ""
+msgstr "Öffnet die Einstellungen in NVDA"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -452,9 +451,10 @@ msgstr ""
 "wird"
 
 #. Translators: A checkbox in add-on options dialog to set whether to mute remote speech when controlling the local machine.
-#, fuzzy
 msgid "Mute remote speech when controlling local machine"
-msgstr "Steuerung des lokalen Computers."
+msgstr ""
+"Sprachausgabe während der Remote-Verbindung auf dem eigenen Computer "
+"stummschalten"
 
 #. Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 msgid "Process speech commands when controlling another computer"
