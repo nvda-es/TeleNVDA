@@ -1,7 +1,7 @@
 # TeleNVDA #
 
-* Authors: Asociación Comunidad Hispanohablante de NVDA and other
-  contributors. Original work by Tyler Spivey and Christopher Toth
+* Автори: Asociación Comunidad Hispanohablante de NVDA и други
+  сътрудници. Първоначална разработка от Tyler Spivey и Christopher Toth
 * Съвместимост с NVDA: от 2019.3 и по-нови версии
 * Изтегляне на [стабилна версия][1]
 
