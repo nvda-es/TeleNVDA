@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: 'remote' '2.5'\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2024-04-05 07:23+0200\n"
+"PO-Revision-Date: 2024-06-06 22:33+0200\n"
 "Last-Translator: NetB di Leonardo Marenda <posta@netb.pro>\n"
 "Language-Team: \n"
 "Language: it_IT\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.1\n"
+"X-Generator: Poedit 3.4.4\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
 msgid ""
@@ -302,7 +302,7 @@ msgstr "Invia il gesto successivo all'ospite"
 
 #. Translators: Documentation string for the script that toggles the control between guest and host machine.
 msgid "Toggles the control between guest and host machine"
-msgstr "Alterna il controllo tra la macchina ospite e la macchina host\"."
+msgstr "Alterna il controllo tra la macchina ospite e la macchina host\""
 
 #. Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
 msgid "Controlling remote machine."
@@ -339,7 +339,7 @@ msgid "&Generate Key"
 msgstr "&Genera chiave d'accesso"
 
 msgid "Host must be set."
-msgstr "L'host deve essere impostato"
+msgstr "L'host deve essere impostato."
 
 #. Translators: Used in server mode to obtain the external IP address for the server (controlled computer) for direct connection.
 msgid "Get External &IP"
@@ -440,7 +440,7 @@ msgstr "Elabora i comandi vocali quando controlli un altro computer"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
-msgstr "URL del &servizio controllo porte:"
+msgstr "URL del &servizio controllo porte: "
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
@@ -539,7 +539,7 @@ msgstr "Impossibile verificare  URL \"%s\""
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
 msgid "Tele NVDA remote assistance"
-msgstr "Tele NVDA assistenza Remota"
+msgstr "Tele NVDA remote assistance"
 
 #. Add-on description
 #. Translators: Long description to be shown for this add-on on add-on information from add-ons manager
