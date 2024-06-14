@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2024-05-03 15:45+0500\n"
+"PO-Revision-Date: 2024-06-08 13:03+0300\n"
 "Last-Translator: Kvark <kvark128@yandex.ru>\n"
 "Language-Team: \n"
 "Language: ru_RU\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-Basepath: ../../../..\n"
 "X-Poedit-SearchPath-0: .\n"
 
@@ -288,9 +288,8 @@ msgid ""
 "between guest and host, in the guest machine."
 msgstr ""
 "Игнорировать следующее нажатие клавиш на управляющем компьютере, передав его "
-"на управляемый компьютер. Полезно при необходимости нажать на управляемом "
-"компьютере сочетание клавиш, используемое для переключения управления между "
-"локальным и удалённым компьютером."
+"на управляемый компьютер. Полезно при необходимости переключить управление "
+"на управляемом компьютере."
 
 #. Translators: Report when the next gesture will be send to the guest ignoring everything else.
 msgid "Send next gesture to the guest"
@@ -310,15 +309,15 @@ msgstr "Управление локальным компьютером."
 
 #. Translators: gesture description for the toggle remote mute script
 msgid "Mute or unmute the speech coming from the remote computer"
-msgstr "Отключить или включить речь идущую от удалённого компьютера"
+msgstr "Переключить речь, идущую от удалённого компьютера"
 
 #. Translators: send Ctrl+Alt+Delete gesture description
 msgid "Sends Ctrl+Alt+Delete to the remote machine"
-msgstr "Отправляет Ctrl+Alt+Delete на удалённый компьютер"
+msgstr "Отправить Ctrl+Alt+Delete на удалённый компьютер"
 
 #. Translators: open addon settings gesture description
 msgid "Opens the addon settings panel inside NVDA settings dialog"
-msgstr "Открывает настройки дополнения в диалоге настройки NVDA"
+msgstr "Открыть настройки дополнения в диалоге настройки NVDA"
 
 #. Translators: The label of an edit field in connect dialog to enter name or address of the remote computer.
 msgid "&Host:"
@@ -510,9 +509,9 @@ msgid ""
 "compatible with this version of the Remote Client.\n"
 "Please either use a different server or upgrade your version of the addon."
 msgstr ""
-"Версия управляющего сервера к которому вы подключены, не совместима с "
+"Версия управляющего сервера, к которому вы подключены, не совместима с "
 "версией вашего клиента удалённого доступа.\n"
-"Пожалуйста используйте другой управляющий сервер или обновите ваше "
+"Пожалуйста, используйте другой управляющий сервер или обновите ваше "
 "дополнение NVDA Remote."
 
 msgid "Message of the Day"
