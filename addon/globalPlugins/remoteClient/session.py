@@ -53,7 +53,8 @@ Please either use a different server or upgrade your version of the addon.""")
 		self.transport.close()
 
 	def handle_motd(self, motd: str, force_display=False, **kwargs):
-		if force_display or self.should_display_motd(motd):
+		displayOnce = configuration.get_config()['ui']['display_motd_once']
+		if (force_display and not displayOnce) or self.should_display_motd(motd):
 			gui.messageBox(parent=gui.mainFrame, caption=_("Message of the Day"), message=motd)
 
 	def should_display_motd(self, motd: str):
