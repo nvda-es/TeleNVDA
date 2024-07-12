@@ -433,6 +433,10 @@ msgstr ""
 msgid "Process speech commands when controlling another computer"
 msgstr "Обработвай речеви команди при управление на друг компютър"
 
+#. Translators: A checkbox in add-on options dialog to set whether server welcome messages are displayed only once
+msgid "Show server welcome messages only once"
+msgstr ""
+
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
 msgstr "URL адрес на &услугата Portcheck: "

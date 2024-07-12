@@ -432,6 +432,10 @@ msgstr "A controlar o computador local."
 msgid "Process speech commands when controlling another computer"
 msgstr "Processar comandos de voz quando se controla outro computador"
 
+#. Translators: A checkbox in add-on options dialog to set whether server welcome messages are displayed only once
+msgid "Show server welcome messages only once"
+msgstr ""
+
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
 msgstr ""

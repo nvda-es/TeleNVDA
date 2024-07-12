@@ -441,6 +441,10 @@ msgstr ""
 "Traiter les commandes de la synthèse vocale lors du contrôle d'un autre "
 "ordinateur"
 
+#. Translators: A checkbox in add-on options dialog to set whether server welcome messages are displayed only once
+msgid "Show server welcome messages only once"
+msgstr ""
+
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
 msgstr "URL du &service portcheck :"

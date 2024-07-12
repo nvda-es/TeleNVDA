@@ -462,6 +462,10 @@ msgstr ""
 "Befehlsverarbeitung der Sprachausgabe bei der Steuerung eines anderen "
 "Computers"
 
+#. Translators: A checkbox in add-on options dialog to set whether server welcome messages are displayed only once
+msgid "Show server welcome messages only once"
+msgstr ""
+
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
 msgstr "&Service-URL für Port-Check: "
