@@ -279,6 +279,9 @@ class OptionsDialog(SettingsPanel):
 		# Translators: A checkbox in add-on options dialog to set whether allow or block speech commands
 		self.speech_commands = wx.CheckBox(self, wx.ID_ANY, label=_("Process speech commands when controlling another computer"))
 		sizer.Add(self.speech_commands)
+		# Translators: A checkbox in add-on options dialog to set whether server welcome messages are displayed only once
+		self.motd_once = wx.CheckBox(self, wx.ID_ANY, label=_("Show server welcome messages only once"))
+		sizer.Add(self.motd_once)
 		# Translators: a text field in add-on options dialog to set the portcheck service URL
 		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("Portcheck &service URL: ")))
 		self.portcheck = wx.TextCtrl(self, wx.ID_ANY)
