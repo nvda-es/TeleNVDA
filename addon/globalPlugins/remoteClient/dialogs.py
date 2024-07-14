@@ -324,6 +324,7 @@ class OptionsDialog(SettingsPanel):
 		self.alert_before_slave_disconnect.SetValue(config['ui']['alert_before_slave_disconnect'])
 		self.mute_when_controlling_local_machine.SetValue(config['ui']['mute_when_controlling_local_machine'])
 		self.speech_commands.SetValue(config['ui']['allow_speech_commands'])
+		self.motd_once.SetValue(config['ui']['display_motd_once'])
 		self.portcheck.SetValue(config['ui']['portcheck'])
 		self.originalProfileName = NVDAConfig.conf.profiles[-1].name
 		NVDAConfig.conf.profiles[-1].name = None
@@ -373,6 +374,7 @@ class OptionsDialog(SettingsPanel):
 		config['ui']['alert_before_slave_disconnect'] = self.alert_before_slave_disconnect.GetValue()
 		config['ui']['mute_when_controlling_local_machine'] = self.mute_when_controlling_local_machine.GetValue()
 		config['ui']['allow_speech_commands'] = self.speech_commands.GetValue()
+		config['ui']['display_motd_once'] = self.motd_once.GetValue()
 		config['ui']['portcheck'] = self.portcheck.GetValue()
 		config.write()
 
