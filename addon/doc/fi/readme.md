@@ -23,6 +23,9 @@ kanssa. Erot ovat tällä hetkellä seuraavat:
 
 * Asetus mahdollistaa sellaisten etäpuhekomentojen estämisen, jotka eroavat
   tekstistä.
+* Asetus mahdollistaa palvelimen tervetuloviestin (tunnetaan myös päivän
+  viestinä) näyttämisen vain ensimmäisellä yhdistämiskerralla tai aina, kun
+  viesti muuttuu, ohittaen palvelimen asetukset.
 * Asetus, joka mykistää etäpuheen paikallista konetta hallittaessa ja
   poistaa sen mykistyksen etäkonetta hallittaessa.
 * Paranneltu tuki välityspalvelimille ja TOR-piilopalveluille
@@ -275,8 +278,8 @@ Näppäinkomennot-valintaikkunasta. Huom: Tämä asetus ei poista käytöstä
 hallitsevan koneen pistenäytölle tuotettavaa etäpistekirjoituspalautetta,
 kun hallitsevan koneen näppäinpainallusten lähettäminen on käytössä.
 
-Voit mykistää etäpuheen pysyvästi käyttäessäsi paikallista konetta ottamalla
-kyseisen asetuksen käyttöön NVDA:n asetusvalintaikkunan
+Voit mykistää etäpuheen pysyvästi työskennellessäsi paikallisella koneella
+ottamalla käyttöön tämän asetuksen NVDA:n asetusvalintaikkunan
 TeleNVDA-kategoriasta.
 
 ## Etäistunnon lopettaminen

@@ -23,6 +23,9 @@
 
 * Опция позволява блокиране на дистанционни речеви команди, различни от
   текст.
+* An option allows displaying server welcome message (also known as message
+  of the day) only on first connection or whenever the message changes,
+  ignoring the server preferences.
 * Опция за заглушаване на речта от отдалечената машина при управление на
   локалната машина и повторното й включване при управление на отдалечената
   машина.
@@ -277,9 +280,9 @@ NVDA звуци, просто влезте в менюто на NVDA, Инстр
 опция няма да деактивира отдалечения брайлов изход към управляващия дисплей,
 когато управляващата машина изпраща команди.
 
-Можете да заглушите за постоянно речта от отдалечената машина, докато
-работите на вашата локална машина, като активирате тази настройка от
-категорията "TeleNVDA" в диалоговия прозорец за настройки на NVDA.
+You can mute permanently the remote speech while you work on your local
+machine by enabling that setting from the TeleNVDA category on the NVDA
+settings dialog.
 
 ## Прекратяване на отдалечена сесия
 

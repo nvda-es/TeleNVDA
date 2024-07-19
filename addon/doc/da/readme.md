@@ -23,6 +23,9 @@ Remote). Dette er de nuværende forskelle:
 
 * En indstilling gør det muligt at blokere eksterne talekommandoer, der er
   forskellige fra tekst.
+* An option allows displaying server welcome message (also known as message
+  of the day) only on first connection or whenever the message changes,
+  ignoring the server preferences.
 * An option to mute remote speech when controlling the local machine and
   unmute it when controlling the remote machine.
 * Forbedret understøttelse af proxyservere og skjulte TOR-tjenester
@@ -271,7 +274,7 @@ remote braille output to the controlling display when the controlling
 machine is sending keys.
 
 You can mute permanently the remote speech while you work on your local
-machine by enable that setting from the TeleNVDA category on the NVDA
+machine by enabling that setting from the TeleNVDA category on the NVDA
 settings dialog.
 
 ## Afslutning af en fjernsession

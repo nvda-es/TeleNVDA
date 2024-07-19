@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2024-02-10 10:38+0100\n"
+"PO-Revision-Date: 2024-07-12 22:25+0200\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: Jose Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-SourceCharset: iso-8859-1\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -435,7 +435,7 @@ msgstr "Procesar comandos del habla al controlar otro equipo"
 
 #. Translators: A checkbox in add-on options dialog to set whether server welcome messages are displayed only once
 msgid "Show server welcome messages only once"
-msgstr ""
+msgstr "Mostrar mensajes de bienvenida del servidor sólo una vez"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "

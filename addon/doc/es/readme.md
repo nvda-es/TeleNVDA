@@ -21,6 +21,9 @@ cargo de la comunidad hispanohablante de NVDA. Es totalmente compatible con
 NVDA Remote. Estas son las diferencias actuales:
 
 * Una opción permite bloquear los comandos remotos de voz que no sean texto.
+* Una opción permite mostrar el mensaje de bienvenida del servidor (también
+  conocido como mensaje del día) sólo al conectarse por primera vez o
+  siempre que el mensaje cambia, ignorando las preferencias del servidor.
 * Una opción para silenciar el equipo remoto al controlar el equipo local y
   retirar el silencio al volver al equipo remoto.
 * Soporte mejorado para servidores proxy y servicios ocultos TOR (es

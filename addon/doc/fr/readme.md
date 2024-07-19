@@ -24,6 +24,9 @@ avec NVDA Remote. Voici les différences actuelles :
 
 * Une option vous permet de bloquer les commandes vocales distantes autres
   que le texte.
+* Une option permet d'afficher le message de bienvenue du serveur (également
+  appelé message du jour) uniquement lors de la première connexion ou à
+  chaque changement de message, en ignorant les préférences du serveur.
 * Une option pour désactiver la parole à distance lors du contrôle de la
   machine locale et la réactiver lors du contrôle de la machine distante.
 * Amélioration du support des serveurs proxy et des services cachés TOR (est

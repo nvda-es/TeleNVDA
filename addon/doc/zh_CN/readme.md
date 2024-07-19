@@ -14,6 +14,9 @@
 Remote 完全兼容。以下是与 NVDA Remote 的差异：
 
 * 选项： 在控制对方计算机时处理语音命令。
+* An option allows displaying server welcome message (also known as message
+  of the day) only on first connection or whenever the message changes,
+  ignoring the server preferences.
 * An option to mute remote speech when controlling the local machine and
   unmute it when controlling the remote machine.
 * 改进了对代理服务器和 TOR 隐藏服务的支持（需
@@ -166,7 +169,7 @@ remote braille output to the controlling display when the controlling
 machine is sending keys.
 
 You can mute permanently the remote speech while you work on your local
-machine by enable that setting from the TeleNVDA category on the NVDA
+machine by enabling that setting from the TeleNVDA category on the NVDA
 settings dialog.
 
 ## 结束远程会话

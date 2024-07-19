@@ -22,6 +22,9 @@ ile tamamen uyumludur. Var olan farklılıklar aşağıdaki gibidir:
 
 * Bir seçenek, metinden farklı uzaktan konuşma komutlarının engellenmesini
   sağlar.
+* Bir seçenek, sunucu hoş geldiniz mesajının (günün mesajı olarak da
+  bilinir) yalnızca ilk bağlantıda veya mesaj değiştiğinde sunucu
+  tercihlerini göz ardı ederek görüntülenmesine olanak tanır.
 * Yerel makineyi kontrol ederken uzaktan konuşmayı susturma ve uzak makineyi
   kontrol ederken sesini açma seçeneği.
 * Proxy sunucuları ve TOR gizli hizmetleri için geliştirilmiş destek ([Proxy

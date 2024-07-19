@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2024-02-10 17:27+0100\n"
+"PO-Revision-Date: 2024-07-12 22:49+0200\n"
 "Last-Translator: Rémy Ruiz <remyruiz@gmail.com>\n"
 "Language-Team: Corentin Bacqué-Cazenave <corentin@progaccess.net>\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 3.2.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 
 #. Translators: message asking the user wether NVDA Remote whould be disabled or not
@@ -82,7 +82,7 @@ msgid "Send &file..."
 msgstr "Envoyer &fichier..."
 
 msgid "Send a file to the other machine"
-msgstr "Envoyer un fichier à un autre ordinateur."
+msgstr "Envoyer un fichier à un autre ordinateur"
 
 #. Translators: Menu item in TeleNVDA submenu to copy a link to the current session compatible with NVDA Remote.
 msgid "NVDA &Remote protocol (recommended)"
@@ -309,11 +309,11 @@ msgstr "Basculer le contrôle entre l'invité et l'ordinateur hôte"
 
 #. Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
 msgid "Controlling remote machine."
-msgstr "Contrôle de la machine distante"
+msgstr "Contrôle de la machine distante."
 
 #. Translators: Presented when keyboard control is back to the controlling computer.
 msgid "Controlling local machine."
-msgstr "Contrôle de la machine locale"
+msgstr "Contrôle de la machine locale."
 
 #. Translators: gesture description for the toggle remote mute script
 msgid "Mute or unmute the speech coming from the remote computer"
@@ -443,11 +443,11 @@ msgstr ""
 
 #. Translators: A checkbox in add-on options dialog to set whether server welcome messages are displayed only once
 msgid "Show server welcome messages only once"
-msgstr ""
+msgstr "Afficher les messages de bienvenue du serveur une seule fois"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
-msgstr "URL du &service portcheck :"
+msgstr "URL du &service portcheck : "
 
 #. Translators: A button in add-on options dialog to delete all fingerprints of unauthorized certificates.
 msgid "Delete all trusted fingerprints"
