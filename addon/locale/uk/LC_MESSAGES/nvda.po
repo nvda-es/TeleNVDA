@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
 "POT-Creation-Date: 2023-03-28 07:20+0000\n"
-"PO-Revision-Date: 2024-05-08 06:40+0300\n"
+"PO-Revision-Date: 2024-07-28 17:38+0300\n"
 "Last-Translator: Heorhii Halas <nvda.translation.uk@gmail.com>\n"
 "Language-Team: \n"
 "Language: uk\n"
@@ -12,7 +12,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : 2);\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 3.4.4\n"
 "X-Poedit-Basepath: переклад/TeleNVDA-teleNVDA/addon\n"
 "X-Poedit-SearchPath-0: globalPlugins/remoteClient\n"
 "X-Poedit-SearchPath-1: installTasks.py\n"
@@ -430,7 +430,7 @@ msgstr "Обробляти мовні команди під час керува�
 
 #. Translators: A checkbox in add-on options dialog to set whether server welcome messages are displayed only once
 msgid "Show server welcome messages only once"
-msgstr ""
+msgstr "Показувати вітальні повідомлення сервера лише один раз"
 
 #. Translators: a text field in add-on options dialog to set the portcheck service URL
 msgid "Portcheck &service URL: "
