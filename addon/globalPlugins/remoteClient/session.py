@@ -14,12 +14,12 @@ from . import connection_info
 from . import cues
 import hashlib
 import addonHandler
-
-
-
-
-
-addonHandler.initTranslation()
+try:
+	addonHandler.initTranslation()
+except addonHandler.AddonError:
+	log.warning(
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+	)
 if not (
 	versionInfo.version_year >= 2021 or
 	(versionInfo.version_year == 2020 and versionInfo.version_major >= 2)
