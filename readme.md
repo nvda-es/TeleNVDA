@@ -8,6 +8,7 @@ Note: in order to make download easier for users who need assistance or training
 
 Welcome to the TeleNVDA addon, which will allow you to connect to another computer running the free NVDA screen reader. With this add-on, you can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training. This add-on is a modified version of the [NVDA Remote add-on](https://nvdaremote.com), and is maintained by the NVDA spanish community. It's fully compatible with NVDA Remote. These are the current differences:
 
+* A gesture (unassigned by default) reports how many computers are connected to a remote session.
 * An option allows blocking remote speech commands different from text.
 * An option allows displaying server welcome message (also known as message of the day) only on first connection or whenever the message changes, ignoring the server preferences.
 * An option to mute remote speech when controlling the local machine and unmute it when controlling the remote machine.

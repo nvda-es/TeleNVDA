@@ -335,15 +335,15 @@ class GlobalPlugin(_GlobalPlugin):
 			ui.message(_("File sent"))
 
 	@script(
-		# Translators: say number of connected computers gesture description
-		_("Speaks number of computers connected to a session"),
+		# Translators: report number of connected computers gesture description
+		_("Reports number of computers connected to a session"),
 		**speakOnDemand)
-	def script_sayConnectedClients(self, gesture):
+	def script_reportConnectedClients(self, gesture):
 		session = self.master_session or self.slave_session
 		if not session:
 			ui.message(_("Not connected."))
 			return
-		# TRANSLATORS: message spoken when get number of clients gesture is pressed
+		# TRANSLATORS: message reported when get number of clients gesture is pressed
 		ui.message(ngettext("This is the only computer connected to this session", "There are {} computers connected to this session", session.client_count).format(session.client_count))
 
 	@script(
