@@ -44,6 +44,7 @@ class RemoteSession:
 		self.transport = transport
 		self.transport.callback_manager.register_callback('msg_version_mismatch', self.handle_version_mismatch)
 		self.transport.callback_manager.register_callback('msg_motd', self.handle_motd)
+		self.client_count = 1
 
 	def handle_version_mismatch(self, **kwargs):
 		#translators: Message for version mismatch
@@ -108,6 +109,7 @@ class SlaveSession(RemoteSession):
 			self.add_patch_callbacks()
 			self.patch_callbacks_added = True
 		cues.client_connected()
+		self.client_count += 1
 		if client['connection_type'] == 'master':
 			self.masters[client['id']]['active'] = True
 
@@ -133,6 +135,7 @@ class SlaveSession(RemoteSession):
 			del self.masters[client['id']]
 		if not self.masters:
 			self.patcher.unpatch()
+		self.client_count -= 1
 
 	def set_display_size(self, sizes=None, **kwargs):
 		self.master_display_sizes = sizes if sizes else [info.get("braille_numCells", 0) for info in self.masters.values()]
@@ -277,6 +280,7 @@ class MasterSession(RemoteSession):
 			self.patch_callbacks_added = True
 		self.send_braille_info()
 		cues.client_connected()
+		self.client_count += 1
 
 	def handle_client_disconnected(self, client=None, **kwargs):
 		self.patcher.unpatch()
@@ -284,6 +288,7 @@ class MasterSession(RemoteSession):
 			self.remove_patch_callbacks()
 			self.patch_callbacks_added = False
 		cues.client_disconnected()
+		self.client_count -= 1
 
 	def send_braille_info(self, display=None, displaySize=None, **kwargs):
 		if display is None:
