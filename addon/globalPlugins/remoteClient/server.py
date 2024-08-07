@@ -50,7 +50,7 @@ class Server:
 				self.upnp.addportmapping(self.port, 'TCP', self.upnp.lanaddr, self.port, 'TeleNVDA', '', 3600)
 			except:
 				self.upnp = None
-		self.last_ping_time = time.time()
+		self.last_ping_time = time.monotonic()
 		log.info("TeleNVDA direct connection server started")
 		while self.running:
 			r, w, e = select.select(self.client_sockets+[self.server_socket, self.server_socket6], [], self.client_sockets, 60)
@@ -61,13 +61,13 @@ class Server:
 					self.accept_new_connection(sock)
 					continue
 				self.clients[sock].handle_data()
-			if time.time() - self.last_ping_time >= self.PING_TIME:
+			if time.monotonic() - self.last_ping_time >= self.PING_TIME:
 				if self.upnp:
 					self.upnp.addportmapping(self.port, 'TCP', self.upnp.lanaddr, self.port, 'TeleNVDA', '', 3600)
 				for client in self.clients.values():
 					if client.authenticated:
 						client.send(type='ping')
-				self.last_ping_time = time.time()
+				self.last_ping_time = time.monotonic()
 
 	def accept_new_connection(self, sock):
 		try:
