@@ -20,6 +20,8 @@ ou ensinarte algo. Este complemento é unha versión modificada do
 cargo da comunidade hispanofalante do NVDA. É totalmente compatible co NVDA
 Remote. Estas son as diferencias actuais:
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * Unha opción que permite bloquear as ordes remotas de voz que non sexan
   texto.
 * Unha opción que permite amosar a mensaxe de benvida do servidor (tamén

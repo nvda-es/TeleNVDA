@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: nvdaremote 2.1\n"
-"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2023-03-28 07:20+0000\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2024-08-05 17:29+0200\n"
 "PO-Revision-Date: 2024-04-29 02:10+0200\n"
 "Last-Translator: René Linke <rene.linke@hamburg.de>\n"
 "Language-Team: David Parduhn <xkill85@gmx.net>\n"
@@ -191,6 +191,16 @@ msgstr ""
 #. Translators: message spoken when the file has been sent successfully
 msgid "File sent"
 msgstr "Datei gesendet"
+
+#. Translators: report number of connected computers gesture description
+msgid "Reports number of computers connected to a session"
+msgstr ""
+
+#. TRANSLATORS: message reported when get number of clients gesture is pressed
+msgid "This is the only computer connected to this session"
+msgid_plural "There are {} computers connected to this session"
+msgstr[0] ""
+msgstr[1] ""
 
 #. Translators: send file gesture description
 msgid "Sends the specified file to the remote machine"

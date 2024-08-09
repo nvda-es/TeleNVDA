@@ -21,6 +21,8 @@ NVDA. За допомогою цього додатка ви можете під
 Remote](https://nvdaremote.com) і підтримується іспанською спільнотою
 NVDA. Він повністю сумісний із NVDA Remote. Ось поточні відмінності:
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * Параметр дозволяє блокувати віддалені мовленнєві команди, відмінні від
   тексту.
 * An option allows displaying server welcome message (also known as message

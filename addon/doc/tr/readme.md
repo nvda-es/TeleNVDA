@@ -20,6 +20,8 @@ Destek eklentisinin](https://nvdaremote.com) değiştirilmiş bir versiyonudur
 ve NVDA ispanyol topluluğu tarafından sağlanmaktadır. NVDA Uzaktan Destek
 ile tamamen uyumludur. Var olan farklılıklar aşağıdaki gibidir:
 
+* Bir hareket (varsayılan olarak atanmamış), uzak bir oturuma kaç
+  bilgisayarın bağlı olduğunu bildirir.
 * Bir seçenek, metinden farklı uzaktan konuşma komutlarının engellenmesini
   sağlar.
 * Bir seçenek, sunucu hoş geldiniz mesajının (günün mesajı olarak da

@@ -13,6 +13,8 @@
 该插件是 [NVDA 远程插件](https://nvdaremote.com) 的修改版，由 NVDA 西班牙社区维护。该插件与 NVDA
 Remote 完全兼容。以下是与 NVDA Remote 的差异：
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * 选项： 在控制对方计算机时处理语音命令。
 * An option allows displaying server welcome message (also known as message
   of the day) only on first connection or whenever the message changes,

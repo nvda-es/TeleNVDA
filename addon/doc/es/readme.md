@@ -20,6 +20,8 @@ problema, o enseñarte algo. Este complemento es una versión modificada del
 cargo de la comunidad hispanohablante de NVDA. Es totalmente compatible con
 NVDA Remote. Estas son las diferencias actuales:
 
+* Un gesto (sin asignar por defecto) indica cuántos equipos hay conectados a
+  una sesión remota.
 * Una opción permite bloquear los comandos remotos de voz que no sean texto.
 * Una opción permite mostrar el mensaje de bienvenida del servidor (también
   conocido como mensaje del día) sólo al conectarse por primera vez o

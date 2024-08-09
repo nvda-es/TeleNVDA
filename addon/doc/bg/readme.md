@@ -21,6 +21,8 @@
 испанската общност на NVDA. Тя е напълно съвместима с NVDA Remote. Това са
 текущите разлики:
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * Опция позволява блокиране на дистанционни речеви команди, различни от
   текст.
 * An option allows displaying server welcome message (also known as message

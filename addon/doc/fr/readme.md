@@ -22,6 +22,8 @@ dispenser une formation. Cette extension est une version modifiée de
 charge de la communauté espagnole de NVDA. Il est entièrement compatible
 avec NVDA Remote. Voici les différences actuelles :
 
+* Un geste (non attribué par défaut) indique le nombre d'ordinateurs
+  connectés à une session distante.
 * Une option vous permet de bloquer les commandes vocales distantes autres
   que le texte.
 * Une option permet d'afficher le message de bienvenue du serveur (également

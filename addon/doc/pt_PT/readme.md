@@ -20,6 +20,8 @@ add-on](https://nvdaremote.com), e é mantido pela comunidade espanhola do
 NVDA. É totalmente compatível com o NVDA Remote. Estas são as diferenças
 actuais:
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * Uma opção permite bloquear comandos de fala remotos diferentes do texto.
 * An option allows displaying server welcome message (also known as message
   of the day) only on first connection or whenever the message changes,

@@ -21,6 +21,8 @@ Remote-tilføjelsen](https://nvdaremote.com) og vedligeholdes af det spanske
 NVDA-fællesskab. Den er fuldt ud kompatibel med NVDA Fjernsupport (NVDA
 Remote). Dette er de nuværende forskelle:
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * En indstilling gør det muligt at blokere eksterne talekommandoer, der er
   forskellige fra tekst.
 * An option allows displaying server welcome message (also known as message

@@ -5,8 +5,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: teleNVDA 2023.3.6\n"
-"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2023-03-28 07:20+0000\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2024-08-05 17:29+0200\n"
 "PO-Revision-Date: 2023-03-30 13:24+0200\n"
 "Last-Translator: Sponge Jhan <school510587@yahoo.com.tw>\n"
 "Language-Team: NVDA-Taiwan Volunteers\n"
@@ -164,6 +164,15 @@ msgstr "會話將阻塞，直到傳輸完成。您確定你要繼續嗎？"
 #. Translators: message spoken when the file has been sent successfully
 msgid "File sent"
 msgstr "檔案已傳送"
+
+#. Translators: report number of connected computers gesture description
+msgid "Reports number of computers connected to a session"
+msgstr ""
+
+#. TRANSLATORS: message reported when get number of clients gesture is pressed
+msgid "This is the only computer connected to this session"
+msgid_plural "There are {} computers connected to this session"
+msgstr[0] ""
 
 #. Translators: send file gesture description
 msgid "Sends the specified file to the remote machine"

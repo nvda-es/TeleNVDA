@@ -21,6 +21,8 @@ tarjoamista varten. Tämä on muokattu versio
 NVDA:n espanjalaisyhteisö. Se on täysin yhteensopiva NVDA-etäkäyttö-lisäosan
 kanssa. Erot ovat tällä hetkellä seuraavat:
 
+* Näppäinkomento (oletusarvoisesti määrittämätön), joka ilmoittaa, kuinka
+  monta tietokonetta etäistuntoon on yhdistetty.
 * Asetus mahdollistaa sellaisten etäpuhekomentojen estämisen, jotka eroavat
   tekstistä.
 * Asetus mahdollistaa palvelimen tervetuloviestin (tunnetaan myös päivän
@@ -34,7 +36,7 @@ kanssa. Erot ovat tällä hetkellä seuraavat:
 * Mahdollisuus F11-näppäinkomennon vaihtamiseen. Se toimii nyt
   yleisskriptinä, joten näppäinkomento voidaan määrittää
   Näppäinkomennot-valintaikkunassa.
-* Näppäinkomento (ei oletusarvoisesti määritetty), joka avaa lisäosan
+* Näppäinkomento (oletusarvoisesti määrittämätön), joka avaa lisäosan
   asetukset
 * Mahdollisuus näppäinkomennon määrittämiseen "Lähetä Ctrl+Alt+Delete"
   -toiminnolle Näppäinkomennot-valintaikkunassa. Varoitus:
@@ -251,7 +253,7 @@ ulkona toisen koneen kanssa. Tämä on mahdollista pienen valmistelun jälkeen.
    valintaruudun.
 4. Valitse toisesta valintapainikeryhmästä Salli tämän tietokoneen hallinta.
 5. Mikäli isännöit yhteyttä itse, sinun on varmistettava, että
-   hallitsevista koneista saadaan yhteys hallitsevassa koneessa
+   hallitsevista koneista saadaan yhteys hallittavassa koneessa
    Portti-muokkauskenttään syötettyyn porttiin (oletusarvoisesti 6837).
 6. Jos haluat käyttää välittäjäpalvelinta, täytä sekä Isäntä- että
    Avain-muokkauskentät, siirry Sarkaimella OK-painikkeen kohdalle ja paina

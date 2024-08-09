@@ -23,6 +23,8 @@ NVDA-Erweiterung ist eine modifizierte Version der [NVDA-Remote]-Erweiterung
 gepflegt. Es ist vollständig kompatibel mit NVDA Remote. Dies sind die
 aktuellen Unterschiede:
 
+* A gesture (unassigned by default) reports how many computers are connected
+  to a remote session.
 * Eine Option ermöglicht die Blockierung von Sprachbefehlen, die sich von
   Text unterscheiden.
 * An option allows displaying server welcome message (also known as message

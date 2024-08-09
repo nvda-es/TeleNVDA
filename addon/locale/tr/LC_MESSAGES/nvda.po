@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TeleNVDA\n"
-"Report-Msgid-Bugs-To: nvda-translations@groups.io\n"
-"POT-Creation-Date: 2024-01-19 18:59+0000\n"
-"PO-Revision-Date: 2024-07-12 23:27+0300\n"
+"Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
+"POT-Creation-Date: 2024-08-05 17:29+0200\n"
+"PO-Revision-Date: 2024-08-05 19:41+0300\n"
 "Last-Translator: Umut KORKMAZ <umutkork@gmail.com>\n"
 "Language-Team: Umut KORKMAZ <umutkork@gmail.com\n"
 "Language: tr_TR\n"
@@ -170,6 +170,16 @@ msgstr ""
 #. Translators: message spoken when the file has been sent successfully
 msgid "File sent"
 msgstr "Dosya gönderildi"
+
+#. Translators: report number of connected computers gesture description
+msgid "Reports number of computers connected to a session"
+msgstr "Bir oturuma bağlı bilgisayarların sayısını duyurur"
+
+#. TRANSLATORS: message reported when get number of clients gesture is pressed
+msgid "This is the only computer connected to this session"
+msgid_plural "There are {} computers connected to this session"
+msgstr[0] "Bu oturuma bağlı tek bir bilgisayar var"
+msgstr[1] "Bu oturuma bağlı {} bilgisayar var"
 
 #. Translators: send file gesture description
 msgid "Sends the specified file to the remote machine"
