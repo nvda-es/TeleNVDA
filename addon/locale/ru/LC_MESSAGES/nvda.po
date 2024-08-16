@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-08-05 17:29+0200\n"
-"PO-Revision-Date: 2024-08-08 09:41+0500\n"
+"PO-Revision-Date: 2024-08-12 11:17+0500\n"
 "Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
 "Language-Team: Translators <nvda-translations@groups.io>\n"
 "Language: ru_RU\n"
@@ -171,7 +171,7 @@ msgstr "Файл отправлен"
 
 #. Translators: report number of connected computers gesture description
 msgid "Reports number of computers connected to a session"
-msgstr "Сообщает количество компьютеров, подключённых к сеансу"
+msgstr "Сообщить количество компьютеров, подключённых к сеансу"
 
 #. TRANSLATORS: message reported when get number of clients gesture is pressed
 msgid "This is the only computer connected to this session"
@@ -541,7 +541,7 @@ msgstr "Неверный URL-адрес"
 #. Translators: Message shown when an invalid URL has been provided.
 #, python-format
 msgid "Unable to parse url \"%s\""
-msgstr "Не удалось разобрать URL-адрес «%s»"
+msgstr "Не удалось обработать URL-адрес «%s»"
 
 #. Add-on summary, usually the user visible name of the addon.
 #. Translators: Summary for this add-on to be shown on installation and add-on information.
