@@ -1,7 +1,6 @@
 This release brings the following changes:
 
-* The method to calculate number of connected computers to a session should be more acurate on unstable Internet connections.
 * Updated translations.
-* Set last tested NVDA version to 2024.3.1
+* First attempt to make TeleNVDA compatible with Display Addons Changelog add-on created by @javidominguez. Changelogs will be provided only in english and spanish, no more translations allowed for now.
 
 SHA256: 
