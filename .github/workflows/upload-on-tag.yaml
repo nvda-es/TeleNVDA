@@ -10,9 +10,9 @@ jobs:
     runs-on: windows-latest
     steps:
     - name: Checkout code
-      uses: actions/checkout@v4
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v5
+      uses: actions/checkout@v4.2.2
+    - name: Set up Python
+      uses: actions/setup-python@v5.3.0
       with:
         python-version: "3.11"
         architecture: "x86"
@@ -25,7 +25,7 @@ jobs:
     - name: Calculate sha256
       run: sha256sum *.nvda-addon >> changelog.md
     - name: Release
-      uses: softprops/action-gh-release@v2
+      uses: softprops/action-gh-release@v2.0.9
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
@@ -34,4 +34,4 @@ jobs:
           *.json
           *.pot
         body_path: changelog.md
-        prerelease: ${{ endsWith(github.ref, '-dev') }}
+        prerelease: ${{ contains(github.ref, '-') }}
