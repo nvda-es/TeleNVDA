@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-08-05 17:29+0200\n"
-"PO-Revision-Date: 2024-09-10 16:48-0300\n"
+"PO-Revision-Date: 2024-11-11 10:58-0300\n"
 "Last-Translator: Josevan Fernandes <josevanfernandes@yahoo.com.br>\n"
 "Language-Team: NVDA Brazilian Portuguese translation team (Equipe de "
 "tradução do NVDA para Português Brasileiro) <clever97@gmail.com>\n"
@@ -213,11 +213,11 @@ msgstr "Desconectado!"
 
 #. Translators: Title of the connection error dialog.
 msgid "Error Connecting"
-msgstr "Erro ao desconectar"
+msgstr "Erro ao conectar"
 
 #. Translators: Message shown when cannot connect to the remote computer.
 msgid "Unable to connect to the remote computer"
-msgstr "Não foi possível desconectar al computador remoto"
+msgstr "Não foi possível conectar al computador remoto"
 
 #. Translators: Title of the connect dialog.
 msgid "Connect"
