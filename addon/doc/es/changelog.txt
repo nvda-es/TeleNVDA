@@ -1,3 +1,4 @@
 Esta versión viene con los siguientes cambios:
 
 * Traducciones actualizadas.
+* Ahora, la última versión probada de NVDA es la 2024.4.1.
