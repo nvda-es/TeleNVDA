@@ -1,6 +1,5 @@
 This release brings the following changes:
 
 * Updated translations.
-* Set last tested NVDA version to 2024.4.1.
 
 SHA256: 
