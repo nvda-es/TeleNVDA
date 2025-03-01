@@ -220,15 +220,42 @@ class DirectConnectDialog(wx.Dialog):
 			self.panel = ServerPanel(parent=self.container)
 		self.main_sizer.Fit(self)
 
+	def is_sequential(self, password):
+		if len(password) < 3:
+			return False
+		for i in range(len(password) - 2):
+			if ord(password[i]) == ord(password[i + 1]) - 1 == ord(password[i + 2]) - 2:
+				return True
+		return False
+
 	def on_ok(self, evt):
-		if self.client_or_server.GetSelection() == 0 and (not self.panel.host.GetValue() or not self.panel.key.GetValue()):
-			gui.messageBox(_("Both host and key must be set."), _("Error"), wx.OK | wx.ICON_ERROR)
-			self.panel.host.SetFocus()
-		elif self.client_or_server.GetSelection() == 1 and not self.panel.port.GetValue() or not self.panel.key.GetValue():
-			gui.messageBox(_("Both port and key must be set."), _("Error"), wx.OK | wx.ICON_ERROR)
-			self.panel.port.SetFocus()
-		else:
-			evt.Skip()
+		if self.client_or_server.GetSelection() == 0:
+			if not self.panel.host.GetValue() or not self.panel.key.GetValue():
+				gui.messageBox(_("Both host and key must be set."), _("Error"), wx.OK | wx.ICON_ERROR)
+				self.panel.host.SetFocus()
+				return
+			elif len(self.panel.key.GetValue()) < 6:
+				gui.messageBox(_("The key must be longer than 6 characters."), _("Error"), wx.OK | wx.ICON_ERROR)
+				self.panel.key.SetFocus()
+				return
+			elif self.is_sequential(self.panel.key.GetValue()):
+				gui.messageBox(_("The key must not be sequential."), _("Error"), wx.OK | wx.ICON_ERROR)
+				self.panel.key.SetFocus()
+				return
+		elif self.client_or_server.GetSelection() == 1:
+			if not self.panel.port.GetValue() or not self.panel.key.GetValue():
+				gui.messageBox(_("Both port and key must be set."), _("Error"), wx.OK | wx.ICON_ERROR)
+				self.panel.port.SetFocus()
+				return
+			elif len(self.panel.key.GetValue()) < 6:
+				gui.messageBox(_("The key must be longer than 6 characters."), _("Error"), wx.OK | wx.ICON_ERROR)
+				self.panel.key.SetFocus()
+				return
+			elif self.is_sequential(self.panel.key.GetValue()):
+				gui.messageBox(_("The key must not be sequential."), _("Error"), wx.OK | wx.ICON_ERROR)
+				self.panel.key.SetFocus()
+				return
+		evt.Skip()
 
 class OptionsDialog(SettingsPanel):
 

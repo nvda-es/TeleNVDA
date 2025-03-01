@@ -416,6 +416,12 @@ msgstr "Permitir que este computador seja controlado"
 msgid "Both host and key must be set."
 msgstr "O servidor e o código devem estar configurados."
 
+msgid "The key must be longer than 6 characters."
+msgstr "A chave deve ter mais de 6 caracteres."
+
+msgid "The key must not be sequential."
+msgstr "A chave não deve ser seqüencial."
+
 msgid "Both port and key must be set."
 msgstr "A porta e o código devem ser definidos."
 
