@@ -383,6 +383,16 @@ class OptionsDialog(SettingsPanel):
 			elif self.client_or_server.GetSelection() and not self.port.GetValue() or not self.key.GetValue():
 				gui.messageBox(_("Both port and key must be set."), _("Error"), wx.OK | wx.ICON_ERROR)
 				raise
+			if len(self.key.GetValue()) < 6:
+				# Translators: error message for key/password length less than 6 characters
+				gui.messageBox(_("The key must be longer than 6 characters."), _("Error"), wx.OK | wx.ICON_ERROR)
+				self.key.SetFocus()
+				raise
+			elif self.is_sequential(self.key.GetValue()):
+				# Translators: error message for key/password being sequential, example 123456
+				gui.messageBox(_("The key must not be sequential."), _("Error"), wx.OK | wx.ICON_ERROR)
+				self.key.SetFocus()
+				raise
 		NVDAConfig.conf.profiles[-1].name = self.originalProfileName
 		config = configuration.get_config()
 		cs = config['controlserver']
@@ -404,6 +414,14 @@ class OptionsDialog(SettingsPanel):
 		config['ui']['display_motd_once'] = self.motd_once.GetValue()
 		config['ui']['portcheck'] = self.portcheck.GetValue()
 		config.write()
+
+	def is_sequential(self, password):
+		if len(password) < 3:
+			return False
+		for i in range(len(password) - 2):
+			if ord(password[i]) == ord(password[i + 1]) - 1 == ord(password[i + 2]) - 2:
+				return True
+		return False
 
 class CertificateUnauthorizedDialog(wx.MessageDialog):
 
