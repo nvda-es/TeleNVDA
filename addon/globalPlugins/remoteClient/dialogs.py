@@ -220,14 +220,6 @@ class DirectConnectDialog(wx.Dialog):
 			self.panel = ServerPanel(parent=self.container)
 		self.main_sizer.Fit(self)
 
-	def is_sequential(self, password):
-		if len(password) < 3:
-			return False
-		for i in range(len(password) - 2):
-			if ord(password[i]) == ord(password[i + 1]) - 1 == ord(password[i + 2]) - 2:
-				return True
-		return False
-
 	def on_ok(self, evt):
 		if self.client_or_server.GetSelection() == 0:
 			if not self.panel.host.GetValue() or not self.panel.key.GetValue():
@@ -238,8 +230,9 @@ class DirectConnectDialog(wx.Dialog):
 				gui.messageBox(_("The key must be longer than 6 characters."), _("Error"), wx.OK | wx.ICON_ERROR)
 				self.panel.key.SetFocus()
 				return
-			elif self.is_sequential(self.panel.key.GetValue()):
-				gui.messageBox(_("The key must not be sequential."), _("Error"), wx.OK | wx.ICON_ERROR)
+			elif is_sequential(self.panel.key.GetValue()):
+				# Translators: error message for key/password being sequential, example 123456
+				gui.messageBox(_("The key must not be sequential. Please, avoid keys such as 1234, 4321 or similar."), _("Error"), wx.OK | wx.ICON_ERROR)
 				self.panel.key.SetFocus()
 				return
 		elif self.client_or_server.GetSelection() == 1:
@@ -251,8 +244,9 @@ class DirectConnectDialog(wx.Dialog):
 				gui.messageBox(_("The key must be longer than 6 characters."), _("Error"), wx.OK | wx.ICON_ERROR)
 				self.panel.key.SetFocus()
 				return
-			elif self.is_sequential(self.panel.key.GetValue()):
-				gui.messageBox(_("The key must not be sequential."), _("Error"), wx.OK | wx.ICON_ERROR)
+			elif is_sequential(self.panel.key.GetValue()):
+				# Translators: error message for key/password being sequential, example 123456
+				gui.messageBox(_("The key must not be sequential. Please, avoid keys such as 1234, 4321 or similar."), _("Error"), wx.OK | wx.ICON_ERROR)
 				self.panel.key.SetFocus()
 				return
 		evt.Skip()
@@ -388,9 +382,9 @@ class OptionsDialog(SettingsPanel):
 				gui.messageBox(_("The key must be longer than 6 characters."), _("Error"), wx.OK | wx.ICON_ERROR)
 				self.key.SetFocus()
 				raise
-			elif self.is_sequential(self.key.GetValue()):
+			elif is_sequential(self.key.GetValue()):
 				# Translators: error message for key/password being sequential, example 123456
-				gui.messageBox(_("The key must not be sequential."), _("Error"), wx.OK | wx.ICON_ERROR)
+				gui.messageBox(_("The key must not be sequential. Please, avoid keys such as 1234, 4321 or similar."), _("Error"), wx.OK | wx.ICON_ERROR)
 				self.key.SetFocus()
 				raise
 		NVDAConfig.conf.profiles[-1].name = self.originalProfileName
@@ -415,14 +409,6 @@ class OptionsDialog(SettingsPanel):
 		config['ui']['portcheck'] = self.portcheck.GetValue()
 		config.write()
 
-	def is_sequential(self, password):
-		if len(password) < 3:
-			return False
-		for i in range(len(password) - 2):
-			if ord(password[i]) == ord(password[i + 1]) - 1 == ord(password[i + 2]) - 2:
-				return True
-		return False
-
 class CertificateUnauthorizedDialog(wx.MessageDialog):
 
 	def __init__(self, parent, fingerprint=None):
@@ -432,3 +418,11 @@ class CertificateUnauthorizedDialog(wx.MessageDialog):
 		message = _("Warning! The certificate of this server could not be verified.\nThis connection may not be secure. It is possible that someone is trying to overhear your communication.\nBefore continuing please make sure that the following server certificate fingerprint is a proper one.\nIf you have any questions, please contact the server administrator.\n\nServer SHA256 fingerprint: {fingerprint}\n\nDo you want to continue connecting?").format(fingerprint=fingerprint)
 		super().__init__(parent, caption=title, message=message, style=wx.YES_NO|wx.CANCEL|wx.CANCEL_DEFAULT|wx.CENTRE)
 		self.SetYesNoLabels(_("Connect and do not ask again for this server"), _("Connect"))
+
+def is_sequential(password):
+	if len(password) < 3:
+		return False
+	for i in range(len(password) - 2):
+		if ord(password[i]) == ord(password[i + 1]) - 1 == ord(password[i + 2]) - 2:
+			return True
+	return False
