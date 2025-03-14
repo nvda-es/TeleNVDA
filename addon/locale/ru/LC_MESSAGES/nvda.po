@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
 "POT-Creation-Date: 2024-08-05 17:29+0200\n"
-"PO-Revision-Date: 2025-01-12 14:45+0500\n"
+"PO-Revision-Date: 2025-03-09 09:53+0300\n"
 "Last-Translator: Ruslan Kolodyazhni <rupelodn@gmail.com>\n"
 "Language-Team: Translators <nvda-translations@groups.io>\n"
 "Language: ru_RU\n"
@@ -410,13 +410,15 @@ msgstr "Необходимо указать адрес сервера и клю�
 
 #. Translators: error message for key/password length less than 6 characters
 msgid "The key must be longer than 6 characters."
-msgstr ""
+msgstr "Ключ должен быть длиннее 6 символов."
 
 #. Translators: error message for key/password being sequential, example 123456
 msgid ""
 "The key must not be sequential. Please, avoid keys such as 1234, 4321 or "
 "similar."
 msgstr ""
+"Ключ не должен быть последовательным. Пожалуйста, избегайте ключей, таких "
+"как 1234, 4321 или подобных."
 
 msgid "Both port and key must be set."
 msgstr "Необходимо указать порт и ключ."
