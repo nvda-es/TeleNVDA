@@ -4,7 +4,7 @@ import gui
 import speech
 import ui
 import braille
-import versionInfo
+import buildVersion
 from logHandler import log
 from . import configuration
 from . import nvda_patcher
@@ -21,8 +21,8 @@ except addonHandler.AddonError:
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
 	)
 if not (
-	versionInfo.version_year >= 2021 or
-	(versionInfo.version_year == 2020 and versionInfo.version_major >= 2)
+	buildVersion.version_year >= 2021 or
+	(buildVersion.version_year == 2020 and buildVersion.version_major >= 2)
 ):
 	# NVDA versions newer than 2020.2 have a _CancellableSpeechCommand which should be ignored by TeleNVDA
 	# For older versions, we create a dummy command that won't cause existing commands to be ignored.
@@ -92,7 +92,7 @@ class SlaveSession(RemoteSession):
 		self.transport.callback_manager.register_callback('msg_file_transfer', self.local_machine.file_transfer)
 		self.transport.callback_manager.register_callback('msg_set_braille_info', self.handle_braille_info)
 		self.transport.callback_manager.register_callback('msg_set_display_size', self.set_display_size)
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			braille.filter_displaySize.register(self.local_machine.handle_filter_displaySize)
 		self.transport.callback_manager.register_callback('msg_braille_input', self.local_machine.braille_input)
 		self.transport.callback_manager.register_callback('msg_send_SAS', self.local_machine.send_SAS)

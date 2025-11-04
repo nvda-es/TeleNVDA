@@ -17,7 +17,7 @@ try:
 	from winAPI.secureDesktop import post_secureDesktopStateChange
 except:
 	post_secureDesktopStateChange = None
-import versionInfo
+import buildVersion
 import shlobj
 import speech
 import socket
@@ -56,7 +56,7 @@ except addonHandler.AddonError:
 	log.warning(
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
 	)
-speakOnDemand = {"speakOnDemand": True} if versionInfo.version_year >= 2024 else {}
+speakOnDemand = {"speakOnDemand": True} if buildVersion.version_year >= 2024 else {}
 logging.getLogger("keyboard_hook").addHandler(logging.StreamHandler(sys.stdout))
 
 class GlobalPlugin(_GlobalPlugin):
@@ -628,7 +628,7 @@ class GlobalPlugin(_GlobalPlugin):
 	def set_receiving_braille(self, state):
 		if state and self.master_session.patch_callbacks_added and braille.handler.enabled:
 			self.master_session.patcher.patch_braille_input()
-			if versionInfo.version_year < 2023:
+			if buildVersion.version_year < 2023:
 				braille.handler.enabled = False
 				if braille.handler._cursorBlinkTimer:
 					braille.handler._cursorBlinkTimer.Stop()
@@ -642,7 +642,7 @@ class GlobalPlugin(_GlobalPlugin):
 			self.local_machine.receiving_braille=True
 		elif not state:
 			self.master_session.patcher.unpatch_braille_input()
-			if versionInfo.version_year < 2023:
+			if buildVersion.version_year < 2023:
 				braille.handler.enabled = bool(braille.handler.displaySize)
 			self.local_machine.receiving_braille=False
 

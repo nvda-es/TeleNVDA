@@ -6,7 +6,7 @@ import inputCore
 import braille
 import brailleInput
 import scriptHandler
-import versionInfo
+import buildVersion
 
 class NVDAPatcher(callback_manager.CallbackManager):
 	"""Base class to manage patching of braille display changes."""
@@ -16,7 +16,7 @@ class NVDAPatcher(callback_manager.CallbackManager):
 		self.orig_setDisplayByName = None
 
 	def patch_set_display(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			braille.displayChanged.register(self.handle_displayChanged)
 			braille.displaySizeChanged.register(self.handle_displaySizeChanged)
 			return
@@ -26,7 +26,7 @@ class NVDAPatcher(callback_manager.CallbackManager):
 		braille.handler.setDisplayByName = self.setDisplayByName
 
 	def unpatch_set_display(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			braille.displaySizeChanged.unregister(self.handle_displaySizeChanged)
 			braille.displayChanged.unregister(self.handle_displayChanged)
 			return
@@ -75,7 +75,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		speech.pauseSpeech = self.pauseSpeech
 
 	def patch_tones(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			tones.decide_beep.register(self.handle_decide_beep)
 			return
 		if self.orig_beep is not None:
@@ -84,7 +84,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		tones.beep = self.beep
 
 	def patch_nvwave(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			nvwave.decide_playWaveFile.register(self.handle_decide_playWaveFile)
 			return
 		if self.orig_playWaveFile is not None:
@@ -93,7 +93,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		nvwave.playWaveFile = self.playWaveFile
 
 	def patch_braille(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			braille.pre_writeCells.register(self.handle_pre_writeCells)
 			return
 		if self.orig_display is not None:
@@ -112,7 +112,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		self.orig_pauseSpeech = None
 
 	def unpatch_tones(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			tones.decide_beep.unregister(self.handle_decide_beep)
 			return
 		if self.orig_beep is None:
@@ -121,7 +121,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		self.orig_beep = None
 
 	def unpatch_nvwave(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			nvwave.decide_playWaveFile.unregister(self.handle_decide_playWaveFile)
 			return
 		if self.orig_playWaveFile is None:
@@ -130,7 +130,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		self.orig_playWaveFile = None
 
 	def unpatch_braille(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			braille.pre_writeCells.unregister(self.handle_pre_writeCells)
 			return
 		if self.orig_display is None:
@@ -141,7 +141,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		braille.handler.enabled = bool(braille.handler.displaySize)
 
 	def patch(self):
-		if versionInfo.version_year < 2023:
+		if buildVersion.version_year < 2023:
 			super().patch()
 		self.patch_speech()
 		self.patch_tones()
@@ -149,7 +149,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		self.patch_braille()
 
 	def unpatch(self):
-		if versionInfo.version_year < 2023:
+		if buildVersion.version_year < 2023:
 			super().unpatch()
 		self.unpatch_speech()
 		self.unpatch_tones()
@@ -205,7 +205,7 @@ class NVDAMasterPatcher(NVDAPatcher):
 		self.orig_executeGesture = None
 
 	def patch_braille_input(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			inputCore.decide_executeGesture.register(self.handle_decide_executeGesture)
 			return
 		if self.orig_executeGesture is not None:
@@ -214,7 +214,7 @@ class NVDAMasterPatcher(NVDAPatcher):
 		inputCore.manager.executeGesture= self.executeGesture
 
 	def unpatch_braille_input(self):
-		if versionInfo.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			inputCore.decide_executeGesture.unregister(self.handle_decide_executeGesture)
 			return
 		if self.orig_executeGesture is None:
