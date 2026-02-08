@@ -1,10 +1,13 @@
 import gui
 import wx
 import addonHandler
+import buildVersion
 
 addonHandler.initTranslation()
 
 def onInstall():
+	if buildVersion.version_year >= 2026:
+		return
 	for addon in addonHandler.getAvailableAddons():
 		if addon.name == "remote" and not addon.isDisabled:
 			result = gui.messageBox(
