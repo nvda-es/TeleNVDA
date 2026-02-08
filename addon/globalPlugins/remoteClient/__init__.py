@@ -367,7 +367,7 @@ class GlobalPlugin(_GlobalPlugin):
 			connector.send(type='set_clipboard_text', text=api.getClipData())
 			cues.clipboard_pushed()
 			ui.message(_("Clipboard pushed"))
-		except TypeError:
+		except (TypeError, OSError):
 			ui.message(_("Unable to push clipboard"))
 
 	def on_copy_link_remote_item(self, evt):
