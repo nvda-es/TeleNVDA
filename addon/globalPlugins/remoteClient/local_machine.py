@@ -16,7 +16,7 @@ try:
 except ModuleNotFoundError:
 	from config import hasUiAccess
 import ui
-import buildVersiono
+import buildVersion
 import logging
 import addonHandler
 import globalVars
@@ -38,7 +38,7 @@ def setSpeechCancelledToFalse():
 	speech should not be cancelled. In the long term this is a fragile solution
 	as NVDA does not support modifying the internal state of speech.
 	"""
-	if buildVersiono.version_year >= 2021:
+	if buildVersion.version_year >= 2021:
 		# workaround as beenCanceled is readonly as of NVDA#12395
 		speech.speech._speechState.beenCanceled = False
 	else:
@@ -51,11 +51,11 @@ class LocalMachine:
 		self.is_muted = False
 		self.receiving_braille=False
 		self._cached_sizes = None
-		if buildVersiono.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			braille.decide_enabled.register(self.handle_decide_enabled)
 
 	def terminate(self):
-		if buildVersiono.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			braille.decide_enabled.unregister(self.handle_decide_enabled)
 
 	def play_wave(self, fileName):
@@ -108,7 +108,7 @@ class LocalMachine:
 			pass
 
 	def set_braille_display_size(self, sizes, **kwargs):
-		if buildVersiono.version_year >= 2023:
+		if buildVersion.version_year >= 2023:
 			self._cached_sizes = sizes
 			return
 		sizes.append(braille.handler.display.numCells)
