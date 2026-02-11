@@ -4,7 +4,7 @@ from site_scons.site_tools.NVDATool.typings import AddonInfo, BrailleTables, Sym
 from site_scons.site_tools.NVDATool.utils import _
 
 # Add-on information variables
-addon_info = addonInfo(
+addon_info = AddonInfo(
 	# add-on Name, internal for nvda
 	addon_name= "TeleNVDA",
 	# Add-on summary, usually the user visible name of the addon.
