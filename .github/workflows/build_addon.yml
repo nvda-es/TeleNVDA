@@ -7,7 +7,7 @@ on:
     # branches: [ main , master ]
 
   pull_request:
-    branches: [ main, master ]
+    branches: [ teleNVDA ]
 
   workflow_dispatch:
 
