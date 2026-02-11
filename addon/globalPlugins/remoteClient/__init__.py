@@ -41,7 +41,10 @@ from . import bridge
 from . import configuration
 from . import cues
 from . import dialogs
-from . import keyboard_hook
+if buildVersion.version_year < 2025:
+	from . import keyboard_hook
+else:
+	import inputCore
 from . import local_machine
 from . import serializer
 from . import server
@@ -57,7 +60,8 @@ except addonHandler.AddonError:
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
 	)
 speakOnDemand = {"speakOnDemand": True} if buildVersion.version_year >= 2024 else {}
-logging.getLogger("keyboard_hook").addHandler(logging.StreamHandler(sys.stdout))
+if buildVersion.version_year < 2025:
+	logging.getLogger("keyboard_hook").addHandler(logging.StreamHandler(sys.stdout))
 
 class GlobalPlugin(_GlobalPlugin):
 	# Translators: script category for add-on gestures
@@ -434,10 +438,11 @@ class GlobalPlugin(_GlobalPlugin):
 			self.local_machine.is_muted = False
 		self.sending_keys = False
 		self.muted = False
-		if self.hook_thread is not None:
-			ctypes.windll.user32.PostThreadMessageW(self.hook_thread.ident, WM_QUIT, 0, 0)
-			self.hook_thread.join()
-			self.hook_thread = None
+		if buildVersion.version_year < 2025:
+			if self.hook_thread is not None:
+				ctypes.windll.user32.PostThreadMessageW(self.hook_thread.ident, WM_QUIT, 0, 0)
+				self.hook_thread.join()
+				self.hook_thread = None
 		self.key_modifiers = set()
 
 	def disconnect_as_slave(self):
@@ -503,12 +508,13 @@ class GlobalPlugin(_GlobalPlugin):
 		self.copy_link_remote_item.Enable(True)
 		self.copy_link_tele_item.Enable(True)
 		self.send_ctrl_alt_del_item.Enable(True)
-		# We might have already created a hook thread before if we're restoring an
-		# interrupted connection. We must not create another.
-		if not self.hook_thread:
-			self.hook_thread = threading.Thread(target=self.hook)
-			self.hook_thread.daemon = True
-			self.hook_thread.start()
+		if buildVersion.version_year < 2025:
+			# We might have already created a hook thread before if we're restoring an
+			# interrupted connection. We must not create another.
+			if not self.hook_thread:
+				self.hook_thread = threading.Thread(target=self.hook)
+				self.hook_thread.daemon = True
+				self.hook_thread.start()
 		# Translators: Presented when connected to the remote computer.
 		ui.message(_("Connected!"))
 		cues.connected()
@@ -825,6 +831,8 @@ class GlobalPlugin(_GlobalPlugin):
 			self.hostPendingModifiers = gesture.modifiers
 			# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
 			ui.message(_("Controlling remote machine."))
+			if buildVersion.version_year >= 2025:
+				inputCore.decide_handleRawKey.register(self.handleRawKeys)
 			if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and not self.muted:
 				# Only change this value if user didn't explicitly mute the remote machine
 				self.local_machine.is_muted = False
@@ -835,8 +843,31 @@ class GlobalPlugin(_GlobalPlugin):
 			self.key_modifiers = set()
 			# Translators: Presented when keyboard control is back to the controlling computer.
 			ui.message(_("Controlling local machine."))
+			if buildVersion.version_year >= 2025:
+				inputCore.decide_handleRawKey.unregister(self.handleRawKeys)
 			if configuration.get_config()['ui']['mute_when_controlling_local_machine'] and not self.muted:
 				self.local_machine.is_muted = True
+
+	def handleRawKeys(self, vkCode, scanCode, extended, pressed):
+		keyCode = (vkCode, extended)
+		if not pressed and keyCode in self.hostPendingModifiers:
+			self.hostPendingModifiers.discard(keyCode)
+			return True
+		gesture = KeyboardInputGesture(self.key_modifiers, keyCode[0], scanCode, keyCode[1])
+		if gesture.isModifier:
+			if pressed:
+				self.key_modifiers.add(keyCode)
+			else:
+				self.key_modifiers.discard(keyCode)
+		elif pressed:
+			script = gesture.script
+			if self.ignoreGesture:
+				self.ignoreGesture = False
+			elif script in self.guestScripts:
+				wx.CallAfter(script, gesture)
+				return False
+		self.master_transport.send(type="key", vk_code=vkCode, scan_code=scanCode, extended=extended, pressed=pressed)
+		return False
 
 	@script(
 		# Translators: gesture description for the toggle remote mute script
