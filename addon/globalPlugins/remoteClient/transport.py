@@ -126,6 +126,7 @@ class TCPTransport(Transport):
 		server_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 		server_sock.ioctl(socket.SIO_KEEPALIVE_VALS, (1, 60000, 2000))
 		ctx = (ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT))
+		ctx.set_alpn_protocols(['nvdaremote/2.0'])
 		ctx.minimum_version = ssl.TLSVersion.TLSv1_2
 		if insecure:
 			ctx.check_hostname = False
