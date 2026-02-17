@@ -17,6 +17,10 @@ try:
 	from winAPI.secureDesktop import post_secureDesktopStateChange
 except:
 	post_secureDesktopStateChange = None
+try:
+	from utils import security
+except:
+	pass
 import buildVersion
 import shlobj
 import speech
@@ -828,6 +832,10 @@ class GlobalPlugin(_GlobalPlugin):
 		self.sending_keys = not self.sending_keys
 		self.set_receiving_braille(self.sending_keys)
 		if self.sending_keys:
+			if buildVersion.version_year==2022 and buildVersion.version_major==4:
+				security.postSessionLockStateChanged.register(self.onSessionLockStateChange)
+			elif buildVersion.version_year>=2023:
+				security.post_sessionLockStateChanged.register(self.onSessionLockStateChange)
 			self.hostPendingModifiers = gesture.modifiers
 			# Translators: Presented when sending keyboard keys from the controlling computer to the controlled computer.
 			ui.message(_("Controlling remote machine."))
@@ -841,6 +849,10 @@ class GlobalPlugin(_GlobalPlugin):
 			for k in self.key_modifiers:
 				self.master_transport.send(type="key", vk_code=k[0], extended=k[1], pressed=False)
 			self.key_modifiers = set()
+			if buildVersion.version_year==2022 and buildVersion.version_major==4:
+				security.postSessionLockStateChanged.unregister(self.onSessionLockStateChange)
+			elif buildVersion.version_year>=2023:
+				security.post_sessionLockStateChanged.unregister(self.onSessionLockStateChange)
 			# Translators: Presented when keyboard control is back to the controlling computer.
 			ui.message(_("Controlling local machine."))
 			if buildVersion.version_year >= 2025:
@@ -868,6 +880,10 @@ class GlobalPlugin(_GlobalPlugin):
 				return False
 		self.master_transport.send(type="key", vk_code=vkCode, scan_code=scanCode, extended=extended, pressed=pressed)
 		return False
+
+	def onSessionLockStateChange(self, isNowLocked):
+		if isNowLocked:
+			self.script_sendKeys(None)
 
 	@script(
 		# Translators: gesture description for the toggle remote mute script
