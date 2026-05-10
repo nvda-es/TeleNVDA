@@ -1,4 +1,6 @@
 import os
+import sys
+import globalVars
 import wx
 from . import input
 from . import cues
@@ -60,6 +62,10 @@ class LocalMachine:
 
 	def play_wave(self, fileName):
 		"""Instructed by remote machine to play a wave file."""
+		if "%appdir%" in fileName:
+			fileName = fileName.replace("%appdir%", sys.prefix if hasattr(sys, 'frozen') else os.path.dirname(sys.modules['__main__'].__file__))
+		if "%configpath%" in fileName:
+			fileName = fileName.replace("%configpath%", globalVars.appArgs.configPath)
 		if self.is_muted:
 			return
 		if os.path.exists(fileName):

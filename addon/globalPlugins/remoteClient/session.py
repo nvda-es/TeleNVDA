@@ -1,3 +1,6 @@
+import sys
+import os
+import globalVars
 from .transport import TransportEvents
 from . import connection_info
 import gui
@@ -201,6 +204,7 @@ class SlaveSession(RemoteSession):
 			# Version 2.3 onwards. Not currently used, but matches arguments for nvWave.playWaveFile.
 			# Including it allows for forward compatibility if requirements change.
 			'asynchronous': True,
+			'fileName': kwargs['fileName'].replace(globalVars.appArgs.configPath, "%configpath%").replace(sys.prefix if hasattr(sys, 'frozen') else os.path.dirname(sys.modules['__main__'].__file__), "%appdir%"),
 		})
 		self.transport.send(type='wave', **kwargs)
 
