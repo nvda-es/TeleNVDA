@@ -253,6 +253,10 @@ class MasterSession(RemoteSession):
 			log.error("'fileName' missing from kwargs.")
 			return
 		fileName = kwargs.pop("fileName")
+		if "%appdir%" in fileName:
+			fileName = fileName.replace("%appdir%", sys.prefix if hasattr(sys, 'frozen') else os.path.dirname(sys.modules['__main__'].__file__))
+		if "%configpath%" in fileName:
+			fileName = fileName.replace("%configpath%", globalVars.appArgs.configPath)
 		self.local_machine.play_wave(fileName=fileName)
 
 	def get_connection_info(self):
