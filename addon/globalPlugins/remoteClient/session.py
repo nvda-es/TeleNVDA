@@ -95,8 +95,10 @@ class SlaveSession(RemoteSession):
 		self.transport.callback_manager.register_callback('msg_file_transfer', self.local_machine.file_transfer)
 		self.transport.callback_manager.register_callback('msg_set_braille_info', self.handle_braille_info)
 		self.transport.callback_manager.register_callback('msg_set_display_size', self.set_display_size)
-		if buildVersion.version_year >= 2023:
+		if buildVersion.version_year >= 2023 and buildVersion.version_year < 2025:
 			braille.filter_displaySize.register(self.local_machine.handle_filter_displaySize)
+		if buildVersion.version_year >= 2025:
+			braille.filter_displayDimensions.register(self.local_machine.handle_filter_displaySize)
 		self.transport.callback_manager.register_callback('msg_braille_input', self.local_machine.braille_input)
 		self.transport.callback_manager.register_callback('msg_send_SAS', self.local_machine.send_SAS)
 
