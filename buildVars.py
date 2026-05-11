@@ -14,7 +14,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	addon_description= _("""Allows remote control of and remote access to another machine. This add-on is based on NVDA Remote."""),
 	# version
-	addon_version= "2026.5.10",
+	addon_version= "2026.5.11",
 	# Author(s)
 	addon_author= "Asociación Comunidad Hispanohablante de NVDA <contacto@nvda.es> and other contributors. Original work by Tyler Spivey <tspivey@pcdesk.net>, Christopher Toth <q@q-continuum.net>",
 	# URL for the add-on documentation support
@@ -35,7 +35,8 @@ addon_info = AddonInfo(
 	addon_sourceURL= "https://github.com/nvda-es/TeleNVDA",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""Now, if a sound file is played on the remote computer and that file is located under NVDA installation or config directories, that file will also be played in the controlling computer, provided that it exists"""),
+	addon_changelog=_("""Updated translations.
+Some bugs fixed."""),
 )
 
 import os.path
