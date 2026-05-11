@@ -121,8 +121,6 @@ class LocalMachine:
 		braille.handler.enabled = bool(size)
 
 	def handle_filter_displaySize(self, value):
-		if buildVersion.version_year >= 2025:
-			return value
 		if not self._cached_sizes:
 			return value
 		sizes = self._cached_sizes + [value]
@@ -130,6 +128,15 @@ class LocalMachine:
 			return min(i for i in sizes if i>0)
 		except ValueError:
 			return value
+
+	def handle_filter_displayDimensions(self, value):
+		if not self._cached_sizes:
+			return value._replace(numRows=1)
+		sizes = self._cached_sizes + [value.numCols]
+		try:
+			return braille.DisplayDimensions(numRows=1, numCols=min(i for i in sizes if i > 0))
+		except ValueError:
+			return value._replace(numRows=1)
 
 	def handle_decide_enabled(self):
 		return not self.receiving_braille

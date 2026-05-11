@@ -98,7 +98,7 @@ class SlaveSession(RemoteSession):
 		if buildVersion.version_year >= 2023 and buildVersion.version_year < 2025:
 			braille.filter_displaySize.register(self.local_machine.handle_filter_displaySize)
 		if buildVersion.version_year >= 2025:
-			braille.filter_displayDimensions.register(self.local_machine.handle_filter_displaySize)
+			braille.filter_displayDimensions.register(self.local_machine.handle_filter_displayDimensions)
 		self.transport.callback_manager.register_callback('msg_braille_input', self.local_machine.braille_input)
 		self.transport.callback_manager.register_callback('msg_send_SAS', self.local_machine.send_SAS)
 
