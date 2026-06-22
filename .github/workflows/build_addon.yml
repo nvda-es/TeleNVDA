@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v6.0.3
+    - uses: actions/checkout@v7.0.0
 
     - run: echo -e "uv\npre-commit\nscons\nmarkdown">requirements.txt
 
@@ -52,7 +52,7 @@ jobs:
     if: ${{ startsWith(github.ref, 'refs/tags/') }}
     needs: ["build"]
     steps:
-    - uses: actions/checkout@v6.0.3
+    - uses: actions/checkout@v7.0.0
     - name: download releases files
       uses: actions/download-artifact@v8.0.1
     - name: Display structure of downloaded files
