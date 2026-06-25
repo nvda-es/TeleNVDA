@@ -67,11 +67,14 @@ speakOnDemand = {"speakOnDemand": True} if buildVersion.version_year >= 2024 els
 if buildVersion.version_year < 2025:
 	logging.getLogger("keyboard_hook").addHandler(logging.StreamHandler(sys.stdout))
 
+client = None
+
 class GlobalPlugin(_GlobalPlugin):
 	# Translators: script category for add-on gestures
 	scriptCategory = _("TeleNVDA")
 
 	def __init__(self, *args, **kwargs):
+		global client
 		super().__init__(*args, **kwargs)
 		for addon in addonHandler.getAvailableAddons(): 
 			if addon.name == "remote" and not addon.isDisabled:
@@ -114,6 +117,7 @@ class GlobalPlugin(_GlobalPlugin):
 			self.postStartupHandler()
 		core.postNvdaStartup.register(self.postStartupHandler)
 		globalVars.teleNVDA = None
+		client = self
 
 	def postStartupHandler(self):
 		cs = configuration.get_config()['controlserver']
@@ -182,6 +186,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("TeleNVDA"))
 
 	def terminate(self):
+		global client
 		if post_secureDesktopStateChange:
 			post_secureDesktopStateChange.unregister(self.onSecureDesktopChange)
 		self.disconnect()
@@ -239,6 +244,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.url_handler_window.destroy()
 		self.url_handler_window=None
 		core.postNvdaStartup.unregister(self.postStartupHandler)
+		client = None
 
 	def on_disconnect_item(self, evt):
 		if evt:
