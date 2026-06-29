@@ -51,7 +51,7 @@ Below is a detailed specification of each message type using JSONSchema:
       "properties": {
         "type": { "const": "channel_joined" },
         "channel": { "type": "string" },
-        "clients": { 
+        "clients": {
           "type": "array",
           "items": {
             "type": "object",
@@ -113,12 +113,12 @@ Below is a detailed specification of each message type using JSONSchema:
       "type": "object",
       "properties": {
         "type": { "const": "speak" },
-        "sequence": { 
+        "sequence": {
           "type": "array",
           "items": {
             "oneOf": [
               { "type": "string" },
-              { 
+              {
                 "type": "array",
                 "items": [
                   { "type": "string" },

@@ -20,16 +20,17 @@ import ui
 import buildVersion
 import logging
 import addonHandler
-import globalVars
 import base64
 import gui
-logger = logging.getLogger('local_machine')
+
+logger = logging.getLogger("local_machine")
 from logHandler import log
+
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
 	log.warning(
-		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad.",
 	)
 
 
@@ -47,10 +48,9 @@ def setSpeechCancelledToFalse():
 
 
 class LocalMachine:
-
 	def __init__(self):
 		self.is_muted = False
-		self.receiving_braille=False
+		self.receiving_braille = False
 		self._cached_sizes = None
 		if buildVersion.version_year >= 2023:
 			braille.decide_enabled.register(self.handle_decide_enabled)
@@ -84,20 +84,24 @@ class LocalMachine:
 		wx.CallAfter(speech.pauseSpeech, switch)
 
 	def speak(
-			self,
-			sequence,
-			priority=speech.priorities.Spri.NORMAL,
-			**kwargs
+		self,
+		sequence,
+		priority=speech.priorities.Spri.NORMAL,
+		**kwargs,
 	):
 		if self.is_muted:
 			return
 		setSpeechCancelledToFalse()
-		if not configuration.get_config()['ui']['allow_speech_commands']:
+		if not configuration.get_config()["ui"]["allow_speech_commands"]:
 			sequence = [s for s in sequence if isinstance(s, str)]
 		wx.CallAfter(speech._manager.speak, sequence, priority)
 
 	def display(self, cells, **kwargs):
-		if self.receiving_braille and braille.handler.displaySize > 0 and len(cells) <= braille.handler.displaySize:
+		if (
+			self.receiving_braille
+			and braille.handler.displaySize > 0
+			and len(cells) <= braille.handler.displaySize
+		):
 			# We use braille.handler._writeCells since this respects thread safe displays and automatically falls back to noBraille if desired
 			cells = cells + [0] * (braille.handler.displaySize - len(cells))
 			wx.CallAfter(braille.handler._writeCells, cells)
@@ -114,7 +118,7 @@ class LocalMachine:
 			return
 		sizes.append(braille.handler.display.numCells)
 		try:
-			size=min(i for i in sizes if i>0)
+			size = min(i for i in sizes if i > 0)
 		except ValueError:
 			size = braille.handler.display.numCells
 		braille.handler.displaySize = size
@@ -125,7 +129,7 @@ class LocalMachine:
 			return value
 		sizes = self._cached_sizes + [value]
 		try:
-			return min(i for i in sizes if i>0)
+			return min(i for i in sizes if i > 0)
 		except ValueError:
 			return value
 
@@ -165,13 +169,16 @@ class LocalMachine:
 	def file_transfer(self, name, content, **kwargs):
 		if globalVars.appArgs.secure:
 			return
-		fd = wx.FileDialog(gui.mainFrame,
-		# Translators: message displayed in transfer file dialog when receiving a file
-		message=_("Choose where to save the received file"),
-		defaultDir=os.environ['userprofile'], defaultFile=name,
-		# Translators: supported file types when sending or receiving files
-		wildcard=_("All files (*.*)")+"|*.*",
-		style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT)
+		fd = wx.FileDialog(
+			gui.mainFrame,
+			# Translators: message displayed in transfer file dialog when receiving a file
+			message=_("Choose where to save the received file"),
+			defaultDir=os.environ["userprofile"],
+			defaultFile=name,
+			# Translators: supported file types when sending or receiving files
+			wildcard=_("All files (*.*)") + "|*.*",
+			style=wx.FD_SAVE | wx.FD_OVERWRITE_PROMPT,
+		)
 		if fd.ShowModal() == wx.ID_OK:
 			try:
 				f = open(fd.GetPath(), "wb")

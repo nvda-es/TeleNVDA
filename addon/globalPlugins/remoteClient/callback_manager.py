@@ -1,7 +1,9 @@
 from logging import getLogger
-logger = getLogger('callback_manager')
+
+logger = getLogger("callback_manager")
 import wx
 from collections import defaultdict
+
 
 class CallbackManager:
 	"""A simple way of associating multiple callbacks to events and calling them all when that event happens"""
@@ -22,10 +24,10 @@ class CallbackManager:
 		for callback in self.callbacks[type]:
 			try:
 				wx.CallAfter(callback, *args, **kwargs)
-			except Exception as e:
+			except Exception:
 				logger.exception("Error calling callback %r" % callback)
-		for callback in self.callbacks['*']:
+		for callback in self.callbacks["*"]:
 			try:
 				wx.CallAfter(callback, type, *args, **kwargs)
-			except Exception as e:
+			except Exception:
 				logger.exception("Error calling callback %r" % callback)
