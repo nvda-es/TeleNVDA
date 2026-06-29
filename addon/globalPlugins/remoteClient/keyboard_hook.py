@@ -1,5 +1,6 @@
 from logging import getLogger
-logger = getLogger('keyboard_hook')
+
+logger = getLogger("keyboard_hook")
 
 import ctypes
 from ctypes import (
@@ -17,14 +18,16 @@ LLKHF_UP = 128
 KF_EXTENDED = 0x0100
 LLKHF_EXTENDED = KF_EXTENDED >> 8
 
+
 class KBDLLHOOKSTRUCT(Structure):
 	_fields_ = [
-		('vkCode', wintypes.DWORD),
-		('scanCode', wintypes.DWORD),
-		('flags', wintypes.DWORD),
-		('time', wintypes.DWORD),
-		('dwExtraInfo', wintypes.DWORD),
+		("vkCode", wintypes.DWORD),
+		("scanCode", wintypes.DWORD),
+		("flags", wintypes.DWORD),
+		("time", wintypes.DWORD),
+		("dwExtraInfo", wintypes.DWORD),
 	]
+
 
 LRESULT = c_long
 
@@ -32,11 +35,12 @@ LowLevelKeyboardProc = ctypes.WINFUNCTYPE(LRESULT, c_int, wintypes.LPARAM, winty
 
 
 class KeyboardHook:
-
 	def __init__(self):
 		self.callbacks = list()
 		self.proc = LowLevelKeyboardProc(self.keyboard_proc)
-		self.handle = ctypes.windll.user32.SetWindowsHookExW(WH_KEYBOARD_LL, self.proc, ctypes.windll.kernel32.GetModuleHandleW(None), 0)
+		self.handle = ctypes.windll.user32.SetWindowsHookExW(
+			WH_KEYBOARD_LL, self.proc, ctypes.windll.kernel32.GetModuleHandleW(None), 0
+		)
 
 	def register_callback(self, callback):
 		self.callbacks.append(callback)
@@ -51,13 +55,15 @@ class KeyboardHook:
 		kbd = KBDLLHOOKSTRUCT.from_address(lParam)
 		vk_code = kbd.vkCode
 		scan_code = kbd.scanCode
-		extended = bool(kbd.flags&LLKHF_EXTENDED)
-		pressed = not bool(kbd.flags&LLKHF_UP)
+		extended = bool(kbd.flags & LLKHF_EXTENDED)
+		pressed = not bool(kbd.flags & LLKHF_UP)
 		should_pass_on = True
 		for callback in self.callbacks:
 			try:
-				should_pass_on = not callback(vk_code=vk_code, scan_code=scan_code, extended=extended, pressed=pressed)
-			except Exception as e:
+				should_pass_on = not callback(
+					vk_code=vk_code, scan_code=scan_code, extended=extended, pressed=pressed
+				)
+			except Exception:
 				logger.exception("Error calling callback %r" % callback)
 		if not should_pass_on:
 			return 1
