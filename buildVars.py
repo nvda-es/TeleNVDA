@@ -36,7 +36,7 @@ addon_info = AddonInfo(
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""Updated translations.
-Some bugs fixed."""),
+Added support for encrypting sessions through a shared key.."""),
 )
 
 import os.path
