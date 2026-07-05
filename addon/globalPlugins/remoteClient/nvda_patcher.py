@@ -8,6 +8,7 @@ import brailleInput
 import scriptHandler
 import buildVersion
 
+
 class NVDAPatcher(callback_manager.CallbackManager):
 	"""Base class to manage patching of braille display changes."""
 
@@ -42,16 +43,17 @@ class NVDAPatcher(callback_manager.CallbackManager):
 		self.unpatch_set_display()
 
 	def setDisplayByName(self, *args, **kwargs):
-		result=self.orig_setDisplayByName(*args, **kwargs)
+		result = self.orig_setDisplayByName(*args, **kwargs)
 		if result:
-			self.call_callbacks('set_display')
+			self.call_callbacks("set_display")
 		return result
 
 	def handle_displayChanged(self, display):
-		self.call_callbacks('set_display', display=display)
+		self.call_callbacks("set_display", display=display)
 
 	def handle_displaySizeChanged(self, displaySize):
-		self.call_callbacks('set_display', displaySize=displaySize)
+		self.call_callbacks("set_display", displaySize=displaySize)
+
 
 class NVDASlavePatcher(NVDAPatcher):
 	"""Class to manage patching of synth, tones, nvwave, and braille."""
@@ -65,7 +67,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		self.orig_display = None
 
 	def patch_speech(self):
-		if self.orig_speak  is not None:
+		if self.orig_speak is not None:
 			return
 		self.orig_speak = speech._manager.speak
 		speech._manager.speak = self.speak
@@ -102,7 +104,7 @@ class NVDASlavePatcher(NVDAPatcher):
 		braille.handler._writeCells = self.display
 
 	def unpatch_speech(self):
-		if self.orig_speak  is None:
+		if self.orig_speak is None:
 			return
 		speech._manager.speak = self.orig_speak
 		self.orig_speak = None
@@ -137,7 +139,7 @@ class NVDASlavePatcher(NVDAPatcher):
 			return
 		braille.handler._writeCells = self.orig_display
 		self.orig_display = None
-		braille.handler.displaySize=braille.handler.display.numCells
+		braille.handler.displaySize = braille.handler.display.numCells
 		braille.handler.enabled = bool(braille.handler.displaySize)
 
 	def patch(self):
@@ -157,24 +159,26 @@ class NVDASlavePatcher(NVDAPatcher):
 		self.unpatch_braille()
 
 	def speak(self, speechSequence, priority):
-		self.call_callbacks('speak', speechSequence=speechSequence, priority=priority)
+		self.call_callbacks("speak", speechSequence=speechSequence, priority=priority)
 		self.orig_speak(speechSequence, priority)
 
 	def cancel(self):
-		self.call_callbacks('cancel_speech')
+		self.call_callbacks("cancel_speech")
 		self.orig_cancel()
 
 	def pauseSpeech(self, switch):
-		self.call_callbacks('pause_speech', switch=switch)
+		self.call_callbacks("pause_speech", switch=switch)
 		self.orig_pauseSpeech(switch)
 
 	def beep(self, hz, length, left=50, right=50):
 		"""Pre NVDA 2023.1."""
-		self.call_callbacks('beep', hz=hz, length=length, left=left, right=right)
+		self.call_callbacks("beep", hz=hz, length=length, left=left, right=right)
 		return self.orig_beep(hz=hz, length=length, left=left, right=right)
 
 	def handle_decide_beep(self, hz, length, left=50, right=50, isSpeechBeepCommand=False):
-		self.call_callbacks('beep', hz=hz, length=length, left=left, right=right, isSpeechBeepCommand=isSpeechBeepCommand)
+		self.call_callbacks(
+			"beep", hz=hz, length=length, left=left, right=right, isSpeechBeepCommand=isSpeechBeepCommand
+		)
 		return True
 
 	def playWaveFile(self, fileName, asynchronous=True):
@@ -183,11 +187,16 @@ class NVDASlavePatcher(NVDAPatcher):
 		Used to instruct master to play this file also. File is then played locally.
 		Note: Signature must match nvwave.playWaveFile
 		"""
-		self.call_callbacks('wave', fileName=fileName, asynchronous=asynchronous)
+		self.call_callbacks("wave", fileName=fileName, asynchronous=asynchronous)
 		return self.orig_playWaveFile(fileName, asynchronous)
 
 	def handle_decide_playWaveFile(self, fileName, asynchronous=True, isSpeechWaveFileCommand=False):
-		self.call_callbacks('wave', fileName=fileName, asynchronous=asynchronous, isSpeechWaveFileCommand=isSpeechWaveFileCommand)
+		self.call_callbacks(
+			"wave",
+			fileName=fileName,
+			asynchronous=asynchronous,
+			isSpeechWaveFileCommand=isSpeechWaveFileCommand,
+		)
 		return True
 
 	def display(self, cells):
@@ -195,7 +204,8 @@ class NVDASlavePatcher(NVDAPatcher):
 		self.orig_display(cells)
 
 	def handle_pre_writeCells(self, cells):
-		self.call_callbacks('display', cells=cells)
+		self.call_callbacks("display", cells=cells)
+
 
 class NVDAMasterPatcher(NVDAPatcher):
 	"""Class to manage patching of braille input."""
@@ -211,7 +221,7 @@ class NVDAMasterPatcher(NVDAPatcher):
 		if self.orig_executeGesture is not None:
 			return
 		self.orig_executeGesture = inputCore.manager.executeGesture
-		inputCore.manager.executeGesture= self.executeGesture
+		inputCore.manager.executeGesture = self.executeGesture
 
 	def unpatch_braille_input(self):
 		if buildVersion.version_year >= 2023:
@@ -232,48 +242,52 @@ class NVDAMasterPatcher(NVDAPatcher):
 		self.unpatch_braille_input()
 
 	def handle_decide_executeGesture(self, gesture):
-		if isinstance(gesture,(braille.BrailleDisplayGesture,brailleInput.BrailleInputGesture)):
-			dict = { key: gesture.__dict__[key] for key in gesture.__dict__ if isinstance(gesture.__dict__[key],(int,str,bool))}
+		if isinstance(gesture, (braille.BrailleDisplayGesture, brailleInput.BrailleInputGesture)):
+			dict = {
+				key: gesture.__dict__[key]
+				for key in gesture.__dict__
+				if isinstance(gesture.__dict__[key], (int, str, bool))
+			}
 			if gesture.script:
-				name=scriptHandler.getScriptName(gesture.script)
+				name = scriptHandler.getScriptName(gesture.script)
 				if name.startswith("kb"):
-					location=['globalCommands', 'GlobalCommands']
+					location = ["globalCommands", "GlobalCommands"]
 				else:
-					location=scriptHandler.getScriptLocation(gesture.script).rsplit(".",1)
-				dict["scriptPath"]=location+[name]
+					location = scriptHandler.getScriptLocation(gesture.script).rsplit(".", 1)
+				dict["scriptPath"] = location + [name]
 			else:
-				scriptData=None
-				maps=[inputCore.manager.userGestureMap,inputCore.manager.localeGestureMap]
+				scriptData = None
+				maps = [inputCore.manager.userGestureMap, inputCore.manager.localeGestureMap]
 				if braille.handler.display.gestureMap:
 					maps.append(braille.handler.display.gestureMap)
 				for map in maps:
 					for identifier in gesture.identifiers:
 						try:
-							scriptData=next(map.getScriptsForGesture(identifier))
+							scriptData = next(map.getScriptsForGesture(identifier))
 							break
 						except StopIteration:
 							continue
 				if scriptData:
-					dict["scriptPath"]=[scriptData[0].__module__,scriptData[0].__name__,scriptData[1]]
-			if hasattr(gesture,"source") and "source" not in dict:
-				dict["source"]=gesture.source
-			if hasattr(gesture,"model") and "model" not in dict:
-				dict["model"]=gesture.model
-			if hasattr(gesture,"id") and "id" not in dict:
-				dict["id"]=gesture.id
-			elif hasattr(gesture,"identifiers") and "identifiers" not in dict:
-				dict["identifiers"]=gesture.identifiers
-			if hasattr(gesture,"dots") and "dots" not in dict:
-				dict["dots"]=gesture.dots
-			if hasattr(gesture,"space") and "space" not in dict:
-				dict["space"]=gesture.space
-			if hasattr(gesture,"routingIndex") and "routingIndex" not in dict:
-				dict["routingIndex"]=gesture.routingIndex
-			self.call_callbacks('braille_input', **dict)
+					dict["scriptPath"] = [scriptData[0].__module__, scriptData[0].__name__, scriptData[1]]
+			if hasattr(gesture, "source") and "source" not in dict:
+				dict["source"] = gesture.source
+			if hasattr(gesture, "model") and "model" not in dict:
+				dict["model"] = gesture.model
+			if hasattr(gesture, "id") and "id" not in dict:
+				dict["id"] = gesture.id
+			elif hasattr(gesture, "identifiers") and "identifiers" not in dict:
+				dict["identifiers"] = gesture.identifiers
+			if hasattr(gesture, "dots") and "dots" not in dict:
+				dict["dots"] = gesture.dots
+			if hasattr(gesture, "space") and "space" not in dict:
+				dict["space"] = gesture.space
+			if hasattr(gesture, "routingIndex") and "routingIndex" not in dict:
+				dict["routingIndex"] = gesture.routingIndex
+			self.call_callbacks("braille_input", **dict)
 			return False
 		else:
 			return True
 
 	def executeGesture(self, gesture):
 		if not self.handle_decide_executeGesture(gesture):
- 			self.orig_executeGesture(gesture)
+			self.orig_executeGesture(gesture)

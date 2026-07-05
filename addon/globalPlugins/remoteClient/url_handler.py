@@ -2,7 +2,8 @@ try:
 	from logHandler import log
 except ImportError:
 	from logging import getLogger
-	log = getLogger('url_handler')
+
+	log = getLogger("url_handler")
 
 import ctypes
 import ctypes.wintypes
@@ -15,26 +16,30 @@ import windowUtils
 import wx
 import gui  # provided by NVDA
 import addonHandler
+
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
 	log.warning(
-		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad.",
 	)
+
 
 class COPYDATASTRUCT(ctypes.Structure):
 	_fields_ = [
-		('dwData', ctypes.wintypes.LPARAM),
-		('cbData', ctypes.wintypes.DWORD),
-		('lpData', ctypes.c_void_p)
+		("dwData", ctypes.wintypes.LPARAM),
+		("cbData", ctypes.wintypes.DWORD),
+		("lpData", ctypes.c_void_p),
 	]
+
 
 PCOPYDATASTRUCT = ctypes.POINTER(COPYDATASTRUCT)
 
 MSGFLT_ALLOW = 1
 
+
 class URLHandlerWindow(windowUtils.CustomWindow):
-	className = 'TeleNVDAURLHandler'
+	className = "TeleNVDAURLHandler"
 
 	def __init__(self, callback=None, *args, **kwargs):
 		super().__init__(*args, **kwargs)
@@ -55,25 +60,34 @@ class URLHandlerWindow(windowUtils.CustomWindow):
 		try:
 			con_info = connection_info.ConnectionInfo.from_url(url)
 		except connection_info.URLParsingError:
-			wx.CallLater(50, gui.messageBox, parent=gui.mainFrame, caption=_("Invalid URL"),
-			# Translators: Message shown when an invalid URL has been provided.
-			message=_("Unable to parse url \"%s\"")%url, style=wx.OK | wx.ICON_ERROR)
+			wx.CallLater(
+				50,
+				gui.messageBox,
+				parent=gui.mainFrame,
+				caption=_("Invalid URL"),
+				# Translators: Message shown when an invalid URL has been provided.
+				message=_('Unable to parse url "%s"') % url,
+				style=wx.OK | wx.ICON_ERROR,
+			)
 			log.exception("unable to parse nvdaremote:// url %s" % url)
 			raise
 		log.info("Connection info: %r" % con_info)
 		if callable(self.callback):
 			wx.CallLater(50, self.callback, con_info)
 
+
 def register_url_handler():
 	regobj.HKCU.SOFTWARE.Classes.nvdaremote = URL_HANDLER_REGISTRY
 	regobj.HKCU.SOFTWARE.Classes.telenvda = URL_HANDLER_REGISTRY
+
 
 def unregister_url_handler():
 	del regobj.HKCU.SOFTWARE.Classes.nvdaremote
 	del regobj.HKCU.SOFTWARE.Classes.telenvda
 
+
 def url_handler_path():
-	return os.path.join(os.path.split(os.path.abspath(__file__))[0], 'url_handler.exe')
+	return os.path.join(os.path.split(os.path.abspath(__file__))[0], "url_handler.exe")
 
 
 URL_HANDLER_REGISTRY = {
@@ -82,8 +96,7 @@ URL_HANDLER_REGISTRY = {
 		"open": {
 			"command": {
 				"": '"{path}" %1'.format(path=url_handler_path()),
-			}
-		}
-	}
+			},
+		},
+	},
 }
-
