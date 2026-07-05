@@ -1,10 +1,13 @@
 import threading
+import os
+import sys
 import time
 import queue
 import ssl
 import socket
 import select
 import hashlib
+import base64
 from collections import defaultdict
 from typing import Tuple
 from logging import getLogger
@@ -13,8 +16,12 @@ from . import callback_manager
 from . import configuration
 from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
 from enum import Enum
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__))))
+from Cryptodome.Cipher import AES
+sys.path.remove(sys.path[-1])
 
 PROTOCOL_VERSION: int = 2
+EXCLUDED_FROM_ENCRYPTION: list[str] = ["join", "protocol_version", "encrypted", "channel_joined", "motd", "nvda_not_connected", "client_left", "ping", "error", "client_joined", "generate_key"]
 
 class TransportEvents(Enum):
 	CONNECTED = 'transport_connected'
@@ -50,7 +57,7 @@ class TCPTransport(Transport):
 	insecure: bool
 	server_sock_lock: threading.Lock
 	
-	def __init__(self, serializer, address: Tuple[str, int], timeout: int=0, insecure: bool=False):
+	def __init__(self, serializer, address: Tuple[str, int], timeout: int=0, insecure: bool=False, encryption_key: str=''):
 		super().__init__(serializer=serializer)
 		self.closed = False
 		#Buffer to hold partially received data
@@ -66,6 +73,8 @@ class TCPTransport(Transport):
 		self.timeout = timeout
 		self.reconnector_thread = ConnectorThread(self)
 		self.insecure=insecure
+		self.encryption_key = encryption_key
+		self.encryption_hash=hashlib.sha256(encryption_key.encode("utf-8")).digest() if encryption_key else None
 
 	def run(self):
 		self.closed = False
@@ -172,10 +181,19 @@ class TCPTransport(Transport):
 			self.parse(line)
 		self.buffer += data
 
-	def parse(self, line):
+	def parse(self, line, isDecrypted=False):
 		obj = self.serializer.deserialize(line)
 		if 'type' not in obj:
 			return
+		if self.encryption_hash is not None and not isDecrypted and obj['type'] not in EXCLUDED_FROM_ENCRYPTION:
+			return
+		if obj['type']=='encrypted' and self.encryption_hash is not None:
+			cipher = AES.new(self.encryption_hash, AES.MODE_GCM, nonce=base64.b64decode(obj['nonce'].encode("utf-8")))
+			try:
+				decrypted_data = cipher.decrypt_and_verify(base64.b64decode(obj['data'].encode("utf-8")), base64.b64decode(obj['tag'].encode("utf-8")))
+				return self.parse(decrypted_data, isDecrypted=True)
+			except:
+				return
 		callback = "msg_"+obj['type']
 		del obj['type']
 		self.callback_manager.call_callbacks(callback, **obj)
@@ -193,6 +211,13 @@ class TCPTransport(Transport):
 
 	def send(self, type, **kwargs):
 		obj = self.serializer.serialize(type=type, **kwargs)
+		if self.encryption_hash is not None and type not in EXCLUDED_FROM_ENCRYPTION:
+			cipher = AES.new(self.encryption_hash, AES.MODE_GCM)
+			nonce = base64.b64encode(cipher.nonce).decode()
+			data, tag = cipher.encrypt_and_digest(obj)
+			data = base64.b64encode(data).decode()
+			tag = base64.b64encode(tag).decode()
+			return self.send(type='encrypted', nonce=nonce, data=data, tag=tag)
 		if self.connected:
 			self.queue.put(obj)
 
@@ -216,8 +241,8 @@ class TCPTransport(Transport):
 
 class RelayTransport(TCPTransport):
 
-	def __init__(self, serializer, address, timeout=0, channel=None, connection_type=None, protocol_version=PROTOCOL_VERSION, insecure=False):
-		super().__init__(address=address, serializer=serializer, timeout=timeout, insecure=insecure)
+	def __init__(self, serializer, address, timeout=0, channel=None, connection_type=None, protocol_version=PROTOCOL_VERSION, insecure=False, encryption_key=None):
+		super().__init__(address=address, serializer=serializer, timeout=timeout, insecure=insecure, encryption_key=encryption_key)
 		log.info("Connecting to %s channel %s" % (address, channel))
 		self.channel = channel
 		self.connection_type = connection_type

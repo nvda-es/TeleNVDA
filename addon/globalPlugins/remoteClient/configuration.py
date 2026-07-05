@@ -21,6 +21,7 @@ configspec = StringIO("""
 	host = string(default="remote.nvda.es")
 	port = integer(default=6837)
 	key = string(default="")
+	encryption_key = string(default="")
 
 [seen_motds]
 	__many__ = string(default="")

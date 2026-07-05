@@ -46,6 +46,10 @@ class ClientPanel(wx.Panel):
 		self.generate_key = wx.Button(parent=self, label=_("&Generate Key"))
 		self.generate_key.Bind(wx.EVT_BUTTON, self.on_generate_key)
 		sizer.Add(self.generate_key)
+		# Translators: Label of an edit field to enter a second password to exchange encrypted data.
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("En&cryption password (optional):")))
+		self.encryption_key = wx.TextCtrl(self, wx.ID_ANY)
+		sizer.Add(self.encryption_key)
 		self.SetSizerAndFit(sizer)
 
 	def on_generate_key(self, evt):
@@ -114,6 +118,10 @@ class ServerPanel(wx.Panel):
 		self.generate_key = wx.Button(parent=self, label=_("&Generate Key"))
 		self.generate_key.Bind(wx.EVT_BUTTON, self.on_generate_key)
 		sizer.Add(self.generate_key)
+		# Translators: Label of an edit field to enter a second password to exchange encrypted data.
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("En&cryption password (optional):")))
+		self.encryption_key = wx.TextCtrl(self, wx.ID_ANY)
+		sizer.Add(self.encryption_key)
 		self.SetSizerAndFit(sizer)
 
 	def on_generate_key(self, evt):
@@ -288,6 +296,11 @@ class OptionsDialog(SettingsPanel):
 		self.key = wx.TextCtrl(self, wx.ID_ANY)
 		self.key.Enable(False)
 		sizer.Add(self.key)
+		# Translators: Label of an edit field to enter a second password to exchange encrypted data.
+		sizer.Add(wx.StaticText(self, wx.ID_ANY, label=_("En&cryption password (optional):")))
+		self.encryption_key = wx.TextCtrl(self, wx.ID_ANY)
+		self.encryption_key.Enable(False)
+		sizer.Add(self.encryption_key)
 		# Translators: A checkbox in add-on options dialog to set whether sounds play instead of beeps.
 		self.play_sounds = wx.CheckBox(self, wx.ID_ANY, label=_("Play sounds instead of beeps"))
 		sizer.Add(self.play_sounds)
@@ -320,6 +333,7 @@ class OptionsDialog(SettingsPanel):
 		self.client_or_server.Enable(state)
 		self.connection_type.Enable(state)
 		self.key.Enable(state)
+		self.encryption_key.Enable(state)
 		self.host.Enable(not bool(self.client_or_server.GetSelection()) and state)
 		self.port.Enable(bool(self.client_or_server.GetSelection()) and state)
 		self.useUPNP.Enable(bool(self.client_or_server.GetSelection()) and state)
@@ -340,6 +354,7 @@ class OptionsDialog(SettingsPanel):
 		self.port.SetValue(str(cs['port']))
 		self.useUPNP.SetValue(cs['UPNP'])
 		self.key.SetValue(cs['key'])
+		self.encryption_key.SetValue(cs['encryption_key'])
 		self.set_controls()
 		self.play_sounds.SetValue(config['ui']['play_sounds'])
 		self.alert_before_slave_disconnect.SetValue(config['ui']['alert_before_slave_disconnect'])
@@ -401,6 +416,7 @@ class OptionsDialog(SettingsPanel):
 			cs['port'] = int(self.port.GetValue())
 			cs['UPNP'] = bool(self.useUPNP.GetValue())
 		cs['key'] = self.key.GetValue()
+		cs['encryption_key'] = self.encryption_key.GetValue()
 		config['ui']['play_sounds'] = self.play_sounds.GetValue()
 		config['ui']['alert_before_slave_disconnect'] = self.alert_before_slave_disconnect.GetValue()
 		config['ui']['mute_when_controlling_local_machine'] = self.mute_when_controlling_local_machine.GetValue()

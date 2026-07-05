@@ -129,6 +129,7 @@ class GlobalPlugin(_GlobalPlugin):
 	def perform_autoconnect(self):
 		cs = configuration.get_config()['controlserver']
 		channel = cs['key']
+		encryption_key = cs['encryption_key']
 		if cs['self_hosted']:
 			port = cs['port']
 			address = ('localhost',port)
@@ -137,9 +138,9 @@ class GlobalPlugin(_GlobalPlugin):
 		else:
 			address = address_to_hostport(cs['host'])
 		if cs['connection_type']==0:
-			self.connect_as_slave(address, channel)
+			self.connect_as_slave(address, channel, encryption_key)
 		else:
-			self.connect_as_master(address, channel)
+			self.connect_as_master(address, channel, encryption_key)
 
 	def create_menu(self):
 		self.menu = wx.Menu()
@@ -490,17 +491,19 @@ class GlobalPlugin(_GlobalPlugin):
 				host = dlg.panel.host.GetValue()
 				server_addr, port = address_to_hostport(host)
 				channel = dlg.panel.key.GetValue()
+				encryption_key = dlg.panel.encryption_key.GetValue()
 				if dlg.connection_type.GetSelection() == 0:
-					self.connect_as_master((server_addr, port), channel)
+					self.connect_as_master((server_addr, port), channel, encryption_key)
 				else:
-					self.connect_as_slave((server_addr, port), channel)
+					self.connect_as_slave((server_addr, port), channel, encryption_key)
 			else: #We want a server
 				channel = dlg.panel.key.GetValue()
+				encryption_key = dlg.panel.encryption_key.GetValue()
 				self.start_control_server(int(dlg.panel.port.GetValue()), channel, useUPNP=bool(dlg.panel.useUPNP.GetValue()))
 				if dlg.connection_type.GetSelection() == 0:
-					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
+					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True, encryption_key=encryption_key)
 				else:
-					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True)
+					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True, encryption_key=encryption_key)
 			# Reset the flag to False when the dialog is closed
 			setattr(self, 'is_connect_dialog_open', False)
 		gui.runScriptModalDialog(dlg, callback=handle_dlg_complete)
@@ -535,8 +538,8 @@ class GlobalPlugin(_GlobalPlugin):
 		# Translators: Presented when connection to a remote computer was interupted.
 		ui.message(_("Connection interrupted"))
 
-	def connect_as_master(self, address, key, insecure=False):
-		transport = RelayTransport(address=address, serializer=serializer.JSONSerializer(), channel=key, connection_type='master', insecure=insecure)
+	def connect_as_master(self, address, key, encryption_key, insecure=False):
+		transport = RelayTransport(address=address, serializer=serializer.JSONSerializer(), channel=key, connection_type='master', insecure=insecure, encryption_key=encryption_key)
 		self.master_session = MasterSession(transport=transport, local_machine=self.local_machine)
 		transport.callback_manager.register_callback(TransportEvents.CERTIFICATE_AUTHENTICATION_FAILED, self.on_certificate_as_master_failed)
 		transport.callback_manager.register_callback(TransportEvents.CONNECTED, self.on_connected_as_master)
@@ -546,14 +549,14 @@ class GlobalPlugin(_GlobalPlugin):
 		self.master_transport = transport
 		self.master_transport.reconnector_thread.start()
 
-	def connect_as_slave(self, address, key, insecure=False):
+	def connect_as_slave(self, address, key, encryption_key, insecure=False):
 		if not nvda_conf['keyboard']['handleInjectedKeys'] and gui.messageBox(
 		# Translators: A message to warn the user that handle keys from other applications should be on.
 		message=_("The option to handle keys from other applications is disabled in your NVDA keyboard settings. In order to allow the keyboard of this machine to be controlled, this option should be enabled. Would you like to do this now?"),
 		# Translators: The title of the warning dialog displayed when handle keys from other applications is disabled.
 		caption=_("Warning"),style=wx.YES|wx.NO|wx.ICON_WARNING)==wx.YES:
 			nvda_conf['keyboard']['handleInjectedKeys']=True
-		transport = RelayTransport(serializer=serializer.JSONSerializer(), address=address, channel=key, connection_type='slave', insecure=insecure)
+		transport = RelayTransport(serializer=serializer.JSONSerializer(), address=address, channel=key, connection_type='slave', insecure=insecure, encryption_key=encryption_key)
 		self.slave_session = SlaveSession(transport=transport, local_machine=self.local_machine)
 		self.slave_transport = transport
 		transport.callback_manager.register_callback(TransportEvents.CERTIFICATE_AUTHENTICATION_FAILED, self.on_certificate_as_slave_failed)
@@ -749,6 +752,7 @@ class GlobalPlugin(_GlobalPlugin):
 		self.connecting = True
 		server_addr = con_info.get_address()
 		key = con_info.key
+		encryption_key = con_info.encryption_key
 		if con_info.mode == 'master':
 			message = _("Do you wish to control the machine on server {server} with key {key}?").format(server=server_addr, key=key)
 		elif con_info.mode == 'slave':
@@ -757,9 +761,9 @@ class GlobalPlugin(_GlobalPlugin):
 			self.connecting = False
 			return
 		if con_info.mode == 'master':
-			self.connect_as_master((con_info.hostname, con_info.port), key=key)
+			self.connect_as_master((con_info.hostname, con_info.port), key=key, encryption_key=encryption_key)
 		elif con_info.mode == 'slave':
-			self.connect_as_slave((con_info.hostname, con_info.port), key=key)
+			self.connect_as_slave((con_info.hostname, con_info.port), key=key, encryption_key=encryption_key)
 		self.connecting = False
 
 	def is_connected(self):

@@ -106,7 +106,8 @@ class SlaveSession(RemoteSession):
 	def get_connection_info(self):
 		hostname, port = self.transport.address
 		key = self.transport.channel
-		return connection_info.ConnectionInfo(hostname=hostname, port=port, key=key, mode='slave')
+		encryption_key = self.transport.encryption_key
+		return connection_info.ConnectionInfo(hostname=hostname, port=port, key=key, mode='slave', encryption_key=encryption_key)
 
 	def handle_client_connected(self, client=None, **kwargs):
 		self.patcher.patch()
@@ -264,7 +265,8 @@ class MasterSession(RemoteSession):
 	def get_connection_info(self):
 		hostname, port = self.transport.address
 		key = self.transport.channel
-		return connection_info.ConnectionInfo(hostname=hostname, port=port, key=key, mode='master')
+		encryption_key = self.transport.encryption_key
+		return connection_info.ConnectionInfo(hostname=hostname, port=port, key=key, mode='master', encryption_key=encryption_key)
 
 	def handle_nvda_not_connected(self):
 		speech.cancelSpeech()

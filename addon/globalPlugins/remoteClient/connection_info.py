@@ -12,11 +12,12 @@ class URLParsingError(Exception):
 
 class ConnectionInfo:
 
-	def __init__(self, hostname, mode, key, port=socket_utils.SERVER_PORT):
+	def __init__(self, hostname, mode, key, port=socket_utils.SERVER_PORT, encryption_key=None):
 		self.hostname = hostname
 		self.mode = mode
 		self.key = key
 		self.port = port or socket_utils.SERVER_PORT
+		self.encryption_key = encryption_key
 
 	@classmethod
 	def from_url(cls, url):
@@ -25,6 +26,7 @@ class ConnectionInfo:
 		hostname = parsed_url.hostname
 		port = parsed_url.port
 		key = parsed_query.get('key', [""])[0]
+		encryption_key = parsed_query.get('encryption_key', [""])[0]
 		mode = parsed_query.get('mode', [""])[0].lower()
 		if not hostname:
 			raise URLParsingError("No hostname provided")
@@ -34,10 +36,13 @@ class ConnectionInfo:
 			raise URLParsingError("No mode provided")
 		if mode not in ('master', 'slave'):
 			raise URLParsingError("Invalud mode provided: %r" % mode)
-		return cls(hostname=hostname, mode=mode, key=key, port=port)
+		if encryption_key:
+			return cls(hostname=hostname, mode=mode, key=key, port=port, encryption_key=encryption_key)
+		else:
+			return cls(hostname=hostname, mode=mode, key=key, port=port)
 
 	def __repr__(self):
-		return "{classname} (hostname={hostname}, port={port}, mode={mode}, key={key})".format(classname=self.__class__.__name__, hostname=self.hostname, port=self.port, mode=self.mode, key=self.key)
+		return "{classname} (hostname={hostname}, port={port}, mode={mode}, key={key}, encryption_key={encryption_key})".format(classname=self.__class__.__name__, hostname=self.hostname, port=self.port, mode=self.mode, key=self.key, encryption_key=self.encryption_key)
 
 	def get_address(self):
 		hostname = (self.hostname if ':' not in self.hostname else '[' + self.hostname + ']')
@@ -51,12 +56,18 @@ class ConnectionInfo:
 			mode = 'slave'
 		elif mode == 'slave':
 			mode = 'master'
-		result += urlencode(dict(key=self.key, mode=mode))
+		if self.encryption_key:
+			result += urlencode(dict(key=self.key, encryption_key=self.encryption_key, mode=mode))
+		else:
+			result += urlencode(dict(key=self.key, mode=mode))
 		return result
 
 	def get_url(self):
 		result = URL_PREFIX[1] + socket_utils.hostport_to_address((self.hostname, self.port))
 		result += '?'
 		mode = self.mode
-		result += urlencode(dict(key=self.key, mode=mode))
+		if self.encryption_key:
+			result += urlencode(dict(key=self.key, encryption_key=self.encryption_key, mode=mode))
+		else:
+			result += urlencode(dict(key=self.key, mode=mode))
 		return result
