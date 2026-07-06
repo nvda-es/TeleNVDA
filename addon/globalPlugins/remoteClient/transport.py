@@ -1,6 +1,7 @@
 import threading
 import os
 import sys
+import buildVersion
 import time
 import queue
 import ssl
@@ -16,7 +17,7 @@ from . import callback_manager
 from . import configuration
 from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
 from enum import Enum
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__))))
+sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib64" if buildVersion.version_year >= 2026 else "lib32"))
 from Cryptodome.Cipher import AES
 sys.path.remove(sys.path[-1])
 
