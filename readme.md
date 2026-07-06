@@ -45,7 +45,8 @@ To do this, first update your existing addon. Then open the NVDA menu, preferenc
 3. Select Allow this machine to be controlled in the second set of radio buttons.
 4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234. If you are connecting to an IPV6 address, enter it between square brackets, for example [2603:1020:800:2::32].
 5. Enter a key into the key field, or press the generate key button. The key is what others will use to control your computer. The machine being controlled and all its clients need to use the same key.
-6. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
+6. If you want an encrypted session, which is more secure but incompatible with other NVDA Remote clients, fill in the encryption password field. You must share this password with all other participants as well.
+7. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
 
 ### On the machine that is to be the controlling computer
 
@@ -54,7 +55,8 @@ To do this, first update your existing addon. Then open the NVDA menu, preferenc
 3. Select Control another machine in the second set of radio buttons.
 4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234. If you are connecting to an IPV6 address, enter it between square brackets, for example [2603:1020:800:2::32].
 5. Enter a key into the key field, or press the generate key button. The machine being controlled and all its clients need to use the same key.
-6. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
+6. If you want an encrypted session, which is more secure but incompatible with other NVDA Remote clients, fill in the encryption password field. You must share this password with all other participants as well.
+7. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
 
 ### Connection security warning
 
@@ -78,7 +80,7 @@ Forward your port and try again. Also, ensure that the NVDA process is allowed t
 
 Note: The process for forwarding ports, enabling UPNP or configuring Windows firewall is outside of the scope of this document. Please consult the information provided with your router for further instruction.
 
-Enter a key into the key field, or press generate. The other person will need your external IP along with the key to connect. If you entered a port other than the default (6837) in the port field, make sure that the other person appends the alternative port to the host address in the form &lt;external ip&gt;:&lt;port&gt;.
+Enter a key into the key field, or press generate. The other person will need your external IP along with the key to connect. If you entered a port other than the default (6837) in the port field, make sure that the other person appends the alternative port to the host address in the form &lt;external ip&gt;:&lt;port&gt;. Additionally, an encryption password can be specified.
 
 If you want to forward the chosen port using UPNP, enable the "Use UPNP to forward this port if possible" checkbox.
 
@@ -131,7 +133,7 @@ Sometimes, you may wish to control one of your own computers remotely. This is e
 3. Select whether to use a remote relay server or to locally host the connection. If you decide to host the connection, you can try to forward ports using UPNP by checking the provided checkbox.
 4. Select Allow this machine to be controlled in the second set of radio buttons.
 5. If you host the connection yourself, you will need to ensure that the port entered in the port field (6837 by default) on the controlled machine can be accessed from the controlling machines.
-6. If you wish to use a relay server, Fill in both the Host and Key fields, tab to OK, and press Enter. The Generate Key option is not available in this situation. It is best to come up with a key you will remember so you can easily use it from any remote location.
+6. If you wish to use a relay server, Fill in both the Host and Key fields, tab to OK, and press Enter. You can optionally encrypt your session with an additional password. The Generate Key option is not available in this situation. It is best to come up with a key you will remember so you can easily use it from any remote location.
 
 For advanced use, you can also configure NVDA Remote to automatically connect to a local or remote relay server in controlling mode. If you want this, select Control another machine in the second set of radio buttons.
 
