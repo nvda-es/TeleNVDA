@@ -83,7 +83,8 @@ class ClientPanel(wx.Panel):
 			if a == wx.ID_YES:
 				config = configuration.get_config()
 				config['trusted_certs'][self.host.GetValue()]=cert_hash
-				config.write()
+				if not config.readonly:
+					config.write()
 			if a != wx.ID_YES and a != wx.ID_NO: return
 		except Exception as ex:
 			log.error(ex)
@@ -370,7 +371,8 @@ class OptionsDialog(SettingsPanel):
 		if gui.messageBox(_("When connecting to an unauthorized server, you will again be prompted to accepts its certificate."), _("Are you sure you want to delete all stored trusted fingerprints?"), wx.YES|wx.NO|wx.NO_DEFAULT|wx.ICON_WARNING) == wx.YES:
 			config = configuration.get_config()
 			config['trusted_certs'].clear()
-			config.write()
+			if not configuration.readonly:
+				config.write()
 		evt.Skip()
 
 	def onPanelDeactivated(self):
@@ -423,7 +425,8 @@ class OptionsDialog(SettingsPanel):
 		config['ui']['allow_speech_commands'] = self.speech_commands.GetValue()
 		config['ui']['display_motd_once'] = self.motd_once.GetValue()
 		config['ui']['portcheck'] = self.portcheck.GetValue()
-		config.write()
+		if not configuration.readonly:
+			config.write()
 
 class CertificateUnauthorizedDialog(wx.MessageDialog):
 
