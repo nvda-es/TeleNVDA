@@ -36,7 +36,9 @@ addon_info = AddonInfo(
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
 	addon_changelog=_("""Updated translations.
-Added support for encrypting sessions through a shared key.."""),
+Added support for encrypting sessions through a shared key.
+Updated documentation.
+Configuration won't be written to disk under certain circunstances."""),
 )
 
 import os.path
@@ -46,9 +48,6 @@ import os.path
 pythonSources = [
 	'addon/*.py',
 	'addon/globalPlugins/*/*.py',
-	'addon/globalPlugins/*/*.exe',
-	'addon/synthDrivers/*/*.py',
-	'addon/sounds/*.wav',
 ]
 
 # Files that contain strings for translation. Usually your python sources

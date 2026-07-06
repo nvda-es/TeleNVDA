@@ -20,6 +20,7 @@ problema, o enseñarte algo. Este complemento es una versión modificada del
 cargo de la comunidad hispanohablante de NVDA. Es totalmente compatible con
 NVDA Remote. Estas son las diferencias actuales:
 
+* Una nueva función permite cifrar sesiones con una capa adicional basada en AES-256-GCM, que requiere una contraseña compartida previamente para funcionar.
 * Un gesto (sin asignar por defecto) indica cuántos equipos hay conectados a
   una sesión remota.
 * Una opción permite bloquear los comandos remotos de voz que no sean texto.
@@ -88,7 +89,8 @@ y otras pantallas seguras (requiere privilegios de administrador)".
 5. Introduce una clave en el campo clave, o pulsa el botón generar clave. La
    clave es lo que otros usarán para controlar tu equipo. El equipo
    controlado y todos sus clientes deben usar la misma clave.
-6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el
+6. Si quieres una sesión cifrada, que es más segura pero incompatible con otros clientes de NVDA Remote, rellena el campo de contraseña de cifrado. También tienes que compartir esta contraseña con los demás participantes.
+7. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el
    servidor incluye un mensaje de bienvenida, este se mostrará en un cuadro
    de diálogo. Verás este diálogo cada vez que te conectes o sólo la primera
    vez, dependiendo de la configuración del servidor.
@@ -109,7 +111,8 @@ y otras pantallas seguras (requiere privilegios de administrador)".
    entre corchetes. Por ejemplo: [2603:1020:800:2::32].
 5. Introduce una clave en el campo clave, o pulsa el botón generar clave. El
    equipo controlado y todos sus clientes deben usar la misma clave.
-6. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el
+6. Si quieres una sesión cifrada, que es más segura pero incompatible con otros clientes de NVDA Remote, rellena el campo de contraseña de cifrado. También tienes que compartir esta contraseña con los demás participantes.
+7. Pulsa aceptar. Hecho esto, escucharás un pitido y conectado. Si el
    servidor incluye un mensaje de bienvenida, este se mostrará en un cuadro
    de diálogo. Verás este diálogo cada vez que te conectes o sólo la primera
    vez, dependiendo de la configuración del servidor.
@@ -154,7 +157,7 @@ Introduce una clave en el campo clave, o pulsa generar. La otra persona
 necesitará tu IP externa junto con la clave para conectar. Si has
 introducido un puerto distinto al que se usa por defecto (6837) en el campo
 puerto, asegúrate de que la otra persona añade el puerto alternativo a la
-dirección del equipo usando el formato &lt;ip externa&gt;:&lt;puerto&gt;.
+dirección del equipo usando el formato &lt;ip externa&gt;:&lt;puerto&gt;. Se puede especificar adicionalmente una contraseña de cifrado.
 
 Si quieres redirigir el puerto elegido usando UPNP, marca la casilla "Usar
 UPNP para redirigir este puerto si es posible".
@@ -250,7 +253,7 @@ esto se hace posible.
    introducido en el campo puerto (por defecto 6837) está abierto en el
    equipo controlado y los equipos controladores pueden conectarse a él.
 6. Si quieres usar un servidor de control remoto, rellena los campos equipo
-   o servidor y clave, pulsa tabulador hasta aceptar, y pulsa intro. Ten en
+   o servidor y clave, pulsa tabulador hasta aceptar, y pulsa intro. Opcionalmente, puedes cifrar tu sesión con una contraseña adicional. Ten en
    cuenta que la opción generar clave no se encuentra disponible en esta
    situación. Es mejor escribir una clave que se pueda recordar para que
    puedas usarla fácilmente desde cualquier lugar remoto.
