@@ -38,260 +38,259 @@ from Cryptodome.Random import get_random_bytes as rng
 
 
 def _mult_gf2(f1, f2):
-    """Multiply two polynomials in GF(2)"""
+	"""Multiply two polynomials in GF(2)"""
 
-    # Ensure f2 is the smallest
-    if f2 > f1:
-        f1, f2 = f2, f1
-    z = 0
-    while f2:
-        if f2 & 1:
-            z ^= f1
-        f1 <<= 1
-        f2 >>= 1
-    return z
+	# Ensure f2 is the smallest
+	if f2 > f1:
+		f1, f2 = f2, f1
+	z = 0
+	while f2:
+		if f2 & 1:
+			z ^= f1
+		f1 <<= 1
+		f2 >>= 1
+	return z
 
 
 def _div_gf2(a, b):
-    """
-    Compute division of polynomials over GF(2).
-    Given a and b, it finds two polynomials q and r such that:
+	"""
+	Compute division of polynomials over GF(2).
+	Given a and b, it finds two polynomials q and r such that:
 
-    a = b*q + r with deg(r)<deg(b)
-    """
+	a = b*q + r with deg(r)<deg(b)
+	"""
 
-    if (a < b):
-        return 0, a
+	if a < b:
+		return 0, a
 
-    deg = number.size
-    q = 0
-    r = a
-    d = deg(b)
-    while deg(r) >= d:
-        s = 1 << (deg(r) - d)
-        q ^= s
-        r ^= _mult_gf2(b, s)
-    return (q, r)
+	deg = number.size
+	q = 0
+	r = a
+	d = deg(b)
+	while deg(r) >= d:
+		s = 1 << (deg(r) - d)
+		q ^= s
+		r ^= _mult_gf2(b, s)
+	return (q, r)
 
 
 class _Element(object):
-    """Element of GF(2^128) field"""
+	"""Element of GF(2^128) field"""
 
-    # The irreducible polynomial defining
-    # this field is 1 + x + x^2 + x^7 + x^128
-    irr_poly = 1 + 2 + 4 + 128 + 2 ** 128
+	# The irreducible polynomial defining
+	# this field is 1 + x + x^2 + x^7 + x^128
+	irr_poly = 1 + 2 + 4 + 128 + 2**128
 
-    def __init__(self, encoded_value):
-        """Initialize the element to a certain value.
+	def __init__(self, encoded_value):
+		"""Initialize the element to a certain value.
 
-        The value passed as parameter is internally encoded as
-        a 128-bit integer, where each bit represents a polynomial
-        coefficient. The LSB is the constant coefficient.
-        """
+		The value passed as parameter is internally encoded as
+		a 128-bit integer, where each bit represents a polynomial
+		coefficient. The LSB is the constant coefficient.
+		"""
 
-        if is_native_int(encoded_value):
-            self._value = encoded_value
-        elif len(encoded_value) == 16:
-            self._value = bytes_to_long(encoded_value)
-        else:
-            raise ValueError("The encoded value must be an integer or a 16 byte string")
+		if is_native_int(encoded_value):
+			self._value = encoded_value
+		elif len(encoded_value) == 16:
+			self._value = bytes_to_long(encoded_value)
+		else:
+			raise ValueError("The encoded value must be an integer or a 16 byte string")
 
-    def __eq__(self, other):
-        return self._value == other._value
+	def __eq__(self, other):
+		return self._value == other._value
 
-    def __int__(self):
-        """Return the field element, encoded as a 128-bit integer."""
-        return self._value
+	def __int__(self):
+		"""Return the field element, encoded as a 128-bit integer."""
+		return self._value
 
-    def encode(self):
-        """Return the field element, encoded as a 16 byte string."""
-        return long_to_bytes(self._value, 16)
+	def encode(self):
+		"""Return the field element, encoded as a 16 byte string."""
+		return long_to_bytes(self._value, 16)
 
-    def __mul__(self, factor):
+	def __mul__(self, factor):
+		f1 = self._value
+		f2 = factor._value
 
-        f1 = self._value
-        f2 = factor._value
+		# Make sure that f2 is the smallest, to speed up the loop
+		if f2 > f1:
+			f1, f2 = f2, f1
 
-        # Make sure that f2 is the smallest, to speed up the loop
-        if f2 > f1:
-            f1, f2 = f2, f1
+		if self.irr_poly in (f1, f2):
+			return _Element(0)
 
-        if self.irr_poly in (f1, f2):
-            return _Element(0)
+		mask1 = 2**128
+		v, z = f1, 0
+		while f2:
+			# if f2 ^ 1: z ^= v
+			mask2 = int(bin(f2 & 1)[2:] * 128, base=2)
+			z = (mask2 & (z ^ v)) | ((mask1 - mask2 - 1) & z)
+			v <<= 1
+			# if v & mask1: v ^= self.irr_poly
+			mask3 = int(bin((v >> 128) & 1)[2:] * 128, base=2)
+			v = (mask3 & (v ^ self.irr_poly)) | ((mask1 - mask3 - 1) & v)
+			f2 >>= 1
+		return _Element(z)
 
-        mask1 = 2 ** 128
-        v, z = f1, 0
-        while f2:
-            # if f2 ^ 1: z ^= v
-            mask2 = int(bin(f2 & 1)[2:] * 128, base=2)
-            z = (mask2 & (z ^ v)) | ((mask1 - mask2 - 1) & z)
-            v <<= 1
-            # if v & mask1: v ^= self.irr_poly
-            mask3 = int(bin((v >> 128) & 1)[2:] * 128, base=2)
-            v = (mask3 & (v ^ self.irr_poly)) | ((mask1 - mask3 - 1) & v)
-            f2 >>= 1
-        return _Element(z)
+	def __add__(self, term):
+		return _Element(self._value ^ term._value)
 
-    def __add__(self, term):
-        return _Element(self._value ^ term._value)
+	def inverse(self):
+		"""Return the inverse of this element in GF(2^128)."""
 
-    def inverse(self):
-        """Return the inverse of this element in GF(2^128)."""
+		# We use the Extended GCD algorithm
+		# http://en.wikipedia.org/wiki/Polynomial_greatest_common_divisor
 
-        # We use the Extended GCD algorithm
-        # http://en.wikipedia.org/wiki/Polynomial_greatest_common_divisor
+		if self._value == 0:
+			raise ValueError("Inversion of zero")
 
-        if self._value == 0:
-            raise ValueError("Inversion of zero")
+		r0, r1 = self._value, self.irr_poly
+		s0, s1 = 1, 0
+		while r1 > 0:
+			q = _div_gf2(r0, r1)[0]
+			r0, r1 = r1, r0 ^ _mult_gf2(q, r1)
+			s0, s1 = s1, s0 ^ _mult_gf2(q, s1)
+		return _Element(s0)
 
-        r0, r1 = self._value, self.irr_poly
-        s0, s1 = 1, 0
-        while r1 > 0:
-            q = _div_gf2(r0, r1)[0]
-            r0, r1 = r1, r0 ^ _mult_gf2(q, r1)
-            s0, s1 = s1, s0 ^ _mult_gf2(q, s1)
-        return _Element(s0)
-
-    def __pow__(self, exponent):
-        result = _Element(self._value)
-        for _ in range(exponent - 1):
-            result = result * self
-        return result
+	def __pow__(self, exponent):
+		result = _Element(self._value)
+		for _ in range(exponent - 1):
+			result = result * self
+		return result
 
 
 class Shamir(object):
-    """Shamir's secret sharing scheme.
+	"""Shamir's secret sharing scheme.
 
-    A secret is split into ``n`` shares, and it is sufficient to collect
-    ``k`` of them to reconstruct the secret.
-    """
+	A secret is split into ``n`` shares, and it is sufficient to collect
+	``k`` of them to reconstruct the secret.
+	"""
 
-    @staticmethod
-    def split(k, n, secret, ssss=False):
-        """Split a secret into ``n`` shares.
+	@staticmethod
+	def split(k, n, secret, ssss=False):
+		"""Split a secret into ``n`` shares.
 
-        The secret can be reconstructed later using just ``k`` shares
-        out of the original ``n``.
-        Each share must be kept confidential to the person it was
-        assigned to.
+		The secret can be reconstructed later using just ``k`` shares
+		out of the original ``n``.
+		Each share must be kept confidential to the person it was
+		assigned to.
 
-        Each share is associated to an index (starting from 1).
+		Each share is associated to an index (starting from 1).
 
-        Args:
-          k (integer):
-            The number of shares needed to reconstruct the secret.
-          n (integer):
-            The number of shares to create (at least ``k``).
-          secret (byte string):
-            A byte string of 16 bytes (e.g. an AES 128 key).
-          ssss (bool):
-            If ``True``, the shares can be used with the ``ssss`` utility
-            (without using the "diffusion layer").
-            Default: ``False``.
+		Args:
+		  k (integer):
+		    The number of shares needed to reconstruct the secret.
+		  n (integer):
+		    The number of shares to create (at least ``k``).
+		  secret (byte string):
+		    A byte string of 16 bytes (e.g. an AES 128 key).
+		  ssss (bool):
+		    If ``True``, the shares can be used with the ``ssss`` utility
+		    (without using the "diffusion layer").
+		    Default: ``False``.
 
-        Return (tuples):
-            ``n`` tuples, one per participant.
-            A tuple contains two items:
+		Return (tuples):
+		    ``n`` tuples, one per participant.
+		    A tuple contains two items:
 
-            1. the unique index (an integer)
-            2. the share (16 bytes)
-        """
+		    1. the unique index (an integer)
+		    2. the share (16 bytes)
+		"""
 
-        #
-        # We create a polynomial with random coefficients in GF(2^128):
-        #
-        # p(x) = c_0 + \sum_{i=1}^{k-1} c_i * x^i
-        #
-        # c_0 is the secret.
-        #
+		#
+		# We create a polynomial with random coefficients in GF(2^128):
+		#
+		# p(x) = c_0 + \sum_{i=1}^{k-1} c_i * x^i
+		#
+		# c_0 is the secret.
+		#
 
-        coeffs = [_Element(rng(16)) for i in range(k - 1)]
-        coeffs.append(_Element(secret))
+		coeffs = [_Element(rng(16)) for i in range(k - 1)]
+		coeffs.append(_Element(secret))
 
-        # Each share is y_i = p(x_i) where x_i
-        # is the index assigned to the share.
+		# Each share is y_i = p(x_i) where x_i
+		# is the index assigned to the share.
 
-        def make_share(user, coeffs, ssss):
-            idx = _Element(user)
+		def make_share(user, coeffs, ssss):
+			idx = _Element(user)
 
-            # Horner's method
-            share = _Element(0)
-            for coeff in coeffs:
-                share = idx * share + coeff
+			# Horner's method
+			share = _Element(0)
+			for coeff in coeffs:
+				share = idx * share + coeff
 
-            # The ssss utility actually uses:
-            #
-            # p(x) = c_0 + \sum_{i=1}^{k-1} c_i * x^i + x^k
-            #
-            if ssss:
-                share += _Element(user) ** len(coeffs)
+			# The ssss utility actually uses:
+			#
+			# p(x) = c_0 + \sum_{i=1}^{k-1} c_i * x^i + x^k
+			#
+			if ssss:
+				share += _Element(user) ** len(coeffs)
 
-            return share.encode()
+			return share.encode()
 
-        return [(i, make_share(i, coeffs, ssss)) for i in range(1, n + 1)]
+		return [(i, make_share(i, coeffs, ssss)) for i in range(1, n + 1)]
 
-    @staticmethod
-    def combine(shares, ssss=False):
-        """Recombine a secret, if enough shares are presented.
+	@staticmethod
+	def combine(shares, ssss=False):
+		"""Recombine a secret, if enough shares are presented.
 
-        Args:
-          shares (tuples):
-            The *k* tuples, each containing the index (an integer) and
-            the share (a byte string, 16 bytes long) that were assigned to
-            a participant.
+		Args:
+		  shares (tuples):
+		    The *k* tuples, each containing the index (an integer) and
+		    the share (a byte string, 16 bytes long) that were assigned to
+		    a participant.
 
-            .. note::
+		    .. note::
 
-                Pass exactly as many share as they are required,
-                and no more.
+		        Pass exactly as many share as they are required,
+		        and no more.
 
-          ssss (bool):
-            If ``True``, the shares were produced by the ``ssss`` utility
-            (without using the "diffusion layer").
-            Default: ``False``.
+		  ssss (bool):
+		    If ``True``, the shares were produced by the ``ssss`` utility
+		    (without using the "diffusion layer").
+		    Default: ``False``.
 
-        Return:
-            The original secret, as a byte string (16 bytes long).
-        """
+		Return:
+		    The original secret, as a byte string (16 bytes long).
+		"""
 
-        #
-        # Given k points (x,y), the interpolation polynomial of degree k-1 is:
-        #
-        # L(x) = \sum_{j=0}^{k-1} y_i * l_j(x)
-        #
-        # where:
-        #
-        # l_j(x) = \prod_{ \overset{0 \le m \le k-1}{m \ne j} }
-        #          \frac{x - x_m}{x_j - x_m}
-        #
-        # However, in this case we are purely interested in the constant
-        # coefficient of L(x).
-        #
+		#
+		# Given k points (x,y), the interpolation polynomial of degree k-1 is:
+		#
+		# L(x) = \sum_{j=0}^{k-1} y_i * l_j(x)
+		#
+		# where:
+		#
+		# l_j(x) = \prod_{ \overset{0 \le m \le k-1}{m \ne j} }
+		#          \frac{x - x_m}{x_j - x_m}
+		#
+		# However, in this case we are purely interested in the constant
+		# coefficient of L(x).
+		#
 
-        k = len(shares)
+		k = len(shares)
 
-        gf_shares = []
-        for x in shares:
-            idx = _Element(x[0])
-            value = _Element(x[1])
-            if any(y[0] == idx for y in gf_shares):
-                raise ValueError("Duplicate share")
-            if ssss:
-                value += idx ** k
-            gf_shares.append((idx, value))
+		gf_shares = []
+		for x in shares:
+			idx = _Element(x[0])
+			value = _Element(x[1])
+			if any(y[0] == idx for y in gf_shares):
+				raise ValueError("Duplicate share")
+			if ssss:
+				value += idx**k
+			gf_shares.append((idx, value))
 
-        result = _Element(0)
-        for j in range(k):
-            x_j, y_j = gf_shares[j]
+		result = _Element(0)
+		for j in range(k):
+			x_j, y_j = gf_shares[j]
 
-            numerator = _Element(1)
-            denominator = _Element(1)
+			numerator = _Element(1)
+			denominator = _Element(1)
 
-            for m in range(k):
-                x_m = gf_shares[m][0]
-                if m != j:
-                    numerator *= x_m
-                    denominator *= x_j + x_m
-            result += y_j * numerator * denominator.inverse()
+			for m in range(k):
+				x_m = gf_shares[m][0]
+				if m != j:
+					numerator *= x_m
+					denominator *= x_j + x_m
+			result += y_j * numerator * denominator.inverse()
 
-        return result.encode()
+		return result.encode()

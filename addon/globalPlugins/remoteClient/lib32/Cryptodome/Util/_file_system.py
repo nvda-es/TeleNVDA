@@ -32,23 +32,22 @@ import os
 
 
 def pycryptodome_filename(dir_comps, filename):
-    """Return the complete file name for the module
+	"""Return the complete file name for the module
 
-    dir_comps : list of string
-        The list of directory names in the PyCryptodome package.
-        The first element must be "Cryptodome".
+	dir_comps : list of string
+	    The list of directory names in the PyCryptodome package.
+	    The first element must be "Cryptodome".
 
-    filename : string
-        The filename (inclusing extension) in the target directory.
-    """
+	filename : string
+	    The filename (inclusing extension) in the target directory.
+	"""
 
-    if dir_comps[0] != "Cryptodome":
-        raise ValueError("Only available for modules under 'Cryptodome'")
+	if dir_comps[0] != "Cryptodome":
+		raise ValueError("Only available for modules under 'Cryptodome'")
 
-    dir_comps = list(dir_comps[1:]) + [filename]
+	dir_comps = list(dir_comps[1:]) + [filename]
 
-    util_lib, _ = os.path.split(os.path.abspath(__file__))
-    root_lib = os.path.join(util_lib, "..")
+	util_lib, _ = os.path.split(os.path.abspath(__file__))
+	root_lib = os.path.join(util_lib, "..")
 
-    return os.path.join(root_lib, *dir_comps)
-
+	return os.path.join(root_lib, *dir_comps)
