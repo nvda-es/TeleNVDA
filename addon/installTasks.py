@@ -14,7 +14,7 @@ def onInstall():
 			result = gui.messageBox(
 				# Translators: message asking the user wether NVDA Remote whould be disabled or not
 				_(
-					"NVDA Remote has been detected on your NVDA installation. In order for TeleNVDA to work without conflicts, NVDA Remote must be disabled. Otherwise, TeleNVDA will refuse to work. Would you like to disable NVDA Remote now?",
+					"NVDA Remote has been detected on your NVDA installation. In order for TeleNVDA to work without conflicts, NVDA Remote must be disabled. Otherwise, TeleNVDA will refuse to work. Would you like to disable NVDA Remote now?"
 				),
 				# Translators: question title
 				_("Running NVDA Remote detected"),

@@ -6,7 +6,10 @@ MODE_ECB: int
 
 Buffer = Union[bytes, bytearray, memoryview]
 
-def new(key: Buffer, mode: int, salt: Buffer, cost: int) -> EcbMode: ...
+def new(key: Buffer,
+        mode: int,
+	salt: Buffer,
+	cost: int) -> EcbMode: ...
 
 block_size: int
 key_size: Iterable[int]

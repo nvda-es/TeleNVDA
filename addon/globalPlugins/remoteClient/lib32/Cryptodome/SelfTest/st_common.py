@@ -30,30 +30,26 @@ from Cryptodome.Util.py3compat import b
 
 
 def list_test_cases(class_):
-	"""Return a list of TestCase instances given a TestCase class
+    """Return a list of TestCase instances given a TestCase class
 
-	This is useful when you have defined test* methods on your TestCase class.
-	"""
-	return unittest.TestLoader().loadTestsFromTestCase(class_)
-
+    This is useful when you have defined test* methods on your TestCase class.
+    """
+    return unittest.TestLoader().loadTestsFromTestCase(class_)
 
 def strip_whitespace(s):
-	"""Remove whitespace from a text or byte string"""
-	if isinstance(s, str):
-		return b("".join(s.split()))
-	else:
-		return b("").join(s.split())
-
+    """Remove whitespace from a text or byte string"""
+    if isinstance(s,str):
+        return b("".join(s.split()))
+    else:
+        return b("").join(s.split())
 
 def a2b_hex(s):
-	"""Convert hexadecimal to binary, ignoring whitespace"""
-	return binascii.a2b_hex(strip_whitespace(s))
-
+    """Convert hexadecimal to binary, ignoring whitespace"""
+    return binascii.a2b_hex(strip_whitespace(s))
 
 def b2a_hex(s):
-	"""Convert binary to hexadecimal"""
-	# For completeness
-	return binascii.b2a_hex(s)
-
+    """Convert binary to hexadecimal"""
+    # For completeness
+    return binascii.b2a_hex(s)
 
 # vim:set ts=4 sw=4 sts=4 expandtab:

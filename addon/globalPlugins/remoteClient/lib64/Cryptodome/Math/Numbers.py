@@ -33,16 +33,15 @@ __all__ = ["Integer"]
 import os
 
 try:
-	if os.getenv("PYCRYPTODOME_DISABLE_GMP"):
-		raise ImportError()
+    if os.getenv("PYCRYPTODOME_DISABLE_GMP"):
+        raise ImportError()
 
-	from Cryptodome.Math._IntegerGMP import IntegerGMP as Integer
-	from Cryptodome.Math._IntegerGMP import implementation as _implementation
+    from Cryptodome.Math._IntegerGMP import IntegerGMP as Integer
+    from Cryptodome.Math._IntegerGMP import implementation as _implementation
 except (ImportError, OSError, AttributeError):
-	try:
-		from Cryptodome.Math._IntegerCustom import IntegerCustom as Integer
-		from Cryptodome.Math._IntegerCustom import implementation as _implementation
-	except (ImportError, OSError):
-		from Cryptodome.Math._IntegerNative import IntegerNative as Integer
-
-		_implementation = {}
+    try:
+        from Cryptodome.Math._IntegerCustom import IntegerCustom as Integer
+        from Cryptodome.Math._IntegerCustom import implementation as _implementation
+    except (ImportError, OSError):
+        from Cryptodome.Math._IntegerNative import IntegerNative as Integer
+        _implementation = {}

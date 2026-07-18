@@ -63,129 +63,123 @@ import abc
 
 
 if sys.version_info[0] == 2:
+    def b(s):
+        return s
+    def bchr(s):
+        return chr(s)
+    def bstr(s):
+        return str(s)
+    def bord(s):
+        return ord(s)
+    def tobytes(s, encoding="latin-1"):
+        if isinstance(s, unicode):
+            return s.encode(encoding)
+        elif isinstance(s, str):
+            return s
+        elif isinstance(s, bytearray):
+            return bytes(s)
+        elif isinstance(s, memoryview):
+            return s.tobytes()
+        else:
+            return ''.join(s)
+    def tostr(bs):
+        return bs
+    def byte_string(s):
+        return isinstance(s, str)
 
-	def b(s):
-		return s
+    # In Python 2, a memoryview does not support concatenation
+    def concat_buffers(a, b):
+        if isinstance(a, memoryview):
+            a = a.tobytes()
+        if isinstance(b, memoryview):
+            b = b.tobytes()
+        return a + b
 
-	def bchr(s):
-		return chr(s)
+    from StringIO import StringIO
+    BytesIO = StringIO
 
-	def bstr(s):
-		return str(s)
+    from sys import maxint
 
-	def bord(s):
-		return ord(s)
+    iter_range = xrange
 
-	def tobytes(s, encoding="latin-1"):
-		if isinstance(s, unicode):
-			return s.encode(encoding)
-		elif isinstance(s, str):
-			return s
-		elif isinstance(s, bytearray):
-			return bytes(s)
-		elif isinstance(s, memoryview):
-			return s.tobytes()
-		else:
-			return "".join(s)
+    def is_native_int(x):
+        return isinstance(x, (int, long))
 
-	def tostr(bs):
-		return bs
+    def is_string(x):
+        return isinstance(x, basestring)
 
-	def byte_string(s):
-		return isinstance(s, str)
+    def is_bytes(x):
+        return isinstance(x, str) or \
+                isinstance(x, bytearray) or \
+                isinstance(x, memoryview)
 
-	# In Python 2, a memoryview does not support concatenation
-	def concat_buffers(a, b):
-		if isinstance(a, memoryview):
-			a = a.tobytes()
-		if isinstance(b, memoryview):
-			b = b.tobytes()
-		return a + b
+    ABC = abc.ABCMeta('ABC', (object,), {'__slots__': ()})
 
-	from StringIO import StringIO
-
-	BytesIO = StringIO
-
-	iter_range = xrange
-
-	def is_native_int(x):
-		return isinstance(x, (int, long))
-
-	def is_string(x):
-		return isinstance(x, basestring)
-
-	def is_bytes(x):
-		return isinstance(x, str) or isinstance(x, bytearray) or isinstance(x, memoryview)
-
-	ABC = abc.ABCMeta("ABC", (object,), {"__slots__": ()})
-
-	FileNotFoundError = IOError
+    FileNotFoundError = IOError
 
 else:
+    def b(s):
+       return s.encode("latin-1") # utf-8 would cause some side-effects we don't want
+    def bchr(s):
+        return bytes([s])
+    def bstr(s):
+        if isinstance(s,str):
+            return bytes(s,"latin-1")
+        else:
+            return bytes(s)
+    def bord(s):
+        return s
+    def tobytes(s, encoding="latin-1"):
+        if isinstance(s, bytes):
+            return s
+        elif isinstance(s, bytearray):
+            return bytes(s)
+        elif isinstance(s,str):
+            return s.encode(encoding)
+        elif isinstance(s, memoryview):
+            return s.tobytes()
+        else:
+            return bytes([s])
+    def tostr(bs):
+        return bs.decode("latin-1")
+    def byte_string(s):
+        return isinstance(s, bytes)
 
-	def b(s):
-		return s.encode("latin-1")  # utf-8 would cause some side-effects we don't want
+    def concat_buffers(a, b):
+        return a + b
 
-	def bchr(s):
-		return bytes([s])
+    from io import BytesIO
+    from io import StringIO
+    from sys import maxsize as maxint
 
-	def bstr(s):
-		if isinstance(s, str):
-			return bytes(s, "latin-1")
-		else:
-			return bytes(s)
+    iter_range = range
 
-	def bord(s):
-		return s
+    def is_native_int(x):
+        return isinstance(x, int)
 
-	def tobytes(s, encoding="latin-1"):
-		if isinstance(s, bytes):
-			return s
-		elif isinstance(s, bytearray):
-			return bytes(s)
-		elif isinstance(s, str):
-			return s.encode(encoding)
-		elif isinstance(s, memoryview):
-			return s.tobytes()
-		else:
-			return bytes([s])
+    def is_string(x):
+        return isinstance(x, str)
 
-	def tostr(bs):
-		return bs.decode("latin-1")
+    def is_bytes(x):
+        return isinstance(x, bytes) or \
+                isinstance(x, bytearray) or \
+                isinstance(x, memoryview)
 
-	def byte_string(s):
-		return isinstance(s, bytes)
+    from abc import ABC
 
-	def concat_buffers(a, b):
-		return a + b
-
-	from io import StringIO
-
-	iter_range = range
-
-	def is_native_int(x):
-		return isinstance(x, int)
-
-	def is_string(x):
-		return isinstance(x, str)
-
-	def is_bytes(x):
-		return isinstance(x, bytes) or isinstance(x, bytearray) or isinstance(x, memoryview)
-
-	FileNotFoundError = FileNotFoundError
+    FileNotFoundError = FileNotFoundError
 
 
 def _copy_bytes(start, end, seq):
-	"""Return an immutable copy of a sequence (byte string, byte array, memoryview)
-	in a certain interval [start:seq]"""
+    """Return an immutable copy of a sequence (byte string, byte array, memoryview)
+    in a certain interval [start:seq]"""
 
-	if isinstance(seq, memoryview):
-		return seq[start:end].tobytes()
-	elif isinstance(seq, bytearray):
-		return bytes(seq[start:end])
-	else:
-		return seq[start:end]
-
+    if isinstance(seq, memoryview):
+        return seq[start:end].tobytes()
+    elif isinstance(seq, bytearray):
+        return bytes(seq[start:end])
+    else:
+        return seq[start:end]
 
 del sys
 del abc

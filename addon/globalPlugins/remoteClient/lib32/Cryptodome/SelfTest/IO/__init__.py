@@ -33,20 +33,15 @@
 
 """Self-test for I/O"""
 
-
 def get_tests(config={}):
-	tests = []
-	from Cryptodome.SelfTest.IO import test_PKCS8
+    tests = []
+    from Cryptodome.SelfTest.IO import test_PKCS8;     tests += test_PKCS8.get_tests(config=config)
+    from Cryptodome.SelfTest.IO import test_PBES;      tests += test_PBES.get_tests(config=config)
+    return tests
 
-	tests += test_PKCS8.get_tests(config=config)
-	from Cryptodome.SelfTest.IO import test_PBES
+if __name__ == '__main__':
+    import unittest
+    suite = lambda: unittest.TestSuite(get_tests())
+    unittest.main(defaultTest='suite')
 
-	tests += test_PBES.get_tests(config=config)
-	return tests
 
-
-if __name__ == "__main__":
-	import unittest
-
-	suite = lambda: unittest.TestSuite(get_tests())
-	unittest.main(defaultTest="suite")
