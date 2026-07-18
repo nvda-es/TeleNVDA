@@ -38,149 +38,142 @@ from .cSHAKE128 import _bytepad, _encode_str, _right_encode
 
 
 class KMAC_Hash(object):
-	"""A KMAC hash object.
-	Do not instantiate directly.
-	Use the :func:`new` function.
-	"""
+    """A KMAC hash object.
+    Do not instantiate directly.
+    Use the :func:`new` function.
+    """
 
-	def __init__(
-		self,
-		data,
-		key,
-		mac_len,
-		custom,
-		oid_variant,
-		cshake,
-		rate,
-	):
-		# See https://tools.ietf.org/html/rfc8702
-		self.oid = "2.16.840.1.101.3.4.2." + oid_variant
-		self.digest_size = mac_len
+    def __init__(self, data, key, mac_len, custom,
+                 oid_variant, cshake, rate):
 
-		self._mac = None
+        # See https://tools.ietf.org/html/rfc8702
+        self.oid = "2.16.840.1.101.3.4.2." + oid_variant
+        self.digest_size = mac_len
 
-		partial_newX = _bytepad(_encode_str(tobytes(key)), rate)
-		self._cshake = cshake._new(partial_newX, custom, b"KMAC")
+        self._mac = None
 
-		if data:
-			self._cshake.update(data)
+        partial_newX = _bytepad(_encode_str(tobytes(key)), rate)
+        self._cshake = cshake._new(partial_newX, custom, b"KMAC")
 
-	def update(self, data):
-		"""Authenticate the next chunk of message.
+        if data:
+            self._cshake.update(data)
 
-		Args:
-		    data (bytes/bytearray/memoryview): The next chunk of the message to
-		    authenticate.
-		"""
+    def update(self, data):
+        """Authenticate the next chunk of message.
 
-		if self._mac:
-			raise TypeError("You can only call 'digest' or 'hexdigest' on this object")
+        Args:
+            data (bytes/bytearray/memoryview): The next chunk of the message to
+            authenticate.
+        """
 
-		self._cshake.update(data)
-		return self
+        if self._mac:
+            raise TypeError("You can only call 'digest' or 'hexdigest' on this object")
 
-	def digest(self):
-		"""Return the **binary** (non-printable) MAC tag of the message.
+        self._cshake.update(data)
+        return self
 
-		:return: The MAC tag. Binary form.
-		:rtype: byte string
-		"""
+    def digest(self):
+        """Return the **binary** (non-printable) MAC tag of the message.
 
-		if not self._mac:
-			self._cshake.update(_right_encode(self.digest_size * 8))
-			self._mac = self._cshake.read(self.digest_size)
+        :return: The MAC tag. Binary form.
+        :rtype: byte string
+        """
 
-		return self._mac
+        if not self._mac:
+            self._cshake.update(_right_encode(self.digest_size * 8))
+            self._mac = self._cshake.read(self.digest_size)
 
-	def hexdigest(self):
-		"""Return the **printable** MAC tag of the message.
+        return self._mac
 
-		:return: The MAC tag. Hexadecimal encoded.
-		:rtype: string
-		"""
+    def hexdigest(self):
+        """Return the **printable** MAC tag of the message.
 
-		return "".join(["%02x" % bord(x) for x in tuple(self.digest())])
+        :return: The MAC tag. Hexadecimal encoded.
+        :rtype: string
+        """
 
-	def verify(self, mac_tag):
-		"""Verify that a given **binary** MAC (computed by another party)
-		is valid.
+        return "".join(["%02x" % bord(x) for x in tuple(self.digest())])
 
-		Args:
-		  mac_tag (bytes/bytearray/memoryview): the expected MAC of the message.
+    def verify(self, mac_tag):
+        """Verify that a given **binary** MAC (computed by another party)
+        is valid.
 
-		Raises:
-		    ValueError: if the MAC does not match. It means that the message
-		        has been tampered with or that the MAC key is incorrect.
-		"""
+        Args:
+          mac_tag (bytes/bytearray/memoryview): the expected MAC of the message.
 
-		secret = get_random_bytes(16)
+        Raises:
+            ValueError: if the MAC does not match. It means that the message
+                has been tampered with or that the MAC key is incorrect.
+        """
 
-		mac1 = SHA3_256.new(secret + mac_tag)
-		mac2 = SHA3_256.new(secret + self.digest())
+        secret = get_random_bytes(16)
 
-		if mac1.digest() != mac2.digest():
-			raise ValueError("MAC check failed")
+        mac1 = SHA3_256.new(secret + mac_tag)
+        mac2 = SHA3_256.new(secret + self.digest())
 
-	def hexverify(self, hex_mac_tag):
-		"""Verify that a given **printable** MAC (computed by another party)
-		is valid.
+        if mac1.digest() != mac2.digest():
+            raise ValueError("MAC check failed")
 
-		Args:
-		    hex_mac_tag (string): the expected MAC of the message, as a hexadecimal string.
+    def hexverify(self, hex_mac_tag):
+        """Verify that a given **printable** MAC (computed by another party)
+        is valid.
 
-		Raises:
-		    ValueError: if the MAC does not match. It means that the message
-		        has been tampered with or that the MAC key is incorrect.
-		"""
+        Args:
+            hex_mac_tag (string): the expected MAC of the message, as a hexadecimal string.
 
-		self.verify(unhexlify(tobytes(hex_mac_tag)))
+        Raises:
+            ValueError: if the MAC does not match. It means that the message
+                has been tampered with or that the MAC key is incorrect.
+        """
 
-	def new(self, **kwargs):
-		"""Return a new instance of a KMAC hash object.
-		See :func:`new`.
-		"""
+        self.verify(unhexlify(tobytes(hex_mac_tag)))
 
-		if "mac_len" not in kwargs:
-			kwargs["mac_len"] = self.digest_size
+    def new(self, **kwargs):
+        """Return a new instance of a KMAC hash object.
+        See :func:`new`.
+        """
 
-		return new(**kwargs)
+        if "mac_len" not in kwargs:
+            kwargs["mac_len"] = self.digest_size
+
+        return new(**kwargs)
 
 
 def new(**kwargs):
-	"""Create a new KMAC128 object.
+    """Create a new KMAC128 object.
 
-	Args:
-	    key (bytes/bytearray/memoryview):
-	        The key to use to compute the MAC.
-	        It must be at least 128 bits long (16 bytes).
-	    data (bytes/bytearray/memoryview):
-	        Optional. The very first chunk of the message to authenticate.
-	        It is equivalent to an early call to :meth:`KMAC_Hash.update`.
-	    mac_len (integer):
-	        Optional. The size of the authentication tag, in bytes.
-	        Default is 64. Minimum is 8.
-	    custom (bytes/bytearray/memoryview):
-	        Optional. A customization byte string (``S`` in SP 800-185).
+    Args:
+        key (bytes/bytearray/memoryview):
+            The key to use to compute the MAC.
+            It must be at least 128 bits long (16 bytes).
+        data (bytes/bytearray/memoryview):
+            Optional. The very first chunk of the message to authenticate.
+            It is equivalent to an early call to :meth:`KMAC_Hash.update`.
+        mac_len (integer):
+            Optional. The size of the authentication tag, in bytes.
+            Default is 64. Minimum is 8.
+        custom (bytes/bytearray/memoryview):
+            Optional. A customization byte string (``S`` in SP 800-185).
 
-	Returns:
-	    A :class:`KMAC_Hash` hash object
-	"""
+    Returns:
+        A :class:`KMAC_Hash` hash object
+    """
 
-	key = kwargs.pop("key", None)
-	if not is_bytes(key):
-		raise TypeError("You must pass a key to KMAC128")
-	if len(key) < 16:
-		raise ValueError("The key must be at least 128 bits long (16 bytes)")
+    key = kwargs.pop("key", None)
+    if not is_bytes(key):
+        raise TypeError("You must pass a key to KMAC128")
+    if len(key) < 16:
+        raise ValueError("The key must be at least 128 bits long (16 bytes)")
 
-	data = kwargs.pop("data", None)
+    data = kwargs.pop("data", None)
 
-	mac_len = kwargs.pop("mac_len", 64)
-	if mac_len < 8:
-		raise ValueError("'mac_len' must be 8 bytes or more")
+    mac_len = kwargs.pop("mac_len", 64)
+    if mac_len < 8:
+        raise ValueError("'mac_len' must be 8 bytes or more")
 
-	custom = kwargs.pop("custom", b"")
+    custom = kwargs.pop("custom", b"")
 
-	if kwargs:
-		raise TypeError("Unknown parameters: " + str(kwargs))
+    if kwargs:
+        raise TypeError("Unknown parameters: " + str(kwargs))
 
-	return KMAC_Hash(data, key, mac_len, custom, "19", cSHAKE128, 168)
+    return KMAC_Hash(data, key, mac_len, custom, "19", cSHAKE128, 168)

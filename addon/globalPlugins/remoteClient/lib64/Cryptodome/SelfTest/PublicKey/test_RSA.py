@@ -26,25 +26,25 @@
 
 __revision__ = "$Id$"
 
+import os
 import pickle
 from pickle import PicklingError
 from Cryptodome.Util.py3compat import *
 
 import unittest
-from Cryptodome.SelfTest.st_common import list_test_cases, a2b_hex
-
+from Cryptodome.SelfTest.st_common import list_test_cases, a2b_hex, b2a_hex
 
 class RSATest(unittest.TestCase):
-	# Test vectors from "RSA-OAEP and RSA-PSS test vectors (.zip file)"
-	#   ftp://ftp.rsasecurity.com/pub/pkcs/pkcs-1/pkcs-1v2-1-vec.zip
-	# See RSADSI's PKCS#1 page at
-	#   http://www.rsa.com/rsalabs/node.asp?id=2125
+    # Test vectors from "RSA-OAEP and RSA-PSS test vectors (.zip file)"
+    #   ftp://ftp.rsasecurity.com/pub/pkcs/pkcs-1/pkcs-1v2-1-vec.zip
+    # See RSADSI's PKCS#1 page at
+    #   http://www.rsa.com/rsalabs/node.asp?id=2125
 
-	# from oaep-int.txt
+    # from oaep-int.txt
 
-	# TODO: PyCryptodome treats the message as starting *after* the leading "00"
-	# TODO: That behaviour should probably be changed in the future.
-	plaintext = """
+    # TODO: PyCryptodome treats the message as starting *after* the leading "00"
+    # TODO: That behaviour should probably be changed in the future.
+    plaintext = """
            eb 7a 19 ac e9 e3 00 63 50 e3 29 50 4b 45 e2
         ca 82 31 0b 26 dc d8 7d 5c 68 f1 ee a8 f5 52 67
         c3 1b 2e 8b b4 25 1f 84 d7 e0 b2 c0 46 26 f5 af
@@ -55,7 +55,7 @@ class RSATest(unittest.TestCase):
         7b c2 75 19 52 81 ce 32 d2 f1 b7 6d 4d 35 3e 2d
     """
 
-	ciphertext = """
+    ciphertext = """
         12 53 e0 4d c0 a5 39 7b b4 4a 7a b8 7e 9b f2 a0
         39 a3 3d 1e 99 6f c8 2a 94 cc d3 00 74 c9 5d f7
         63 72 20 17 06 9e 52 68 da 5d 1c 0b 4f 87 2c f6
@@ -66,7 +66,7 @@ class RSATest(unittest.TestCase):
         51 a7 4d df 85 d8 b5 0d e9 68 38 d6 06 3e 09 55
     """
 
-	modulus = """
+    modulus = """
         bb f8 2f 09 06 82 ce 9c 23 38 ac 2b 9d a8 71 f7
         36 8d 07 ee d4 10 43 a4 40 d6 b6 f0 74 54 f5 1f
         b8 df ba af 03 5c 02 ab 61 ea 48 ce eb 6f cd 48
@@ -77,257 +77,248 @@ class RSATest(unittest.TestCase):
         e2 53 72 98 ca 2a 8f 59 46 f8 e5 fd 09 1d bd cb
     """
 
-	e = 0x11  # public exponent
+    e = 0x11    # public exponent
 
-	prime_factor = """
+    prime_factor = """
         c9 7f b1 f0 27 f4 53 f6 34 12 33 ea aa d1 d9 35
         3f 6c 42 d0 88 66 b1 d0 5a 0f 20 35 02 8b 9d 86
         98 40 b4 16 66 b4 2e 92 ea 0d a3 b4 32 04 b5 cf
         ce 33 52 52 4d 04 16 a5 a4 41 e7 00 af 46 15 03
     """
 
-	def setUp(self):
-		global RSA, Random, bytes_to_long
-		from Cryptodome.PublicKey import RSA
-		from Cryptodome import Random
-		from Cryptodome.Util.number import bytes_to_long, inverse
+    def setUp(self):
+        global RSA, Random, bytes_to_long
+        from Cryptodome.PublicKey import RSA
+        from Cryptodome import Random
+        from Cryptodome.Util.number import bytes_to_long, inverse
+        self.n = bytes_to_long(a2b_hex(self.modulus))
+        self.p = bytes_to_long(a2b_hex(self.prime_factor))
 
-		self.n = bytes_to_long(a2b_hex(self.modulus))
-		self.p = bytes_to_long(a2b_hex(self.prime_factor))
+        # Compute q, d, and u from n, e, and p
+        self.q = self.n // self.p
+        self.d = inverse(self.e, (self.p-1)*(self.q-1))
+        self.u = inverse(self.p, self.q)    # u = e**-1 (mod q)
 
-		# Compute q, d, and u from n, e, and p
-		self.q = self.n // self.p
-		self.d = inverse(self.e, (self.p - 1) * (self.q - 1))
-		self.u = inverse(self.p, self.q)  # u = e**-1 (mod q)
+        self.rsa = RSA
 
-		self.rsa = RSA
+    def test_generate_1arg(self):
+        """RSA (default implementation) generated key (1 argument)"""
+        rsaObj = self.rsa.generate(1024)
+        self._check_private_key(rsaObj)
+        self._exercise_primitive(rsaObj)
+        pub = rsaObj.public_key()
+        self._check_public_key(pub)
+        self._exercise_public_primitive(rsaObj)
 
-	def test_generate_1arg(self):
-		"""RSA (default implementation) generated key (1 argument)"""
-		rsaObj = self.rsa.generate(1024)
-		self._check_private_key(rsaObj)
-		self._exercise_primitive(rsaObj)
-		pub = rsaObj.public_key()
-		self._check_public_key(pub)
-		self._exercise_public_primitive(rsaObj)
+    def test_generate_2arg(self):
+        """RSA (default implementation) generated key (2 arguments)"""
+        rsaObj = self.rsa.generate(1024, Random.new().read)
+        self._check_private_key(rsaObj)
+        self._exercise_primitive(rsaObj)
+        pub = rsaObj.public_key()
+        self._check_public_key(pub)
+        self._exercise_public_primitive(rsaObj)
 
-	def test_generate_2arg(self):
-		"""RSA (default implementation) generated key (2 arguments)"""
-		rsaObj = self.rsa.generate(1024, Random.new().read)
-		self._check_private_key(rsaObj)
-		self._exercise_primitive(rsaObj)
-		pub = rsaObj.public_key()
-		self._check_public_key(pub)
-		self._exercise_public_primitive(rsaObj)
+    def test_generate_3args(self):
+        rsaObj = self.rsa.generate(1024, Random.new().read,e=65537)
+        self._check_private_key(rsaObj)
+        self._exercise_primitive(rsaObj)
+        pub = rsaObj.public_key()
+        self._check_public_key(pub)
+        self._exercise_public_primitive(rsaObj)
+        self.assertEqual(65537,rsaObj.e)
 
-	def test_generate_3args(self):
-		rsaObj = self.rsa.generate(1024, Random.new().read, e=65537)
-		self._check_private_key(rsaObj)
-		self._exercise_primitive(rsaObj)
-		pub = rsaObj.public_key()
-		self._check_public_key(pub)
-		self._exercise_public_primitive(rsaObj)
-		self.assertEqual(65537, rsaObj.e)
+    def test_construct_2tuple(self):
+        """RSA (default implementation) constructed key (2-tuple)"""
+        pub = self.rsa.construct((self.n, self.e))
+        self._check_public_key(pub)
+        self._check_encryption(pub)
 
-	def test_construct_2tuple(self):
-		"""RSA (default implementation) constructed key (2-tuple)"""
-		pub = self.rsa.construct((self.n, self.e))
-		self._check_public_key(pub)
-		self._check_encryption(pub)
+    def test_construct_3tuple(self):
+        """RSA (default implementation) constructed key (3-tuple)"""
+        rsaObj = self.rsa.construct((self.n, self.e, self.d))
+        self._check_encryption(rsaObj)
+        self._check_decryption(rsaObj)
 
-	def test_construct_3tuple(self):
-		"""RSA (default implementation) constructed key (3-tuple)"""
-		rsaObj = self.rsa.construct((self.n, self.e, self.d))
-		self._check_encryption(rsaObj)
-		self._check_decryption(rsaObj)
+    def test_construct_4tuple(self):
+        """RSA (default implementation) constructed key (4-tuple)"""
+        rsaObj = self.rsa.construct((self.n, self.e, self.d, self.p))
+        self._check_encryption(rsaObj)
+        self._check_decryption(rsaObj)
 
-	def test_construct_4tuple(self):
-		"""RSA (default implementation) constructed key (4-tuple)"""
-		rsaObj = self.rsa.construct((self.n, self.e, self.d, self.p))
-		self._check_encryption(rsaObj)
-		self._check_decryption(rsaObj)
+    def test_construct_5tuple(self):
+        """RSA (default implementation) constructed key (5-tuple)"""
+        rsaObj = self.rsa.construct((self.n, self.e, self.d, self.p, self.q))
+        self._check_private_key(rsaObj)
+        self._check_encryption(rsaObj)
+        self._check_decryption(rsaObj)
 
-	def test_construct_5tuple(self):
-		"""RSA (default implementation) constructed key (5-tuple)"""
-		rsaObj = self.rsa.construct((self.n, self.e, self.d, self.p, self.q))
-		self._check_private_key(rsaObj)
-		self._check_encryption(rsaObj)
-		self._check_decryption(rsaObj)
+    def test_construct_6tuple(self):
+        """RSA (default implementation) constructed key (6-tuple)"""
+        rsaObj = self.rsa.construct((self.n, self.e, self.d, self.p, self.q, self.u))
+        self._check_private_key(rsaObj)
+        self._check_encryption(rsaObj)
+        self._check_decryption(rsaObj)
 
-	def test_construct_6tuple(self):
-		"""RSA (default implementation) constructed key (6-tuple)"""
-		rsaObj = self.rsa.construct((self.n, self.e, self.d, self.p, self.q, self.u))
-		self._check_private_key(rsaObj)
-		self._check_encryption(rsaObj)
-		self._check_decryption(rsaObj)
+    def test_construct_bad_key2(self):
+        tup = (self.n, 1)
+        self.assertRaises(ValueError, self.rsa.construct, tup)
 
-	def test_construct_bad_key2(self):
-		tup = (self.n, 1)
-		self.assertRaises(ValueError, self.rsa.construct, tup)
+        # An even modulus is wrong
+        tup = (self.n+1, self.e)
+        self.assertRaises(ValueError, self.rsa.construct, tup)
 
-		# An even modulus is wrong
-		tup = (self.n + 1, self.e)
-		self.assertRaises(ValueError, self.rsa.construct, tup)
+    def test_construct_bad_key3(self):
+        tup = (self.n, self.e, self.d+1)
+        self.assertRaises(ValueError, self.rsa.construct, tup)
 
-	def test_construct_bad_key3(self):
-		tup = (self.n, self.e, self.d + 1)
-		self.assertRaises(ValueError, self.rsa.construct, tup)
+    def test_construct_bad_key5(self):
+        tup = (self.n, self.e, self.d, self.p, self.p)
+        self.assertRaises(ValueError, self.rsa.construct, tup)
 
-	def test_construct_bad_key5(self):
-		tup = (self.n, self.e, self.d, self.p, self.p)
-		self.assertRaises(ValueError, self.rsa.construct, tup)
+        tup = (self.p*self.p, self.e, self.p, self.p)
+        self.assertRaises(ValueError, self.rsa.construct, tup)
 
-		tup = (self.p * self.p, self.e, self.p, self.p)
-		self.assertRaises(ValueError, self.rsa.construct, tup)
+        tup = (self.p*self.p, 3, self.p, self.q)
+        self.assertRaises(ValueError, self.rsa.construct, tup)
 
-		tup = (self.p * self.p, 3, self.p, self.q)
-		self.assertRaises(ValueError, self.rsa.construct, tup)
+    def test_construct_bad_key6(self):
+        tup = (self.n, self.e, self.d, self.p, self.q, 10)
+        self.assertRaises(ValueError, self.rsa.construct, tup)
 
-	def test_construct_bad_key6(self):
-		tup = (self.n, self.e, self.d, self.p, self.q, 10)
-		self.assertRaises(ValueError, self.rsa.construct, tup)
+        from Cryptodome.Util.number import inverse
+        tup = (self.n, self.e, self.d, self.p, self.q, inverse(self.q, self.p))
+        self.assertRaises(ValueError, self.rsa.construct, tup)
 
-		from Cryptodome.Util.number import inverse
+    def test_factoring(self):
+        rsaObj = self.rsa.construct([self.n, self.e, self.d])
+        self.assertTrue(rsaObj.p==self.p or rsaObj.p==self.q)
+        self.assertTrue(rsaObj.q==self.p or rsaObj.q==self.q)
+        self.assertTrue(rsaObj.q*rsaObj.p == self.n)
 
-		tup = (self.n, self.e, self.d, self.p, self.q, inverse(self.q, self.p))
-		self.assertRaises(ValueError, self.rsa.construct, tup)
+        self.assertRaises(ValueError, self.rsa.construct, [self.n, self.e, self.n-1])
 
-	def test_factoring(self):
-		rsaObj = self.rsa.construct([self.n, self.e, self.d])
-		self.assertTrue(rsaObj.p == self.p or rsaObj.p == self.q)
-		self.assertTrue(rsaObj.q == self.p or rsaObj.q == self.q)
-		self.assertTrue(rsaObj.q * rsaObj.p == self.n)
+    def test_repr(self):
+        rsaObj = self.rsa.construct((self.n, self.e, self.d, self.p, self.q))
+        repr(rsaObj)
 
-		self.assertRaises(ValueError, self.rsa.construct, [self.n, self.e, self.n - 1])
+    def test_serialization(self):
+        """RSA keys are unpickable"""
 
-	def test_repr(self):
-		rsaObj = self.rsa.construct((self.n, self.e, self.d, self.p, self.q))
-		repr(rsaObj)
+        rsa_key = self.rsa.generate(1024)
+        self.assertRaises(PicklingError, pickle.dumps, rsa_key)
 
-	def test_serialization(self):
-		"""RSA keys are unpickable"""
+    def test_raw_rsa_boundary(self):
+        # The argument of every RSA raw operation (encrypt/decrypt) must be
+        # non-negative and no larger than the modulus
+        rsa_obj = self.rsa.generate(1024)
 
-		rsa_key = self.rsa.generate(1024)
-		self.assertRaises(PicklingError, pickle.dumps, rsa_key)
+        self.assertRaises(ValueError, rsa_obj._decrypt, rsa_obj.n)
+        self.assertRaises(ValueError, rsa_obj._decrypt_to_bytes, rsa_obj.n)
+        self.assertRaises(ValueError, rsa_obj._encrypt, rsa_obj.n)
 
-	def test_raw_rsa_boundary(self):
-		# The argument of every RSA raw operation (encrypt/decrypt) must be
-		# non-negative and no larger than the modulus
-		rsa_obj = self.rsa.generate(1024)
+        self.assertRaises(ValueError, rsa_obj._decrypt, -1)
+        self.assertRaises(ValueError, rsa_obj._decrypt_to_bytes, -1)
+        self.assertRaises(ValueError, rsa_obj._encrypt, -1)
 
-		self.assertRaises(ValueError, rsa_obj._decrypt, rsa_obj.n)
-		self.assertRaises(ValueError, rsa_obj._decrypt_to_bytes, rsa_obj.n)
-		self.assertRaises(ValueError, rsa_obj._encrypt, rsa_obj.n)
+    def test_size(self):
+        pub = self.rsa.construct((self.n, self.e))
+        self.assertEqual(pub.size_in_bits(), 1024)
+        self.assertEqual(pub.size_in_bytes(), 128)
 
-		self.assertRaises(ValueError, rsa_obj._decrypt, -1)
-		self.assertRaises(ValueError, rsa_obj._decrypt_to_bytes, -1)
-		self.assertRaises(ValueError, rsa_obj._encrypt, -1)
+    def _check_private_key(self, rsaObj):
+        from Cryptodome.Math.Numbers import Integer
 
-	def test_size(self):
-		pub = self.rsa.construct((self.n, self.e))
-		self.assertEqual(pub.size_in_bits(), 1024)
-		self.assertEqual(pub.size_in_bytes(), 128)
+        # Check capabilities
+        self.assertEqual(1, rsaObj.has_private())
 
-	def _check_private_key(self, rsaObj):
-		from Cryptodome.Math.Numbers import Integer
+        # Sanity check key data
+        self.assertEqual(rsaObj.n, rsaObj.p * rsaObj.q)     # n = pq
+        lcm = int(Integer(rsaObj.p-1).lcm(rsaObj.q-1))
+        self.assertEqual(1, rsaObj.d * rsaObj.e % lcm) # ed = 1 (mod LCM(p-1, q-1))
+        self.assertEqual(1, rsaObj.p * rsaObj.u % rsaObj.q) # pu = 1 (mod q)
+        self.assertEqual(1, rsaObj.p > 1)   # p > 1
+        self.assertEqual(1, rsaObj.q > 1)   # q > 1
+        self.assertEqual(1, rsaObj.e > 1)   # e > 1
+        self.assertEqual(1, rsaObj.d > 1)   # d > 1
 
-		# Check capabilities
-		self.assertEqual(1, rsaObj.has_private())
+        self.assertEqual(rsaObj.u, rsaObj.invp)
+        self.assertEqual(1, rsaObj.q * rsaObj.invq % rsaObj.p)
 
-		# Sanity check key data
-		self.assertEqual(rsaObj.n, rsaObj.p * rsaObj.q)  # n = pq
-		lcm = int(Integer(rsaObj.p - 1).lcm(rsaObj.q - 1))
-		self.assertEqual(1, rsaObj.d * rsaObj.e % lcm)  # ed = 1 (mod LCM(p-1, q-1))
-		self.assertEqual(1, rsaObj.p * rsaObj.u % rsaObj.q)  # pu = 1 (mod q)
-		self.assertEqual(1, rsaObj.p > 1)  # p > 1
-		self.assertEqual(1, rsaObj.q > 1)  # q > 1
-		self.assertEqual(1, rsaObj.e > 1)  # e > 1
-		self.assertEqual(1, rsaObj.d > 1)  # d > 1
+    def _check_public_key(self, rsaObj):
+        ciphertext = a2b_hex(self.ciphertext)
 
-		self.assertEqual(rsaObj.u, rsaObj.invp)
-		self.assertEqual(1, rsaObj.q * rsaObj.invq % rsaObj.p)
+        # Check capabilities
+        self.assertEqual(0, rsaObj.has_private())
 
-	def _check_public_key(self, rsaObj):
-		ciphertext = a2b_hex(self.ciphertext)
+        # Check rsaObj.[ne] -> rsaObj.[ne] mapping
+        self.assertEqual(rsaObj.n, rsaObj.n)
+        self.assertEqual(rsaObj.e, rsaObj.e)
 
-		# Check capabilities
-		self.assertEqual(0, rsaObj.has_private())
+        # Check that private parameters are all missing
+        self.assertEqual(0, hasattr(rsaObj, 'd'))
+        self.assertEqual(0, hasattr(rsaObj, 'p'))
+        self.assertEqual(0, hasattr(rsaObj, 'q'))
+        self.assertEqual(0, hasattr(rsaObj, 'u'))
 
-		# Check rsaObj.[ne] -> rsaObj.[ne] mapping
-		self.assertEqual(rsaObj.n, rsaObj.n)
-		self.assertEqual(rsaObj.e, rsaObj.e)
+        # Sanity check key data
+        self.assertEqual(1, rsaObj.e > 1)   # e > 1
 
-		# Check that private parameters are all missing
-		self.assertEqual(0, hasattr(rsaObj, "d"))
-		self.assertEqual(0, hasattr(rsaObj, "p"))
-		self.assertEqual(0, hasattr(rsaObj, "q"))
-		self.assertEqual(0, hasattr(rsaObj, "u"))
+        # Public keys should not be able to sign or decrypt
+        self.assertRaises(TypeError, rsaObj._decrypt,
+                bytes_to_long(ciphertext))
+        self.assertRaises(TypeError, rsaObj._decrypt_to_bytes,
+                bytes_to_long(ciphertext))
 
-		# Sanity check key data
-		self.assertEqual(1, rsaObj.e > 1)  # e > 1
+        # Check __eq__ and __ne__
+        self.assertEqual(rsaObj.public_key() == rsaObj.public_key(),True) # assert_
+        self.assertEqual(rsaObj.public_key() != rsaObj.public_key(),False) # assertFalse
 
-		# Public keys should not be able to sign or decrypt
-		self.assertRaises(
-			TypeError,
-			rsaObj._decrypt,
-			bytes_to_long(ciphertext),
-		)
-		self.assertRaises(
-			TypeError,
-			rsaObj._decrypt_to_bytes,
-			bytes_to_long(ciphertext),
-		)
+        self.assertEqual(rsaObj.publickey(), rsaObj.public_key())
 
-		# Check __eq__ and __ne__
-		self.assertEqual(rsaObj.public_key() == rsaObj.public_key(), True)  # assert_
-		self.assertEqual(rsaObj.public_key() != rsaObj.public_key(), False)  # assertFalse
+    def _exercise_primitive(self, rsaObj):
+        # Since we're using a randomly-generated key, we can't check the test
+        # vector, but we can make sure encryption and decryption are inverse
+        # operations.
+        ciphertext = bytes_to_long(a2b_hex(self.ciphertext))
 
-		self.assertEqual(rsaObj.publickey(), rsaObj.public_key())
+        # Test decryption
+        plaintext = rsaObj._decrypt(ciphertext)
 
-	def _exercise_primitive(self, rsaObj):
-		# Since we're using a randomly-generated key, we can't check the test
-		# vector, but we can make sure encryption and decryption are inverse
-		# operations.
-		ciphertext = bytes_to_long(a2b_hex(self.ciphertext))
+        # Test encryption (2 arguments)
+        new_ciphertext2 = rsaObj._encrypt(plaintext)
+        self.assertEqual(ciphertext, new_ciphertext2)
 
-		# Test decryption
-		plaintext = rsaObj._decrypt(ciphertext)
+    def _exercise_public_primitive(self, rsaObj):
+        plaintext = a2b_hex(self.plaintext)
 
-		# Test encryption (2 arguments)
-		new_ciphertext2 = rsaObj._encrypt(plaintext)
-		self.assertEqual(ciphertext, new_ciphertext2)
+        # Test encryption (2 arguments)
+        new_ciphertext2 = rsaObj._encrypt(bytes_to_long(plaintext))
 
-	def _exercise_public_primitive(self, rsaObj):
-		plaintext = a2b_hex(self.plaintext)
+    def _check_encryption(self, rsaObj):
+        plaintext = a2b_hex(self.plaintext)
+        ciphertext = a2b_hex(self.ciphertext)
 
-		# Test encryption (2 arguments)
-		new_ciphertext2 = rsaObj._encrypt(bytes_to_long(plaintext))
+        # Test encryption
+        new_ciphertext2 = rsaObj._encrypt(bytes_to_long(plaintext))
+        self.assertEqual(bytes_to_long(ciphertext), new_ciphertext2)
 
-	def _check_encryption(self, rsaObj):
-		plaintext = a2b_hex(self.plaintext)
-		ciphertext = a2b_hex(self.ciphertext)
+    def _check_decryption(self, rsaObj):
+        plaintext = bytes_to_long(a2b_hex(self.plaintext))
+        ciphertext = bytes_to_long(a2b_hex(self.ciphertext))
 
-		# Test encryption
-		new_ciphertext2 = rsaObj._encrypt(bytes_to_long(plaintext))
-		self.assertEqual(bytes_to_long(ciphertext), new_ciphertext2)
-
-	def _check_decryption(self, rsaObj):
-		plaintext = bytes_to_long(a2b_hex(self.plaintext))
-		ciphertext = bytes_to_long(a2b_hex(self.ciphertext))
-
-		# Test plain decryption
-		new_plaintext = rsaObj._decrypt(ciphertext)
-		self.assertEqual(plaintext, new_plaintext)
+        # Test plain decryption
+        new_plaintext = rsaObj._decrypt(ciphertext)
+        self.assertEqual(plaintext, new_plaintext)
 
 
 def get_tests(config={}):
-	tests = []
-	tests += list_test_cases(RSATest)
-	return tests
+    tests = []
+    tests += list_test_cases(RSATest)
+    return tests
 
-
-if __name__ == "__main__":
-	suite = lambda: unittest.TestSuite(get_tests())
-	unittest.main(defaultTest="suite")
+if __name__ == '__main__':
+    suite = lambda: unittest.TestSuite(get_tests())
+    unittest.main(defaultTest='suite')
 
 # vim:set ts=4 sw=4 sts=4 expandtab:

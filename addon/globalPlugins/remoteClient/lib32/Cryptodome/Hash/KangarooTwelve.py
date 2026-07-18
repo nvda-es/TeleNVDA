@@ -33,189 +33,190 @@ from Cryptodome.Util.py3compat import bchr
 
 from . import TurboSHAKE128
 
-
 def _length_encode(x):
-	if x == 0:
-		return b"\x00"
+    if x == 0:
+        return b'\x00'
 
-	S = long_to_bytes(x)
-	return S + bchr(len(S))
+    S = long_to_bytes(x)
+    return S + bchr(len(S))
 
 
 # Possible states for a KangarooTwelve instance, which depend on the amount of data processed so far.
-SHORT_MSG = 1  # Still within the first 8192 bytes, but it is not certain we will exceed them.
-LONG_MSG_S0 = 2  # Still within the first 8192 bytes, and it is certain we will exceed them.
-LONG_MSG_SX = 3  # Beyond the first 8192 bytes.
-SQUEEZING = 4  # No more data to process.
+SHORT_MSG = 1       # Still within the first 8192 bytes, but it is not certain we will exceed them.
+LONG_MSG_S0 = 2     # Still within the first 8192 bytes, and it is certain we will exceed them.
+LONG_MSG_SX = 3     # Beyond the first 8192 bytes.
+SQUEEZING = 4       # No more data to process.
 
 
 class K12_XOF(object):
-	"""A KangarooTwelve hash object.
-	Do not instantiate directly.
-	Use the :func:`new` function.
-	"""
+    """A KangarooTwelve hash object.
+    Do not instantiate directly.
+    Use the :func:`new` function.
+    """
 
-	def __init__(self, data, custom):
-		if custom == None:
-			custom = b""
+    def __init__(self, data, custom):
 
-		self._custom = custom + _length_encode(len(custom))
-		self._state = SHORT_MSG
-		self._padding = None  # Final padding is only decided in read()
+        if custom == None:
+            custom = b''
 
-		# Internal hash that consumes FinalNode
-		# The real domain separation byte will be known before squeezing
-		self._hash1 = TurboSHAKE128.new(domain=1)
-		self._length1 = 0
+        self._custom = custom + _length_encode(len(custom))
+        self._state = SHORT_MSG
+        self._padding = None        # Final padding is only decided in read()
 
-		# Internal hash that produces CV_i (reset each time)
-		self._hash2 = None
-		self._length2 = 0
+        # Internal hash that consumes FinalNode
+        # The real domain separation byte will be known before squeezing
+        self._hash1 = TurboSHAKE128.new(domain=1)
+        self._length1 = 0
 
-		# Incremented by one for each 8192-byte block
-		self._ctr = 0
+        # Internal hash that produces CV_i (reset each time)
+        self._hash2 = None
+        self._length2 = 0
 
-		if data:
-			self.update(data)
+        # Incremented by one for each 8192-byte block
+        self._ctr = 0
 
-	def update(self, data):
-		"""Hash the next piece of data.
+        if data:
+            self.update(data)
 
-		.. note::
-		    For better performance, submit chunks with a length multiple of 8192 bytes.
+    def update(self, data):
+        """Hash the next piece of data.
 
-		Args:
-		    data (byte string/byte array/memoryview): The next chunk of the
-		      message to hash.
-		"""
+        .. note::
+            For better performance, submit chunks with a length multiple of 8192 bytes.
 
-		if self._state == SQUEEZING:
-			raise TypeError("You cannot call 'update' after the first 'read'")
+        Args:
+            data (byte string/byte array/memoryview): The next chunk of the
+              message to hash.
+        """
 
-		if self._state == SHORT_MSG:
-			next_length = self._length1 + len(data)
+        if self._state == SQUEEZING:
+            raise TypeError("You cannot call 'update' after the first 'read'")
 
-			if next_length + len(self._custom) <= 8192:
-				self._length1 = next_length
-				self._hash1.update(data)
-				return self
+        if self._state == SHORT_MSG:
+            next_length = self._length1 + len(data)
 
-			# Switch to tree hashing
-			self._state = LONG_MSG_S0
+            if next_length + len(self._custom) <= 8192:
+                self._length1 = next_length
+                self._hash1.update(data)
+                return self
 
-		if self._state == LONG_MSG_S0:
-			data_mem = memoryview(data)
-			assert self._length1 < 8192
-			dtc = min(len(data), 8192 - self._length1)
-			self._hash1.update(data_mem[:dtc])
-			self._length1 += dtc
+            # Switch to tree hashing
+            self._state = LONG_MSG_S0
 
-			if self._length1 < 8192:
-				return self
+        if self._state == LONG_MSG_S0:
+            data_mem = memoryview(data)
+            assert(self._length1 < 8192)
+            dtc = min(len(data), 8192 - self._length1)
+            self._hash1.update(data_mem[:dtc])
+            self._length1 += dtc
 
-			# Finish hashing S_0 and start S_1
-			assert self._length1 == 8192
+            if self._length1 < 8192:
+                return self
 
-			divider = b"\x03" + b"\x00" * 7
-			self._hash1.update(divider)
-			self._length1 += 8
+            # Finish hashing S_0 and start S_1
+            assert(self._length1 == 8192)
 
-			self._hash2 = TurboSHAKE128.new(domain=0x0B)
-			self._length2 = 0
-			self._ctr = 1
+            divider = b'\x03' + b'\x00' * 7
+            self._hash1.update(divider)
+            self._length1 += 8
 
-			self._state = LONG_MSG_SX
-			return self.update(data_mem[dtc:])
+            self._hash2 = TurboSHAKE128.new(domain=0x0B)
+            self._length2 = 0
+            self._ctr = 1
 
-		# LONG_MSG_SX
-		assert self._state == LONG_MSG_SX
-		index = 0
-		len_data = len(data)
+            self._state = LONG_MSG_SX
+            return self.update(data_mem[dtc:])
 
-		# All iteractions could actually run in parallel
-		data_mem = memoryview(data)
-		while index < len_data:
-			new_index = min(index + 8192 - self._length2, len_data)
-			self._hash2.update(data_mem[index:new_index])
-			self._length2 += new_index - index
-			index = new_index
+        # LONG_MSG_SX
+        assert(self._state == LONG_MSG_SX)
+        index = 0
+        len_data = len(data)
 
-			if self._length2 == 8192:
-				cv_i = self._hash2.read(32)
-				self._hash1.update(cv_i)
-				self._length1 += 32
-				self._hash2._reset()
-				self._length2 = 0
-				self._ctr += 1
+        # All iteractions could actually run in parallel
+        data_mem = memoryview(data)
+        while index < len_data:
 
-		return self
+            new_index = min(index + 8192 - self._length2, len_data)
+            self._hash2.update(data_mem[index:new_index])
+            self._length2 += new_index - index
+            index = new_index
 
-	def read(self, length):
-		"""
-		Produce more bytes of the digest.
+            if self._length2 == 8192:
+                cv_i = self._hash2.read(32)
+                self._hash1.update(cv_i)
+                self._length1 += 32
+                self._hash2._reset()
+                self._length2 = 0
+                self._ctr += 1
 
-		.. note::
-		    You cannot use :meth:`update` anymore after the first call to
-		    :meth:`read`.
+        return self
 
-		Args:
-		    length (integer): the amount of bytes this method must return
+    def read(self, length):
+        """
+        Produce more bytes of the digest.
 
-		:return: the next piece of XOF output (of the given length)
-		:rtype: byte string
-		"""
+        .. note::
+            You cannot use :meth:`update` anymore after the first call to
+            :meth:`read`.
 
-		custom_was_consumed = False
+        Args:
+            length (integer): the amount of bytes this method must return
 
-		if self._state == SHORT_MSG:
-			self._hash1.update(self._custom)
-			self._padding = 0x07
-			self._state = SQUEEZING
+        :return: the next piece of XOF output (of the given length)
+        :rtype: byte string
+        """
 
-		if self._state == LONG_MSG_S0:
-			self.update(self._custom)
-			custom_was_consumed = True
-			assert self._state == LONG_MSG_SX
+        custom_was_consumed = False
 
-		if self._state == LONG_MSG_SX:
-			if not custom_was_consumed:
-				self.update(self._custom)
+        if self._state == SHORT_MSG:
+            self._hash1.update(self._custom)
+            self._padding = 0x07
+            self._state = SQUEEZING
 
-			# Is there still some leftover data in hash2?
-			if self._length2 > 0:
-				cv_i = self._hash2.read(32)
-				self._hash1.update(cv_i)
-				self._length1 += 32
-				self._hash2._reset()
-				self._length2 = 0
-				self._ctr += 1
+        if self._state == LONG_MSG_S0:
+            self.update(self._custom)
+            custom_was_consumed = True
+            assert(self._state == LONG_MSG_SX)
 
-			trailer = _length_encode(self._ctr - 1) + b"\xff\xff"
-			self._hash1.update(trailer)
+        if self._state == LONG_MSG_SX:
+            if not custom_was_consumed:
+                self.update(self._custom)
 
-			self._padding = 0x06
-			self._state = SQUEEZING
+            # Is there still some leftover data in hash2?
+            if self._length2 > 0:
+                cv_i = self._hash2.read(32)
+                self._hash1.update(cv_i)
+                self._length1 += 32
+                self._hash2._reset()
+                self._length2 = 0
+                self._ctr += 1
 
-		self._hash1._domain = self._padding
-		return self._hash1.read(length)
+            trailer = _length_encode(self._ctr - 1) + b'\xFF\xFF'
+            self._hash1.update(trailer)
 
-	def new(self, data=None, custom=b""):
-		return type(self)(data, custom)
+            self._padding = 0x06
+            self._state = SQUEEZING
+
+        self._hash1._domain = self._padding
+        return self._hash1.read(length)
+
+    def new(self, data=None, custom=b''):
+        return type(self)(data, custom)
 
 
 def new(data=None, custom=None):
-	"""Return a fresh instance of a KangarooTwelve object.
+    """Return a fresh instance of a KangarooTwelve object.
 
-	Args:
-	   data (bytes/bytearray/memoryview):
-	    Optional.
-	    The very first chunk of the message to hash.
-	    It is equivalent to an early call to :meth:`update`.
-	   custom (bytes):
-	    Optional.
-	    A customization byte string.
+    Args:
+       data (bytes/bytearray/memoryview):
+        Optional.
+        The very first chunk of the message to hash.
+        It is equivalent to an early call to :meth:`update`.
+       custom (bytes):
+        Optional.
+        A customization byte string.
 
-	:Return: A :class:`K12_XOF` object
-	"""
+    :Return: A :class:`K12_XOF` object
+    """
 
-	return K12_XOF(data, custom)
+    return K12_XOF(data, custom)
