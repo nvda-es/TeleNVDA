@@ -177,7 +177,12 @@ class NVDASlavePatcher(NVDAPatcher):
 
 	def handle_decide_beep(self, hz, length, left=50, right=50, isSpeechBeepCommand=False):
 		self.call_callbacks(
-			"beep", hz=hz, length=length, left=left, right=right, isSpeechBeepCommand=isSpeechBeepCommand
+			"beep",
+			hz=hz,
+			length=length,
+			left=left,
+			right=right,
+			isSpeechBeepCommand=isSpeechBeepCommand,
 		)
 		return True
 
