@@ -100,8 +100,12 @@ class TCPTransport(Transport):
 			self.callback_manager.call_callbacks(TransportEvents.CERTIFICATE_AUTHENTICATION_FAILED)
 			raise
 		except ssl.SSLError:
-			self.send_alpn = False
-			return self.run()
+			if self.send_alpn:
+				self.send_alpn = False
+				return self.run()
+			else:
+				self.callback_manager.call_callbacks(TransportEvents.CONNECTION_FAILED)
+				raise
 		except Exception:
 			self.callback_manager.call_callbacks(TransportEvents.CONNECTION_FAILED)
 			raise
