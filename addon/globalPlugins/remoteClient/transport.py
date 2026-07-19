@@ -76,6 +76,7 @@ class TCPTransport(Transport):
 		self.insecure=insecure
 		self.encryption_key = encryption_key
 		self.encryption_hash=hashlib.sha256(encryption_key.encode("utf-8")).digest() if encryption_key else None
+		self.send_alpn = True
 
 	def run(self):
 		self.closed = False
@@ -98,6 +99,9 @@ class TCPTransport(Transport):
 			self.last_fail_fingerprint = fingerprint
 			self.callback_manager.call_callbacks(TransportEvents.CERTIFICATE_AUTHENTICATION_FAILED)
 			raise
+		except ssl.SSLError:
+			self.send_alpn = False
+			return self.run()
 		except Exception:
 			self.callback_manager.call_callbacks(TransportEvents.CONNECTION_FAILED)
 			raise
@@ -136,7 +140,8 @@ class TCPTransport(Transport):
 		server_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 		server_sock.ioctl(socket.SIO_KEEPALIVE_VALS, (1, 60000, 2000))
 		ctx = (ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT))
-		ctx.set_alpn_protocols(['nvdaremote/2.0'])
+		if self.send_alpn:
+			ctx.set_alpn_protocols(['nvdaremote/2.0'])
 		ctx.minimum_version = ssl.TLSVersion.TLSv1_2
 		if insecure:
 			ctx.check_hostname = False
