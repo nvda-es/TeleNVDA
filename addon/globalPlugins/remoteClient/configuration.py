@@ -4,9 +4,10 @@ import configobj
 from configobj import validate
 import globalVars
 from . import socket_utils
+
 readonly = globalVars.appArgs.secure or globalVars.appArgs.launcher
 
-CONFIG_FILE_NAME = 'teleNVDA.ini'
+CONFIG_FILE_NAME = "teleNVDA.ini"
 
 _config = None
 configspec = StringIO("""
@@ -36,23 +37,28 @@ configspec = StringIO("""
 	display_motd_once = boolean(default=False)
 	portcheck = string(default="https://nvda.es/portcheck.php?port={port}")
 """)
+
+
 def get_config():
 	global _config
 	if not _config:
 		path = os.path.abspath(os.path.join(globalVars.appArgs.configPath, CONFIG_FILE_NAME))
-		_config = configobj.ConfigObj(infile=path, configspec=configspec, default_encoding='utf8', create_empty=not readonly)
+		_config = configobj.ConfigObj(
+			infile=path, configspec=configspec, default_encoding="utf8", create_empty=not readonly
+		)
 		val = validate.Validator()
 		_config.validate(val, copy=True)
 	return _config
+
 
 def write_connection_to_config(address):
 	"""Writes an address to the last connected section of the config.
 	If the address is already in the config, move it to the end."""
 	conf = get_config()
-	last_cons = conf['connections']['last_connected']
+	last_cons = conf["connections"]["last_connected"]
 	address = socket_utils.hostport_to_address(address)
 	if address in last_cons:
-		conf['connections']['last_connected'].remove(address)
-	conf['connections']['last_connected'].append(address)
+		conf["connections"]["last_connected"].remove(address)
+	conf["connections"]["last_connected"].append(address)
 	if not readonly:
 		conf.write()

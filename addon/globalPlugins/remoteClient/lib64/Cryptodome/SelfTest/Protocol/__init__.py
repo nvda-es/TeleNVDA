@@ -24,22 +24,33 @@ import sys
 
 """Self-test for Cryptodome.Protocol"""
 
+
 def get_tests(config={}):
-    tests = []
-    from Cryptodome.SelfTest.Protocol import test_rfc1751;  tests += test_rfc1751.get_tests(config=config)
-    from Cryptodome.SelfTest.Protocol import test_KDF;      tests += test_KDF.get_tests(config=config)
-    from Cryptodome.SelfTest.Protocol import test_ecdh;     tests += test_ecdh.get_tests(config=config)
+	tests = []
+	from Cryptodome.SelfTest.Protocol import test_rfc1751
 
-    from Cryptodome.SelfTest.Protocol import test_SecretSharing
-    tests += test_SecretSharing.get_tests(config=config)
+	tests += test_rfc1751.get_tests(config=config)
+	from Cryptodome.SelfTest.Protocol import test_KDF
 
-    if sys.version_info >= (3, 9):
-        from Cryptodome.SelfTest.Protocol import test_HPKE
-        tests += test_HPKE.get_tests(config=config)
+	tests += test_KDF.get_tests(config=config)
+	from Cryptodome.SelfTest.Protocol import test_ecdh
 
-    return tests
+	tests += test_ecdh.get_tests(config=config)
 
-if __name__ == '__main__':
-    import unittest
-    suite = lambda: unittest.TestSuite(get_tests())
-    unittest.main(defaultTest='suite')
+	from Cryptodome.SelfTest.Protocol import test_SecretSharing
+
+	tests += test_SecretSharing.get_tests(config=config)
+
+	if sys.version_info >= (3, 9):
+		from Cryptodome.SelfTest.Protocol import test_HPKE
+
+		tests += test_HPKE.get_tests(config=config)
+
+	return tests
+
+
+if __name__ == "__main__":
+	import unittest
+
+	suite = lambda: unittest.TestSuite(get_tests())
+	unittest.main(defaultTest="suite")

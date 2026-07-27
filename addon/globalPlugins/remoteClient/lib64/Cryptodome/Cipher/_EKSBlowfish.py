@@ -31,13 +31,18 @@
 import sys
 
 from Cryptodome.Cipher import _create_cipher
-from Cryptodome.Util._raw_api import (load_pycryptodome_raw_lib,
-                                  VoidPointer, SmartPointer, c_size_t,
-                                  c_uint8_ptr, c_uint)
+from Cryptodome.Util._raw_api import (
+	load_pycryptodome_raw_lib,
+	VoidPointer,
+	SmartPointer,
+	c_size_t,
+	c_uint8_ptr,
+	c_uint,
+)
 
 _raw_blowfish_lib = load_pycryptodome_raw_lib(
-        "Cryptodome.Cipher._raw_eksblowfish",
-        """
+	"Cryptodome.Cipher._raw_eksblowfish",
+	"""
         int EKSBlowfish_start_operation(const uint8_t key[],
                                         size_t key_len,
                                         const uint8_t salt[16],
@@ -54,73 +59,76 @@ _raw_blowfish_lib = load_pycryptodome_raw_lib(
                                 uint8_t *out,
                                 size_t data_len);
         int EKSBlowfish_stop_operation(void *state);
-        """
-        )
+        """,
+)
 
 
 def _create_base_cipher(dict_parameters):
-    """This method instantiates and returns a smart pointer to
-    a low-level base cipher. It will absorb named parameters in
-    the process."""
+	"""This method instantiates and returns a smart pointer to
+	a low-level base cipher. It will absorb named parameters in
+	the process."""
 
-    try:
-        key = dict_parameters.pop("key")
-        salt = dict_parameters.pop("salt")
-        cost = dict_parameters.pop("cost")
-    except KeyError as e:
-        raise TypeError("Missing EKSBlowfish parameter: " + str(e))
-    invert = dict_parameters.pop("invert", True)
+	try:
+		key = dict_parameters.pop("key")
+		salt = dict_parameters.pop("salt")
+		cost = dict_parameters.pop("cost")
+	except KeyError as e:
+		raise TypeError("Missing EKSBlowfish parameter: " + str(e))
+	invert = dict_parameters.pop("invert", True)
 
-    if len(key) not in key_size:
-        raise ValueError("Incorrect EKSBlowfish key length (%d bytes)" % len(key))
+	if len(key) not in key_size:
+		raise ValueError("Incorrect EKSBlowfish key length (%d bytes)" % len(key))
 
-    start_operation = _raw_blowfish_lib.EKSBlowfish_start_operation
-    stop_operation = _raw_blowfish_lib.EKSBlowfish_stop_operation
+	start_operation = _raw_blowfish_lib.EKSBlowfish_start_operation
+	stop_operation = _raw_blowfish_lib.EKSBlowfish_stop_operation
 
-    void_p = VoidPointer()
-    result = start_operation(c_uint8_ptr(key),
-                             c_size_t(len(key)),
-                             c_uint8_ptr(salt),
-                             c_size_t(len(salt)),
-                             c_uint(cost),
-                             c_uint(int(invert)),
-                             void_p.address_of())
-    if result:
-        raise ValueError("Error %X while instantiating the EKSBlowfish cipher"
-                         % result)
-    return SmartPointer(void_p.get(), stop_operation)
+	void_p = VoidPointer()
+	result = start_operation(
+		c_uint8_ptr(key),
+		c_size_t(len(key)),
+		c_uint8_ptr(salt),
+		c_size_t(len(salt)),
+		c_uint(cost),
+		c_uint(int(invert)),
+		void_p.address_of(),
+	)
+	if result:
+		raise ValueError(
+			"Error %X while instantiating the EKSBlowfish cipher" % result,
+		)
+	return SmartPointer(void_p.get(), stop_operation)
 
 
 def new(key, mode, salt, cost, invert):
-    """Create a new EKSBlowfish cipher
-    
-    Args:
+	"""Create a new EKSBlowfish cipher
 
-      key (bytes, bytearray, memoryview):
-        The secret key to use in the symmetric cipher.
-        Its length can vary from 0 to 72 bytes.
+	Args:
 
-      mode (one of the supported ``MODE_*`` constants):
-        The chaining mode to use for encryption or decryption.
+	  key (bytes, bytearray, memoryview):
+	    The secret key to use in the symmetric cipher.
+	    Its length can vary from 0 to 72 bytes.
 
-      salt (bytes, bytearray, memoryview):
-        The salt that bcrypt uses to thwart rainbow table attacks
+	  mode (one of the supported ``MODE_*`` constants):
+	    The chaining mode to use for encryption or decryption.
 
-      cost (integer):
-        The complexity factor in bcrypt
+	  salt (bytes, bytearray, memoryview):
+	    The salt that bcrypt uses to thwart rainbow table attacks
 
-      invert (bool):
-        If ``False``, in the inner loop use ``ExpandKey`` first over the salt
-        and then over the key, as defined in
-        the `original bcrypt specification <https://www.usenix.org/legacy/events/usenix99/provos/provos_html/node4.html>`_.
-        If ``True``, reverse the order, as in the first implementation of
-        `bcrypt` in OpenBSD.
+	  cost (integer):
+	    The complexity factor in bcrypt
 
-    :Return: an EKSBlowfish object
-    """
+	  invert (bool):
+	    If ``False``, in the inner loop use ``ExpandKey`` first over the salt
+	    and then over the key, as defined in
+	    the `original bcrypt specification <https://www.usenix.org/legacy/events/usenix99/provos/provos_html/node4.html>`_.
+	    If ``True``, reverse the order, as in the first implementation of
+	    `bcrypt` in OpenBSD.
 
-    kwargs = { 'salt':salt, 'cost':cost, 'invert':invert }
-    return _create_cipher(sys.modules[__name__], key, mode, **kwargs)
+	:Return: an EKSBlowfish object
+	"""
+
+	kwargs = {"salt": salt, "cost": cost, "invert": invert}
+	return _create_cipher(sys.modules[__name__], key, mode, **kwargs)
 
 
 MODE_ECB = 1
