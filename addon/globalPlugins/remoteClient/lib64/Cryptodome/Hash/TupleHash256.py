@@ -33,38 +33,39 @@ from .TupleHash128 import TupleHash
 
 
 def new(**kwargs):
-    """Create a new TupleHash256 object.
+	"""Create a new TupleHash256 object.
 
-    Args:
-       digest_bytes (integer):
-        Optional. The size of the digest, in bytes.
-        Default is 64. Minimum is 8.
-       digest_bits (integer):
-        Optional and alternative to ``digest_bytes``.
-        The size of the digest, in bits (and in steps of 8).
-        Default is 512. Minimum is 64.
-       custom (bytes):
-        Optional.
-        A customization bytestring (``S`` in SP 800-185).
+	Args:
+	   digest_bytes (integer):
+	    Optional. The size of the digest, in bytes.
+	    Default is 64. Minimum is 8.
+	   digest_bits (integer):
+	    Optional and alternative to ``digest_bytes``.
+	    The size of the digest, in bits (and in steps of 8).
+	    Default is 512. Minimum is 64.
+	   custom (bytes):
+	    Optional.
+	    A customization bytestring (``S`` in SP 800-185).
 
-    :Return: A :class:`TupleHash` object
-    """
+	:Return: A :class:`TupleHash` object
+	"""
 
-    digest_bytes = kwargs.pop("digest_bytes", None)
-    digest_bits = kwargs.pop("digest_bits", None)
-    if None not in (digest_bytes, digest_bits):
-        raise TypeError("Only one digest parameter must be provided")
-    if (None, None) == (digest_bytes, digest_bits):
-        digest_bytes = 64
-    if digest_bytes is not None:
-        if digest_bytes < 8:
-            raise ValueError("'digest_bytes' must be at least 8")
-    else:
-        if digest_bits < 64 or digest_bits % 8:
-            raise ValueError("'digest_bytes' must be at least 64 "
-                             "in steps of 8")
-        digest_bytes = digest_bits // 8
+	digest_bytes = kwargs.pop("digest_bytes", None)
+	digest_bits = kwargs.pop("digest_bits", None)
+	if None not in (digest_bytes, digest_bits):
+		raise TypeError("Only one digest parameter must be provided")
+	if (None, None) == (digest_bytes, digest_bits):
+		digest_bytes = 64
+	if digest_bytes is not None:
+		if digest_bytes < 8:
+			raise ValueError("'digest_bytes' must be at least 8")
+	else:
+		if digest_bits < 64 or digest_bits % 8:
+			raise ValueError(
+				"'digest_bytes' must be at least 64 in steps of 8",
+			)
+		digest_bytes = digest_bits // 8
 
-    custom = kwargs.pop("custom", b'')
+	custom = kwargs.pop("custom", b"")
 
-    return TupleHash(custom, cSHAKE256, digest_bytes)
+	return TupleHash(custom, cSHAKE256, digest_bytes)
