@@ -6,7 +6,7 @@ from .TurboSHAKE128 import TurboSHAKE
 Buffer = Union[bytes, bytearray, memoryview]
 
 class Args(TypedDict):
-    domain: NotRequired[int]
-    data: NotRequired[Buffer]
+	domain: NotRequired[int]
+	data: NotRequired[Buffer]
 
 def new(**kwargs: Unpack[Args]) -> TurboSHAKE: ...
