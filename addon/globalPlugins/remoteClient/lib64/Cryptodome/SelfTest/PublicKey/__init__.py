@@ -25,39 +25,46 @@
 """Self-test for public-key crypto"""
 
 import unittest
-from Cryptodome.SelfTest.PublicKey import (test_DSA, test_RSA,
-                                       test_ECC_NIST,
-                                       test_ECC_Ed25519,
-                                       test_ECC_Curve25519,
-                                       test_ECC_Ed448,
-                                       test_ECC_Curve448,
-                                       test_import_DSA, test_import_RSA,
-                                       test_import_ECC, test_ElGamal,
-                                       test_import_Curve25519,
-                                       test_import_Curve448)
+from Cryptodome.SelfTest.PublicKey import (
+	test_DSA,
+	test_RSA,
+	test_ECC_NIST,
+	test_ECC_Ed25519,
+	test_ECC_Curve25519,
+	test_ECC_Ed448,
+	test_ECC_Curve448,
+	test_import_DSA,
+	test_import_RSA,
+	test_import_ECC,
+	test_ElGamal,
+	test_import_Curve25519,
+	test_import_Curve448,
+)
 
 
 def get_tests(config={}):
-    tests = []
-    tests += test_DSA.get_tests(config=config)
-    tests += test_RSA.get_tests(config=config)
-    tests += test_ECC_NIST.get_tests(config=config)
-    tests += test_ECC_Ed25519.get_tests(config=config)
-    tests += test_ECC_Curve25519.get_tests(config=config)
-    tests += test_ECC_Ed448.get_tests(config=config)
-    tests += test_ECC_Curve448.get_tests(config=config)
+	tests = []
+	tests += test_DSA.get_tests(config=config)
+	tests += test_RSA.get_tests(config=config)
+	tests += test_ECC_NIST.get_tests(config=config)
+	tests += test_ECC_Ed25519.get_tests(config=config)
+	tests += test_ECC_Curve25519.get_tests(config=config)
+	tests += test_ECC_Ed448.get_tests(config=config)
+	tests += test_ECC_Curve448.get_tests(config=config)
 
-    tests += test_import_DSA.get_tests(config=config)
-    tests += test_import_RSA.get_tests(config=config)
-    tests += test_import_ECC.get_tests(config=config)
-    tests += test_import_Curve25519.get_tests(config=config)
-    tests += test_import_Curve448.get_tests(config=config)
+	tests += test_import_DSA.get_tests(config=config)
+	tests += test_import_RSA.get_tests(config=config)
+	tests += test_import_ECC.get_tests(config=config)
+	tests += test_import_Curve25519.get_tests(config=config)
+	tests += test_import_Curve448.get_tests(config=config)
 
-    tests += test_ElGamal.get_tests(config=config)
-    return tests
+	tests += test_ElGamal.get_tests(config=config)
+	return tests
 
 
-if __name__ == '__main__':
-    def suite():
-        return unittest.TestSuite(get_tests())
-    unittest.main(defaultTest='suite')
+if __name__ == "__main__":
+
+	def suite():
+		return unittest.TestSuite(get_tests())
+
+	unittest.main(defaultTest="suite")
