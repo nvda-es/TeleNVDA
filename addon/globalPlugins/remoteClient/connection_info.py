@@ -26,9 +26,9 @@ class ConnectionInfo:
 		parsed_query = parse_qs(parsed_url.query)
 		hostname = parsed_url.hostname
 		port = parsed_url.port
-		key = parsed_query.get('key', [""])[0]
-		encryption_key = parsed_query.get('encryption_key', [""])[0]
-		mode = parsed_query.get('mode', [""])[0].lower()
+		key = parsed_query.get("key", [""])[0]
+		encryption_key = parsed_query.get("encryption_key", [""])[0]
+		mode = parsed_query.get("mode", [""])[0].lower()
 		if not hostname:
 			raise URLParsingError("No hostname provided")
 		if not key:
@@ -43,7 +43,14 @@ class ConnectionInfo:
 			return cls(hostname=hostname, mode=mode, key=key, port=port)
 
 	def __repr__(self):
-		return "{classname} (hostname={hostname}, port={port}, mode={mode}, key={key}, encryption_key={encryption_key})".format(classname=self.__class__.__name__, hostname=self.hostname, port=self.port, mode=self.mode, key=self.key, encryption_key=self.encryption_key)
+		return "{classname} (hostname={hostname}, port={port}, mode={mode}, key={key}, encryption_key={encryption_key})".format(
+			classname=self.__class__.__name__,
+			hostname=self.hostname,
+			port=self.port,
+			mode=self.mode,
+			key=self.key,
+			encryption_key=self.encryption_key,
+		)
 
 	def get_address(self):
 		hostname = self.hostname if ":" not in self.hostname else "[" + self.hostname + "]"
@@ -53,10 +60,10 @@ class ConnectionInfo:
 		result = URL_PREFIX[protocol] + socket_utils.hostport_to_address((self.hostname, self.port))
 		result += "?"
 		mode = self.mode
-		if mode == 'master':
-			mode = 'slave'
-		elif mode == 'slave':
-			mode = 'master'
+		if mode == "master":
+			mode = "slave"
+		elif mode == "slave":
+			mode = "master"
 		if self.encryption_key:
 			result += urlencode(dict(key=self.key, encryption_key=self.encryption_key, mode=mode))
 		else:

@@ -39,7 +39,10 @@ class KeyboardHook:
 		self.callbacks = list()
 		self.proc = LowLevelKeyboardProc(self.keyboard_proc)
 		self.handle = ctypes.windll.user32.SetWindowsHookExW(
-			WH_KEYBOARD_LL, self.proc, ctypes.windll.kernel32.GetModuleHandleW(None), 0
+			WH_KEYBOARD_LL,
+			self.proc,
+			ctypes.windll.kernel32.GetModuleHandleW(None),
+			0,
 		)
 
 	def register_callback(self, callback):
@@ -61,7 +64,10 @@ class KeyboardHook:
 		for callback in self.callbacks:
 			try:
 				should_pass_on = not callback(
-					vk_code=vk_code, scan_code=scan_code, extended=extended, pressed=pressed
+					vk_code=vk_code,
+					scan_code=scan_code,
+					extended=extended,
+					pressed=pressed,
 				)
 			except Exception:
 				logger.exception("Error calling callback %r" % callback)
