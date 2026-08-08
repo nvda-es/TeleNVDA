@@ -138,7 +138,8 @@ class LocalMachine:
 			return value._replace(numRows=1)
 		sizes = self._cached_sizes + [value.numCols]
 		try:
-			return braille.DisplayDimensions(numRows=1, numCols=min(i for i in sizes if i > 0))
+			from braille.display import DisplayDimensions
+			return DisplayDimensions(numRows=1, numCols=min(i for i in sizes if i > 0))
 		except ValueError:
 			return value._replace(numRows=1)
 
