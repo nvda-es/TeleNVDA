@@ -17,9 +17,15 @@ from . import callback_manager
 from . import configuration
 from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
 from enum import Enum
+if sys.version_info.minor == 11:
+	sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "py311"))
+elif sys.version_info.minor == 7:
+	sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "py37"))
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib64" if buildVersion.version_year >= 2026 else "lib32"))
 from Cryptodome.Cipher import AES
 sys.path.remove(sys.path[-1])
+if sys.version_info.minor in [7, 11]:
+	sys.path.remove(sys.path[-1])
 
 PROTOCOL_VERSION: int = 2
 EXCLUDED_FROM_ENCRYPTION: list[str] = ["join", "protocol_version", "encrypted", "channel_joined", "motd", "nvda_not_connected", "client_left", "ping", "error", "client_joined", "generate_key"]

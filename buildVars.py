@@ -14,7 +14,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	addon_description= _("""Allows remote control of and remote access to another machine. This add-on is based on NVDA Remote."""),
 	# version
-	addon_version= "2026.7.19",
+	addon_version= "2026.8.11-dev",
 	# Author(s)
 	addon_author= "Asociación Comunidad Hispanohablante de NVDA <contacto@nvda.es> and other contributors. Original work by Tyler Spivey <tspivey@pcdesk.net>, Christopher Toth <q@q-continuum.net>",
 	# URL for the add-on documentation support
@@ -26,7 +26,7 @@ addon_info = AddonInfo(
 	# Last NVDA version supported/tested (e.g. "2018.4.0", ideally more recent than minimum version)
 	addon_lastTestedNVDAVersion= "2026.1.0",
 	# Add-on update channel (default is None, denoting stable releases, and for development releases, use "dev"; do not change unless you know what you are doing)
-	addon_updateChannel= None,
+	addon_updateChannel= "dev",
 	# Add-on license such as GPL 2
 	addon_license= "GPL 2",
 	# URL for the license document the ad-on is licensed under
@@ -35,7 +35,7 @@ addon_info = AddonInfo(
 	addon_sourceURL= "https://github.com/nvda-es/TeleNVDA",
 	# Brief changelog for this version
 	# Translators: what's new content for the add-on version to be shown in the add-on store
-	addon_changelog=_("""Handle server connections which break when client sends ALPN information. This should restore connectivity to nvdaremote.com and similar servers."""),
+	addon_changelog=_("""Add missing libraries required in older NVDA releases."""),
 )
 
 import os.path
