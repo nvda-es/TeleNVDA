@@ -10,7 +10,7 @@ import select
 import hashlib
 import base64
 from collections import defaultdict
-from typing import Tuple
+from typing import Tuple, List
 from logging import getLogger
 log = getLogger('transport')
 from . import callback_manager
@@ -28,7 +28,7 @@ if sys.version_info.minor in [7, 11]:
 	sys.path.remove(sys.path[-1])
 
 PROTOCOL_VERSION: int = 2
-EXCLUDED_FROM_ENCRYPTION: list[str] = ["join", "protocol_version", "encrypted", "channel_joined", "motd", "nvda_not_connected", "client_left", "ping", "error", "client_joined", "generate_key"]
+EXCLUDED_FROM_ENCRYPTION: List[str] = ["join", "protocol_version", "encrypted", "channel_joined", "motd", "nvda_not_connected", "client_left", "ping", "error", "client_joined", "generate_key"]
 
 class TransportEvents(Enum):
 	CONNECTED = 'transport_connected'
