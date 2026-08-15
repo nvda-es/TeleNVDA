@@ -19,6 +19,8 @@ from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
 from enum import Enum
 if sys.version_info.minor == 11:
 	sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "py311"))
+	import ctypes
+	ctypes.__path__.append(os.path.join(sys.path[-1], "ctypes"))
 elif sys.version_info.minor == 7:
 	sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "py37"))
 sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib64" if buildVersion.version_year >= 2026 else "lib32"))
