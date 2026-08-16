@@ -31,10 +31,14 @@ class Server:
 		self.invalid_join_attempts: dict[str, InvalidJoinAttempt] = {}
 		self.running = False
 		self.server_socket = self.create_server_socket(
-			socket.AF_INET, socket.SOCK_STREAM, bind_addr=(bind_host, self.port)
+			socket.AF_INET,
+			socket.SOCK_STREAM,
+			bind_addr=(bind_host, self.port),
 		)
 		self.server_socket6 = self.create_server_socket(
-			socket.AF_INET6, socket.SOCK_STREAM, bind_addr=(bind_host6, self.port)
+			socket.AF_INET6,
+			socket.SOCK_STREAM,
+			bind_addr=(bind_host6, self.port),
 		)
 		self.upnp = None
 		if UPNP:
@@ -67,7 +71,10 @@ class Server:
 		log.info("TeleNVDA direct connection server started")
 		while self.running:
 			r, w, e = select.select(
-				self.client_sockets + [self.server_socket, self.server_socket6], [], self.client_sockets, 60
+				self.client_sockets + [self.server_socket, self.server_socket6],
+				[],
+				self.client_sockets,
+				60,
 			)
 			if not self.running:
 				break
@@ -79,7 +86,13 @@ class Server:
 			if time.monotonic() - self.last_ping_time >= self.PING_TIME:
 				if self.upnp:
 					self.upnp.addportmapping(
-						self.port, "TCP", self.upnp.lanaddr, self.port, "TeleNVDA", "", 3600
+						self.port,
+						"TCP",
+						self.upnp.lanaddr,
+						self.port,
+						"TeleNVDA",
+						"",
+						3600,
 					)
 				for client in self.clients.values():
 					if client.authenticated:

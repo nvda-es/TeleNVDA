@@ -15,10 +15,15 @@ import tempfile
 import buildVersion
 import globalVars
 
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib64" if buildVersion.version_year >= 2026 else "lib32"))
+sys.path.append(
+	os.path.join(
+		os.path.abspath(os.path.dirname(__file__)), "lib64" if buildVersion.version_year >= 2026 else "lib32"
+	)
+)
 from Cryptodome.Hash import SHA256
 from Cryptodome.PublicKey import RSA
 from Cryptodome.Signature import pkcs1_15
+
 sys.path.remove(sys.path[-1])
 
 
@@ -91,7 +96,7 @@ def _certificate_der(key):
 
 def _pem(label, data):
 	encoded = base64.b64encode(data).decode("ascii")
-	lines = [encoded[index:index + 64] for index in range(0, len(encoded), 64)]
+	lines = [encoded[index : index + 64] for index in range(0, len(encoded), 64)]
 	return f"-----BEGIN {label}-----\n" + "\n".join(lines) + f"\n-----END {label}-----\n"
 
 
@@ -115,7 +120,9 @@ def ensure_certificate():
 	if _is_valid(path):
 		return path
 	key = RSA.generate(2048)
-	content = _pem("RSA PRIVATE KEY", key.export_key(format="DER")) + _pem("CERTIFICATE", _certificate_der(key))
+	content = _pem("RSA PRIVATE KEY", key.export_key(format="DER")) + _pem(
+		"CERTIFICATE", _certificate_der(key)
+	)
 	fd, temporary_path = tempfile.mkstemp(prefix="teleNVDA-", suffix=".pem", dir=os.path.dirname(path))
 	try:
 		with os.fdopen(fd, "w", encoding="ascii", newline="\n") as stream:

@@ -10,22 +10,40 @@ import select
 import hashlib
 import base64
 import json
-from collections import defaultdict
 from typing import Tuple
 from logging import getLogger
-log = getLogger('transport')
+
+log = getLogger("transport")
 from . import callback_manager
 from . import configuration
 from . import proxy_utils, sspi_proxy, ws_protocol
-from .socket_utils import SERVER_PORT, address_to_hostport, hostport_to_address
+from .socket_utils import hostport_to_address
 from enum import Enum
-sys.path.append(os.path.join(os.path.abspath(os.path.dirname(__file__)), "lib64" if buildVersion.version_year >= 2026 else "lib32"))
+
+sys.path.append(
+	os.path.join(
+		os.path.abspath(os.path.dirname(__file__)), "lib64" if buildVersion.version_year >= 2026 else "lib32"
+	)
+)
 from Cryptodome.Cipher import AES
 import websocket
+
 sys.path.remove(sys.path[-1])
 
 PROTOCOL_VERSION: int = 2
-EXCLUDED_FROM_ENCRYPTION: list[str] = ["join", "protocol_version", "encrypted", "channel_joined", "motd", "nvda_not_connected", "client_left", "ping", "error", "client_joined", "generate_key"]
+EXCLUDED_FROM_ENCRYPTION: list[str] = [
+	"join",
+	"protocol_version",
+	"encrypted",
+	"channel_joined",
+	"motd",
+	"nvda_not_connected",
+	"client_left",
+	"ping",
+	"error",
+	"client_joined",
+	"generate_key",
+]
 
 #: Screen sharing signalling messages exchanged between two clients.
 #: Unlike every other message, the relay does not broadcast them: it reads their
@@ -33,14 +51,16 @@ EXCLUDED_FROM_ENCRYPTION: list[str] = ["join", "protocol_version", "encrypted", 
 #: not be wrapped in an "encrypted" message. When an encryption password is in use,
 #: only their payload is sealed, in a nested "enc" object, so that the relay keeps
 #: routing them without ever seeing the session description or the ICE candidates.
-SIGNALING_TYPES: frozenset = frozenset((
-	"screen_share_request",
-	"screen_share_response",
-	"screen_share_stop",
-	"webrtc_offer",
-	"webrtc_answer",
-	"webrtc_candidate",
-))
+SIGNALING_TYPES: frozenset = frozenset(
+	(
+		"screen_share_request",
+		"screen_share_response",
+		"screen_share_stop",
+		"webrtc_offer",
+		"webrtc_answer",
+		"webrtc_candidate",
+	)
+)
 
 #: Screen sharing messages exchanged with the relay itself rather than with a peer.
 #: They carry no private data and the relay obviously has to read them, so they are
@@ -51,12 +71,13 @@ SIGNALING_RELAY_TYPES: frozenset = frozenset(("capabilities", "turn_credentials"
 #: "target" tells it where to deliver the message and "origin" is stamped by it.
 SIGNALING_CLEAR_FIELDS: Tuple[str, ...] = ("target", "origin")
 
+
 class TransportEvents(Enum):
-	CONNECTED = 'transport_connected'
-	CERTIFICATE_AUTHENTICATION_FAILED = 'certificate_authentication_failed'
-	CONNECTION_FAILED = 'transport_connection_failed'
-	CLOSING = 'transport_closing'
-	DISCONNECTED = 'transport_disconnected'
+	CONNECTED = "transport_connected"
+	CERTIFICATE_AUTHENTICATION_FAILED = "certificate_authentication_failed"
+	CONNECTION_FAILED = "transport_connection_failed"
+	CLOSING = "transport_closing"
+	DISCONNECTED = "transport_disconnected"
 
 
 class Transport:
@@ -78,18 +99,26 @@ class Transport:
 		self.connected_event.set()
 		self.callback_manager.call_callbacks(TransportEvents.CONNECTED)
 
+
 class TCPTransport(Transport):
 	buffer: bytes
 	closed: bool
 	queue: queue.Queue
 	insecure: bool
 	server_sock_lock: threading.Lock
-	
-	def __init__(self, serializer, address: Tuple[str, int], timeout: int=0, insecure: bool=False, encryption_key: str=''):
+
+	def __init__(
+		self,
+		serializer,
+		address: Tuple[str, int],
+		timeout: int = 0,
+		insecure: bool = False,
+		encryption_key: str = "",
+	):
 		super().__init__(serializer=serializer)
 		self.closed = False
-		#Buffer to hold partially received data
-		self.buffer = b''
+		# Buffer to hold partially received data
+		self.buffer = b""
 		self.queue = queue.Queue()
 		self.address = address
 		self.server_sock = None
@@ -100,9 +129,11 @@ class TCPTransport(Transport):
 		self.queue_thread = None
 		self.timeout = timeout
 		self.reconnector_thread = ConnectorThread(self)
-		self.insecure=insecure
+		self.insecure = insecure
 		self.encryption_key = encryption_key
-		self.encryption_hash=hashlib.sha256(encryption_key.encode("utf-8")).digest() if encryption_key else None
+		self.encryption_hash = (
+			hashlib.sha256(encryption_key.encode("utf-8")).digest() if encryption_key else None
+		)
 		self.send_alpn = True
 
 	def run(self):
@@ -110,18 +141,22 @@ class TCPTransport(Transport):
 		try:
 			self.server_sock = self.create_outbound_socket(*self.address, insecure=self.insecure)
 			self.server_sock.connect(self.address)
-		except ssl.SSLCertVerificationError as ex:
-			fingerprint=None
+		except ssl.SSLCertVerificationError:
+			fingerprint = None
 			try:
-				tmp_con = self.create_outbound_socket(*self.address, insecure = True)
+				tmp_con = self.create_outbound_socket(*self.address, insecure=True)
 				tmp_con.connect(self.address)
 				certBin = tmp_con.getpeercert(True)
 				tmp_con.close()
 				fingerprint = hashlib.sha256(certBin).hexdigest().lower()
-			except Exception: pass
+			except Exception:
+				pass
 			config = configuration.get_config()
-			if hostport_to_address(self.address) in config['trusted_certs'] and config['trusted_certs'][hostport_to_address(self.address)]==fingerprint:
-				self.insecure=True
+			if (
+				hostport_to_address(self.address) in config["trusted_certs"]
+				and config["trusted_certs"][hostport_to_address(self.address)] == fingerprint
+			):
+				self.insecure = True
 				return self.run()
 			self.last_fail_fingerprint = fingerprint
 			self.callback_manager.call_callbacks(TransportEvents.CERTIFICATE_AUTHENTICATION_FAILED)
@@ -144,7 +179,7 @@ class TCPTransport(Transport):
 			try:
 				readers, writers, error = select.select([self.server_sock], [], [self.server_sock])
 			except socket.error:
-				self.buffer = b''
+				self.buffer = b""
 				break
 			if self.server_sock in error:
 				self.buffer = b""
@@ -153,7 +188,7 @@ class TCPTransport(Transport):
 				try:
 					self.handle_server_data()
 				except socket.error:
-					self.buffer = b''
+					self.buffer = b""
 					break
 		self.connected = False
 		self.connected_event.clear()
@@ -170,9 +205,9 @@ class TCPTransport(Transport):
 			server_sock.settimeout(self.timeout)
 		server_sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
 		server_sock.ioctl(socket.SIO_KEEPALIVE_VALS, (1, 60000, 2000))
-		ctx = (ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT))
+		ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
 		if self.send_alpn:
-			ctx.set_alpn_protocols(['nvdaremote/2.0'])
+			ctx.set_alpn_protocols(["nvdaremote/2.0"])
 		ctx.minimum_version = ssl.TLSVersion.TLSv1_2
 		if insecure:
 			ctx.check_hostname = False
@@ -182,7 +217,8 @@ class TCPTransport(Transport):
 		return server_sock
 
 	def getpeercert(self, binary_form=False):
-		if self.server_sock is None: return None
+		if self.server_sock is None:
+			return None
 		return self.server_sock.getpeercert(binary_form)
 
 	def handle_server_data(self):
@@ -206,38 +242,43 @@ class TCPTransport(Transport):
 				return
 			finally:
 				self.server_sock.setblocking(True)
-		self.buffer = b''
+		self.buffer = b""
 		if not data:
 			self._disconnect()
 			return
-		if b'\n' not in data:
+		if b"\n" not in data:
 			self.buffer += data
 			return
-		while b'\n' in data:
-			line, sep, data = data.partition(b'\n')
+		while b"\n" in data:
+			line, sep, data = data.partition(b"\n")
 			self.parse(line)
 		self.buffer += data
 
 	def parse(self, line, isDecrypted=False):
 		obj = self.serializer.deserialize(line)
-		if 'type' not in obj:
+		if "type" not in obj:
 			return
 		if self.encryption_hash is not None and not isDecrypted:
-			if obj['type'] in SIGNALING_TYPES:
+			if obj["type"] in SIGNALING_TYPES:
 				obj = self.open_signaling_envelope(obj)
 				if obj is None:
 					return
-			elif obj['type'] not in EXCLUDED_FROM_ENCRYPTION and obj['type'] not in SIGNALING_RELAY_TYPES:
+			elif obj["type"] not in EXCLUDED_FROM_ENCRYPTION and obj["type"] not in SIGNALING_RELAY_TYPES:
 				return
-		if obj['type']=='encrypted' and self.encryption_hash is not None:
-			cipher = AES.new(self.encryption_hash, AES.MODE_GCM, nonce=base64.b64decode(obj['nonce'].encode("utf-8")))
+		if obj["type"] == "encrypted" and self.encryption_hash is not None:
+			cipher = AES.new(
+				self.encryption_hash, AES.MODE_GCM, nonce=base64.b64decode(obj["nonce"].encode("utf-8"))
+			)
 			try:
-				decrypted_data = cipher.decrypt_and_verify(base64.b64decode(obj['data'].encode("utf-8")), base64.b64decode(obj['tag'].encode("utf-8")))
+				decrypted_data = cipher.decrypt_and_verify(
+					base64.b64decode(obj["data"].encode("utf-8")),
+					base64.b64decode(obj["tag"].encode("utf-8")),
+				)
 				return self.parse(decrypted_data, isDecrypted=True)
 			except:
 				return
-		callback = "msg_"+obj['type']
-		del obj['type']
+		callback = "msg_" + obj["type"]
+		del obj["type"]
 		self.callback_manager.call_callbacks(callback, **obj)
 
 	def seal_signaling_envelope(self, kwargs):
@@ -250,10 +291,10 @@ class TCPTransport(Transport):
 		payload = {key: value for key, value in kwargs.items() if key not in SIGNALING_CLEAR_FIELDS}
 		cipher = AES.new(self.encryption_hash, AES.MODE_GCM)
 		data, tag = cipher.encrypt_and_digest(json.dumps(payload).encode("utf-8"))
-		envelope['enc'] = {
-			'nonce': base64.b64encode(cipher.nonce).decode(),
-			'data': base64.b64encode(data).decode(),
-			'tag': base64.b64encode(tag).decode(),
+		envelope["enc"] = {
+			"nonce": base64.b64encode(cipher.nonce).decode(),
+			"data": base64.b64encode(data).decode(),
+			"tag": base64.b64encode(tag).decode(),
 		}
 		return envelope
 
@@ -263,21 +304,26 @@ class TCPTransport(Transport):
 		A missing or unreadable payload means the message was not produced by a peer
 		holding the session password, so it is dropped rather than acted upon.
 		"""
-		envelope = obj.pop('enc', None)
+		envelope = obj.pop("enc", None)
 		if not isinstance(envelope, dict):
-			log.warning("Dropping an unencrypted %s signalling message" % obj['type'])
+			log.warning("Dropping an unencrypted %s signalling message" % obj["type"])
 			return None
 		try:
-			cipher = AES.new(self.encryption_hash, AES.MODE_GCM, nonce=base64.b64decode(envelope['nonce'].encode("utf-8")))
-			decrypted = cipher.decrypt_and_verify(base64.b64decode(envelope['data'].encode("utf-8")), base64.b64decode(envelope['tag'].encode("utf-8")))
+			cipher = AES.new(
+				self.encryption_hash, AES.MODE_GCM, nonce=base64.b64decode(envelope["nonce"].encode("utf-8"))
+			)
+			decrypted = cipher.decrypt_and_verify(
+				base64.b64decode(envelope["data"].encode("utf-8")),
+				base64.b64decode(envelope["tag"].encode("utf-8")),
+			)
 			payload = json.loads(decrypted.decode("utf-8"))
 		except Exception:
-			log.warning("Dropping a %s signalling message which could not be decrypted" % obj['type'])
+			log.warning("Dropping a %s signalling message which could not be decrypted" % obj["type"])
 			return None
 		if not isinstance(payload, dict):
 			return None
 		# The routing fields are authoritative: they are the ones the relay acted upon.
-		for key in ('type',) + SIGNALING_CLEAR_FIELDS:
+		for key in ("type",) + SIGNALING_CLEAR_FIELDS:
 			payload.pop(key, None)
 		obj.update(payload)
 		return obj
@@ -297,13 +343,18 @@ class TCPTransport(Transport):
 		if self.encryption_hash is not None and type in SIGNALING_TYPES:
 			kwargs = self.seal_signaling_envelope(kwargs)
 		obj = self.serializer.serialize(type=type, **kwargs)
-		if self.encryption_hash is not None and type not in EXCLUDED_FROM_ENCRYPTION and type not in SIGNALING_TYPES and type not in SIGNALING_RELAY_TYPES:
+		if (
+			self.encryption_hash is not None
+			and type not in EXCLUDED_FROM_ENCRYPTION
+			and type not in SIGNALING_TYPES
+			and type not in SIGNALING_RELAY_TYPES
+		):
 			cipher = AES.new(self.encryption_hash, AES.MODE_GCM)
 			nonce = base64.b64encode(cipher.nonce).decode()
 			data, tag = cipher.encrypt_and_digest(obj)
 			data = base64.b64encode(data).decode()
 			tag = base64.b64encode(tag).decode()
-			return self.send(type='encrypted', nonce=nonce, data=data, tag=tag)
+			return self.send(type="encrypted", nonce=nonce, data=data, tag=tag)
 		if self.connected:
 			self.queue.put(obj)
 
@@ -325,10 +376,26 @@ class TCPTransport(Transport):
 		self.closed = True
 		self.reconnector_thread = ConnectorThread(self)
 
-class RelayTransport(TCPTransport):
 
-	def __init__(self, serializer, address, timeout=0, channel=None, connection_type=None, protocol_version=PROTOCOL_VERSION, insecure=False, encryption_key=None):
-		super().__init__(address=address, serializer=serializer, timeout=timeout, insecure=insecure, encryption_key=encryption_key)
+class RelayTransport(TCPTransport):
+	def __init__(
+		self,
+		serializer,
+		address,
+		timeout=0,
+		channel=None,
+		connection_type=None,
+		protocol_version=PROTOCOL_VERSION,
+		insecure=False,
+		encryption_key=None,
+	):
+		super().__init__(
+			address=address,
+			serializer=serializer,
+			timeout=timeout,
+			insecure=insecure,
+			encryption_key=encryption_key,
+		)
 		log.info("Connecting to %s channel %s" % (address, channel))
 		self.channel = channel
 		self.connection_type = connection_type
@@ -336,19 +403,28 @@ class RelayTransport(TCPTransport):
 		self.callback_manager.register_callback(TransportEvents.CONNECTED, self.on_connected)
 
 	def on_connected(self):
-		self.send('protocol_version', version=self.protocol_version)
+		self.send("protocol_version", version=self.protocol_version)
 		if self.channel is not None:
-			self.send('join', channel=self.channel, connection_type=self.connection_type)
+			self.send("join", channel=self.channel, connection_type=self.connection_type)
 		else:
-			self.send('generate_key')
+			self.send("generate_key")
 
 
 class WebSocketTransport(TCPTransport):
 	"""Transport the NVDA Remote JSON stream in WebSocket text frames."""
 
-	def __init__(self, serializer, address, ws_path="/", timeout=0, channel=None,
-				 connection_type=None, protocol_version=PROTOCOL_VERSION, insecure=False,
-				 encryption_key=None):
+	def __init__(
+		self,
+		serializer,
+		address,
+		ws_path="/",
+		timeout=0,
+		channel=None,
+		connection_type=None,
+		protocol_version=PROTOCOL_VERSION,
+		insecure=False,
+		encryption_key=None,
+	):
 		super().__init__(
 			serializer=serializer,
 			address=address,
@@ -445,7 +521,9 @@ class WebSocketTransport(TCPTransport):
 		log.debug(
 			"Opening %s (proxy %s)",
 			url,
-			f"{proxy_settings.type}://{proxy_settings.host}:{proxy_settings.port}" if proxy_settings.enabled else "none",
+			f"{proxy_settings.type}://{proxy_settings.host}:{proxy_settings.port}"
+			if proxy_settings.enabled
+			else "none",
 		)
 		try:
 			return self._open_websocket(proxy_settings, self.insecure)
@@ -464,7 +542,9 @@ class WebSocketTransport(TCPTransport):
 				probe.close()
 			except Exception:
 				log.exception("Unable to read the WebSocket certificate fingerprint")
-			trusted = configuration.get_config().get("trusted_certs", {}).get(hostport_to_address(self.address))
+			trusted = (
+				configuration.get_config().get("trusted_certs", {}).get(hostport_to_address(self.address))
+			)
 			if fingerprint and trusted == fingerprint:
 				self.insecure = True
 				return self.create_websocket()
@@ -509,7 +589,12 @@ class WebSocketTransport(TCPTransport):
 			cipher = AES.new(self.encryption_hash, AES.MODE_GCM)
 			nonce = base64.b64encode(cipher.nonce).decode()
 			data, tag = cipher.encrypt_and_digest(obj)
-			return self.send(type="encrypted", nonce=nonce, data=base64.b64encode(data).decode(), tag=base64.b64encode(tag).decode())
+			return self.send(
+				type="encrypted",
+				nonce=nonce,
+				data=base64.b64encode(data).decode(),
+				tag=base64.b64encode(tag).decode(),
+			)
 		if self.connected and self.websocket is not None:
 			self.websocket.send(obj.decode("utf-8"))
 
@@ -544,8 +629,8 @@ class WebSocketRelayTransport(WebSocketTransport, RelayMixin):
 		super().__init__(*args, **kwargs)
 		self.callback_manager.register_callback(TransportEvents.CONNECTED, self.on_connected)
 
-class ConnectorThread(threading.Thread):
 
+class ConnectorThread(threading.Thread):
 	def __init__(self, connector, connect_delay=5):
 		super().__init__()
 		self.connect_delay = connect_delay
@@ -566,6 +651,7 @@ class ConnectorThread(threading.Thread):
 			else:
 				time.sleep(self.connect_delay)
 		log.info("Ending control connector thread %s" % self.name)
+
 
 def clear_queue(queue):
 	try:

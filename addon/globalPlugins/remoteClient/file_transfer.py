@@ -38,7 +38,9 @@ logger = getLogger("file_transfer")
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
-	logger.warning("Unable to initialise translations. This may be because the addon is running from NVDA scratchpad.")
+	logger.warning(
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+	)
 
 #: Largest file the original TeleNVDA accepts to send with the legacy message.
 LEGACY_MAX_FILE_SIZE = 10 * 1024 * 1024
@@ -174,16 +176,18 @@ class TransferProgressDialog(wx.Dialog):
 				total=format_size(self.total_size),
 				speed=format_speed(speed),
 				remaining=remaining,
-			)
+			),
 		)
 		if percent >= self._last_announced + ANNOUNCE_STEP and percent < 100:
 			self._last_announced = percent - (percent % ANNOUNCE_STEP)
 			# Translators: Progress of a file transfer, announced periodically.
-			ui.message(_("{percent}%, {transferred} of {total}").format(
-				percent=self._last_announced,
-				transferred=format_size(transferred),
-				total=format_size(self.total_size),
-			))
+			ui.message(
+				_("{percent}%, {transferred} of {total}").format(
+					percent=self._last_announced,
+					transferred=format_size(transferred),
+					total=format_size(self.total_size),
+				),
+			)
 
 	def finish(self):
 		"""Close the dialog without reporting a cancellation."""
@@ -279,7 +283,7 @@ class _OutgoingTransfer:
 			logger.exception("Unable to send the file")
 			self._finish_with_error(
 				# Translators: Message reported when a file could not be sent.
-				_("Unable to send the file.")
+				_("Unable to send the file."),
 			)
 
 	def _transfer(self):
@@ -297,7 +301,7 @@ class _OutgoingTransfer:
 		if not self._accepted:
 			self._finish_with_error(
 				# Translators: Message reported when the other computer refused a file transfer.
-				_("The other computer refused the file transfer.")
+				_("The other computer refused the file transfer."),
 			)
 			return
 		index = 0
@@ -531,9 +535,8 @@ class FileTransferManager:
 		Every chunk is broadcast to the whole channel, so the chunked format is only
 		used when a single other computer is connected and announced the feature.
 		"""
-		return (
-			self.negotiator.peer_count == 1
-			and self.negotiator.all_peers_support(capabilities.FEATURE_CHUNKED_FILE_TRANSFER)
+		return self.negotiator.peer_count == 1 and self.negotiator.all_peers_support(
+			capabilities.FEATURE_CHUNKED_FILE_TRANSFER
 		)
 
 	def max_send_size(self):
@@ -597,8 +600,10 @@ class FileTransferManager:
 		if limit and size > limit:
 			gui.messageBox(
 				# Translators: Message shown when the other computer refuses files of this size.
-				message=_("This file is too large. The other computer only accepts files up to {size}.").format(
-					size=format_size(limit)
+				message=_(
+					"This file is too large. The other computer only accepts files up to {size}."
+				).format(
+					size=format_size(limit),
 				),
 				caption=_("Error"),
 				style=wx.ICON_ERROR,
@@ -613,20 +618,27 @@ class FileTransferManager:
 		if size > limit:
 			gui.messageBox(
 				# Translators: Message shown when a file is too large for the legacy transfer.
-				message=_("This file is too large. The other computer only supports transfers up to {size}.").format(
-					size=format_size(limit)
+				message=_(
+					"This file is too large. The other computer only supports transfers up to {size}."
+				).format(
+					size=format_size(limit),
 				),
 				caption=_("Error"),
 				style=wx.ICON_ERROR,
 			)
 			return
-		if gui.messageBox(
-			# Translators: Question asked before starting a transfer which blocks the session.
-			message=_("The session will be blocked until the transfer is complete. Are you sure you want to continue?"),
-			# Translators: Title of a warning dialog.
-			caption=_("Warning!"),
-			style=wx.YES | wx.NO | wx.ICON_WARNING,
-		) != wx.YES:
+		if (
+			gui.messageBox(
+				# Translators: Question asked before starting a transfer which blocks the session.
+				message=_(
+					"The session will be blocked until the transfer is complete. Are you sure you want to continue?"
+				),
+				# Translators: Title of a warning dialog.
+				caption=_("Warning!"),
+				style=wx.YES | wx.NO | wx.ICON_WARNING,
+			)
+			!= wx.YES
+		):
 			return
 		try:
 			with open(path, "rb") as stream:

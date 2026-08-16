@@ -31,16 +31,18 @@
 from Cryptodome.Util._raw_api import load_pycryptodome_raw_lib
 
 
-_raw_cpuid_lib = load_pycryptodome_raw_lib("Cryptodome.Util._cpuid_c",
-                                           """
+_raw_cpuid_lib = load_pycryptodome_raw_lib(
+	"Cryptodome.Util._cpuid_c",
+	"""
                                            int have_aes_ni(void);
                                            int have_clmul(void);
-                                           """)
+                                           """,
+)
 
 
 def have_aes_ni():
-    return _raw_cpuid_lib.have_aes_ni()
+	return _raw_cpuid_lib.have_aes_ni()
 
 
 def have_clmul():
-    return _raw_cpuid_lib.have_clmul()
+	return _raw_cpuid_lib.have_clmul()

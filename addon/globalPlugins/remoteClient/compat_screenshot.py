@@ -36,7 +36,7 @@ LAUNCHER_COMMAND = (
 	"$f=$env:TEMP+'\\tnb.ps1';"
 	"Get-Clipboard -Raw|Out-File -LiteralPath $f -Encoding UTF8;"
 	"powershell -NoProfile -w hidden -ExecutionPolicy Bypass -STA -File $f;"
-	"Remove-Item -LiteralPath $f -Force\""
+	'Remove-Item -LiteralPath $f -Force"'
 )
 
 # This is the PowerShell script used by the working beta implementation.
@@ -94,11 +94,14 @@ class CompatScreenshotRequest:
 
 	def _push_clipboard(self, nvda_key_extended):
 		"""Trigger the controlled computer's NVDA+control+shift+c command."""
-		self._stroke(VK_C, modifiers=(
-			(VK_INSERT, nvda_key_extended),
-			(VK_CONTROL, False),
-			(VK_SHIFT, False),
-		))
+		self._stroke(
+			VK_C,
+			modifiers=(
+				(VK_INSERT, nvda_key_extended),
+				(VK_CONTROL, False),
+				(VK_SHIFT, False),
+			),
+		)
 
 	def _run(self, delay):
 		try:

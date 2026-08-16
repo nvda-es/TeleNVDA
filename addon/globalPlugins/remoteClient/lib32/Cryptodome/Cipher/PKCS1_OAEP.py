@@ -32,200 +32,200 @@ from ._pkcs1_oaep_decode import oaep_decode
 
 
 class PKCS1OAEP_Cipher:
-    """Cipher object for PKCS#1 v1.5 OAEP.
-    Do not create directly: use :func:`new` instead."""
+	"""Cipher object for PKCS#1 v1.5 OAEP.
+	Do not create directly: use :func:`new` instead."""
 
-    def __init__(self, key, hashAlgo, mgfunc, label, randfunc):
-        """Initialize this PKCS#1 OAEP cipher object.
+	def __init__(self, key, hashAlgo, mgfunc, label, randfunc):
+		"""Initialize this PKCS#1 OAEP cipher object.
 
-        :Parameters:
-         key : an RSA key object
-                If a private half is given, both encryption and decryption are possible.
-                If a public half is given, only encryption is possible.
-         hashAlgo : hash object
-                The hash function to use. This can be a module under `Cryptodome.Hash`
-                or an existing hash object created from any of such modules. If not specified,
-                `Cryptodome.Hash.SHA1` is used.
-         mgfunc : callable
-                A mask generation function that accepts two parameters: a string to
-                use as seed, and the lenth of the mask to generate, in bytes.
-                If not specified, the standard MGF1 consistent with ``hashAlgo`` is used (a safe choice).
-         label : bytes/bytearray/memoryview
-                A label to apply to this particular encryption. If not specified,
-                an empty string is used. Specifying a label does not improve
-                security.
-         randfunc : callable
-                A function that returns random bytes.
+		:Parameters:
+		 key : an RSA key object
+		        If a private half is given, both encryption and decryption are possible.
+		        If a public half is given, only encryption is possible.
+		 hashAlgo : hash object
+		        The hash function to use. This can be a module under `Cryptodome.Hash`
+		        or an existing hash object created from any of such modules. If not specified,
+		        `Cryptodome.Hash.SHA1` is used.
+		 mgfunc : callable
+		        A mask generation function that accepts two parameters: a string to
+		        use as seed, and the lenth of the mask to generate, in bytes.
+		        If not specified, the standard MGF1 consistent with ``hashAlgo`` is used (a safe choice).
+		 label : bytes/bytearray/memoryview
+		        A label to apply to this particular encryption. If not specified,
+		        an empty string is used. Specifying a label does not improve
+		        security.
+		 randfunc : callable
+		        A function that returns random bytes.
 
-        :attention: Modify the mask generation function only if you know what you are doing.
-                    Sender and receiver must use the same one.
-        """
-        self._key = key
+		:attention: Modify the mask generation function only if you know what you are doing.
+		            Sender and receiver must use the same one.
+		"""
+		self._key = key
 
-        if hashAlgo:
-            self._hashObj = hashAlgo
-        else:
-            self._hashObj = Cryptodome.Hash.SHA1
+		if hashAlgo:
+			self._hashObj = hashAlgo
+		else:
+			self._hashObj = Cryptodome.Hash.SHA1
 
-        if mgfunc:
-            self._mgf = mgfunc
-        else:
-            self._mgf = lambda x, y: MGF1(x, y, self._hashObj)
+		if mgfunc:
+			self._mgf = mgfunc
+		else:
+			self._mgf = lambda x, y: MGF1(x, y, self._hashObj)
 
-        self._label = _copy_bytes(None, None, label)
-        self._randfunc = randfunc
+		self._label = _copy_bytes(None, None, label)
+		self._randfunc = randfunc
 
-    def can_encrypt(self):
-        """Legacy function to check if you can call :meth:`encrypt`.
+	def can_encrypt(self):
+		"""Legacy function to check if you can call :meth:`encrypt`.
 
-        .. deprecated:: 3.0"""
-        return self._key.can_encrypt()
+		.. deprecated:: 3.0"""
+		return self._key.can_encrypt()
 
-    def can_decrypt(self):
-        """Legacy function to check if you can call :meth:`decrypt`.
+	def can_decrypt(self):
+		"""Legacy function to check if you can call :meth:`decrypt`.
 
-        .. deprecated:: 3.0"""
-        return self._key.can_decrypt()
+		.. deprecated:: 3.0"""
+		return self._key.can_decrypt()
 
-    def encrypt(self, message):
-        """Encrypt a message with PKCS#1 OAEP.
+	def encrypt(self, message):
+		"""Encrypt a message with PKCS#1 OAEP.
 
-        :param message:
-            The message to encrypt, also known as plaintext. It can be of
-            variable length, but not longer than the RSA modulus (in bytes)
-            minus 2, minus twice the hash output size.
-            For instance, if you use RSA 2048 and SHA-256, the longest message
-            you can encrypt is 190 byte long.
-        :type message: bytes/bytearray/memoryview
+		:param message:
+		    The message to encrypt, also known as plaintext. It can be of
+		    variable length, but not longer than the RSA modulus (in bytes)
+		    minus 2, minus twice the hash output size.
+		    For instance, if you use RSA 2048 and SHA-256, the longest message
+		    you can encrypt is 190 byte long.
+		:type message: bytes/bytearray/memoryview
 
-        :returns: The ciphertext, as large as the RSA modulus.
-        :rtype: bytes
+		:returns: The ciphertext, as large as the RSA modulus.
+		:rtype: bytes
 
-        :raises ValueError:
-            if the message is too long.
-        """
+		:raises ValueError:
+		    if the message is too long.
+		"""
 
-        # See 7.1.1 in RFC3447
-        modBits = Cryptodome.Util.number.size(self._key.n)
-        k = ceil_div(modBits, 8)            # Convert from bits to bytes
-        hLen = self._hashObj.digest_size
-        mLen = len(message)
+		# See 7.1.1 in RFC3447
+		modBits = Cryptodome.Util.number.size(self._key.n)
+		k = ceil_div(modBits, 8)  # Convert from bits to bytes
+		hLen = self._hashObj.digest_size
+		mLen = len(message)
 
-        # Step 1b
-        ps_len = k - mLen - 2 * hLen - 2
-        if ps_len < 0:
-            raise ValueError("Plaintext is too long.")
-        # Step 2a
-        lHash = self._hashObj.new(self._label).digest()
-        # Step 2b
-        ps = b'\x00' * ps_len
-        # Step 2c
-        db = lHash + ps + b'\x01' + _copy_bytes(None, None, message)
-        # Step 2d
-        ros = self._randfunc(hLen)
-        # Step 2e
-        dbMask = self._mgf(ros, k-hLen-1)
-        # Step 2f
-        maskedDB = strxor(db, dbMask)
-        # Step 2g
-        seedMask = self._mgf(maskedDB, hLen)
-        # Step 2h
-        maskedSeed = strxor(ros, seedMask)
-        # Step 2i
-        em = b'\x00' + maskedSeed + maskedDB
-        # Step 3a (OS2IP)
-        em_int = bytes_to_long(em)
-        # Step 3b (RSAEP)
-        m_int = self._key._encrypt(em_int)
-        # Step 3c (I2OSP)
-        c = long_to_bytes(m_int, k)
-        return c
+		# Step 1b
+		ps_len = k - mLen - 2 * hLen - 2
+		if ps_len < 0:
+			raise ValueError("Plaintext is too long.")
+		# Step 2a
+		lHash = self._hashObj.new(self._label).digest()
+		# Step 2b
+		ps = b"\x00" * ps_len
+		# Step 2c
+		db = lHash + ps + b"\x01" + _copy_bytes(None, None, message)
+		# Step 2d
+		ros = self._randfunc(hLen)
+		# Step 2e
+		dbMask = self._mgf(ros, k - hLen - 1)
+		# Step 2f
+		maskedDB = strxor(db, dbMask)
+		# Step 2g
+		seedMask = self._mgf(maskedDB, hLen)
+		# Step 2h
+		maskedSeed = strxor(ros, seedMask)
+		# Step 2i
+		em = b"\x00" + maskedSeed + maskedDB
+		# Step 3a (OS2IP)
+		em_int = bytes_to_long(em)
+		# Step 3b (RSAEP)
+		m_int = self._key._encrypt(em_int)
+		# Step 3c (I2OSP)
+		c = long_to_bytes(m_int, k)
+		return c
 
-    def decrypt(self, ciphertext):
-        """Decrypt a message with PKCS#1 OAEP.
+	def decrypt(self, ciphertext):
+		"""Decrypt a message with PKCS#1 OAEP.
 
-        :param ciphertext: The encrypted message.
-        :type ciphertext: bytes/bytearray/memoryview
+		:param ciphertext: The encrypted message.
+		:type ciphertext: bytes/bytearray/memoryview
 
-        :returns: The original message (plaintext).
-        :rtype: bytes
+		:returns: The original message (plaintext).
+		:rtype: bytes
 
-        :raises ValueError:
-            if the ciphertext has the wrong length, or if decryption
-            fails the integrity check (in which case, the decryption
-            key is probably wrong).
-        :raises TypeError:
-            if the RSA key has no private half (i.e. you are trying
-            to decrypt using a public key).
-        """
+		:raises ValueError:
+		    if the ciphertext has the wrong length, or if decryption
+		    fails the integrity check (in which case, the decryption
+		    key is probably wrong).
+		:raises TypeError:
+		    if the RSA key has no private half (i.e. you are trying
+		    to decrypt using a public key).
+		"""
 
-        # See 7.1.2 in RFC3447
-        modBits = Cryptodome.Util.number.size(self._key.n)
-        k = ceil_div(modBits, 8)            # Convert from bits to bytes
-        hLen = self._hashObj.digest_size
+		# See 7.1.2 in RFC3447
+		modBits = Cryptodome.Util.number.size(self._key.n)
+		k = ceil_div(modBits, 8)  # Convert from bits to bytes
+		hLen = self._hashObj.digest_size
 
-        # Step 1b and 1c
-        if len(ciphertext) != k or k < hLen+2:
-            raise ValueError("Ciphertext with incorrect length.")
-        # Step 2a (O2SIP)
-        ct_int = bytes_to_long(ciphertext)
-        # Step 2b (RSADP) and step 2c (I2OSP)
-        em = self._key._decrypt_to_bytes(ct_int)
-        # Step 3a
-        lHash = self._hashObj.new(self._label).digest()
-        # y must be 0, but we MUST NOT check it here in order not to
-        # allow attacks like Manger's (http://dl.acm.org/citation.cfm?id=704143)
-        maskedSeed = em[1:hLen+1]
-        maskedDB = em[hLen+1:]
-        # Step 3c
-        seedMask = self._mgf(maskedDB, hLen)
-        # Step 3d
-        seed = strxor(maskedSeed, seedMask)
-        # Step 3e
-        dbMask = self._mgf(seed, k-hLen-1)
-        # Step 3f
-        db = strxor(maskedDB, dbMask)
-        # Step 3b + 3g
-        res = oaep_decode(em, lHash, db)
-        if res <= 0:
-            raise ValueError("Incorrect decryption.")
-        # Step 4
-        return db[res:]
+		# Step 1b and 1c
+		if len(ciphertext) != k or k < hLen + 2:
+			raise ValueError("Ciphertext with incorrect length.")
+		# Step 2a (O2SIP)
+		ct_int = bytes_to_long(ciphertext)
+		# Step 2b (RSADP) and step 2c (I2OSP)
+		em = self._key._decrypt_to_bytes(ct_int)
+		# Step 3a
+		lHash = self._hashObj.new(self._label).digest()
+		# y must be 0, but we MUST NOT check it here in order not to
+		# allow attacks like Manger's (http://dl.acm.org/citation.cfm?id=704143)
+		maskedSeed = em[1 : hLen + 1]
+		maskedDB = em[hLen + 1 :]
+		# Step 3c
+		seedMask = self._mgf(maskedDB, hLen)
+		# Step 3d
+		seed = strxor(maskedSeed, seedMask)
+		# Step 3e
+		dbMask = self._mgf(seed, k - hLen - 1)
+		# Step 3f
+		db = strxor(maskedDB, dbMask)
+		# Step 3b + 3g
+		res = oaep_decode(em, lHash, db)
+		if res <= 0:
+			raise ValueError("Incorrect decryption.")
+		# Step 4
+		return db[res:]
 
 
-def new(key, hashAlgo=None, mgfunc=None, label=b'', randfunc=None):
-    """Return a cipher object :class:`PKCS1OAEP_Cipher`
-       that can be used to perform PKCS#1 OAEP encryption or decryption.
+def new(key, hashAlgo=None, mgfunc=None, label=b"", randfunc=None):
+	"""Return a cipher object :class:`PKCS1OAEP_Cipher`
+	   that can be used to perform PKCS#1 OAEP encryption or decryption.
 
-    :param key:
-      The key object to use to encrypt or decrypt the message.
-      Decryption is only possible with a private RSA key.
-    :type key: RSA key object
+	:param key:
+	  The key object to use to encrypt or decrypt the message.
+	  Decryption is only possible with a private RSA key.
+	:type key: RSA key object
 
-    :param hashAlgo:
-      The hash function to use. This can be a module under `Cryptodome.Hash`
-      or an existing hash object created from any of such modules.
-      If not specified, `Cryptodome.Hash.SHA1` is used.
-    :type hashAlgo: hash object
+	:param hashAlgo:
+	  The hash function to use. This can be a module under `Cryptodome.Hash`
+	  or an existing hash object created from any of such modules.
+	  If not specified, `Cryptodome.Hash.SHA1` is used.
+	:type hashAlgo: hash object
 
-    :param mgfunc:
-      A mask generation function that accepts two parameters: a string to
-      use as seed, and the lenth of the mask to generate, in bytes.
-      If not specified, the standard MGF1 consistent with ``hashAlgo`` is used (a safe choice).
-    :type mgfunc: callable
+	:param mgfunc:
+	  A mask generation function that accepts two parameters: a string to
+	  use as seed, and the lenth of the mask to generate, in bytes.
+	  If not specified, the standard MGF1 consistent with ``hashAlgo`` is used (a safe choice).
+	:type mgfunc: callable
 
-    :param label:
-      A label to apply to this particular encryption. If not specified,
-      an empty string is used. Specifying a label does not improve
-      security.
-    :type label: bytes/bytearray/memoryview
+	:param label:
+	  A label to apply to this particular encryption. If not specified,
+	  an empty string is used. Specifying a label does not improve
+	  security.
+	:type label: bytes/bytearray/memoryview
 
-    :param randfunc:
-      A function that returns random bytes.
-      The default is `Random.get_random_bytes`.
-    :type randfunc: callable
-    """
+	:param randfunc:
+	  A function that returns random bytes.
+	  The default is `Random.get_random_bytes`.
+	:type randfunc: callable
+	"""
 
-    if randfunc is None:
-        randfunc = Random.get_random_bytes
-    return PKCS1OAEP_Cipher(key, hashAlgo, mgfunc, label, randfunc)
+	if randfunc is None:
+		randfunc = Random.get_random_bytes
+	return PKCS1OAEP_Cipher(key, hashAlgo, mgfunc, label, randfunc)

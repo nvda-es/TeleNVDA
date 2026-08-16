@@ -30,7 +30,9 @@ logger = getLogger("mouse_control")
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
-	logger.warning("Unable to initialise translations. This may be because the addon is running from NVDA scratchpad.")
+	logger.warning(
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+	)
 
 #: Message carrying one mouse event to the controlled computer.
 MESSAGE_TYPE = "mouse"
@@ -136,7 +138,9 @@ class MouseSender:
 		self._last_position = position
 		self._send(t=ACTION_MOVE, x=round(position[0], 5), y=round(position[1], 5))
 
-	def handle_hook_event(self, action=None, button=None, pressed=None, delta=None, horizontal=False, **kwargs):
+	def handle_hook_event(
+		self, action=None, button=None, pressed=None, delta=None, horizontal=False, **kwargs
+	):
 		"""Forward a button or wheel event reported by the local mouse hook."""
 		if not self.enabled:
 			return
@@ -197,7 +201,9 @@ class MouseReceiver:
 			# Translators: title of the dialog asking whether the remote computer may use this mouse.
 			caption=_("Remote mouse control"),
 			# Translators: question asked before the controlling computer may use this mouse.
-			message=_("The controlling computer asks to use the mouse and the keyboard of this computer. Do you accept?"),
+			message=_(
+				"The controlling computer asks to use the mouse and the keyboard of this computer. Do you accept?"
+			),
 			style=wx.YES_NO | wx.NO_DEFAULT | wx.ICON_QUESTION,
 		)
 		self._asking = False

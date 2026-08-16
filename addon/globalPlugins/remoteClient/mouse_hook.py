@@ -127,7 +127,10 @@ class MouseHook:
 		kernel32.GetModuleHandleW.restype = ctypes.c_void_p
 		kernel32.GetModuleHandleW.argtypes = [wintypes.LPCWSTR]
 		self.handle = user32.SetWindowsHookExW(
-			WH_MOUSE_LL, self.proc, kernel32.GetModuleHandleW(None), 0
+			WH_MOUSE_LL,
+			self.proc,
+			kernel32.GetModuleHandleW(None),
+			0,
 		)
 		if not self.handle:
 			raise ctypes.WinError()
@@ -155,7 +158,8 @@ class MouseHook:
 		message = int(wParam)
 		if message != WM_MOUSEMOVE:
 			data = ctypes.cast(
-				ctypes.c_void_p(lParam), ctypes.POINTER(MSLLHOOKSTRUCT)
+				ctypes.c_void_p(lParam),
+				ctypes.POINTER(MSLLHOOKSTRUCT),
 			).contents
 			# Events this add-on injected itself must not be reported, otherwise a
 			# computer controlling another one would echo back what it receives.

@@ -35,7 +35,9 @@ logger = getLogger("screen_share")
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
-	logger.warning("Unable to initialise translations. This may be because the addon is running from NVDA scratchpad.")
+	logger.warning(
+		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad."
+	)
 
 #: Role played by this computer during a session.
 ROLE_PUBLISHER = "publisher"  # The controlled computer, which captures its screen.
@@ -63,7 +65,6 @@ MSG_TURN_CREDENTIALS = "turn_credentials"
 MAX_SIGNALING_PAYLOAD = 64 * 1024
 
 
-
 def is_enabled():
 	"""Whether the user left screen sharing turned on."""
 	try:
@@ -87,6 +88,7 @@ def is_input_control_allowed():
 	it when no picture is shared at all.
 	"""
 	from . import mouse_control
+
 	return mouse_control.is_remote_input_allowed()
 
 
@@ -216,7 +218,9 @@ class ScreenShareManager:
 	def _ask_permission(self, origin, allow_input):
 		if allow_input:
 			# Translators: question asked before this screen is shared, with mouse control
-			question = _("Do you want to share your screen? The controlling computer will see this screen and will be able to use its mouse.")
+			question = _(
+				"Do you want to share your screen? The controlling computer will see this screen and will be able to use its mouse."
+			)
 		else:
 			# Translators: question asked before this screen is shared
 			question = _("Do you want to share your screen? The controlling computer will see this screen.")
@@ -257,7 +261,7 @@ class ScreenShareManager:
 			role=ROLE_PUBLISHER,
 			allow_input=allow_input,
 			ice_servers=self.ice_servers,
-			**_capture_settings()
+			**_capture_settings(),
 		)
 		# Translators: message spoken on the controlled computer when it starts sharing its screen
 		ui.message(_("Sharing this screen"))
@@ -369,6 +373,7 @@ class ScreenShareManager:
 		the remote mouse used without any picture.
 		"""
 		from . import mouse_control
+
 		if self.role != ROLE_VIEWER or not self.input_allowed:
 			return
 		if self.state not in (STATE_CONNECTING, STATE_ACTIVE):

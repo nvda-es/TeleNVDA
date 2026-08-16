@@ -247,7 +247,8 @@ class SSPIProxyAuthenticator:
 
 		if status in (_SEC_I_COMPLETE_NEEDED, _SEC_I_COMPLETE_AND_CONTINUE):
 			complete_status = self._api.CompleteAuthToken(
-				ctypes.byref(self._context), ctypes.byref(output_desc)
+				ctypes.byref(self._context),
+				ctypes.byref(output_desc),
 			)
 			if _status_is_error(complete_status):
 				raise _sspi_error("CompleteAuthToken", complete_status)
@@ -329,7 +330,8 @@ def _select_proxy_challenge(value, mechanism):
 		return None, None
 	matches = []
 	for match in re.finditer(
-		r"(?i)(Negotiate|NTLM)(?:\s+([A-Za-z0-9+/]+={0,2}))?", value
+		r"(?i)(Negotiate|NTLM)(?:\s+([A-Za-z0-9+/]+={0,2}))?",
+		value,
 	):
 		scheme = match.group(1)
 		token = match.group(2)
@@ -395,7 +397,8 @@ def open_sspi_proxy_tunnel(proxy, target_host, target_port, timeout=60):
 			if status != 407:
 				raise SSPIProxyError(f"The proxy rejected CONNECT with HTTP status {status}")
 			selected_scheme, challenge = _select_proxy_challenge(
-				headers.get("proxy-authenticate", ""), proxy.type
+				headers.get("proxy-authenticate", ""),
+				proxy.type,
 			)
 			if not selected_scheme:
 				raise SSPIProxyError("The proxy did not offer the selected SSPI authentication scheme")

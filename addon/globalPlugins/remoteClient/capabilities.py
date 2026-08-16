@@ -50,6 +50,7 @@ def available_features():
 	features = list(LOCAL_FEATURES)
 	# Imported lazily: screen_share imports this module to read the feature names.
 	from . import screen_share
+
 	if screen_share.is_available():
 		features.append(FEATURE_SCREEN_SHARE)
 	return features
@@ -106,6 +107,7 @@ class CapabilityNegotiator:
 		clients, which ignore an unknown message type.
 		"""
 		from . import mouse_control, screen_share
+
 		capabilities = []
 		if screen_share.is_available():
 			capabilities.append(RELAY_CAPABILITY_SCREEN_SHARE)
@@ -197,10 +199,7 @@ class CapabilityNegotiator:
 
 	def negotiated_max_file_size(self):
 		"""Return the smallest size limit announced by the peers, or None when unlimited."""
-		limits = [
-			capabilities.get("max_file_size")
-			for capabilities in self.peer_capabilities.values()
-		]
+		limits = [capabilities.get("max_file_size") for capabilities in self.peer_capabilities.values()]
 		limits = [limit for limit in limits if limit]
 		return min(limits) if limits else None
 

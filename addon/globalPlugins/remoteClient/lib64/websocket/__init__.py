@@ -19,8 +19,8 @@ limitations under the License.
 
 from ._abnf import *  # noqa: F401,F403
 from ._app import (  # noqa: F401
-    WebSocketApp as WebSocketApp,
-    set_reconnect as set_reconnect,
+	WebSocketApp as WebSocketApp,
+	set_reconnect as set_reconnect,
 )
 from ._core import *  # noqa: F401,F403
 from ._exceptions import *  # noqa: F401,F403

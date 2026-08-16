@@ -1,16 +1,16 @@
 class ProxyException(Exception):
-    pass
+	pass
 
 
 class ProxyTimeoutError(ProxyException, TimeoutError):
-    pass
+	pass
 
 
 class ProxyConnectionError(ProxyException, OSError):
-    pass
+	pass
 
 
 class ProxyError(ProxyException):
-    def __init__(self, message, error_code=None):
-        super().__init__(message)
-        self.error_code = error_code
+	def __init__(self, message, error_code=None):
+		super().__init__(message)
+		self.error_code = error_code

@@ -6,9 +6,10 @@ import configobj
 from configobj import validate
 import globalVars
 from . import socket_utils
+
 readonly = globalVars.appArgs.secure or globalVars.appArgs.launcher
 
-CONFIG_FILE_NAME = 'teleNVDA.ini'
+CONFIG_FILE_NAME = "teleNVDA.ini"
 
 # Default relay servers offered in every server list, in addition to any address
 # the user has already connected to. nvdaremote.accessolutions.fr is offered
@@ -95,6 +96,8 @@ configspec = StringIO("""
 	display_motd_once = boolean(default=False)
 	portcheck = string(default="https://nvda.es/portcheck.php?port={port}")
 """)
+
+
 def _migrate_proxy_mode(config):
 	"""Switch configurations left in manual mode without a proxy host to automatic detection.
 
@@ -102,17 +105,20 @@ def _migrate_proxy_mode(config):
 	connections behind a corporate proxy. Automatic Windows detection falls back to the same
 	behaviour when no proxy is configured on the system, so the migration is safe.
 	"""
-	section = config['controlserver']
-	if section.get('proxy_mode') == 'manual' and not section.get('proxy_host', '').strip():
-		section['proxy_mode'] = 'auto'
+	section = config["controlserver"]
+	if section.get("proxy_mode") == "manual" and not section.get("proxy_host", "").strip():
+		section["proxy_mode"] = "auto"
 		return True
 	return False
+
 
 def get_config():
 	global _config
 	if not _config:
 		path = os.path.abspath(os.path.join(globalVars.appArgs.configPath, CONFIG_FILE_NAME))
-		_config = configobj.ConfigObj(infile=path, configspec=configspec, default_encoding='utf8', create_empty=not readonly)
+		_config = configobj.ConfigObj(
+			infile=path, configspec=configspec, default_encoding="utf8", create_empty=not readonly
+		)
 		val = validate.Validator()
 		_config.validate(val, copy=True)
 		migrated = _migrate_proxy_mode(_config)
@@ -123,60 +129,68 @@ def get_config():
 				pass
 	return _config
 
+
 def get_screenshot_directory():
 	"""Return the configured screenshot directory or the current user's temp directory."""
-	configured = get_config()['screenshots'].get('directory', '').strip()
+	configured = get_config()["screenshots"].get("directory", "").strip()
 	if configured:
 		configured = os.path.abspath(os.path.expanduser(os.path.expandvars(configured)))
 		if os.path.isdir(configured) and os.access(configured, os.W_OK):
 			return configured
 	return tempfile.gettempdir()
 
+
 def get_native_remote_state():
 	"""Return whether TeleNVDA manages native NVDA Remote and its original state."""
-	state = get_config()['native_remote']
-	return state['managed'], state['original_enabled']
+	state = get_config()["native_remote"]
+	return state["managed"], state["original_enabled"]
+
 
 def save_native_remote_state(original_enabled):
 	"""Remember the native NVDA Remote state before TeleNVDA disables it."""
 	if readonly:
 		return False
-	state = get_config()['native_remote']
-	state['managed'] = True
-	state['original_enabled'] = bool(original_enabled)
-	state['restore_on_reactivation'] = False
+	state = get_config()["native_remote"]
+	state["managed"] = True
+	state["original_enabled"] = bool(original_enabled)
+	state["restore_on_reactivation"] = False
 	get_config().write()
 	return True
 
+
 def should_restore_native_remote_on_reactivation():
 	"""Return whether native NVDA Remote must be restored after re-enabling TeleNVDA."""
-	return get_config()['native_remote'].get('restore_on_reactivation', False)
+	return get_config()["native_remote"].get("restore_on_reactivation", False)
+
 
 def mark_native_remote_for_reactivation():
 	"""Remember that TeleNVDA is being disabled before the next NVDA restart."""
 	if readonly:
 		return False
-	state = get_config()['native_remote']
-	if not state['managed']:
+	state = get_config()["native_remote"]
+	if not state["managed"]:
 		return False
-	state['restore_on_reactivation'] = True
+	state["restore_on_reactivation"] = True
 	get_config().write()
 	return True
+
 
 def clear_native_remote_state():
 	"""Forget the native NVDA Remote state after restoring it."""
 	if readonly:
 		return False
-	state = get_config()['native_remote']
-	state['managed'] = False
-	state['original_enabled'] = True
-	state['restore_on_reactivation'] = False
+	state = get_config()["native_remote"]
+	state["managed"] = False
+	state["original_enabled"] = True
+	state["restore_on_reactivation"] = False
 	get_config().write()
 	return True
 
+
 def were_native_remote_settings_imported():
 	"""Return whether the automatic connection of native NVDA Remote was already looked at."""
-	return get_config()['native_remote'].get('settings_imported', False)
+	return get_config()["native_remote"].get("settings_imported", False)
+
 
 def mark_native_remote_settings_imported():
 	"""Remember that the automatic connection of native NVDA Remote was looked at.
@@ -187,31 +201,34 @@ def mark_native_remote_settings_imported():
 	"""
 	if readonly:
 		return False
-	get_config()['native_remote']['settings_imported'] = True
+	get_config()["native_remote"]["settings_imported"] = True
 	get_config().write()
 	return True
+
 
 def trust_certificate(address, fingerprint):
 	"""Trust a server certificate when its fingerprint was obtained successfully."""
 	if not fingerprint:
 		return False
 	config = get_config()
-	config['trusted_certs'][socket_utils.hostport_to_address(address)] = fingerprint
+	config["trusted_certs"][socket_utils.hostport_to_address(address)] = fingerprint
 	if not readonly:
 		config.write()
 	return True
+
 
 def write_connection_to_config(address):
 	"""Writes an address to the last connected section of the config.
 	If the address is already in the config, move it to the end."""
 	conf = get_config()
-	last_cons = conf['connections']['last_connected']
+	last_cons = conf["connections"]["last_connected"]
 	address = socket_utils.hostport_to_address(address)
 	if address in last_cons:
-		conf['connections']['last_connected'].remove(address)
-	conf['connections']['last_connected'].append(address)
+		conf["connections"]["last_connected"].remove(address)
+	conf["connections"]["last_connected"].append(address)
 	if not readonly:
 		conf.write()
+
 
 def record_activity():
 	"""Record that a real remote control action was just performed or received
@@ -223,10 +240,11 @@ def record_activity():
 		return
 	conf = get_config()
 	now = time.time()
-	conf['activity']['last_activity_timestamp'] = now
+	conf["activity"]["last_activity_timestamp"] = now
 	if now - _last_activity_write_time >= _MIN_ACTIVITY_WRITE_INTERVAL:
 		conf.write()
 		_last_activity_write_time = now
+
 
 def flush_activity():
 	"""Force any pending (throttled) activity timestamp to be written to disk.
@@ -235,11 +253,14 @@ def flush_activity():
 		return
 	get_config().write()
 
+
 def parse_inactivity_duration(value):
 	"""Convert a jj:hh:mm inactivity duration to seconds."""
 	parts = value.strip().split(":")
-	if len(parts) != 3 or not parts[0].isdigit() or any(
-		len(part) != 2 or not part.isdigit() for part in parts[1:]
+	if (
+		len(parts) != 3
+		or not parts[0].isdigit()
+		or any(len(part) != 2 or not part.isdigit() for part in parts[1:])
 	):
 		raise ValueError
 	days, hours, minutes = (int(part) for part in parts)
@@ -250,6 +271,7 @@ def parse_inactivity_duration(value):
 		raise ValueError
 	return seconds
 
+
 def format_inactivity_duration(seconds):
 	"""Convert an inactivity duration in seconds to jj:hh:mm."""
 	minutes, _ = divmod(int(seconds), 60)
@@ -257,10 +279,11 @@ def format_inactivity_duration(seconds):
 	hours, minutes = divmod(minutes, 60)
 	return "{:02d}:{:02d}:{:02d}".format(days, hours, minutes)
 
+
 def get_inactivity_auto_disable_seconds():
 	"""Return the configured inactivity duration, falling back to the default."""
-	seconds = get_config()['controlserver'].get(
-		'inactivity_auto_disable_seconds',
+	seconds = get_config()["controlserver"].get(
+		"inactivity_auto_disable_seconds",
 		DEFAULT_INACTIVITY_AUTO_DISABLE_SECONDS,
 	)
 	try:
@@ -271,16 +294,18 @@ def get_inactivity_auto_disable_seconds():
 		return DEFAULT_INACTIVITY_AUTO_DISABLE_SECONDS
 	return seconds
 
+
 def get_inactivity_timeout_remaining():
 	"""Return seconds remaining before auto-connect must be disabled, or None."""
 	conf = get_config()
-	cs = conf['controlserver']
-	if not cs['autoconnect'] or not cs['disable_autoconnect_after_inactivity']:
+	cs = conf["controlserver"]
+	if not cs["autoconnect"] or not cs["disable_autoconnect_after_inactivity"]:
 		return None
-	last_activity = conf['activity']['last_activity_timestamp']
+	last_activity = conf["activity"]["last_activity_timestamp"]
 	if not last_activity:
 		return None
 	return max(0.0, last_activity + get_inactivity_auto_disable_seconds() - time.time())
+
 
 def should_disable_autoconnect_for_inactivity():
 	"""Return whether auto-connect should now be disabled because no real

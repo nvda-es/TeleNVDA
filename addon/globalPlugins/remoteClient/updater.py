@@ -353,7 +353,8 @@ def _release_version(release: dict, addon_name: str = "") -> str:
 def _find_asset(release: dict) -> tuple[dict, dict | None]:
 	assets = [asset for asset in release.get("assets") or [] if isinstance(asset, dict)]
 	addon_assets = [
-		asset for asset in assets
+		asset
+		for asset in assets
 		if str(asset.get("name", "")).lower().endswith(".nvda-addon")
 		and str(asset.get("browser_download_url", "")).startswith("https://")
 	]
@@ -366,8 +367,10 @@ def _find_asset(release: dict) -> tuple[dict, dict | None]:
 	addon_name = str(addon_asset.get("name", ""))
 	hash_asset = next(
 		(
-			asset for asset in assets
-			if str(asset.get("name", "")).lower() in (addon_name.lower() + ".sha256", addon_name.lower() + ".sha256.txt")
+			asset
+			for asset in assets
+			if str(asset.get("name", "")).lower()
+			in (addon_name.lower() + ".sha256", addon_name.lower() + ".sha256.txt")
 			and str(asset.get("browser_download_url", "")).startswith("https://")
 		),
 		None,
@@ -398,14 +401,18 @@ def check_for_update(current_version: str) -> UpdateInfo | None:
 			continue
 		version = _release_version(release, str(addon_asset.get("name", "")))
 		if version and is_newer_version(version, current_version):
-			candidates.append((
-				_version_key(version),
-				release,
-				version,
-				addon_asset,
-				hash_asset,
-			))
-	for _, release, version, addon_asset, hash_asset in sorted(candidates, key=lambda item: item[0], reverse=True):
+			candidates.append(
+				(
+					_version_key(version),
+					release,
+					version,
+					addon_asset,
+					hash_asset,
+				)
+			)
+	for _, release, version, addon_asset, hash_asset in sorted(
+		candidates, key=lambda item: item[0], reverse=True
+	):
 		try:
 			hash_url = hash_asset.get("browser_download_url") if hash_asset else None
 			sha256 = None
@@ -506,6 +513,7 @@ class UpdateManager:
 				with self._lock:
 					self._workers.discard(threading.current_thread())
 				done(result, None, manual)
+
 		return self._start(run, callback)
 
 	def download_async(self, update: UpdateInfo, callback) -> bool:
@@ -521,6 +529,7 @@ class UpdateManager:
 				with self._lock:
 					self._workers.discard(threading.current_thread())
 				done(path, None)
+
 		return self._start(run, callback)
 
 	def terminate(self):

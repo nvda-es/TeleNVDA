@@ -31,6 +31,7 @@ from logHandler import log
 import subprocess
 import tempfile
 import threading
+
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
@@ -263,9 +264,25 @@ class LocalMachine:
 		# Keep the script plain PowerShell so it works on Windows PowerShell 5.1.
 		# The bitmap is saved as JPEG to keep the transferred message small. The explicit GDI+
 		# encoder API is deliberately avoided here because anti-virus heuristics flag it.
-		script += path.replace("'", "''") + "',[System.Drawing.Imaging.ImageFormat]::Jpeg); $g.Dispose(); $i.Dispose()"
+		script += (
+			path.replace("'", "''")
+			+ "',[System.Drawing.Imaging.ImageFormat]::Jpeg); $g.Dispose(); $i.Dispose()"
+		)
 		try:
-			result = subprocess.run((self._powershell_executable(), "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-Command", script), capture_output=True, timeout=20, creationflags=subprocess.CREATE_NO_WINDOW)
+			result = subprocess.run(
+				(
+					self._powershell_executable(),
+					"-NoProfile",
+					"-NonInteractive",
+					"-ExecutionPolicy",
+					"Bypass",
+					"-Command",
+					script,
+				),
+				capture_output=True,
+				timeout=20,
+				creationflags=subprocess.CREATE_NO_WINDOW,
+			)
 			if result.returncode:
 				raise RuntimeError(result.stderr.decode(errors="replace"))
 			if not os.path.getsize(path):
@@ -292,7 +309,9 @@ class LocalMachine:
 			try:
 				data = self._capture_powershell_screenshot()
 			except Exception:
-				logger.exception("Unable to capture screenshot with PowerShell; falling back to the native method")
+				logger.exception(
+					"Unable to capture screenshot with PowerShell; falling back to the native method"
+				)
 				data = None
 			if data:
 				if callback:
@@ -311,11 +330,18 @@ class LocalMachine:
 		try:
 			directory = configuration.get_screenshot_directory()
 			try:
-				fd, path = tempfile.mkstemp(prefix="teleNVDA-remote-", suffix=SCREENSHOT_SUFFIX, dir=directory)
+				fd, path = tempfile.mkstemp(
+					prefix="teleNVDA-remote-", suffix=SCREENSHOT_SUFFIX, dir=directory
+				)
 			except OSError:
 				# The configured directory can become unavailable after the options were saved.
-				logger.warning("Unable to use screenshot directory %s; falling back to the user temp directory", directory)
-				fd, path = tempfile.mkstemp(prefix="teleNVDA-remote-", suffix=SCREENSHOT_SUFFIX, dir=tempfile.gettempdir())
+				logger.warning(
+					"Unable to use screenshot directory %s; falling back to the user temp directory",
+					directory,
+				)
+				fd, path = tempfile.mkstemp(
+					prefix="teleNVDA-remote-", suffix=SCREENSHOT_SUFFIX, dir=tempfile.gettempdir()
+				)
 			with os.fdopen(fd, "wb") as stream:
 				stream.write(base64.b64decode(data.encode("ascii"), validate=True))
 			os.startfile(path)
