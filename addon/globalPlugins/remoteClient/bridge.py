@@ -1,12 +1,31 @@
 import enum
 
+from . import screen_share
+
 
 class BridgeTransport:
 	"""Object to bridge two transports together,
 	passing messages to both of them.
 	We exclude transport-specific messages such as client_joined."""
 
-	excluded = ("client_joined", "client_left", "channel_joined", "set_braille_info")
+	# Screen sharing signalling is addressed to one client rather than broadcast, and
+	# each end runs its own helper, so forwarding it across the bridge would send it
+	# to a client which never asked for it.
+	excluded = (
+		"client_joined",
+		"client_left",
+		"channel_joined",
+		"set_braille_info",
+		"telenvda_capabilities",
+		"capabilities",
+		screen_share.MSG_TURN_CREDENTIALS,
+		screen_share.MSG_REQUEST,
+		screen_share.MSG_RESPONSE,
+		screen_share.MSG_STOP,
+		screen_share.MSG_OFFER,
+		screen_share.MSG_ANSWER,
+		screen_share.MSG_CANDIDATE,
+	)
 
 	def __init__(self, t1, t2):
 		self.t1 = t1

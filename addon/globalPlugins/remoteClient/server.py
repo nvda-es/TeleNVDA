@@ -12,6 +12,7 @@ import miniupnpc
 del sys.path[-1]
 from logHandler import log
 from . import socket_utils
+from .certificate import ensure_certificate
 from dataclasses import dataclass
 
 
@@ -21,7 +22,7 @@ class Server:
 	port: int
 	password: str
 
-	def __init__(self, port, password, bind_host="", bind_host6="[::]", UPNP=False):
+	def __init__(self, port, password, bind_host="", bind_host6="::", UPNP=False):
 		self.port = port
 		self.password = password
 		# Maps client sockets to clients
@@ -41,8 +42,13 @@ class Server:
 
 	def create_server_socket(self, family, type, bind_addr):
 		server_socket = socket.socket(family, type)
-		certfile = os.path.join(os.path.abspath(os.path.dirname(__file__)), "server.pem")
-		server_socket = socket_utils.wrap_socket(server_socket, certfile=certfile)
+		if family == socket.AF_INET6:
+			try:
+				server_socket.setsockopt(socket.IPPROTO_IPV6, socket.IPV6_V6ONLY, 1)
+			except (AttributeError, OSError):
+				pass
+		certfile = ensure_certificate()
+		server_socket = socket_utils.wrap_socket(server_socket, certfile=certfile, server_side=True)
 		server_socket.bind(bind_addr)
 		server_socket.listen(5)
 		return server_socket

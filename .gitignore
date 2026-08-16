@@ -1,11 +1,22 @@
-addon/doc/*.css
-addon/doc/en/
-*_docHandler.py
-*.html
-manifest.ini
-*.mo
-*.pot
-*.py[co]
-*.nvda-addon
+# Python caches and compiled files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Generated add-on documentation
+/addon/doc/*.css
+/addon/doc/en/
+/addon/doc/*/*.html
+
+
+
+
+# Keep locally built add-on archives out of the public repository.
+/*.nvda-addon
+/*.nvda-addon.sha256
+
+# Local certificates and SCons metadata
+/server.pem
+/teleNVDA-server.pem
 .sconsign.dblite
 /[0-9]*.[0-9]*.[0-9]*.json

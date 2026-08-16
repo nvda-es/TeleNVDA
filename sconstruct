@@ -5,6 +5,7 @@
 
 import os
 import os.path
+import subprocess
 import sys
 from pathlib import Path
 from collections.abc import Iterable
@@ -14,7 +15,7 @@ from typing import Final
 # Linters aren't aware about them.
 # To avoid PyRight `reportUndefinedVariable` errors about them they are imported explicitly.
 # When using other  Scons functions please add them to the line below.
-from SCons.Script import EnsurePythonVersion, Variables, BoolVariable, Environment, Copy
+from SCons.Script import Action, EnsurePythonVersion, Variables, Environment, Copy
 
 # Imports for type hints
 from SCons.Node import FS
@@ -53,8 +54,6 @@ docsDir: Final = addonDir / "doc"
 vars = Variables()
 vars.Add("version", "The version of this build", buildVars.addon_info["addon_version"])
 vars.Add("versionNumber", "Version number of the form major.minor.patch", "0.0.0", validateVersionNumber)
-vars.Add(BoolVariable("dev", "Whether this is a daily development version", False))
-vars.Add("channel", "Update channel for this build", buildVars.addon_info["addon_updateChannel"])
 
 env = Environment(variables=vars, ENV=os.environ, tools=["gettexttool", "NVDATool"])
 env.Append(
@@ -63,18 +62,8 @@ env.Append(
 	symbolDictionaries=buildVars.symbolDictionaries,
 )
 
-if env["dev"]:
-	from datetime import date
-
-	versionTimestamp = date.today().strftime('%Y%m%d')
-	version = f"{versionTimestamp}.0.0"
-	env["addon_info"]["addon_version"] = version
-	env["versionNumber"] = version
-	env["channel"] = "dev"
-elif env["version"] is not None:
+if env["version"] is not None:
 	env["addon_info"]["addon_version"] = env["version"]
-if "channel" in env and env["channel"] is not None:
-	env["addon_info"]["addon_updateChannel"] = env["channel"]
 
 # This is necessary for further use in formatting file names.
 env.Append(**env["addon_info"])
@@ -141,10 +130,42 @@ mergePot = env.gettextMergePotFile("${addon_name}-merge.pot", i18nFiles, **gette
 env.Alias("mergePot", mergePot)
 env.Depends(mergePot, i18nFiles)
 
+
+def updatePoFiles(target, source, env):
+	"""Report the strings of the freshly generated pot file into every translation catalogue.
+
+	Existing translations are kept, strings which are new appear with an empty msgstr and
+	strings which merely changed are marked fuzzy, so that translators can spot both.
+	"""
+	potPath = str(source[0])
+	failed = []
+	for langDir in langDirs:
+		poPath = os.path.join(str(langDir), "LC_MESSAGES", "nvda.po")
+		if not os.path.isfile(poPath):
+			continue
+		command = ["msgmerge", "--update", "--backup=off", "--previous", poPath, potPath]
+		if subprocess.call(command) != 0:
+			failed.append(poPath)
+	if failed:
+		raise RuntimeError("Unable to update the following translation catalogues: %s" % ", ".join(failed))
+
+
+# Updating the catalogues rewrites files which are tracked in the repository, so it is
+# never done as part of a package build: it has to be asked for explicitly.
+updatePo = env.Alias(
+	"updatePo",
+	pot,
+	Action(updatePoFiles, "Updating the translation catalogues from $SOURCE"),
+)
+env.AlwaysBuild(updatePo)
+
 # Generate Manifest path
 manifest = env.NVDAManifest(env.File(addonDir/"manifest.ini"), "manifest.ini.tpl")
 # Ensure manifest is rebuilt if buildVars is updated.
 env.Depends(manifest, "buildVars.py")
+# buildVars.py contains a timestamped version evaluated at build time. The
+# tracked manifest must therefore be regenerated for every package build.
+env.AlwaysBuild(manifest)
 
 env.Depends(addon, manifest)
 env.Default(addon)

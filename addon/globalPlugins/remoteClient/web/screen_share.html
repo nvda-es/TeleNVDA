@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TeleNVDA screen sharing</title>
+<style>
+	html, body { margin: 0; padding: 0; height: 100%; background: #000; color: #ddd;
+		font-family: Segoe UI, sans-serif; overflow: hidden; }
+	video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000;
+		user-select: none; -webkit-user-drag: none; }
+	#message { padding: 1em; font-size: 1.1em; }
+</style>
+</head>
+<body>
+<video id="video" autoplay muted playsinline></video>
+<p id="message"></p>
+
+<script>
+"use strict";
+
+/*
+ * The whole video side of screen sharing lives in this page. NVDA never touches a
+ * pixel: it hands this page the addresses of the ICE servers and the session
+ * descriptions of the far end, and reads back what this page produces.
+ *
+ * The page is served by the add-on on 127.0.0.1, behind a token which arrives in
+ * the query string. Every request carries it. Nothing else on the computer knows
+ * it, which is what keeps another website from driving this server.
+ *
+ * The exchange with NVDA is a mailbox: commands are polled, events are posted.
+ */
+
+const params = new URLSearchParams(location.search);
+const token = params.get("token") || "";
+const role = params.get("role");
+const isPublisher = role === "publisher";
+
+const video = document.getElementById("video");
+const messageNode = document.getElementById("message");
+
+let pc = null;
+let stream = null;
+let since = 0;
+let stopped = false;
+/* Candidates that arrive before the remote description does cannot be added yet. */
+const pendingCandidates = [];
+
+function show(text) {
+	messageNode.textContent = text;
+}
+
+function post(payload) {
+	return fetch("/event?token=" + encodeURIComponent(token), {
+		method: "POST",
+		headers: { "Content-Type": "application/json" },
+		body: JSON.stringify(payload),
+	}).catch(() => {
+		/* NVDA closes the bridge when the session ends, and the browser window is
+		   about to be closed too. There is nothing useful to report to. */
+	});
+}
+
+function fail(reason) {
+	post({ event: "failed", reason: String(reason) });
+	show("" + reason);
+}
+
+/* ------------------------------------------------------------ session setup */
+
+function createConnection(iceServers) {
+	pc = new RTCPeerConnection({
+		iceServers: Array.isArray(iceServers) ? iceServers : [],
+		bundlePolicy: "max-bundle",
+	});
+	pc.onicecandidate = (event) => {
+		if (event.candidate) {
+			post({ event: "candidate", candidate: JSON.stringify(event.candidate.toJSON()) });
+		}
+	};
+	pc.onconnectionstatechange = () => {
+		if (stopped) { return; }
+		if (pc.connectionState === "connected") {
+			post({ event: "connected" });
+			show("");
+		} else if (pc.connectionState === "failed") {
+			fail("The connection could not be established");
+		} else if (pc.connectionState === "closed") {
+			post({ event: "closed" });
+		}
+	};
+	if (!isPublisher) {
+		pc.ontrack = (event) => {
+			video.srcObject = event.streams[0];
+		};
+	}
+}
+
+/* Bandwidth ceilings and capture widths, by quality setting. Screen content is
+ * mostly still, so a low bitrate is enough and leaves the network to the speech
+ * and braille traffic, which must never be delayed. */
+const QUALITY = {
+	low: { bitrate: 400000, width: 1280 },
+	balanced: { bitrate: 1200000, width: 1600 },
+	high: { bitrate: 3500000, width: 1920 },
+};
+
+function qualityOf(name) {
+	return QUALITY[name] || QUALITY.balanced;
+}
+
+async function startPublisher(command) {
+	video.remove();
+	const quality = qualityOf(command.quality);
+	const maxFps = Math.max(1, Math.min(30, command.max_fps || 15));
+	/* Encoding a 4K desktop in real time saturates any processor, and the picture is
+	   displayed far smaller than that on the other side anyway. Asking the capture
+	   itself for a smaller frame is what costs least: the browser scales it down
+	   before the encoder ever sees it. The ratio is preserved, only a ceiling is
+	   given. */
+	const maxWidth = Math.max(640, Math.min(3840, command.max_width || quality.width));
+	const constraints = {
+		video: {
+			frameRate: maxFps,
+			width: { max: maxWidth },
+			/* Without this the picture arrives without a pointer, and the watching user
+			   has no idea where the mouse they are driving actually is. */
+			cursor: "always",
+		},
+		audio: false,
+	};
+	try {
+		stream = await navigator.mediaDevices.getDisplayMedia(constraints);
+	} catch (error) {
+		/* The add-on starts the browser with the flag that suppresses the source picker,
+		   so this normally cannot happen. If a future version of the browser drops that
+		   flag, the failure has to travel back rather than leave a window waiting for
+		   a click nobody can see. */
+		fail("Screen capture was refused: " + (error && error.name ? error.name : error));
+		return;
+	}
+	stream.getVideoTracks().forEach((track) => {
+		/* What is being watched is text, not a film. This tells the encoder to keep the
+		   picture sharp and drop frames rather than blur the letters when the bandwidth
+		   runs short. */
+		track.contentHint = "detail";
+		/* Some builds ignore the width given to getDisplayMedia and hand over the native
+		   frame. Asking the track again costs nothing and fixes those. */
+		track.applyConstraints({ width: { max: maxWidth }, frameRate: { max: maxFps } })
+			.catch(() => {});
+		/* The user can also stop the capture from the browser indicator. */
+		track.onended = () => { post({ event: "closed" }); };
+	});
+	stream.getTracks().forEach((track) => pc.addTrack(track, stream));
+	/* After addTrack, and not before: the senders this walks through do not exist yet
+	   while the track has not been added. */
+	applyQuality(quality, maxFps);
+	const offer = await pc.createOffer();
+	await pc.setLocalDescription(offer);
+	post({ event: "offer", sdp: pc.localDescription.sdp });
+}
+
+function applyQuality(quality, maxFps) {
+	pc.getSenders().forEach((sender) => {
+		if (!sender.track || sender.track.kind !== "video") { return; }
+		const parameters = sender.getParameters();
+		if (!parameters.encodings || !parameters.encodings.length) {
+			parameters.encodings = [{}];
+		}
+		parameters.encodings[0].maxBitrate = quality.bitrate;
+		parameters.encodings[0].maxFramerate = maxFps;
+		/* Reading is impossible on a picture the encoder shrank to keep a frame rate
+		   nobody needs on a desktop that barely moves. */
+		parameters.degradationPreference = "maintain-resolution";
+		sender.setParameters(parameters).catch(() => {});
+	});
+}
+
+/* ------------------------------------------------------------- mouse control */
+
+/* The watching user aims at the picture, not at their own desktop, so the pointer
+ * position is measured inside the displayed image and sent as a fraction of it.
+ * The two computers share neither a resolution nor a monitor layout, and the video
+ * is letterboxed by object-fit, so anything else would land somewhere else. */
+
+/* Buttons as the add-on names them, indexed by the number the browser reports. */
+const BUTTONS = { 0: "left", 1: "middle", 2: "right" };
+
+/* Pointing needs to be accurate, not smooth. This matches the interval the add-on
+ * uses when it mirrors the local pointer instead. */
+const MOVE_INTERVAL = 50;
+const MOVE_THRESHOLD = 0.0002;
+
+let inputAllowed = false;
+let lastMoveAt = 0;
+let lastMove = null;
+
+function pointOf(event) {
+	/* Where the event landed inside the picture, or null when it landed on the
+	   black bars around it. */
+	const rect = video.getBoundingClientRect();
+	const width = video.videoWidth;
+	const height = video.videoHeight;
+	if (!width || !height || !rect.width || !rect.height) { return null; }
+	const scale = Math.min(rect.width / width, rect.height / height);
+	const shown = { width: width * scale, height: height * scale };
+	const left = rect.left + (rect.width - shown.width) / 2;
+	const top = rect.top + (rect.height - shown.height) / 2;
+	const x = (event.clientX - left) / shown.width;
+	const y = (event.clientY - top) / shown.height;
+	if (x < 0 || x > 1 || y < 0 || y > 1) { return null; }
+	return { x: Math.round(x * 100000) / 100000, y: Math.round(y * 100000) / 100000 };
+}
+
+function sendInput(payload) {
+	if (!inputAllowed || stopped) { return; }
+	post(Object.assign({ event: "input" }, payload));
+}
+
+function onMove(event) {
+	const point = pointOf(event);
+	if (!point) { return; }
+	const now = Date.now();
+	if (now - lastMoveAt < MOVE_INTERVAL) { return; }
+	if (lastMove
+		&& Math.abs(point.x - lastMove.x) < MOVE_THRESHOLD
+		&& Math.abs(point.y - lastMove.y) < MOVE_THRESHOLD) { return; }
+	lastMoveAt = now;
+	lastMove = point;
+	sendInput({ t: "m", x: point.x, y: point.y });
+}
+
+function onButton(event, pressed) {
+	const button = BUTTONS[event.button];
+	if (!button) { return; }
+	const point = pointOf(event);
+	if (!point) { return; }
+	event.preventDefault();
+	/* The position travels with the button, so that a click always lands where the
+	   user aimed even when the last movement was throttled away. */
+	lastMove = point;
+	sendInput({ t: pressed ? "md" : "mu", b: button, x: point.x, y: point.y });
+}
+
+function onWheel(event) {
+	const point = pointOf(event);
+	if (!point) { return; }
+	event.preventDefault();
+	const horizontal = Math.abs(event.deltaX) > Math.abs(event.deltaY);
+	const delta = horizontal ? event.deltaX : event.deltaY;
+	if (!delta) { return; }
+	/* Browsers report pixels, lines or pages depending on the device. Only the
+	   direction and a notch count matter here, and scrolling down is negative for
+	   the mouse wheel of Windows. */
+	const notches = Math.max(1, Math.min(10, Math.round(Math.abs(delta) / (event.deltaMode ? 1 : 100)) || 1));
+	sendInput({
+		t: "w",
+		d: delta > 0 ? -notches : notches,
+		h: horizontal,
+		x: point.x,
+		y: point.y,
+	});
+}
+
+function enableInput() {
+	inputAllowed = true;
+	video.addEventListener("mousemove", onMove);
+	video.addEventListener("mousedown", (event) => onButton(event, true));
+	video.addEventListener("mouseup", (event) => onButton(event, false));
+	video.addEventListener("wheel", onWheel, { passive: false });
+	/* Otherwise a right click opens the menu of the browser instead of the menu of
+	   the computer being watched. */
+	video.addEventListener("contextmenu", (event) => event.preventDefault());
+}
+
+/* --------------------------------------------------------- commands from NVDA */
+
+async function handleCommand(command) {
+	const name = command.command;
+	if (name === "start") {
+		if (pc) { return; }
+		createConnection(command.ice_servers);
+		if (isPublisher) {
+			await startPublisher(command);
+		} else {
+			if (command.allow_input) { enableInput(); }
+			show("Waiting for the picture...");
+		}
+	} else if (name === "offer") {
+		if (!pc) { return; }
+		await pc.setRemoteDescription({ type: "offer", sdp: command.sdp });
+		await drainCandidates();
+		const answer = await pc.createAnswer();
+		await pc.setLocalDescription(answer);
+		post({ event: "answer", sdp: pc.localDescription.sdp });
+	} else if (name === "answer") {
+		if (!pc) { return; }
+		await pc.setRemoteDescription({ type: "answer", sdp: command.sdp });
+		await drainCandidates();
+	} else if (name === "candidate") {
+		let candidate;
+		try {
+			candidate = JSON.parse(command.candidate);
+		} catch (error) {
+			return;
+		}
+		if (pc && pc.remoteDescription) {
+			await pc.addIceCandidate(candidate).catch(() => {});
+		} else {
+			pendingCandidates.push(candidate);
+		}
+	} else if (name === "stop") {
+		shutdown();
+	}
+}
+
+async function drainCandidates() {
+	while (pendingCandidates.length) {
+		await pc.addIceCandidate(pendingCandidates.shift()).catch(() => {});
+	}
+}
+
+function shutdown() {
+	stopped = true;
+	if (stream) {
+		stream.getTracks().forEach((track) => track.stop());
+		stream = null;
+	}
+	if (pc) {
+		pc.close();
+		pc = null;
+	}
+	window.close();
+}
+
+async function poll() {
+	while (!stopped) {
+		try {
+			const response = await fetch("/poll?token=" + encodeURIComponent(token) + "&since=" + since);
+			const payload = await response.json();
+			since = payload.next;
+			for (const command of payload.commands) {
+				await handleCommand(command);
+			}
+		} catch (error) {
+			/* The bridge is gone, which means the session is over. */
+			shutdown();
+			return;
+		}
+		await new Promise((resolve) => setTimeout(resolve, 150));
+	}
+}
+
+window.addEventListener("pagehide", () => {
+	if (!stopped) { post({ event: "closed" }); }
+});
+
+if (role !== "publisher" && role !== "viewer") {
+	show("Unknown role");
+} else {
+	poll();
+}
+</script>
+</body>
+</html>

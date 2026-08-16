@@ -1,212 +1,280 @@
-[[!meta title="TeleNVDA"]]
-
-* Authors: Asociación Comunidad Hispanohablante de NVDA and other contributors. Original work by Tyler Spivey and Christopher Toth
-* NVDA Compatibility: 2019.3 and beyond
-* Download [stable version][1]
-
-Note: in order to make download easier for users who need assistance or training and have limited computing skills, we provide an alternate link to the latest stable version which is easy to remember and share. You can go to [nvda.es/tele](https://nvda.es/tele) and download the add-on directly, without intermediate web pages.
-
-Welcome to the TeleNVDA addon, which will allow you to connect to another computer running the free NVDA screen reader. With this add-on, you can connect to another person's computer, or allow a trusted person to connect to your system to perform routine maintenance, diagnose a problem, or provide training. This add-on is a modified version of the [NVDA Remote add-on](https://nvdaremote.com), and is maintained by the NVDA spanish community. It's fully compatible with NVDA Remote. These are the current differences:
-
-* A new feature allows encrypting sessions with an additional layer based on AES-256-GCM, which requires a pre-shared password to work.
-* A gesture (unassigned by default) reports how many computers are connected to a remote session.
-* An option allows blocking remote speech commands different from text.
-* An option allows displaying server welcome message (also known as message of the day) only on first connection or whenever the message changes, ignoring the server preferences.
-* An option to mute remote speech when controlling the local machine and unmute it when controlling the remote machine.
-* Improved support for proxy servers and TOR hidden services ([Proxy support add-on](https://addons.nvda-project.org/addons/proxy.en.html) is required).
-* Ability to change the f11 key to another gesture. Now this works as a common script so, you can assign gestures in the "Input Gestures" dialog.
-* a gesture (unassigned by default) to open the addon options
-* Ability to assign a gesture to the send ctrl+alt+delete option in the input Gestures dialog. Warning! you shouldn't assighn the ctrl+alt+delete keys to this option. Doing it  will stil work normally, but anytime you press ctrl+alt+delete keys to send the ctrl+alt+delete to the remote machine, your own machine will also be affected by the ctrl+alt+delete function, which is likely not what you expect!
-* Ability to ignore the next immediate gesture completely, it is useful if you need to send to the remote machine the gesture used to toggle between host and remote machine.
-* Ability to exchange small files (up to 10 MB) among users connected to the same session.
-* Ability to forward ports via UPNP.
-* Ability to use a custom portcheck service.
-* Some GUI tweaks.
-* Several bug fixes.
-
-## Before You Begin
-
-You will need to have installed NVDA on both computers, and obtain the TeleNVDA addon.
-
-The installation of both NVDA and the TeleNVDA addon are standard. If you need more information, this can be found in NVDA's User Guide.
-
-## Updating
-
-When updating the addon, if you have installed TeleNVDA on the secure desktop, it is recommended that you also update the copy on the secure desktop.
-
-To do this, first update your existing addon. Then open the NVDA menu, preferences, General settings, and press the button labeled "Use currently saved settings on the logon and other secure screens (requires administrator privileges)".
-
-## Starting a remote session through a relay server
-
-### On the computer to be controlled
-
-1. Open the NVDA menu, Tools, Remote, Connect. Or directly press NVDA+alt+page up. This gesture can be modified from the NVDA input gestures dialog.
-2. Choose client in the first radio button.
-3. Select Allow this machine to be controlled in the second set of radio buttons.
-4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234. If you are connecting to an IPV6 address, enter it between square brackets, for example [2603:1020:800:2::32].
-5. Enter a key into the key field, or press the generate key button. The key is what others will use to control your computer. The machine being controlled and all its clients need to use the same key.
-6. If you want an encrypted session, which is more secure but incompatible with other NVDA Remote clients, fill in the encryption password field. You must share this password with all other participants as well.
-7. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
-
-### On the machine that is to be the controlling computer
-
-1. Open the NVDA menu, Tools, Remote, Connect. Or directly press NVDA+alt+page up. This gesture can be modified from the NVDA input gestures dialog.
-2. Choose client in the first radio button.
-3. Select Control another machine in the second set of radio buttons.
-4. In the host field, enter the host of the server you are connecting to, for example remote.nvda.es. When the particular server uses an alternative port, you can enter the host in the form &lt;host&gt;:&lt;port&gt;, for example remote.nvda.es:1234. If you are connecting to an IPV6 address, enter it between square brackets, for example [2603:1020:800:2::32].
-5. Enter a key into the key field, or press the generate key button. The machine being controlled and all its clients need to use the same key.
-6. If you want an encrypted session, which is more secure but incompatible with other NVDA Remote clients, fill in the encryption password field. You must share this password with all other participants as well.
-7. Press ok. Once done, you will hear a tone and connected. If the server includes a message of the day, it will be displayed in a dialog box. You will see this dialog everytime you connect or only the first time, depending on the server configuration.
-
-### Connection security warning
-
-If you connect to a server without a valid SSL certificate, you will receive a connection security warning.
-
-This may mean that your connection is insecure. If you trust this server fingerprint, you can press "Connect" to connect once, or "Connect and do not ask again for this server" to connect and save the fingerprint.
-
-## Direct connections
-
-The server option in the connect dialog allows you to set up a direct connection.
-
-Once selecting this, select which mode your end of the connection will be in.
-
-The other person will connect to you using the opposite.
-
-Once the mode is selected, you can use the Get External IP button to get your external IP address and make sure the port which is entered in the port field is forwarded correctly. If enabled on your router, you can forward the port using UPNP before performing portcheck.
-
-If portcheck detects that your port (6837 by default) is not reachable, a warning will appear.
-
-Forward your port and try again. Also, ensure that the NVDA process is allowed through Windows firewall.
-
-Note: The process for forwarding ports, enabling UPNP or configuring Windows firewall is outside of the scope of this document. Please consult the information provided with your router for further instruction.
-
-Enter a key into the key field, or press generate. The other person will need your external IP along with the key to connect. If you entered a port other than the default (6837) in the port field, make sure that the other person appends the alternative port to the host address in the form &lt;external ip&gt;:&lt;port&gt;. Additionally, an encryption password can be specified.
-
-If you want to forward the chosen port using UPNP, enable the "Use UPNP to forward this port if possible" checkbox.
-
-Once ok is pressed, you will be connected. When the other person connects, you can use TeleNVDA normally.
-
-## Controlling the remote machine
-
-Once the session is connected, the user of the controlling machine can press f11 to start controlling the remote machine (e.g. by sending keyboard keys or braille input). This gesture can be changed from NVDA Input Gestures Dialog.
-
-When NVDA says controlling remote machine, the keyboard and braille display keys you press will go to the remote machine. Furthermore, when the controlling machine is using a braille display, information from the remote machine will be displayed on it. Press f11 again to stop sending keys and switch back to the controlling machine.
-
-For best compatibility, please ensure that the keyboard layouts on both machines match.
-
-## Sharing your session
-
-To share a link so someone else can easily join your TeleNVDA session, select Copy Link from the Remote menu. You can also assign gestures from the NVDA Input Gestures dialog to speed up this task.
-
-You can choose between two link formats. First one is compatible with both NVDA Remote and TeleNVDA, and is the most recommended for now. Second one is compatible only with TeleNVDA.
-
-IF you are connected as the controlling computer, this link will allow someone else to connect and be controlled.
-
-If instead you have set up your computer to be controlled, the link will allow people who you share it with to control your machine.
-
-Many applications will allow users to activate this link automatically, but if it does not run from within a specific app, it can be coppied to the clipboard and run from the run dialog.
-
-Note that the shared link may not work if you copy it from a server running in direct connection mode.
-
-## Send Ctrl+Alt+Del
-
-While sending keys, it is not possible to send the CTRL+Alt+del combination normally.
-
-If you need to send CTRL+Alt+del, and the remote system is on the secure desktop, use this command. You can also assighn a gesture for this command in the input Gestures dialog.
-
-## Send toggle key between local and remote computer
-
-Usually when you press the assigned gesture to switch between the local and the remote machine, it won't be sent to the remote machine; it will switch between the local machine and the remote machine instead.
-
-If you need to send this or any gesture to the remote machine, you can override this behavior for the next immediate gesture by activating the ignore next gesture script.
-
-By default, this script is assigned to the control + f11 key. This gesture can be changed from NVDA Input Gestures Dialog.
-
-When this script is called, the next gesture will be ignored and will be sent to the remote machine, including the gesture to activate the ignore next gesture script. Once the next gesture has been sent, it will return to the usual behavior.
-
-## Remotely Controlling an Unattended Computer
-
-Sometimes, you may wish to control one of your own computers remotely. This is especially helpful if you are traveling, and you wish to control your home PC from your laptop. Or, you may want to control a computer in one room of your house while sitting outside with another PC. A little advanced preparation makes this convenient and possible.
-
-1. Enter the NVDA menu, and choose Tools, then Remote. Finally, press Enter on Options.
-2. Check the box that says, "Auto connect to control server on startup".
-3. Select whether to use a remote relay server or to locally host the connection. If you decide to host the connection, you can try to forward ports using UPNP by checking the provided checkbox.
-4. Select Allow this machine to be controlled in the second set of radio buttons.
-5. If you host the connection yourself, you will need to ensure that the port entered in the port field (6837 by default) on the controlled machine can be accessed from the controlling machines.
-6. If you wish to use a relay server, Fill in both the Host and Key fields, tab to OK, and press Enter. You can optionally encrypt your session with an additional password. The Generate Key option is not available in this situation. It is best to come up with a key you will remember so you can easily use it from any remote location.
-
-For advanced use, you can also configure NVDA Remote to automatically connect to a local or remote relay server in controlling mode. If you want this, select Control another machine in the second set of radio buttons.
-
-Note: The autoconnect at startup-related options in the options dialog do not apply until NVDA is restarted.
-
-## Muting Speech on the Remote Computer
-
-If you do not wish to hear the remote computer's speech or NVDA specific sounds, simply access the NVDA menu, Tools, and Remote. Arrow down to Mute Remote, and press Enter. You can assign a gesture to this option from the NVDA Input Gestures dialog. Please note that this option will not disable remote braille output to the controlling display when the controlling machine is sending keys.
-
-You can mute permanently the remote speech while you work on your local machine by enabling that setting from the TeleNVDA category on the NVDA settings dialog.
-
-## Ending a remote Session
-
-To end a remote session, do the following:
-
-1. On the controlling computer, press F11 to stop controlling the remote machine. You should hear or read the message: "Controlling local machine." If you instead hear or read a message that you are controlling the remote machine, press F11 once more.
-2. Access the NVDA menu, then Tools, Remote, and press Enter on Disconnect.
-
-Alternatively, you can press NVDA+alt+page down to directly disconnect the session. This gesture can be changed from NVDA Input Gestures Dialog. To keep the other end safe, you may press this gesture while sending keys to disconnect the remote computer.
-
-## Push clipboard
-
-The Push clipboard option in the remote menu allows you to push text from your clipboard.
-
-When activated, any text on the clipboard will be pushed to the other machines.
-
-## Sending files
-
-The Send file option in the remote menu allows you to send small files to all session members, including the controlled machine. Please note, you can only send files smaller than 10 MB. Sending or receiving files on secure screens is not allowed.
-
-Also note that sending files may consume too much network traffic on the server, depending on the file size, the computers connected to the same session and the amount of files sent. Contact your server administrator and ask them if the traffic is billed. In that case, consider using another platform to exchange files.
-
-When the file is received on the remote machines, a Save as dialog will pop up, allowing you to choose where to save the file.
-
-## Configuring TeleNVDA to Work on a Secure Desktop
-
-In order for TeleNVDA to work on the secure desktop, the addon must be installed in the NVDA running on the secure desktop.
-
-1. From the NVDA menu, select Preferences, then General Settings.
-2. Tab to the Use Currently Saved Settings on the Logon and Other Secure Screens (requires administrator privileges) button, and press Enter.
-3. Answer Yes to the prompts regarding copying your settings and about copying plugins, and respond to the User Account Control prompt that may appear.
-4. When settings are copied, press Enter to dismiss the OK button. Tab to OK and Enter once more to exit the dialog.
-
-Once TeleNVDA is installed on the secure desktop, if you are currently being controlled in a remote session, you will have speech and braille access to the secure desktop when switched to.
-
-## Clearing SSL certificate fingerprints
-
-If you no longer want to trust the server fingerprints you've trusted, you can clear all of the trusted fingerprints by pressing the "Delete all trusted fingerprints" button in the Options dialog.
-
-## Using a custom portcheck service
-
-By default, TeleNVDA checks open ports using a service provided by the NVDA spanish community. You can change the service URL from the options dialog. Ensure that the port to check is part of the custom URL and the results are returned in the expected format. A portcheck sample script is distributed in TeleNVDA repository, so you can host your own copy if desired.
-
-## Altering TeleNVDA
-
-This project is covered by the GNU General Public License, version 2 or later. You may clone [this repo][2] to make alteration to TeleNVDA, provided that you read, understand and respect the license terms. The MiniUPNP module is licensed under a BSD-3 clause license.
-
-### 3rd Party dependencies
-
-These can be installed with pip:
-
-* Markdown
-* scons
-
-In order to build the URL handler executable, you need Visual Studio 2019 or later.
-
-### To package the add-on for distribution:
-
-1. Open a command line, change to the root of [this repo][2]
-2. Run the **scons** command. The created add-on, if there were no errors, is placed in the current directory.
+[[!meta title="Telenvda by Accessolutions"]]
+
+# Telenvda by Accessolutions
+
+TeleNVDA is an NVDA add-on for remote assistance. It allows a trusted person
+to control an NVDA computer, or to provide access to another computer running
+NVDA. This project is maintained by Accessolutions and remains compatible with
+the NVDA Remote protocol where the relay server supports it.
+
+The project includes work from the NVDA Spanish community and other
+contributors. Original work includes contributions by Tyler Spivey and
+Christopher Toth. It is distributed under the GNU General Public License,
+version 2 or later.
+
+## Main features
+
+* TCP/TLS connections through the traditional NVDA Remote protocol.
+* Secure WebSocket connections (`wss://`) through HTTPS-compatible relays.
+* WebSocket subprotocol `nvdaremote/2.0`, with port 443 as the usual choice.
+* Manual proxy settings, automatic Windows proxy detection (WinHTTP, PAC/WPAD
+  and bypass rules), or an explicit no-proxy mode.
+* Optional AES-GCM application-layer encryption for compatible TeleNVDA peers.
+* Direct server mode for connections that do not use a relay.
+* File transfer, clipboard sharing, remote speech, braille, and secure-desktop support.
+* A connectivity test that can check a controller using TCP or WebSocket.
+* Two remote screenshot workflows described below.
+* Optional peer to peer screen sharing of the controlled computer, with mouse
+  control when its user allows it.
+
+## Installation
+
+Install the `.nvda-addon` package through NVDA's Add-ons Manager. NVDA must
+be installed on every participating computer. Restart NVDA if it requests a
+restart after installation or an update.
+
+For secure-desktop access, install the add-on on the secure desktop through
+NVDA's General Settings, using **Use currently saved settings on the logon and
+other secure screens**. This requires administrator privileges.
+
+## Updates
+
+TeleNVDA can check the public GitHub Releases repository when NVDA starts.
+Open **NVDA menu > Tools > Remote > Options** to enable or disable this check.
+A manual check is also available through **NVDA menu > Tools > Remote > Check
+for updates**. Only stable releases are offered.
+
+An update is never installed silently. TeleNVDA asks for confirmation, downloads
+the `.nvda-addon` package over HTTPS, verifies its published SHA-256 hash, and
+then asks whether NVDA should be restarted. The update check uses the proxy
+configured for TeleNVDA, including HTTP, SOCKS, `negotiate`, and `ntlm` proxy
+types. Automatic network errors are only written to the log; manual errors are
+shown to the user.
+
+## Relay connections
+
+A relay connection is the recommended choice when the computers are behind
+routers or restrictive firewalls.
+
+### Computer to be controlled
+
+1. Open **NVDA menu > Tools > Remote > Connect**.
+2. Select **Client** and **Allow this machine to be controlled**.
+3. Enter the relay host and access key. The controlled computer and controller
+   must use the same key.
+4. Optionally enter an AES-GCM encryption password. Every TeleNVDA participant
+   must use the same password; this option is not compatible with all NVDA
+   Remote clients.
+5. Select **WebSocket over HTTPS** when the relay provides WebSocket support.
+   Use port **443** unless the relay administrator specifies another port.
+   The WebSocket path is normally `/` and can be changed in the add-on options.
+6. Press **OK**.
+
+### Controlling computer
+
+Use the same connection dialog, select **Client**, and choose **Control another
+machine**. Enter the same relay host, protocol, port, WebSocket path, access
+key, and optional encryption password.
+
+For a WebSocket connection, TeleNVDA uses `wss://` and the
+`nvdaremote/2.0` subprotocol. This makes the traffic resemble ordinary HTTPS
+traffic while retaining the NVDA Remote session protocol.
+
+### Proxies and certificate warnings
+
+Open **NVDA menu > Tools > Remote > Options** to configure the proxy mode and,
+when using manual configuration, an HTTP or SOCKS proxy. Manual configuration
+is the default and preserves the historical behavior: if no proxy host is
+entered, the network libraries may use proxy environment variables. Automatic
+Windows proxy detection follows the current user's WinHTTP configuration,
+including PAC/WPAD scripts and destination bypass rules, without extracting or
+storing the Windows password. No proxy ignores proxy environment variables.
+HTTP, SOCKS4/4a, and SOCKS5/5h are supported. For WebSocket relay
+connections, **negotiate** uses the Windows SSPI provider and can select
+Kerberos or NTLM, while **ntlm** forces NTLM authentication. Leaving the
+proxy username empty uses the current Windows session; explicit credentials
+can be entered as `DOMAIN\\user` and a password. These two SSPI modes apply to
+the HTTP proxy CONNECT handshake, not to the NVDA Remote relay itself.
+
+The direct TCP/TLS server connection does not use the WebSocket proxy path.
+Use WebSocket over HTTPS when an enterprise HTTP proxy must be traversed.
+
+TLS certificates are verified. If a relay uses a certificate that Windows does
+not recognize, TeleNVDA automatically accepts the certificate and saves its
+fingerprint so that manual and automatic connections are not blocked by a
+dialog. Verify the expected fingerprint with the relay administrator before
+the first connection. Saved fingerprints can be removed with **Delete all
+trusted fingerprints** in the options.
+
+## Direct server mode
+
+The **Server** option in the connection dialog starts a local direct server.
+The other participant connects to the external address and port shown by the
+server. Port 6837 is the default; Windows Firewall and router port forwarding
+may be required. UPnP forwarding is available when the router supports it.
+
+The direct server uses TLS and creates a unique self-signed certificate in the
+NVDA user configuration directory on first use. The private key is not part of
+the add-on source or package. Never copy a generated `teleNVDA-server.pem`
+file into this repository or share it publicly.
+
+Direct Server mode intentionally listens on the classic TCP/TLS protocol.
+WebSocket is a relay transport; selecting WebSocket does not turn the local
+direct server into a WebSocket server.
+
+Use a long, randomly generated access key. The access key is an authentication
+secret and must not be put in source code, issue reports, screenshots, or logs.
+
+## Remote screenshots
+
+The Remote menu contains two distinct commands:
+
+* **Remote screenshot** uses the native TeleNVDA screenshot messages. It is
+  the preferred method when TeleNVDA is installed on the controlled computer.
+  Default gesture: **NVDA+Control+Shift+P**.
+* **Request screenshot (PowerShell)** also works when the controlled computer
+  runs a standard NVDA Remote or the original TeleNVDA, which know nothing about
+  screenshots. Default gesture: **Windows+Alt+P**.
+
+**Known issue:** the compatible capture described below does not work yet. The
+Run dialog is never opened on the controlled computer, so no image comes back.
+Use the native capture until this is fixed.
+
+Both gestures work from either end of the session. On the controlling computer
+they request a capture from the controlled computer; on the controlled computer
+they capture the local screen and push it to the controller.
+
+The PowerShell method first asks the controlled computer for a capture. When
+nothing answers after a few seconds, the controlling computer drives the capture
+with the messages the standard protocol does implement: the capture script is
+placed on the controlled computer's clipboard, the Run dialog starts a hidden
+Windows PowerShell which writes the encoded image back to that clipboard, and
+the controlled computer's own clipboard push command brings it back.
+
+This compatible workflow has known limitations:
+
+* an interactive session must be open on the controlled computer, and the
+  capture cannot run on the secure desktop or the lock screen;
+* the clipboard of the controlled computer is replaced, and a few messages are
+  announced there while the capture runs;
+* the NVDA key of the controlled computer must include insert, since its
+  clipboard push command is triggered remotely;
+* PowerShell and the Run dialog must not be blocked by a security policy.
+
+The beta workflow does not install or require the separate Python screenshot
+helper. PowerShell must be available on the controlled Windows computer.
+
+A screenshot is received as image data and opened on the controlling computer.
+The capture is converted to JPEG before being Base64 encoded, so that it
+transfers quickly. It is saved in the folder configured in the add-on options,
+or in the user's temporary folder when no folder is configured.
+Treat screenshots as potentially sensitive information and share them only
+with authorized people.
+
+## Screen sharing
+
+The controlling computer can display the screen of the controlled one and, when
+its user agrees, move its mouse. Press **NVDA+Control+Shift+V** to start or stop
+sharing. The gesture works from either end: the controlling computer starts the
+session, and either computer can end it.
+
+The picture travels directly between the two computers whenever the network
+allows it, so it does not go through the relay server and does not consume its
+bandwidth. When no direct route exists, a TURN server declared by the relay is
+used as a last resort. Nothing is recorded at either end.
+
+Before anything is shared, the controlled computer asks its user to agree.
+Agreeing also lets the controlling computer use the mouse of this computer, and
+that single answer is forgotten when the session ends. No keyboard input travels
+over this link.
+
+Screen sharing needs a Chromium browser installed on both computers, a relay
+started with screen sharing enabled, and both computers running a version of
+TeleNVDA that supports it. Microsoft Edge is used when present, which is the
+case on every up to date Windows; Google Chrome and Brave are used as fallbacks.
+When any of these is missing, the command reports it and nothing else changes.
+
+The browser is used only as the video engine. On the computer being shared, it
+runs in a window kept off screen so that it never captures itself and never
+takes the focus away from NVDA. On the controlling computer, it shows the
+picture. No browsing profile of the user is touched: a temporary one is created
+for the session and removed afterwards.
+
+Three settings tune the picture in the add-on options: the maximum number of
+images per second, the maximum width the picture is scaled down to before being
+encoded, and the quality, which sets the bandwidth ceiling. Lowering the width
+is by far the most effective way to smooth out a session on a large screen or a
+slow computer.
+
+The following option is available in the add-on settings:
+
+* **Allow sharing the screen of this computer and the use of its mouse, after
+  confirmation**, which turns the whole feature off when cleared, on this
+  computer only.
+
+There is a single permission for both: when the controlling computer asks, this
+computer is asked *Do you want to share your screen? The controlling computer
+will see this screen and will be able to use its mouse.* Nothing is shared and
+no mouse event is applied before that question has been answered, and the
+answer only lasts for the session. No keyboard input ever travels over this
+link.
+
+## Controlling the remote computer
+
+Press **NVDA+Alt+Tab** (Insert+Alt+Tab with the default NVDA key) to switch
+between controlling the local and remote computer. When remote control is
+active, keyboard and braille input are sent to the controlled computer. The
+gesture can be changed in NVDA's Input Gestures dialog. On a controlled
+computer, the same gesture requests that the controller return control to the
+local machine. For best results, use matching keyboard layouts on both
+computers.
+
+The Remote menu also provides commands for sending Ctrl+Alt+Delete, muting
+remote speech, pushing clipboard text, and sending files. File transfers are
+available to session members and should only be used with trusted peers.
+
+## Connectivity testing
+
+Open **NVDA menu > Tools > Remote > Connectivity test**. Enter the relay
+address, protocol, port, and WebSocket path when applicable. The test records
+DNS, TLS, and WebSocket diagnostic information in the local connectivity log;
+it does not require or record a session access key.
+
+## Security recommendations
+
+* Use relay servers and hosts that you trust.
+* Verify TLS fingerprints out of band before the first connection to a relay
+  whose certificate is not recognized by Windows.
+* Use unique, high-entropy access and encryption keys and rotate them if they
+  may have been exposed.
+* Do not commit private keys, passwords, access keys, screenshots, or generated
+  `.nvda-addon` files to source control.
+* Keep the add-on and NVDA updated on every participating computer.
+* Direct server mode is intended for trusted, controlled environments; expose
+  its port only when necessary.
+
+## Building from source
+
+This repository targets Python 3.13 and uses SCons. Install the dependencies
+from `pyproject.toml`, then run `scons` from the repository root. The generated
+`.nvda-addon` file is written to the root directory and is intentionally
+ignored by Git.
+
+The build copies this file into the English documentation directory and
+converts the translated Markdown files to HTML. Keep the root `readme.md` as
+the English source instead of editing generated files under `addon/doc/en/`.
+
+Screen sharing needs no build step of its own. The video engine is a Chromium
+browser, Microsoft Edge, Google Chrome or Brave, which is expected to be already
+installed on the machine, and the page it loads lives in
+`addon/globalPlugins/remoteClient/web/` and is packaged like any other add-on
+file. When no such browser can be found, the add-on simply never offers screen
+sharing.
+
+## Repository
+
+Source code and issue tracking are available at:
+
+<https://github.com/Accessolutions/telenvda-accessolutions>
 
 [[!tag dev stable]]
-
-[1]: https://www.nvaccess.org/addonStore/legacy?file=TeleNVDA
-
-[2]: https://github.com/nvda-es/TeleNVDA

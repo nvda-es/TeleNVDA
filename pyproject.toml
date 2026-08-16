@@ -3,11 +3,11 @@ requires = ["setuptools~=80.9", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "addonTemplate"
+name = "telenvda-accessolutions"
 dynamic = ["version"]
-description = "NVDA add-on template"
+description = "TeleNVDA remote assistance add-on maintained by Accessolutions"
 maintainers = [
-	{name = "NV Access", email = "info@nvaccess.org"},
+	{name = "Accessolutions", email = "contact@accessolutions.fr"},
 ]
 requires-python = ">=3.13,<3.14"
 classifiers = [
@@ -19,7 +19,7 @@ classifiers = [
 	"Topic :: Accessibility",
 ]
 readme = "readme.md"
-license = {file = "COPYING.TXT"}
+	license = {file = "COPYING.txt"}
 dependencies = [
 	# Build add-on
 	"scons==4.10.1",
@@ -39,7 +39,7 @@ dependencies = [
 	"pyright[nodejs]==1.1.407",
 ]
 [project.urls]
-Repository = "https://github.com/nvaccess/addonTemplate"
+Repository = "https://github.com/Accessolutions/telenvda-accessolutions"
 
 [tool.ruff]
 line-length = 110

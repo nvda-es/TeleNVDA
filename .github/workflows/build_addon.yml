@@ -3,13 +3,15 @@ name: build addon
 on:
   push:
     tags: ["*"]
-    # To build on main/master branch, uncomment the following line:
-    # branches: [ main , master ]
+    branches: [ main ]
 
   pull_request:
     branches: [ teleNVDA ]
 
   workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   build:
@@ -38,7 +40,16 @@ jobs:
       # run: export SKIP=no-commit-to-branch; pre-commit run --all
 
     - name: building addon
-      run: scons && scons pot
+      shell: bash
+      run: |
+        rm -f ./*.nvda-addon
+        if [[ "${GITHUB_REF}" == refs/tags/* ]]; then
+          version="${GITHUB_REF_NAME#v}"
+          scons "version=${version}"
+        else
+          scons
+        fi
+        scons pot
 
     - uses: actions/upload-artifact@v7.0.1
       with:
@@ -49,23 +60,33 @@ jobs:
 
   upload_release:
     runs-on: ubuntu-latest
-    if: ${{ startsWith(github.ref, 'refs/tags/') }}
+    if: ${{ startsWith(github.ref, 'refs/tags/') && !contains(github.ref_name, '-') }}
     needs: ["build"]
     steps:
-    - uses: actions/checkout@v7.0.1
+    - uses: actions/checkout@v7.0.0
+    - name: Remove old packages
+      run: rm -f ./*.nvda-addon
     - name: download releases files
       uses: actions/download-artifact@v8.0.1
     - name: Display structure of downloaded files
       run: ls -R
     - name: Calculate sha256
-      run: sha256sum *.nvda-addon >> changelog.md
+      shell: bash
+      run: |
+        find . -type f -name '*.nvda-addon' -print0 | while IFS= read -r -d '' file; do
+          sha256sum "$file" > "$file.sha256"
+        done
 
     - name: Release
       uses: softprops/action-gh-release@v3.0.2
       with:
+        tag_name: ${{ github.ref_name }}
+        target_commitish: ${{ github.sha }}
+        name: TeleNVDA ${{ github.ref_name }}
         files: |
-          *.nvda-addon
-          *.pot
+          **/*.nvda-addon
+          **/*.nvda-addon.sha256
+          **/*.pot
         body_path: changelog.md
         fail_on_unmatched_files: true
-        prerelease: ${{ contains(github.ref, '-') }}
+        prerelease: false

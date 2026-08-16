@@ -4,6 +4,8 @@ import wx
 from . import input
 from . import cues
 from . import configuration
+from . import file_transfer
+from . import mouse_control
 import api
 import nvwave
 import tones
@@ -26,12 +28,19 @@ import gui
 logger = logging.getLogger("local_machine")
 from logHandler import log
 
+import subprocess
+import tempfile
+import threading
 try:
 	addonHandler.initTranslation()
 except addonHandler.AddonError:
 	log.warning(
 		"Unable to initialise translations. This may be because the addon is running from NVDA scratchpad.",
 	)
+
+# Screenshots are converted from the raw screen bitmap to JPEG before being Base64 encoded,
+# so that the resulting message stays small enough for the relay.
+SCREENSHOT_SUFFIX = ".jpg"
 
 
 def setSpeechCancelledToFalse():
@@ -148,6 +157,47 @@ class LocalMachine:
 	def send_key(self, vk_code=None, extended=None, pressed=None, **kwargs):
 		wx.CallAfter(input.send_key, vk_code, None, extended, pressed)
 
+	def send_mouse(self, t=None, x=None, y=None, b=None, d=None, h=False, **kwargs):
+		"""Apply one mouse event sent by the controlling computer.
+
+		Coordinates are fractions of the virtual desktop rather than pixels, because the
+		two computers rarely share a resolution or a monitor layout. Anything malformed
+		is dropped rather than guessed: this comes from the network.
+		"""
+		position = None
+		if x is not None and y is not None:
+			try:
+				position = (float(x), float(y))
+			except (TypeError, ValueError):
+				return
+		if t == mouse_control.ACTION_MOVE:
+			if position is None:
+				return
+			wx.CallAfter(input.move_mouse, position[0], position[1])
+		elif t in (mouse_control.ACTION_BUTTON_DOWN, mouse_control.ACTION_BUTTON_UP):
+			if b not in mouse_control.BUTTONS:
+				return
+			pressed = t == mouse_control.ACTION_BUTTON_DOWN
+			if position is None:
+				wx.CallAfter(input.click_mouse, b, pressed)
+			else:
+				wx.CallAfter(input.click_mouse, b, pressed, position[0], position[1])
+		elif t == mouse_control.ACTION_WHEEL:
+			try:
+				delta = int(d)
+			except (TypeError, ValueError):
+				return
+			# Clamp instead of trusting the peer, so that a single message cannot scroll
+			# a document from end to end.
+			limit = mouse_control.MAX_WHEEL_NOTCHES
+			delta = min(max(delta, -limit), limit)
+			if not delta:
+				return
+			if position is None:
+				wx.CallAfter(input.scroll_mouse, delta, bool(h))
+			else:
+				wx.CallAfter(input.scroll_mouse, delta, bool(h), position[0], position[1])
+
 	def set_clipboard_text(self, text, **kwargs):
 		cues.clipboard_received()
 		ui.message(_("Clipboard updated"))
@@ -166,9 +216,118 @@ class LocalMachine:
 			ui.message(_("No permission on device to trigger CTRL+ALT+DEL from remote"))
 			logger.warning("UI Access is disabled on this machine so cannot trigger CTRL+ALT+DEL")
 
+	def _capture_native_screenshot(self):
+		width, height = wx.GetDisplaySize()
+		bitmap = wx.Bitmap(width, height, 24)
+		dc = wx.MemoryDC(bitmap)
+		dc.Blit(0, 0, width, height, wx.ScreenDC(), 0, 0)
+		dc.SelectObject(wx.NullBitmap)
+		fd, path = tempfile.mkstemp(prefix="teleNVDA-screenshot-", suffix=SCREENSHOT_SUFFIX)
+		os.close(fd)
+		try:
+			# The raw bitmap is converted to JPEG to keep the transferred message small.
+			if not bitmap.ConvertToImage().SaveFile(path, wx.BITMAP_TYPE_JPEG):
+				raise RuntimeError("Unable to encode the screenshot as JPEG")
+			with open(path, "rb") as stream:
+				return base64.b64encode(stream.read()).decode("ascii")
+		finally:
+			try:
+				os.unlink(path)
+			except OSError:
+				pass
+
+	def _powershell_executable(self):
+		"""Return the PowerShell command to run.
+
+		The absolute path is preferred because the PATH environment variable of the NVDA
+		process can be restricted, especially when NVDA runs as a service or on the secure
+		desktop.
+		"""
+		system_root = os.environ.get("SystemRoot", r"C:\Windows")
+		path = os.path.join(system_root, "System32", "WindowsPowerShell", "v1.0", "powershell.exe")
+		if os.path.isfile(path):
+			return path
+		return "powershell.exe"
+
+	def _capture_powershell_screenshot(self):
+		fd, path = tempfile.mkstemp(prefix="teleNVDA-screenshot-", suffix=SCREENSHOT_SUFFIX)
+		os.close(fd)
+		script = (
+			"Add-Type -AssemblyName System.Windows.Forms,System.Drawing; "
+			"$b=[System.Windows.Forms.SystemInformation]::VirtualScreen; "
+			"$i=New-Object System.Drawing.Bitmap $b.Width,$b.Height; "
+			"$g=[System.Drawing.Graphics]::FromImage($i); "
+			"$g.CopyFromScreen($b.Left,$b.Top,0,0,$i.Size); "
+			"$i.Save('"
+		)
+		# Keep the script plain PowerShell so it works on Windows PowerShell 5.1.
+		# The bitmap is saved as JPEG to keep the transferred message small. The explicit GDI+
+		# encoder API is deliberately avoided here because anti-virus heuristics flag it.
+		script += path.replace("'", "''") + "',[System.Drawing.Imaging.ImageFormat]::Jpeg); $g.Dispose(); $i.Dispose()"
+		try:
+			result = subprocess.run((self._powershell_executable(), "-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-Command", script), capture_output=True, timeout=20, creationflags=subprocess.CREATE_NO_WINDOW)
+			if result.returncode:
+				raise RuntimeError(result.stderr.decode(errors="replace"))
+			if not os.path.getsize(path):
+				raise RuntimeError("PowerShell produced an empty screenshot")
+			with open(path, "rb") as stream:
+				return base64.b64encode(stream.read()).decode("ascii")
+		finally:
+			try:
+				os.unlink(path)
+			except OSError:
+				pass
+
+	def capture_screenshot(self, method="native", callback=None):
+		def capture_native():
+			try:
+				data = self._capture_native_screenshot()
+			except Exception:
+				logger.exception("Unable to capture screenshot")
+				data = None
+			if callback:
+				callback(data)
+
+		def capture_powershell():
+			try:
+				data = self._capture_powershell_screenshot()
+			except Exception:
+				logger.exception("Unable to capture screenshot with PowerShell; falling back to the native method")
+				data = None
+			if data:
+				if callback:
+					callback(data)
+				return
+			# PowerShell can be missing or blocked by a security policy on this machine.
+			wx.CallAfter(capture_native)
+
+		if method == "native":
+			# wx drawing objects must only be used from the GUI thread.
+			wx.CallAfter(capture_native)
+			return
+		threading.Thread(target=capture_powershell, name="TeleNVDA screenshot", daemon=True).start()
+
+	def open_received_screenshot(self, data, **kwargs):
+		try:
+			directory = configuration.get_screenshot_directory()
+			try:
+				fd, path = tempfile.mkstemp(prefix="teleNVDA-remote-", suffix=SCREENSHOT_SUFFIX, dir=directory)
+			except OSError:
+				# The configured directory can become unavailable after the options were saved.
+				logger.warning("Unable to use screenshot directory %s; falling back to the user temp directory", directory)
+				fd, path = tempfile.mkstemp(prefix="teleNVDA-remote-", suffix=SCREENSHOT_SUFFIX, dir=tempfile.gettempdir())
+			with os.fdopen(fd, "wb") as stream:
+				stream.write(base64.b64decode(data.encode("ascii"), validate=True))
+			os.startfile(path)
+		except Exception:
+			logger.exception("Unable to open received screenshot")
+
 	def file_transfer(self, name, content, **kwargs):
 		if globalVars.appArgs.secure:
 			return
+		# The name comes from another computer and must never be able to designate
+		# anything else than a file name in the folder chosen by the user.
+		name = file_transfer.sanitize_file_name(name)
 		fd = wx.FileDialog(
 			gui.mainFrame,
 			# Translators: message displayed in transfer file dialog when receiving a file
