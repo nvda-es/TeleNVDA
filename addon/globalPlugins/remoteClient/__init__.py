@@ -570,6 +570,7 @@ class GlobalPlugin(_GlobalPlugin):
 	def handle_certificate_failed(self, transport):
 		self.last_fail_address = transport.address
 		self.last_fail_key = transport.channel
+		self.last_fail_encryption_key = transport.encryption_key
 		self.disconnect()
 		try:
 			cert_hash = transport.last_fail_fingerprint
@@ -586,11 +587,11 @@ class GlobalPlugin(_GlobalPlugin):
 
 	def on_certificate_as_master_failed(self):
 		if self.handle_certificate_failed(self.master_transport):
-			self.connect_as_master(self.last_fail_address, self.last_fail_key, True)
+			self.connect_as_master(self.last_fail_address, self.last_fail_key, self.last_fail_encryption_key, insecure=True)
 
 	def on_certificate_as_slave_failed(self):
 		if self.handle_certificate_failed(self.slave_transport):
-			self.connect_as_slave(self.last_fail_address, self.last_fail_key, True)
+			self.connect_as_slave(self.last_fail_address, self.last_fail_key, self.last_fail_encryption_key, insecure=True)
 
 	def on_connected_as_slave(self):
 		log.info("Control connector connected")
