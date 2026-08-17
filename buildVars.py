@@ -14,7 +14,7 @@ addon_info = AddonInfo(
 	# Translators: Long description to be shown for this add-on on add-on information from add-ons manager
 	addon_description= _("""Allows remote control of and remote access to another machine. This add-on is based on NVDA Remote."""),
 	# version
-	addon_version= "2026.8.15-dev",
+	addon_version= "2026.8.17",
 	# Author(s)
 	addon_author= "Asociación Comunidad Hispanohablante de NVDA <contacto@nvda.es> and other contributors. Original work by Tyler Spivey <tspivey@pcdesk.net>, Christopher Toth <q@q-continuum.net>",
 	# URL for the add-on documentation support
@@ -24,9 +24,9 @@ addon_info = AddonInfo(
 	# Minimum NVDA version supported (e.g. "2018.3.0", minor version is optional)
 	addon_minimumNVDAVersion= "2019.3.0",
 	# Last NVDA version supported/tested (e.g. "2018.4.0", ideally more recent than minimum version)
-	addon_lastTestedNVDAVersion= "2026.1.0",
+	addon_lastTestedNVDAVersion= "2026.2.0",
 	# Add-on update channel (default is None, denoting stable releases, and for development releases, use "dev"; do not change unless you know what you are doing)
-	addon_updateChannel= "dev",
+	addon_updateChannel= None,
 	# Add-on license such as GPL 2
 	addon_license= "GPL 2",
 	# URL for the license document the ad-on is licensed under
