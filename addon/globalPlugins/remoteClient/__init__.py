@@ -762,9 +762,9 @@ class GlobalPlugin(_GlobalPlugin):
 			self.connecting = False
 			return
 		if con_info.mode == 'master':
-			self.connect_as_master((con_info.hostname, con_info.port), key=key, encryption_key=encryption_key)
+			self.connect_as_master((con_info.hostname, con_info.port), key, encryption_key)
 		elif con_info.mode == 'slave':
-			self.connect_as_slave((con_info.hostname, con_info.port), key=key, encryption_key)
+			self.connect_as_slave((con_info.hostname, con_info.port), key, encryption_key)
 		self.connecting = False
 
 	def is_connected(self):
