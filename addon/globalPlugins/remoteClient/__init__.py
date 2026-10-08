@@ -501,9 +501,9 @@ class GlobalPlugin(_GlobalPlugin):
 				encryption_key = dlg.panel.encryption_key.GetValue()
 				self.start_control_server(int(dlg.panel.port.GetValue()), channel, useUPNP=bool(dlg.panel.useUPNP.GetValue()))
 				if dlg.connection_type.GetSelection() == 0:
-					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True, encryption_key=encryption_key)
+					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, encryption_key, insecure=True)
 				else:
-					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True, encryption_key=encryption_key)
+					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, encryption_key, insecure=True)
 			# Reset the flag to False when the dialog is closed
 			setattr(self, 'is_connect_dialog_open', False)
 		gui.runScriptModalDialog(dlg, callback=handle_dlg_complete)
@@ -737,7 +737,7 @@ class GlobalPlugin(_GlobalPlugin):
 			test_socket=wrap_socket(test_socket, ssl_version=ssl.PROTOCOL_TLS_CLIENT)
 			test_socket.connect(('127.0.0.1', port))
 			test_socket.close()
-			self.connect_as_slave(('127.0.0.1', port), channel, insecure=True)
+			self.connect_as_slave(('127.0.0.1', port), channel, None, insecure=True)
 			# So we don't miss the first output when switching to a secure desktop,
 			# block the main thread until the connection is established. We're
 			# connecting to localhost, so this should be pretty fast. Use a short
@@ -764,7 +764,7 @@ class GlobalPlugin(_GlobalPlugin):
 		if con_info.mode == 'master':
 			self.connect_as_master((con_info.hostname, con_info.port), key=key, encryption_key=encryption_key)
 		elif con_info.mode == 'slave':
-			self.connect_as_slave((con_info.hostname, con_info.port), key=key, encryption_key=encryption_key)
+			self.connect_as_slave((con_info.hostname, con_info.port), key=key, encryption_key)
 		self.connecting = False
 
 	def is_connected(self):
