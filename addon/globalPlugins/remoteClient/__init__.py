@@ -86,8 +86,9 @@ class GlobalPlugin(_GlobalPlugin):
 		NVDASettingsDialog.categoryClasses.append(dialogs.OptionsDialog)
 		self.connecting = False
 		self.muted = False # Used to know if mute remote was activated manually
-		self.url_handler_window = url_handler.URLHandlerWindow(callback=self.verify_connect)
-		url_handler.register_url_handler()
+		if os.path.exists(url_handler.url_handler_path()):
+			self.url_handler_window = url_handler.URLHandlerWindow(callback=self.verify_connect)
+			url_handler.register_url_handler()
 		self.master_transport = None
 		self.slave_transport = None
 		self.server = None
@@ -241,9 +242,10 @@ class GlobalPlugin(_GlobalPlugin):
 		except:
 			pass
 		self.menu=None
-		url_handler.unregister_url_handler()
-		self.url_handler_window.destroy()
-		self.url_handler_window=None
+		if os.path.exists(url_handler.url_handler_path()):
+			url_handler.unregister_url_handler()
+			self.url_handler_window.destroy()
+			self.url_handler_window=None
 		core.postNvdaStartup.unregister(self.postStartupHandler)
 		client = None
 
