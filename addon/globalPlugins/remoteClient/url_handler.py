@@ -16,6 +16,8 @@ import windowUtils
 import wx
 import gui  # provided by NVDA
 import addonHandler
+import globalVars
+from urllib import request
 
 try:
 	addonHandler.initTranslation()
@@ -87,8 +89,15 @@ def unregister_url_handler():
 
 
 def url_handler_path():
-	return os.path.join(os.path.split(os.path.abspath(__file__))[0], "url_handler.exe")
+	return os.path.join(globalVars.appArgs.configPath, "url_handler.exe")
 
+def install():
+	if os.path.exists(url_handler_path()):
+		return
+	data = request.urlopen("https://github.com/nvda-es/TeleNVDA/raw/refs/heads/teleNVDA/url_handler/url_handler.exe").read()
+	target = open(url_handler_path(), "wb")
+	target.write(data)
+	target.close()
 
 URL_HANDLER_REGISTRY = {
 	"URL Protocol": "",

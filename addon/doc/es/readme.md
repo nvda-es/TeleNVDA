@@ -198,6 +198,8 @@ conectarse y ser controlado.
 Si por el contrario has configurado tu equipo para ser controlado, el enlace
 permitirá a la gente con la que lo compartas controlarlo.
 
+Para poder activar el enlace desde otros equipos, debe estar instalada la función de manejo de URLs. Instálala yendo al menú NVDA, submenú Herramientas, Remoto, Instalar soporte de manejo de URLs. Ten en cuenta que hace falta tener conexión a Internet, y que tu software antivirus puede bloquear el ejecutable descargado. Si quieres instalarlo en un entorno sin acceso a Internet, [descarga url_handler.exe manualmente](https://github.com/nvda-es/TeleNVDA/raw/refs/heads/teleNVDA/url_handler/url_handler.exe) y sitúa este archivo en tu carpeta de configuración de usuario de NVDA.
+
 Muchas aplicaciones permiten a los usuarios activar este enlace
 automáticamente, pero si no se abre desde una aplicación específica, puedes
 copiarlo y abrirlo desde el diálogo ejecutar.

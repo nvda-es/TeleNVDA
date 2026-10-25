@@ -86,8 +86,9 @@ class GlobalPlugin(_GlobalPlugin):
 		NVDASettingsDialog.categoryClasses.append(dialogs.OptionsDialog)
 		self.connecting = False
 		self.muted = False # Used to know if mute remote was activated manually
-		self.url_handler_window = url_handler.URLHandlerWindow(callback=self.verify_connect)
-		url_handler.register_url_handler()
+		if os.path.exists(url_handler.url_handler_path()):
+			self.url_handler_window = url_handler.URLHandlerWindow(callback=self.verify_connect)
+			url_handler.register_url_handler()
 		self.master_transport = None
 		self.slave_transport = None
 		self.server = None
@@ -182,7 +183,9 @@ class GlobalPlugin(_GlobalPlugin):
 		self.send_ctrl_alt_del_item = self.menu.Append(wx.ID_ANY, _("Send Ctrl+Alt+Del"), _("Send Ctrl+Alt+Del"))
 		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_send_ctrl_alt_del, self.send_ctrl_alt_del_item)
 		self.send_ctrl_alt_del_item.Enable(False)
-
+		# Translators: menu item in TeleNVDA submenu to install url_handler
+		self.install_url_handler_item = self.menu.Append(wx.ID_ANY, _("Install URL Handler support"), _("Install URL Handler support"))
+		gui.mainFrame.sysTrayIcon.Bind(wx.EVT_MENU, self.on_install_url_handler, self.install_url_handler_item)
 		# Translators: Label of menu in NVDA tools menu.
 		self.remote_item=tools_menu.AppendSubMenu(self.menu, _("R&emote"), _("TeleNVDA"))
 
@@ -227,6 +230,9 @@ class GlobalPlugin(_GlobalPlugin):
 		self.menu.Remove(self.send_ctrl_alt_del_item.Id)
 		self.send_ctrl_alt_del_item.Destroy()
 		self.send_ctrl_alt_del_item=None
+		self.menu.Remove(self.install_url_handler_item.Id)
+		self.install_url_handler_item.Destroy()
+		self.install_url_handler_item = None
 		tools_menu = gui.mainFrame.sysTrayIcon.toolsMenu
 		tools_menu.Remove(self.remote_item.Id)
 		self.remote_item.Destroy()
@@ -241,9 +247,10 @@ class GlobalPlugin(_GlobalPlugin):
 		except:
 			pass
 		self.menu=None
-		url_handler.unregister_url_handler()
-		self.url_handler_window.destroy()
-		self.url_handler_window=None
+		if os.path.exists(url_handler.url_handler_path()):
+			url_handler.unregister_url_handler()
+			self.url_handler_window.destroy()
+			self.url_handler_window=None
 		core.postNvdaStartup.unregister(self.postStartupHandler)
 		client = None
 
@@ -501,9 +508,9 @@ class GlobalPlugin(_GlobalPlugin):
 				encryption_key = dlg.panel.encryption_key.GetValue()
 				self.start_control_server(int(dlg.panel.port.GetValue()), channel, useUPNP=bool(dlg.panel.useUPNP.GetValue()))
 				if dlg.connection_type.GetSelection() == 0:
-					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True, encryption_key=encryption_key)
+					self.connect_as_master(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, encryption_key, insecure=True)
 				else:
-					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, insecure=True, encryption_key=encryption_key)
+					self.connect_as_slave(('127.0.0.1', int(dlg.panel.port.GetValue())), channel, encryption_key, insecure=True)
 			# Reset the flag to False when the dialog is closed
 			setattr(self, 'is_connect_dialog_open', False)
 		gui.runScriptModalDialog(dlg, callback=handle_dlg_complete)
@@ -737,7 +744,7 @@ class GlobalPlugin(_GlobalPlugin):
 			test_socket=wrap_socket(test_socket, ssl_version=ssl.PROTOCOL_TLS_CLIENT)
 			test_socket.connect(('127.0.0.1', port))
 			test_socket.close()
-			self.connect_as_slave(('127.0.0.1', port), channel, insecure=True)
+			self.connect_as_slave(('127.0.0.1', port), channel, None, insecure=True)
 			# So we don't miss the first output when switching to a secure desktop,
 			# block the main thread until the connection is established. We're
 			# connecting to localhost, so this should be pretty fast. Use a short
@@ -762,9 +769,9 @@ class GlobalPlugin(_GlobalPlugin):
 			self.connecting = False
 			return
 		if con_info.mode == 'master':
-			self.connect_as_master((con_info.hostname, con_info.port), key=key, encryption_key=encryption_key)
+			self.connect_as_master((con_info.hostname, con_info.port), key, encryption_key)
 		elif con_info.mode == 'slave':
-			self.connect_as_slave((con_info.hostname, con_info.port), key=key, encryption_key=encryption_key)
+			self.connect_as_slave((con_info.hostname, con_info.port), key, encryption_key)
 		self.connecting = False
 
 	def is_connected(self):
@@ -895,6 +902,50 @@ class GlobalPlugin(_GlobalPlugin):
 	def onSessionLockStateChange(self, isNowLocked):
 		if isNowLocked:
 			self.script_sendKeys(None)
+
+	def on_install_url_handler(self, evt):
+		if evt:
+			evt.Skip()
+		def install_url_handler():
+			if not gui.message.isModalMessageBoxActive():  # Check if a modal message box is open
+				if os.path.exists(url_handler.url_handler_path()):
+					gui.messageBox(
+						# Translators: message explaining that url handler is already installed
+						message=_("URL handler support is already installed. Open a remote:// or tele:// URL from places such as Windows Run dialog or activating a link provided by other person."),
+						# Translators: title shown when URL Handler is already installed
+						caption=_("URL Handler support already installed"),
+						style=wx.OK | wx.ICON_INFORMATION
+					)
+					return
+				result = gui.messageBox(
+					# Translators: question before installing
+					message=_("This will enable support for opening remote:// and tele:// URLs directly on NVDA and connect automatically, but may raise false positives on your anti-virus software. Proceed only if you need this feature. Do you want to continue?"),
+					# Translators: question title
+					caption=_("URL Handler module installation"),
+					style=wx.YES | wx.NO | wx.ICON_WARNING
+				)
+				if result == wx.YES:
+					try:
+						url_handler.install()
+						self.url_handler_window = url_handler.URLHandlerWindow(callback=self.verify_connect)
+						url_handler.register_url_handler()
+						gui.messageBox(
+							# Translators: message explaining that url handler has been installed
+							message=_("URL handler support has been installed and enabled successfully. Open a remote:// or tele:// URL from places such as Windows Run dialog or activating a link provided by other person."),
+							# Translators: title shown when URL Handler has been successfully installed
+							caption=_("Installation finished"),
+							style=wx.OK | wx.ICON_INFORMATION
+						)
+					except:
+						gui.messageBox(
+							# Translators: message explaining that url handler has not been installed
+							message=_("URL handler support cannot be installed. Your anti-virus may be blocking the required executable file, you are using NVDA from a read-only place or there is no Internet connection. Check the NVDA log for details."),
+							# Translators: title shown when URL Handler has not been installed
+							caption=_("Installation error"),
+							style=wx.OK | wx.ICON_ERROR
+						)
+						raise
+		wx.CallAfter(install_url_handler)
 
 	@script(
 		# Translators: gesture description for the toggle remote mute script

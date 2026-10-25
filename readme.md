@@ -104,6 +104,8 @@ IF you are connected as the controlling computer, this link will allow someone e
 
 If instead you have set up your computer to be controlled, the link will allow people who you share it with to control your machine.
 
+In order to activate the link from other computers, URL handler feature must be installed. Install it by going to NVDA menu, Tools submenu, Remote, Install URL handler support. Note that an Internet connection is required, and your anti-virus software may block the downloaded executable. If you want to install it in an environment without Internet access, [download url_handler.exe manually](https://github.com/nvda-es/TeleNVDA/raw/refs/heads/teleNVDA/url_handler/url_handler.exe) and place this file in your NVDA user configuration directory.
+
 Many applications will allow users to activate this link automatically, but if it does not run from within a specific app, it can be coppied to the clipboard and run from the run dialog.
 
 Note that the shared link may not work if you copy it from a server running in direct connection mode.
