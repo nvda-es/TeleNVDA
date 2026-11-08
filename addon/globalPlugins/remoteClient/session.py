@@ -8,6 +8,10 @@ import speech
 import ui
 import braille
 import buildVersion
+if (buildVersion.version_year>2026) or (buildVersion.version_year==2026 and buildVersion.version_major>=3):
+	from braille.extensions import filter_displayDimensions
+elif buildVersion.version_year >= 2025:
+	filter_displayDimensions = braille.filter_displayDimensions
 from logHandler import log
 from . import configuration
 from . import nvda_patcher
@@ -98,7 +102,7 @@ class SlaveSession(RemoteSession):
 		if buildVersion.version_year >= 2023 and buildVersion.version_year < 2025:
 			braille.filter_displaySize.register(self.local_machine.handle_filter_displaySize)
 		if buildVersion.version_year >= 2025:
-			braille.filter_displayDimensions.register(self.local_machine.handle_filter_displayDimensions)
+			filter_displayDimensions.register(self.local_machine.handle_filter_displayDimensions)
 		self.transport.callback_manager.register_callback('msg_braille_input', self.local_machine.braille_input)
 		self.transport.callback_manager.register_callback('msg_send_SAS', self.local_machine.send_SAS)
 
