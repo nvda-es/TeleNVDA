@@ -18,6 +18,10 @@ except ModuleNotFoundError:
 	from config import hasUiAccess
 import ui
 import buildVersion
+if (buildVersion.version_year>2026) or (buildVersion.version_year==2026 and buildVersion.version_major>=3):
+	from braille.extensions import decide_enabled
+elif buildVersion.version_year>=2023:
+	decide_enabled = braille.decide_enabled
 import logging
 import addonHandler
 import base64
@@ -53,11 +57,11 @@ class LocalMachine:
 		self.receiving_braille = False
 		self._cached_sizes = None
 		if buildVersion.version_year >= 2023:
-			braille.decide_enabled.register(self.handle_decide_enabled)
+			decide_enabled.register(self.handle_decide_enabled)
 
 	def terminate(self):
 		if buildVersion.version_year >= 2023:
-			braille.decide_enabled.unregister(self.handle_decide_enabled)
+			decide_enabled.unregister(self.handle_decide_enabled)
 
 	def play_wave(self, fileName):
 		"""Instructed by remote machine to play a wave file."""

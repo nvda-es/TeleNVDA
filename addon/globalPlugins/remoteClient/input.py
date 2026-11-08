@@ -7,8 +7,15 @@ from ctypes import (
 	c_ulong,
 	Union,
 )
-import braille
-import brailleInput
+import buildVersion
+if (buildVersion.version_year>2026) or (buildVersion.version_year==2026 and buildVersion.version_major>=3):
+	from braille.input.gesture import BrailleInputGesture
+	from braille.display.gesture import BrailleDisplayGesture
+else:
+	import braille
+	import brailleInput
+	BrailleInputGesture = brailleInput.BrailleInputGesture
+	BrailleDisplayGesture = braille.BrailleDisplayGesture
 import globalPluginHandler
 import scriptHandler
 import api
@@ -69,7 +76,7 @@ class INPUT(Structure):
 	)
 
 
-class BrailleInputGesture(braille.BrailleDisplayGesture, brailleInput.BrailleInputGesture):
+class BrailleInputGesture(BrailleDisplayGesture, BrailleInputGesture):
 	def __init__(self, **kwargs):
 		super().__init__()
 		for key, value in kwargs.items():
