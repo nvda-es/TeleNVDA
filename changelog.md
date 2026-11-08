@@ -1,5 +1,7 @@
 This release brings the following changes:
 
-* Now, url_handler.exe is delivered as a separate component. You can install it from a new option available from the add-on menu.
+* Fixed some deprecation warnings related to braille on NVDA 2026.3.
+* Fixed a bug when checking write permissions on configuration directory.
+* Updated translations.
 
 SHA256: 
