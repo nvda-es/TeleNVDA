@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: TeleNVDA\n"
 "Report-Msgid-Bugs-To: 'nvda-translations@groups.io'\n"
-"POT-Creation-Date: 2026-10-24 21:07+0200\n"
-"PO-Revision-Date: 2026-10-24 21:09+0200\n"
+"POT-Creation-Date: 2026-11-08 13:22+0100\n"
+"PO-Revision-Date: 2026-11-08 13:24+0100\n"
 "Last-Translator: José Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language-Team: Jose Manuel Delicado <jm.delicado@nvda.es>\n"
 "Language: es\n"
@@ -318,29 +318,29 @@ msgstr "Conectar y no volver a preguntar en este servidor"
 msgid "Connect"
 msgstr "Conectar"
 
-#: addon\globalPlugins\remoteClient\local_machine.py:153
+#: addon\globalPlugins\remoteClient\local_machine.py:157
 msgid "Clipboard updated"
 msgstr "Portapapeles actualizado"
 
 #. Translators: Sent when a user fails to send CTRL+ALT+DEL from a remote NVDA instance
-#: addon\globalPlugins\remoteClient\local_machine.py:166
+#: addon\globalPlugins\remoteClient\local_machine.py:170
 msgid "No permission on device to trigger CTRL+ALT+DEL from remote"
 msgstr ""
 "No hay permisos en el dispositivo para enviar ctrl+alt+supr remotamente"
 
 #. Translators: message displayed in transfer file dialog when receiving a file
-#: addon\globalPlugins\remoteClient\local_machine.py:175
+#: addon\globalPlugins\remoteClient\local_machine.py:179
 msgid "Choose where to save the received file"
 msgstr "Elige dónde guardar el archivo recibido"
 
 #. Translators: supported file types when sending or receiving files
-#: addon\globalPlugins\remoteClient\local_machine.py:179
+#: addon\globalPlugins\remoteClient\local_machine.py:183
 #: addon\globalPlugins\remoteClient\__init__.py:322
 msgid "All files (*.*)"
 msgstr "Todos los archivos (*.*)"
 
 #. Translators: message spoken when the file has been received successfully
-#: addon\globalPlugins\remoteClient\local_machine.py:190
+#: addon\globalPlugins\remoteClient\local_machine.py:194
 msgid "File received"
 msgstr "Archivo recibido"
 
@@ -818,9 +818,5 @@ msgstr ""
 #. Brief changelog for this version
 #. Translators: what's new content for the add-on version to be shown in the add-on store
 #: buildVars.py:38
-msgid ""
-"Now, url_handler.exe is delivered as a separate component. You can install "
-"it from a new option available from the add-on menu."
-msgstr ""
-"Ahora, url_handler.exe se entrega como un componente independiente. Puedes "
-"instalarlo desde una nueva opción disponible en el menú del complemento."
+msgid "Bugfixes and translation updates."
+msgstr "Fallos corregidos y traducciones actualizadas."
